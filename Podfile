@@ -8,5 +8,6 @@ target 'ToolManTogether' do
   # Pods for ToolManTogether
 	
 	pod 'SwiftLint'
+	pod 'FBSDKLoginKit'
 
 end

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+
 
 class LoginViewController: UIViewController {
     
@@ -14,25 +16,24 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var fbButton: UIButton!
     @IBOutlet weak var guestButton: UIButton!
     
-
+    let manager = FacebookManager()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         bgView.backgroundColor = .clear
-        fbButton.layer.borderWidth = 1
-        fbButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.2)
-        guestButton.layer.borderWidth = 1
-        guestButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.2)
-        
+        setButtonBorder()
         setLayer()
-        
-       
 
     }
     
-    
     @IBAction func connectFB(_ sender: Any) {
+        manager.facebookLogin(fromController: self, success: { [weak self] token in
+            self?.getUserInfo(token: token)
+        }) { (error) in
+            print(error)
+        }
     }
     
     @IBAction func connectGuest(_ sender: Any) {
@@ -50,6 +51,31 @@ class LoginViewController: UIViewController {
         gradint.endPoint = CGPoint(x: 1.0, y: 1.0)
         
         self.view.layer.insertSublayer(gradint, below: bgView.layer)
+    }
+    
+    func setButtonBorder() {
+        fbButton.layer.borderWidth = 1
+        fbButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.2)
+        guestButton.layer.borderWidth = 1
+        guestButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.2)
+    }
+    
+    func getUserInfo(token: String) {
+        FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, email"]).start(completionHandler: { (connection, result, error) in
+            
+            if error == nil {
+                if let info = result as? [String: Any] {
+                    print(info)
+                    guard let userID = info["id"] as? String else { return }
+                    guard let userName = info["name"] as? String else { return }
+                    guard let userEmail = info["email"] as? String else { return }
+                    print(userID)
+                    print(userName)
+                    print(userEmail)
+                }
+              
+            }
+        })
     }
     
 }

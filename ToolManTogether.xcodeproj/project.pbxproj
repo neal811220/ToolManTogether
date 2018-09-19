@@ -16,6 +16,8 @@
 		8E5BB6F52151EB3C0016C44A /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5BB6F42151EB3C0016C44A /* Login.storyboard */; };
 		8E5BB6F82151ECB50016C44A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB6F72151ECB50016C44A /* LoginViewController.swift */; };
 		8E6C6A6E2151F6DC007259D3 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C6A6D2151F6DC007259D3 /* UIStoryboard.swift */; };
+		8E6C6A732152245E007259D3 /* FacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C6A722152245E007259D3 /* FacebookManager.swift */; };
+		8E6C6A76215232F9007259D3 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C6A75215232F8007259D3 /* HTTPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		8E5BB6F42151EB3C0016C44A /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		8E5BB6F72151ECB50016C44A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8E6C6A6D2151F6DC007259D3 /* UIStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboard.swift; sourceTree = "<group>"; };
+		8E6C6A722152245E007259D3 /* FacebookManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookManager.swift; sourceTree = "<group>"; };
+		8E6C6A75215232F8007259D3 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		AA9850B54DD82A117E99917C /* Pods-ToolManTogether.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToolManTogether.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToolManTogether/Pods-ToolManTogether.release.xcconfig"; sourceTree = "<group>"; };
 		E97E8B2878069B46EFA64257 /* Pods-ToolManTogether.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToolManTogether.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToolManTogether/Pods-ToolManTogether.debug.xcconfig"; sourceTree = "<group>"; };
 		ED94B28DC844466FD20D65F0 /* Pods_ToolManTogether.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToolManTogether.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,10 +71,11 @@
 		8E5BB6E02151E8830016C44A /* ToolManTogether */ = {
 			isa = PBXGroup;
 			children = (
-				8E5BB6E12151E8830016C44A /* AppDelegate.swift */,
+				8E6C6A7021522410007259D3 /* Model */,
 				8E6C6A6C2151F6C4007259D3 /* Extension */,
 				8E5BB6F62151EC820016C44A /* Controller */,
 				8E5BB6F32151EADE0016C44A /* Storyboard */,
+				8E5BB6E12151E8830016C44A /* AppDelegate.swift */,
 				8E5BB6E82151E88B0016C44A /* Assets.xcassets */,
 				8E5BB6EA2151E88B0016C44A /* LaunchScreen.storyboard */,
 				8E5BB6ED2151E88B0016C44A /* Info.plist */,
@@ -104,6 +109,31 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		8E6C6A7021522410007259D3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8E6C6A74215232A2007259D3 /* HTTP */,
+				8E6C6A7121522418007259D3 /* Facebook */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8E6C6A7121522418007259D3 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				8E6C6A722152245E007259D3 /* FacebookManager.swift */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
+		8E6C6A74215232A2007259D3 /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				8E6C6A75215232F8007259D3 /* HTTPClient.swift */,
+			);
+			path = HTTP;
+			sourceTree = "<group>";
+		};
 		C750D43D3BBE8D4EBB4053FC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +163,7 @@
 				8E5BB6DB2151E8830016C44A /* Frameworks */,
 				8E5BB6DC2151E8830016C44A /* Resources */,
 				8E6C6A6F21521CBC007259D3 /* ShellScript */,
+				8A65A78ACDE9DB2E603D04A4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -191,16 +222,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		8A65A78ACDE9DB2E603D04A4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ToolManTogether/Pods-ToolManTogether-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ToolManTogether/Pods-ToolManTogether-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8E6C6A6F21521CBC007259D3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-			);
-			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
@@ -235,6 +284,8 @@
 			files = (
 				8E6C6A6E2151F6DC007259D3 /* UIStoryboard.swift in Sources */,
 				8E5BB6F82151ECB50016C44A /* LoginViewController.swift in Sources */,
+				8E6C6A76215232F9007259D3 /* HTTPClient.swift in Sources */,
+				8E6C6A732152245E007259D3 /* FacebookManager.swift in Sources */,
 				8E5BB6E42151E8830016C44A /* ViewController.swift in Sources */,
 				8E5BB6E22151E8830016C44A /* AppDelegate.swift in Sources */,
 			);
