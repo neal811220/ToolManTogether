@@ -9,5 +9,10 @@ target 'ToolManTogether' do
 	
 	pod 'SwiftLint'
 	pod 'FBSDKLoginKit'
+	pod 'Firebase/Storage'
+	pod 'Firebase/Core'
+  	pod 'Firebase/Database'
+  	pod 'Firebase/Auth'
+
 
 end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5ED9EB3A07801DFA454F10E9 /* Pods_ToolManTogether.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED94B28DC844466FD20D65F0 /* Pods_ToolManTogether.framework */; };
+		8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E25D317215249D800CD23F9 /* GoogleService-Info.plist */; };
 		8E5BB6E22151E8830016C44A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB6E12151E8830016C44A /* AppDelegate.swift */; };
 		8E5BB6E42151E8830016C44A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB6E32151E8830016C44A /* ViewController.swift */; };
 		8E5BB6E72151E8830016C44A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5BB6E52151E8830016C44A /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E25D317215249D800CD23F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8E5BB6DE2151E8830016C44A /* ToolManTogether.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolManTogether.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5BB6E12151E8830016C44A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E5BB6E32151E8830016C44A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				8E5BB6E82151E88B0016C44A /* Assets.xcassets */,
 				8E5BB6EA2151E88B0016C44A /* LaunchScreen.storyboard */,
 				8E5BB6ED2151E88B0016C44A /* Info.plist */,
+				8E25D317215249D800CD23F9 /* GoogleService-Info.plist */,
 			);
 			path = ToolManTogether;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			files = (
 				8E5BB6F52151EB3C0016C44A /* Login.storyboard in Resources */,
 				8E5BB6EC2151E88B0016C44A /* LaunchScreen.storyboard in Resources */,
+				8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */,
 				8E5BB6E92151E88B0016C44A /* Assets.xcassets in Resources */,
 				8E5BB6E72151E8830016C44A /* Main.storyboard in Resources */,
 			);
@@ -232,12 +236,20 @@
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

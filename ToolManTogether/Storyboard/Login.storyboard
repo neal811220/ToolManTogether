@@ -20,67 +20,69 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6TU-bX-8Xe">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7n-VF-9oH">
-                                        <rect key="frame" x="161" y="238" width="53" height="27.5"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="20"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTE-Me-ngP">
-                                        <rect key="frame" x="16" y="285.5" width="343" height="44"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gcg-oR-bDF">
+                                        <rect key="frame" x="16" y="496" width="343" height="50"/>
+                                        <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="CUK-b5-b7o"/>
+                                            <constraint firstAttribute="height" constant="50" id="4Qy-oK-fzQ"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="17"/>
-                                        <state key="normal" title="Connect with Facebook">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="connectFB:" destination="YLK-6S-KuA" eventType="touchUpInside" id="WZM-NW-rwV"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gcg-oR-bDF">
-                                        <rect key="frame" x="16" y="520" width="343" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="4Qy-oK-fzQ"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
                                         <state key="normal" title="Guest">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" red="0.33333333333333331" green="0.35686274509803922" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="connectGuest:" destination="YLK-6S-KuA" eventType="touchUpInside" id="11z-we-Yix"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTY-PM-1Re">
-                                        <rect key="frame" x="178" y="454.5" width="19" height="27.5"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="178" y="453.5" width="19" height="28.5"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pBw-lQ-Qxg">
-                                        <rect key="frame" x="16" y="468" width="104.5" height="1"/>
-                                        <color key="backgroundColor" white="1" alpha="0.14000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="16" y="467.5" width="104.5" height="1"/>
+                                        <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="IEA-sD-NeC"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBs-SA-Szh">
-                                        <rect key="frame" x="264" y="468" width="95" height="1"/>
-                                        <color key="backgroundColor" white="1" alpha="0.14000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="264" y="467.5" width="95" height="1"/>
+                                        <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="bFX-u2-aI1"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fblogo" translatesAutoresizingMaskIntoConstraints="NO" id="v79-mH-dLw">
-                                        <rect key="frame" x="60" y="296" width="23" height="23"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7n-VF-9oH">
+                                        <rect key="frame" x="159" y="274" width="56.5" height="34"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTE-Me-ngP">
+                                        <rect key="frame" x="16" y="328" width="343" height="50"/>
+                                        <color key="backgroundColor" red="0.41176470588235292" green="0.5725490196078431" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="23" id="fpl-ax-uMi"/>
-                                            <constraint firstAttribute="width" constant="23" id="qtk-aV-lZz"/>
+                                            <constraint firstAttribute="height" constant="50" id="CUK-b5-b7o"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
+                                        <state key="normal" title="Connect with Facebook">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="connectFB:" destination="YLK-6S-KuA" eventType="touchUpInside" id="WZM-NW-rwV"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fblogo" translatesAutoresizingMaskIntoConstraints="NO" id="v79-mH-dLw">
+                                        <rect key="frame" x="60" y="341" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="fpl-ax-uMi"/>
+                                            <constraint firstAttribute="width" constant="25" id="qtk-aV-lZz"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.55294117647058827" green="0.31372549019607843" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.30980392156862746" green="0.33725490196078434" blue="0.37254901960784315" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="HBs-SA-Szh" firstAttribute="centerY" secondItem="eTY-PM-1Re" secondAttribute="centerY" id="0yq-Qd-sCp"/>
                                     <constraint firstItem="pBw-lQ-Qxg" firstAttribute="leading" secondItem="6TU-bX-8Xe" secondAttribute="leading" constant="16" id="2eE-lK-qu1"/>
@@ -89,14 +91,14 @@
                                     <constraint firstItem="MTE-Me-ngP" firstAttribute="top" secondItem="e7n-VF-9oH" secondAttribute="bottom" constant="20" id="Cfu-3v-wGO"/>
                                     <constraint firstItem="HBs-SA-Szh" firstAttribute="leading" secondItem="eTY-PM-1Re" secondAttribute="centerX" constant="76.5" id="En2-Xz-bO7"/>
                                     <constraint firstAttribute="bottom" secondItem="eTY-PM-1Re" secondAttribute="bottom" constant="185" id="FcM-jB-HNP"/>
-                                    <constraint firstItem="e7n-VF-9oH" firstAttribute="top" secondItem="6TU-bX-8Xe" secondAttribute="top" constant="238" id="HHF-r0-GqP"/>
+                                    <constraint firstItem="e7n-VF-9oH" firstAttribute="top" secondItem="6TU-bX-8Xe" secondAttribute="top" constant="274" id="HHF-r0-GqP"/>
                                     <constraint firstItem="MTE-Me-ngP" firstAttribute="leading" secondItem="6TU-bX-8Xe" secondAttribute="leading" constant="16" id="IX8-bD-kA5"/>
                                     <constraint firstItem="v79-mH-dLw" firstAttribute="leading" secondItem="6TU-bX-8Xe" secondAttribute="leading" constant="60" id="URy-6x-iy5"/>
                                     <constraint firstItem="Gcg-oR-bDF" firstAttribute="leading" secondItem="6TU-bX-8Xe" secondAttribute="leading" constant="16" id="Xpa-Xb-qHj"/>
                                     <constraint firstAttribute="trailing" secondItem="HBs-SA-Szh" secondAttribute="trailing" constant="16" id="ahR-f5-ENw"/>
                                     <constraint firstItem="e7n-VF-9oH" firstAttribute="centerX" secondItem="6TU-bX-8Xe" secondAttribute="centerX" id="cTB-1A-EWP"/>
                                     <constraint firstItem="pBw-lQ-Qxg" firstAttribute="centerY" secondItem="eTY-PM-1Re" secondAttribute="centerY" id="ddd-iq-uDa"/>
-                                    <constraint firstItem="Gcg-oR-bDF" firstAttribute="top" secondItem="eTY-PM-1Re" secondAttribute="bottom" constant="38" id="f7j-Hg-oau"/>
+                                    <constraint firstItem="Gcg-oR-bDF" firstAttribute="top" secondItem="eTY-PM-1Re" secondAttribute="bottom" constant="14" id="f7j-Hg-oau"/>
                                     <constraint firstAttribute="trailing" secondItem="MTE-Me-ngP" secondAttribute="trailing" constant="16" id="mCT-od-Oq3"/>
                                     <constraint firstAttribute="trailing" secondItem="Gcg-oR-bDF" secondAttribute="trailing" constant="16" id="sJk-z1-JH7"/>
                                     <constraint firstItem="pBw-lQ-Qxg" firstAttribute="trailing" secondItem="eTY-PM-1Re" secondAttribute="trailing" constant="-76.5" id="umv-xn-TGF"/>
@@ -124,6 +126,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="fblogo" width="49" height="51"/>
+        <image name="fblogo" width="32" height="32"/>
     </resources>
 </document>
