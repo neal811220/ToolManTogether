@@ -20,5 +20,5 @@ class UserManager {
             return nil
         }
         return userToken
-    }
+    }   
 }
