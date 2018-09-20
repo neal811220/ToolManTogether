@@ -21,7 +21,8 @@ xcuserdata/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
-*.plist
+
+GoogleService-Info.plist
 
 ## Obj-C/Swift specific
 *.hmap
