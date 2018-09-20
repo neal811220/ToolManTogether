@@ -34,13 +34,14 @@ class LoginViewController: UIViewController {
         manager.facebookLogin(fromController: self, success: { [weak self] token in
             
             self?.getUserInfo(token: token)
+            self?.switchView()
+            self?.uploadImagePic()
             
             let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
             
             Auth.auth().signInAndRetrieveData(with: credential, completion:
                 { (result, error) in
                 if error == nil {
-                    self!.uploadImagePic()
                     print("Firebase Success")
                 } else {
                     print(error)
@@ -122,7 +123,7 @@ class LoginViewController: UIViewController {
                 
             } else {
                 
-                print("Success")
+                print("Storage Success")
 //                storageRef.child(userId).child(fileName).downloadURL(completion: { (url, error) in
 //
 //                    if let error = error {
@@ -136,6 +137,12 @@ class LoginViewController: UIViewController {
 //                    }
 //                })
             }
+        }
+    }
+    
+    func switchView() {
+        DispatchQueue.main.async {
+            AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
         }
     }
 }
