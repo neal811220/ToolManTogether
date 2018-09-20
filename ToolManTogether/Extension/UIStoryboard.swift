@@ -14,5 +14,13 @@ extension UIStoryboard {
         return UIStoryboard(name: "Login", bundle: nil)
     }
     
+    static func mainStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Main", bundle: nil)
+    }
+    
+    static func homeStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "home", bundle: nil)
+    }
+    
     
 }

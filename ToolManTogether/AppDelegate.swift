@@ -20,8 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         switchToLoginStoryBoard()
         FirebaseApp.configure()
-        return true
         
+        guard UserManager.fbUser.getUserToken() == nil else {
+            switchToMainStoryBoard()
+            return true
+        }
+        return true
     }
     
     func switchToLoginStoryBoard() {
@@ -33,6 +37,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         window?.rootViewController = UIStoryboard.loginStoryboard().instantiateInitialViewController()
+    }
+    
+    func switchToMainStoryBoard() {
+        
+        guard Thread.current.isMainThread else {
+            DispatchQueue.main.async {
+                self.switchToMainStoryBoard()
+            }
+            return
+        }
+        
+        window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

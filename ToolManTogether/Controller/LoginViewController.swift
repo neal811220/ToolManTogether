@@ -20,6 +20,7 @@ class LoginViewController: UIViewController {
     
     let manager = FacebookManager()
     var dataRef: DatabaseReference!
+    let fbUserDefault: UserDefaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +87,8 @@ class LoginViewController: UIViewController {
                     guard let fbName = info["name"] as? String else { return }
                     guard let fbEmail = info["email"] as? String else { return }
                     guard let userId = Auth.auth().currentUser?.uid else { return }
+                    
+                    self.fbUserDefault.set(token, forKey: "token")
 
                     self.dataRef.child("UserData").child(userId).setValue([
                         "FBID": fbID,
