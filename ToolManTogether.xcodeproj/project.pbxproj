@@ -12,6 +12,8 @@
 		8E097DC921534503006B574E /* home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E097DC821534503006B574E /* home.storyboard */; };
 		8E097DCB21534579006B574E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DCA21534579006B574E /* HomeViewController.swift */; };
 		8E097DCD21534BDF006B574E /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DCC21534BDF006B574E /* UserManager.swift */; };
+		8E097DD221536D22006B574E /* TypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */; };
+		8E097DD321536D22006B574E /* TypeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */; };
 		8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E25D317215249D800CD23F9 /* GoogleService-Info.plist */; };
 		8E5BB6E22151E8830016C44A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB6E12151E8830016C44A /* AppDelegate.swift */; };
 		8E5BB6E72151E8830016C44A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5BB6E52151E8830016C44A /* Main.storyboard */; };
@@ -29,6 +31,8 @@
 		8E097DC821534503006B574E /* home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = home.storyboard; sourceTree = "<group>"; };
 		8E097DCA21534579006B574E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		8E097DCC21534BDF006B574E /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCollectionViewCell.swift; sourceTree = "<group>"; };
+		8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypeCollectionViewCell.xib; sourceTree = "<group>"; };
 		8E25D317215249D800CD23F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8E5BB6DE2151E8830016C44A /* ToolManTogether.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolManTogether.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5BB6E12151E8830016C44A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +62,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E097DD421536D55006B574E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		8E5BB6D52151E8830016C44A = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +91,7 @@
 		8E5BB6E02151E8830016C44A /* ToolManTogether */ = {
 			isa = PBXGroup;
 			children = (
+				8E097DD421536D55006B574E /* View */,
 				8E6C6A7021522410007259D3 /* Model */,
 				8E6C6A6C2151F6C4007259D3 /* Extension */,
 				8E5BB6F62151EC820016C44A /* Controller */,
@@ -109,6 +122,7 @@
 				8E097DC621534179006B574E /* TabBarViewController.swift */,
 				8E097DCA21534579006B574E /* HomeViewController.swift */,
 				8E097DCC21534BDF006B574E /* UserManager.swift */,
+				8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -224,6 +238,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E097DD321536D22006B574E /* TypeCollectionViewCell.xib in Resources */,
 				8E5BB6F52151EB3C0016C44A /* Login.storyboard in Resources */,
 				8E097DC921534503006B574E /* home.storyboard in Resources */,
 				8E5BB6EC2151E88B0016C44A /* LaunchScreen.storyboard in Resources */,
@@ -309,6 +324,7 @@
 				8E6C6A76215232F9007259D3 /* HTTPClient.swift in Sources */,
 				8E6C6A732152245E007259D3 /* FacebookManager.swift in Sources */,
 				8E097DC721534179006B574E /* TabBarViewController.swift in Sources */,
+				8E097DD221536D22006B574E /* TypeCollectionViewCell.swift in Sources */,
 				8E097DCB21534579006B574E /* HomeViewController.swift in Sources */,
 				8E097DCD21534BDF006B574E /* UserManager.swift in Sources */,
 				8E5BB6E22151E8830016C44A /* AppDelegate.swift in Sources */,

@@ -59,8 +59,8 @@ class LoginViewController: UIViewController {
         let gradint = CAGradientLayer()
         gradint.frame = self.view.frame
         
-        let leftColor: UIColor = #colorLiteral(red: 0.3333333333, green: 0.3568627451, blue: 0.3882352941, alpha: 1)
-        let rightColor: UIColor = #colorLiteral(red: 0.2901960784, green: 0.3137254902, blue: 0.3450980392, alpha: 1)
+        let leftColor: UIColor = #colorLiteral(red: 0.1254901961, green: 0.1490196078, blue: 0.2039215686, alpha: 1)
+        let rightColor: UIColor = #colorLiteral(red: 0.1254901961, green: 0.1490196078, blue: 0.2039215686, alpha: 1)
         gradint.colors = [leftColor.cgColor, rightColor.cgColor]
         
         gradint.startPoint = CGPoint(x: 0.5, y: 0.0)
@@ -71,11 +71,11 @@ class LoginViewController: UIViewController {
     
     func setButtonBorder() {
         fbButton.layer.borderWidth = 1
-        fbButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5)
-        fbButton.layer.cornerRadius = 25
+        fbButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        fbButton.layer.cornerRadius = 19
         guestButton.layer.borderWidth = 1
-        guestButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5)
-        guestButton.layer.cornerRadius = 25
+        guestButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        guestButton.layer.cornerRadius = 19
     }
     
     func getUserInfo(token: String) {
