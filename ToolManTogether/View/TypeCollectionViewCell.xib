@@ -12,19 +12,19 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="typeCell" id="gTV-IL-0wX" customClass="TypeCollectionViewCell" customModule="ToolManTogether" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="85" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="103" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="85" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="103" height="50"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="洗碗" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IH6-18-QKP">
-                        <rect key="frame" x="20" y="18" width="59" height="14"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="外送食物" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IH6-18-QKP">
+                        <rect key="frame" x="20" y="18" width="77" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="AkX-N6-R2N"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="16"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9wM-Sa-b85">
@@ -43,14 +43,16 @@
                 <constraint firstItem="9wM-Sa-b85" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="IVm-us-CIE"/>
                 <constraint firstItem="IH6-18-QKP" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="NlV-eU-ngY"/>
                 <constraint firstItem="9wM-Sa-b85" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="Yh3-3D-6ym"/>
+                <constraint firstItem="IH6-18-QKP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="18" id="kpj-fP-FZu"/>
+                <constraint firstAttribute="bottom" secondItem="IH6-18-QKP" secondAttribute="bottom" constant="18" id="l7N-3p-hmM"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="85" height="50"/>
+            <size key="customSize" width="103" height="50"/>
             <connections>
                 <outlet property="typeLabel" destination="IH6-18-QKP" id="Vu6-L1-Ffi"/>
                 <outlet property="typeView" destination="9wM-Sa-b85" id="ryV-OP-e9c"/>
             </connections>
-            <point key="canvasLocation" x="165.59999999999999" y="154.72263868065968"/>
+            <point key="canvasLocation" x="180" y="154.72263868065968"/>
         </collectionViewCell>
     </objects>
 </document>

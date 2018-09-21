@@ -22,5 +22,9 @@ extension UIStoryboard {
         return UIStoryboard(name: "home", bundle: nil)
     }
     
+    static func addStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "addTask", bundle: nil)
+    }
+    
     
 }

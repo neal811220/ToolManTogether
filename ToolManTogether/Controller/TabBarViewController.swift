@@ -10,6 +10,7 @@ import UIKit
 
 private enum Tab {
     case home
+    case addTask
     
     func controller() -> UIViewController {
       
@@ -17,6 +18,9 @@ private enum Tab {
             
         case .home:
             return UIStoryboard.homeStoryboard().instantiateInitialViewController()!
+            
+        case .addTask:
+            return UIStoryboard.addStoryboard().instantiateInitialViewController()!
         }
       
     }
@@ -25,6 +29,7 @@ private enum Tab {
         switch self {
             
         case.home: return #imageLiteral(resourceName: "tab_main_normal")
+        case .addTask: return #imageLiteral(resourceName: "magnifying-glass")
             
         }
     }
@@ -40,21 +45,21 @@ class TabBarViewController: UITabBarController {
     
     private func setTab() {
         
-        tabBar.tintColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        tabBar.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         
         var controllers: [UIViewController] = []
         
-        let tabs: [Tab] = [.home]
+        let tabs: [Tab] = [.home, .addTask]
         
         for myTab in tabs {
             let controller = myTab.controller()
             
             let item = UITabBarItem(title: nil, image: myTab.image(), selectedImage: nil)
             
-            item.imageInsets = UIEdgeInsets(top: 8,
-                                            left: 0,
-                                            bottom: -6,
-                                            right: 0)
+//            item.imageInsets = UIEdgeInsets(top: 8,
+//                                            left: 0,
+//                                            bottom: -6,
+//                                            right: 0)
             controller.tabBarItem = item
             controllers.append(controller)
         }

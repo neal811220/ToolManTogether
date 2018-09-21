@@ -29,11 +29,11 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: 85, height: 30)
+        layout.estimatedItemSize = CGSize(width: 103, height: 30)
         layout.minimumLineSpacing = CGFloat(integerLiteral: 5)
         layout.minimumInteritemSpacing = CGFloat(integerLiteral: 5)
         layout.scrollDirection = .horizontal
-        layout.itemSize = UICollectionViewFlowLayout.automaticSize
+//        layout.itemSize = UICollectionViewFlowLayout.automaticSize
         
         typeCollectionView.collectionViewLayout = layout
         typeCollectionView.showsHorizontalScrollIndicator = false
@@ -53,6 +53,8 @@ class HomeViewController: UIViewController {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         mapView.showsUserLocation = true
+        mapView.tintColor = #colorLiteral(red: 0.3450980392, green: 0.768627451, blue: 0.6156862745, alpha: 1)
+
         configureLocationServices()
         
     }
@@ -94,6 +96,15 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         return UICollectionViewCell()
     }
+}
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return collectionView.layout
+//    }
+//
+    
 }
 
 extension HomeViewController: MKMapViewDelegate {
