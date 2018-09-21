@@ -48,20 +48,20 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.96470588235294119" green="0.65098039215686276" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.94509803921568625" green="0.53725490196078429" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="lkM-H2-YeY" firstAttribute="centerY" secondItem="jyj-gY-8JE" secondAttribute="centerY" id="1YP-hX-tHF"/>
                                     <constraint firstAttribute="height" constant="70" id="9Dh-hF-esF"/>
                                     <constraint firstItem="lkM-H2-YeY" firstAttribute="centerX" secondItem="jyj-gY-8JE" secondAttribute="centerX" id="vzH-hW-NUC"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnQ-vJ-kcj">
-                                <rect key="frame" x="325" y="556" width="50" height="50"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnQ-vJ-kcj">
+                                <rect key="frame" x="310" y="546" width="60" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="ph2-T4-f9P"/>
-                                    <constraint firstAttribute="width" constant="50" id="tU1-Q5-vpG"/>
+                                    <constraint firstAttribute="height" constant="60" id="ph2-T4-f9P"/>
+                                    <constraint firstAttribute="width" constant="60" id="tU1-Q5-vpG"/>
                                 </constraints>
-                                <state key="normal" image="locationButton"/>
+                                <state key="normal" image="location"/>
                                 <connections>
                                     <action selector="centerMapBtnWasPressed:" destination="OCb-6x-2Uh" eventType="touchUpInside" id="6hy-4l-wUZ"/>
                                 </connections>
@@ -76,7 +76,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="aqa-GX-Ewo" firstAttribute="trailing" secondItem="nnQ-vJ-kcj" secondAttribute="trailing" id="4fr-d5-eSE"/>
+                            <constraint firstItem="aqa-GX-Ewo" firstAttribute="trailing" secondItem="nnQ-vJ-kcj" secondAttribute="trailing" constant="5" id="4fr-d5-eSE"/>
                             <constraint firstItem="jyj-gY-8JE" firstAttribute="leading" secondItem="aqa-GX-Ewo" secondAttribute="leading" id="4kx-Rt-6a2"/>
                             <constraint firstItem="fuU-DZ-6iz" firstAttribute="leading" secondItem="aqa-GX-Ewo" secondAttribute="leading" id="RNH-IJ-2Hf"/>
                             <constraint firstItem="uTa-l5-Ukm" firstAttribute="trailing" secondItem="aqa-GX-Ewo" secondAttribute="trailing" id="SBx-CV-GLH"/>
@@ -96,6 +96,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Ui0-7c-puK"/>
                     <connections>
+                        <outlet property="locationButton" destination="nnQ-vJ-kcj" id="dgo-Xd-6k2"/>
                         <outlet property="mapView" destination="uTa-l5-Ukm" id="4q4-B5-mpe"/>
                         <outlet property="typeCollectionView" destination="0xB-dp-mdM" id="jhp-S2-3BA"/>
                     </connections>
@@ -106,6 +107,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="locationButton" width="67" height="67"/>
+        <image name="location" width="108" height="96"/>
     </resources>
 </document>

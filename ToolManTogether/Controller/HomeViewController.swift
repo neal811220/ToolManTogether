@@ -14,8 +14,8 @@ import CoreLocation
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var typeCollectionView: UICollectionView!
-    
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var locationButton: UIButton!
     
     var myRef: DatabaseReference!
     var typeDic: [String: String] = [:]
@@ -29,7 +29,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: 65, height: 30)
+        layout.estimatedItemSize = CGSize(width: 85, height: 30)
         layout.minimumLineSpacing = CGFloat(integerLiteral: 5)
         layout.minimumInteritemSpacing = CGFloat(integerLiteral: 5)
         layout.scrollDirection = .horizontal
@@ -47,73 +47,49 @@ class HomeViewController: UIViewController {
         myRef = Database.database().reference()
         
         dataBaseTypeAdd()
-        dataBaseTypeChange()
-        dataBaseTypeRemove()
         
+        locationButton.layer.cornerRadius = locationButton.frame.width / 2
         mapView.delegate = self
         locationManager.delegate = self
-        
-        configureLocationServices()
-        
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         mapView.showsUserLocation = true
-        
+        configureLocationServices()
         
     }
     
     func dataBaseTypeAdd() {
-        myRef.child("TaskType").observe(.childAdded) { (snapshot) in
-            
-            for item in 0...snapshot.key.count - 1 {
-                self.typeDic["\(snapshot.key)"] = snapshot.value as? String
+        myRef.child("TaskType").observeSingleEvent(of: .value) { (snapshot) in
+            guard let value = snapshot.value as? [String: String] else { return }
+            for (keys, value) in value {
+                self.typeTxtArray.append(keys)
+                self.typeColorArray.append(value)
             }
+            
             self.typeCollectionView.reloadData()
         }
     }
     
-    func dataBaseTypeChange() {
-        myRef.child("TaskType").observe(.childChanged) { (snapshot) in
-            
-            for item in 0...snapshot.key.count - 1 {
-                self.typeDic["\(snapshot.key)"] = snapshot.value as? String
-            }
-            self.typeCollectionView.reloadData()
-        }
-    }
-    
-    func dataBaseTypeRemove() {
-        myRef.child("TaskType").observe(.childRemoved) { (snapshot) in
-            
-            for item in 0...snapshot.key.count - 1 {
-                self.typeDic.removeValue(forKey: "\(snapshot.key)")
-            }
-            self.typeCollectionView.reloadData()
-        }
-    }
     
     @IBAction func centerMapBtnWasPressed(_ sender: Any) {
         if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
             centerMapOnUserLocation()
         }
     }
-    
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return typeDic.count
+        return typeTxtArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "typeCell", for: indexPath) as? TypeCollectionViewCell {
-            for (keys, value) in typeDic {
-                typeTxtArray.append(keys)
-                typeColorArray.append(value)
-            }
-            
+
             cell.typeLabel.text = typeTxtArray[indexPath.row]
-            cell.typeView.backgroundColor = .green
+            print(typeTxtArray)
+            print(indexPath.row)
+            cell.typeView.backgroundColor = typeColorArray[indexPath.row].color()
             return cell
         }
         return UICollectionViewCell()
@@ -121,6 +97,23 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 }
 
 extension HomeViewController: MKMapViewDelegate {
+    
+    // To Change the maker view
+
+    
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//
+//        if annotation is MKUserLocation {
+//            return nil
+//        }
+//
+//        let pinAnnotation = MKPinAnnotationView(annotation: annotation,
+//                                                reuseIdentifier: "pin")
+//        pinAnnotation.pinTintColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+//        pinAnnotation.animatesDrop = true
+//        return pinAnnotation
+//    }
+    
     
     func centerMapOnUserLocation() {
         guard let coordinate = locationManager.location?.coordinate else {
@@ -146,6 +139,29 @@ extension HomeViewController: CLLocationManagerDelegate {
         } else {
 
             return
+        }
+    }
+}
+
+extension String {
+    func color() -> UIColor? {
+        switch(self){
+        case "green":
+            return #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1)
+        case "brown":
+            return #colorLiteral(red: 0.6679978967, green: 0.4751212597, blue: 0.2586010993, alpha: 1)
+        case "purple":
+            return #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+        case "orange":
+            return #colorLiteral(red: 0.9450980392, green: 0.537254902, blue: 0.2235294118, alpha: 1)
+        case "yellow":
+            return #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
+        case "red":
+            return #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+        case "blue":
+            return #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+        default:
+            return nil
         }
     }
 }
