@@ -25,15 +25,16 @@ class HomeViewController: UIViewController {
     let authorizationStatus = CLLocationManager.authorizationStatus()
     var regionRadious: Double = 1000
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: 103, height: 30)
+        layout.estimatedItemSize = CGSize(width: 93, height: 30)
         layout.minimumLineSpacing = CGFloat(integerLiteral: 5)
         layout.minimumInteritemSpacing = CGFloat(integerLiteral: 5)
         layout.scrollDirection = .horizontal
-//        layout.itemSize = UICollectionViewFlowLayout.automaticSize
+        layout.itemSize = UICollectionViewFlowLayout.automaticSize
         
         typeCollectionView.collectionViewLayout = layout
         typeCollectionView.showsHorizontalScrollIndicator = false
@@ -65,12 +66,15 @@ class HomeViewController: UIViewController {
             for (keys, value) in value {
                 self.typeTxtArray.append(keys)
                 self.typeColorArray.append(value)
+                
+                if self.typeTxtArray.count == snapshot.key.count - 1 {
+                    self.typeCollectionView.reloadData()
+                    print(self.typeTxtArray.count)
+                    print(snapshot.key.count)
+                }
             }
-            
-            self.typeCollectionView.reloadData()
         }
     }
-    
     
     @IBAction func centerMapBtnWasPressed(_ sender: Any) {
         if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {

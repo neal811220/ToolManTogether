@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="addTaskTypeCollectionCell" id="gTV-IL-0wX" customClass="AddTaskTypeCollectionViewCell" customModule="ToolManTogether" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="70"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="70"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJf-3N-toa">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="70"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lA-UT-Lj6">
+                                <rect key="frame" x="17.5" y="17.5" width="65" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="t2W-W6-8H9"/>
+                                    <constraint firstAttribute="width" constant="65" id="uSA-Oa-UoQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Heavy" family="Avenir Next" pointSize="15"/>
+                                <state key="normal" title="居家維修">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0lA-UT-Lj6" firstAttribute="centerY" secondItem="TJf-3N-toa" secondAttribute="centerY" id="hf0-66-qGf"/>
+                            <constraint firstItem="0lA-UT-Lj6" firstAttribute="centerX" secondItem="TJf-3N-toa" secondAttribute="centerX" id="nPz-sD-us4"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="TJf-3N-toa" secondAttribute="trailing" id="LVW-qh-L8c"/>
+                <constraint firstAttribute="bottom" secondItem="TJf-3N-toa" secondAttribute="bottom" id="XgA-bm-qDI"/>
+                <constraint firstItem="TJf-3N-toa" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jlB-8R-jn8"/>
+                <constraint firstItem="TJf-3N-toa" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="m9I-BV-Yec"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="136" height="70"/>
+            <connections>
+                <outlet property="typeButton" destination="0lA-UT-Lj6" id="2V4-7o-h8B"/>
+                <outlet property="typeButtonView" destination="TJf-3N-toa" id="ICo-p3-OiN"/>
+            </connections>
+            <point key="canvasLocation" x="206.40000000000001" y="163.71814092953525"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -27,7 +27,7 @@
                                     <constraint firstAttribute="width" constant="197" id="4ma-vb-Vt5"/>
                                     <constraint firstAttribute="height" constant="119" id="QeY-r6-MyC"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="42"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-UltraLight" family="Avenir Next" pointSize="42"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
