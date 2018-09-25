@@ -29,7 +29,7 @@ private enum Tab {
         switch self {
             
         case.home: return #imageLiteral(resourceName: "tab_main_normal")
-        case .addTask: return #imageLiteral(resourceName: "magnifying-glass")
+        case .addTask: return #imageLiteral(resourceName: "add")
             
         }
     }

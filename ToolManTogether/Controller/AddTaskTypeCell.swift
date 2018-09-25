@@ -12,8 +12,11 @@ import FirebaseDatabase
 class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    
     var myRef: DatabaseReference!
     var typeTxtArray: [String] = []
+    var typeTitleCompletion: ((_ data: String) -> Void)?
 
     
     override func awakeFromNib() {
@@ -58,6 +61,7 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addTaskTypeCollectionCell", for: indexPath) as? AddTaskTypeCollectionViewCell {
             if typeTxtArray.count != 0 {
+                typeTxtArray.sort(by: >)
                 cell.typeButton.setTitle(typeTxtArray[indexPath.row], for: .normal)
             }
             cell.typeButton.addTarget(self, action: #selector(typeButtonPressed), for: .touchUpInside)
@@ -67,7 +71,11 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     }
     
     @objc func typeButtonPressed(button: UIButton) {
-        print(button.titleLabel?.text)
+        if let typeButtonTxt = button.titleLabel?.text  {
+            typeTitleCompletion?(typeButtonTxt)
+        } else {
+            typeTitleCompletion?("Type Button 無資料")
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

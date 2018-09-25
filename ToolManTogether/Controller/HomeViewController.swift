@@ -10,6 +10,7 @@ import UIKit
 import FirebaseDatabase
 import MapKit
 import CoreLocation
+import FirebaseAuth
 
 class HomeViewController: UIViewController {
     
@@ -24,6 +25,8 @@ class HomeViewController: UIViewController {
     var locationManager = CLLocationManager()
     let authorizationStatus = CLLocationManager.authorizationStatus()
     var regionRadious: Double = 1000
+    var allUserTask: [UserTaskInfo] = []
+    
     
     
     override func viewDidLoad() {
@@ -48,6 +51,7 @@ class HomeViewController: UIViewController {
         myRef = Database.database().reference()
         
         dataBaseTypeAdd()
+        dataBaseTaskAdd()
         
         locationButton.layer.cornerRadius = locationButton.frame.width / 2
         mapView.delegate = self
@@ -69,11 +73,40 @@ class HomeViewController: UIViewController {
                 
                 if self.typeTxtArray.count == snapshot.key.count - 1 {
                     self.typeCollectionView.reloadData()
-                    print(self.typeTxtArray.count)
-                    print(snapshot.key.count)
                 }
             }
         }
+    }
+    
+    func dataBaseTaskAdd() {
+        myRef.child("Task").observe(.childAdded) { (snapshot) in
+            print(snapshot)
+            guard let value = snapshot.value as? NSDictionary else { return }
+            guard let title = value["Title"] as? String else { return }
+            guard let content = value["Content"] as? String else { return }
+            guard let price = value["Price"] as? String else { return }
+            guard let type = value["Type"] as? String else { return }
+            guard let taskLat = value["lat"] as? Double else { return }
+            guard let taskLon = value["lon"] as? Double else { return }
+            guard let userID = value["UserID"] as? String else { return }
+            guard let userName = value["UserName"] as? String else { return }
+
+
+            let userTaskInfo = UserTaskInfo(userID: userID, userName: userName, title: title, content: content, type: type, price: price, taskLat: taskLat, taskLon: taskLon)
+            
+            self.allUserTask.append(userTaskInfo)
+            
+            self.mapTaskPoint(taskLat: taskLat, taskLon: taskLon)
+        }
+    }
+    
+    func mapTaskPoint(taskLat: Double, taskLon: Double) {
+        let taskCoordinate = CLLocationCoordinate2D(latitude: taskLat, longitude: taskLon)
+        
+        let annotation = TaskPin(coordinate: taskCoordinate, identifier: "taskPin")
+        
+        mapView.addAnnotation(annotation)
+        
     }
     
     @IBAction func centerMapBtnWasPressed(_ sender: Any) {
@@ -116,18 +149,19 @@ extension HomeViewController: MKMapViewDelegate {
     // To Change the maker view
 
     
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//
-//        if annotation is MKUserLocation {
-//            return nil
-//        }
-//
-//        let pinAnnotation = MKPinAnnotationView(annotation: annotation,
-//                                                reuseIdentifier: "pin")
-//        pinAnnotation.pinTintColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-//        pinAnnotation.animatesDrop = true
-//        return pinAnnotation
-//    }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+
+        if annotation is MKUserLocation {
+            return nil
+        }
+
+        let pinAnnotation = MKPinAnnotationView(annotation: annotation,
+                                                reuseIdentifier: "taskPin")
+        
+        pinAnnotation.pinTintColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+        pinAnnotation.animatesDrop = true
+        return pinAnnotation
+    }
     
     
     func centerMapOnUserLocation() {
@@ -144,7 +178,7 @@ extension HomeViewController: MKMapViewDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         centerMapOnUserLocation()
     }
-    
+
 }
 
 extension HomeViewController: CLLocationManagerDelegate {
@@ -180,3 +214,5 @@ extension String {
         }
     }
 }
+
+

@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5ED9EB3A07801DFA454F10E9 /* Pods_ToolManTogether.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED94B28DC844466FD20D65F0 /* Pods_ToolManTogether.framework */; };
-		8E020AA221579DA5004C99B2 /* AddTaskPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E020AA021579DA5004C99B2 /* AddTaskPriceCell.swift */; };
-		8E020AA321579DA5004C99B2 /* AddTaskPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E020AA121579DA5004C99B2 /* AddTaskPriceCell.xib */; };
 		8E097DC721534179006B574E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DC621534179006B574E /* TabBarViewController.swift */; };
 		8E097DC921534503006B574E /* home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E097DC821534503006B574E /* home.storyboard */; };
 		8E097DCB21534579006B574E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DCA21534579006B574E /* HomeViewController.swift */; };
@@ -17,6 +15,7 @@
 		8E097DD221536D22006B574E /* TypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */; };
 		8E097DD321536D22006B574E /* TypeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */; };
 		8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E25D317215249D800CD23F9 /* GoogleService-Info.plist */; };
+		8E36B7532159E4C50073E7A6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E36B7522159E4C50073E7A6 /* Location.swift */; };
 		8E58D777215513DB008274F1 /* AddTaskContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58D775215513DB008274F1 /* AddTaskContentCell.swift */; };
 		8E58D778215513DB008274F1 /* AddTaskContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E58D776215513DB008274F1 /* AddTaskContentCell.xib */; };
 		8E58D77B2155369B008274F1 /* AddTaskTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58D7792155369B008274F1 /* AddTaskTypeCell.swift */; };
@@ -41,8 +40,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8E020AA021579DA5004C99B2 /* AddTaskPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskPriceCell.swift; sourceTree = "<group>"; };
-		8E020AA121579DA5004C99B2 /* AddTaskPriceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTaskPriceCell.xib; sourceTree = "<group>"; };
 		8E097DC621534179006B574E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		8E097DC821534503006B574E /* home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = home.storyboard; sourceTree = "<group>"; };
 		8E097DCA21534579006B574E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +47,7 @@
 		8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypeCollectionViewCell.xib; sourceTree = "<group>"; };
 		8E25D317215249D800CD23F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8E36B7522159E4C50073E7A6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		8E58D775215513DB008274F1 /* AddTaskContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskContentCell.swift; sourceTree = "<group>"; };
 		8E58D776215513DB008274F1 /* AddTaskContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTaskContentCell.xib; sourceTree = "<group>"; };
 		8E58D7792155369B008274F1 /* AddTaskTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskTypeCell.swift; sourceTree = "<group>"; };
@@ -99,9 +97,16 @@
 				8E58D776215513DB008274F1 /* AddTaskContentCell.xib */,
 				8E58D77A2155369B008274F1 /* AddTaskTypeCell.xib */,
 				8E58D77E215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib */,
-				8E020AA121579DA5004C99B2 /* AddTaskPriceCell.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8E36B7512159E4B10073E7A6 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				8E36B7522159E4C50073E7A6 /* Location.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		8E5BB6D52151E8830016C44A = {
@@ -164,7 +169,6 @@
 				8E58D775215513DB008274F1 /* AddTaskContentCell.swift */,
 				8E58D7792155369B008274F1 /* AddTaskTypeCell.swift */,
 				8E58D77D215537D6008274F1 /* AddTaskTypeCollectionViewCell.swift */,
-				8E020AA021579DA5004C99B2 /* AddTaskPriceCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -180,6 +184,7 @@
 		8E6C6A7021522410007259D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8E36B7512159E4B10073E7A6 /* Manager */,
 				8E6C6A74215232A2007259D3 /* HTTP */,
 				8E6C6A7121522418007259D3 /* Facebook */,
 			);
@@ -290,7 +295,6 @@
 				8ED7279F2154C22400EE697F /* addTask.storyboard in Resources */,
 				8E58D780215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib in Resources */,
 				8E5BB6E92151E88B0016C44A /* Assets.xcassets in Resources */,
-				8E020AA321579DA5004C99B2 /* AddTaskPriceCell.xib in Resources */,
 				8E5BB6E72151E8830016C44A /* Main.storyboard in Resources */,
 				8E58D77C2155369B008274F1 /* AddTaskTypeCell.xib in Resources */,
 				8E58D778215513DB008274F1 /* AddTaskContentCell.xib in Resources */,
@@ -368,9 +372,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E020AA221579DA5004C99B2 /* AddTaskPriceCell.swift in Sources */,
 				8E6C6A6E2151F6DC007259D3 /* UIStoryboard.swift in Sources */,
 				8E58D77F215537D6008274F1 /* AddTaskTypeCollectionViewCell.swift in Sources */,
+				8E36B7532159E4C50073E7A6 /* Location.swift in Sources */,
 				8E5BB6F82151ECB50016C44A /* LoginViewController.swift in Sources */,
 				8E6C6A76215232F9007259D3 /* HTTPClient.swift in Sources */,
 				8E58D777215513DB008274F1 /* AddTaskContentCell.swift in Sources */,
