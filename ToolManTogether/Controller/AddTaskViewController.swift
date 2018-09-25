@@ -77,7 +77,7 @@ class AddTaskViewController: UIViewController {
         let autoID = myRef.childByAutoId().key
         guard let userName = Auth.auth().currentUser?.displayName else { return }
 
-        myRef.child("Task").child(autoID).setValue([
+        myRef.child("Task").child(autoID!).setValue([
             "Title": title,
             "Content": content,
             "Type": taskType,

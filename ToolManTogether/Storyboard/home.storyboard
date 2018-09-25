@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -66,11 +67,11 @@
                                     <action selector="centerMapBtnWasPressed:" destination="OCb-6x-2Uh" eventType="touchUpInside" id="6hy-4l-wUZ"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fuU-DZ-6iz">
-                                <rect key="frame" x="0.0" y="666" width="375" height="0.0"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fuU-DZ-6iz">
+                                <rect key="frame" x="0.0" y="666" width="375" height="1"/>
+                                <color key="backgroundColor" red="0.80784313730000001" green="0.66666666669999997" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="QP4-O8-pPh"/>
+                                    <constraint firstAttribute="height" constant="1" id="TUO-o9-Io4"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -78,7 +79,7 @@
                         <constraints>
                             <constraint firstItem="aqa-GX-Ewo" firstAttribute="trailing" secondItem="nnQ-vJ-kcj" secondAttribute="trailing" constant="5" id="4fr-d5-eSE"/>
                             <constraint firstItem="jyj-gY-8JE" firstAttribute="leading" secondItem="aqa-GX-Ewo" secondAttribute="leading" id="4kx-Rt-6a2"/>
-                            <constraint firstItem="fuU-DZ-6iz" firstAttribute="leading" secondItem="aqa-GX-Ewo" secondAttribute="leading" id="RNH-IJ-2Hf"/>
+                            <constraint firstItem="fuU-DZ-6iz" firstAttribute="leading" secondItem="7dG-RT-dHw" secondAttribute="leading" id="RNH-IJ-2Hf"/>
                             <constraint firstItem="uTa-l5-Ukm" firstAttribute="trailing" secondItem="aqa-GX-Ewo" secondAttribute="trailing" id="SBx-CV-GLH"/>
                             <constraint firstItem="0xB-dp-mdM" firstAttribute="top" secondItem="nnQ-vJ-kcj" secondAttribute="bottom" constant="20" id="UWG-pr-Blu"/>
                             <constraint firstItem="jyj-gY-8JE" firstAttribute="top" secondItem="7dG-RT-dHw" secondAttribute="top" id="YdR-CG-yQW"/>
@@ -89,8 +90,8 @@
                             <constraint firstItem="fuU-DZ-6iz" firstAttribute="top" secondItem="0xB-dp-mdM" secondAttribute="bottom" id="j17-qG-AzZ"/>
                             <constraint firstItem="aqa-GX-Ewo" firstAttribute="trailing" secondItem="0xB-dp-mdM" secondAttribute="trailing" id="jDf-Wc-k1P"/>
                             <constraint firstItem="uTa-l5-Ukm" firstAttribute="top" secondItem="aqa-GX-Ewo" secondAttribute="top" constant="-20" id="lx3-7i-bKs"/>
-                            <constraint firstItem="fuU-DZ-6iz" firstAttribute="trailing" secondItem="aqa-GX-Ewo" secondAttribute="trailing" id="q41-KL-Fet"/>
-                            <constraint firstItem="fuU-DZ-6iz" firstAttribute="bottom" secondItem="aqa-GX-Ewo" secondAttribute="bottom" id="vjY-35-gVI"/>
+                            <constraint firstItem="fuU-DZ-6iz" firstAttribute="trailing" secondItem="7dG-RT-dHw" secondAttribute="trailing" id="q41-KL-Fet"/>
+                            <constraint firstItem="fuU-DZ-6iz" firstAttribute="bottom" secondItem="7dG-RT-dHw" secondAttribute="bottom" id="vjY-35-gVI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aqa-GX-Ewo"/>
                     </view>
@@ -98,6 +99,8 @@
                     <connections>
                         <outlet property="locationButton" destination="nnQ-vJ-kcj" id="dgo-Xd-6k2"/>
                         <outlet property="mapView" destination="uTa-l5-Ukm" id="4q4-B5-mpe"/>
+                        <outlet property="pullUpView" destination="fuU-DZ-6iz" id="wI5-PL-bc9"/>
+                        <outlet property="pullUpViewHeightConstraint" destination="TUO-o9-Io4" id="KcW-RV-2du"/>
                         <outlet property="typeCollectionView" destination="0xB-dp-mdM" id="jhp-S2-3BA"/>
                     </connections>
                 </viewController>

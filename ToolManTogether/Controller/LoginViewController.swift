@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var fbButton: UIButton!
     @IBOutlet weak var guestButton: UIButton!
     
-    let manager = FacebookManager()
+    let manager = SPFacebookManager()
     var dataRef: DatabaseReference!
     let fbUserDefault: UserDefaults = UserDefaults.standard
     
@@ -33,6 +33,7 @@ class LoginViewController: UIViewController {
     @IBAction func connectFB(_ sender: Any) {
         manager.facebookLogin(fromController: self, success: { [weak self] token in
             
+            print("test")
 //            self?.getUserInfo(token: token)
 //            self?.switchView()
 //            self?.uploadImagePic()

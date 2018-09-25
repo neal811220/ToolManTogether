@@ -17,6 +17,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var typeCollectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var locationButton: UIButton!
+    @IBOutlet weak var pullUpViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pullUpView: UIView!
     
     var myRef: DatabaseReference!
     var typeDic: [String: String] = [:]
@@ -96,14 +98,16 @@ class HomeViewController: UIViewController {
             
             self.allUserTask.append(userTaskInfo)
             
-            self.mapTaskPoint(taskLat: taskLat, taskLon: taskLon)
+            self.mapTaskPoint(taskLat: taskLat, taskLon: taskLon, type: type)
         }
     }
     
-    func mapTaskPoint(taskLat: Double, taskLon: Double) {
+    func mapTaskPoint(taskLat: Double, taskLon: Double, type: String) {
         let taskCoordinate = CLLocationCoordinate2D(latitude: taskLat, longitude: taskLon)
         
         let annotation = TaskPin(coordinate: taskCoordinate, identifier: "taskPin")
+        
+        annotation.title = type
         
         mapView.addAnnotation(annotation)
         
@@ -114,6 +118,34 @@ class HomeViewController: UIViewController {
             centerMapOnUserLocation()
         }
     }
+    
+    func addTap() {
+        let mapTap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
+//        tap.delegate = self
+        mapView.addGestureRecognizer(mapTap)
+    }
+    
+    func addSwipe() {
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
+        swipe.direction = .down
+        pullUpView.addGestureRecognizer(swipe)
+    }
+
+    
+    func animateViewUp() {
+        pullUpViewHeightConstraint.constant = 300
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc func animateViewDown() {
+        pullUpViewHeightConstraint.constant = 0
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -151,16 +183,39 @@ extension HomeViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "taskPin")
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "taskPin")
+        }
+        
         if annotation is MKUserLocation {
             return nil
         }
-
-        let pinAnnotation = MKPinAnnotationView(annotation: annotation,
-                                                reuseIdentifier: "taskPin")
         
-        pinAnnotation.pinTintColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-        pinAnnotation.animatesDrop = true
-        return pinAnnotation
+        if let title = annotation.title, title == "搬運" {
+            annotationView?.image = #imageLiteral(resourceName: "yellowPoint")
+        } else if let title = annotation.title, title == "科技維修" {
+            annotationView?.image = #imageLiteral(resourceName: "bluePoint")
+        } else if let title = annotation.title, title == "清除害蟲" {
+            annotationView?.image = #imageLiteral(resourceName: "redPoint")
+        } else if let title = annotation.title, title == "外送食物" {
+            annotationView?.image = #imageLiteral(resourceName: "purplePoint")
+        } else if let title = annotation.title, title == "其他" {
+            annotationView?.image = #imageLiteral(resourceName: "brownPoint")
+        } else if let title = annotation.title, title == "居家維修" {
+            annotationView?.image = #imageLiteral(resourceName: "orangePoint")
+        } else if let title = annotation.title, title == "交通接送" {
+            annotationView?.image = #imageLiteral(resourceName: "greenPoint")
+        }
+        annotationView?.canShowCallout = true
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        animateViewUp()
+        addSwipe()
+        addTap()
     }
     
     
@@ -196,19 +251,19 @@ extension String {
     func color() -> UIColor? {
         switch(self){
         case "green":
-            return #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1)
+            return #colorLiteral(red: 0, green: 0.9764705882, blue: 0, alpha: 1)
         case "brown":
-            return #colorLiteral(red: 0.6679978967, green: 0.4751212597, blue: 0.2586010993, alpha: 1)
+            return #colorLiteral(red: 0.6666666667, green: 0.4745098039, blue: 0.2588235294, alpha: 1)
         case "purple":
             return #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
         case "orange":
             return #colorLiteral(red: 0.9450980392, green: 0.537254902, blue: 0.2235294118, alpha: 1)
         case "yellow":
-            return #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
+            return #colorLiteral(red: 1, green: 0.9843137255, blue: 0, alpha: 1)
         case "red":
-            return #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+            return #colorLiteral(red: 1, green: 0.1490196078, blue: 0, alpha: 1)
         case "blue":
-            return #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+            return #colorLiteral(red: 0.01568627451, green: 0.2, blue: 1, alpha: 1)
         default:
             return nil
         }

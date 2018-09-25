@@ -27,7 +27,8 @@ enum FBError: Error {
     case permissionDeclined
 }
 
-struct FacebookManager {
+struct SPFacebookManager {
+    
     let manager = FBSDKLoginManager()
     
     func facebookLogin(

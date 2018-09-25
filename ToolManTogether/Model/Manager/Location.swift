@@ -23,6 +23,7 @@ struct UserTaskInfo {
 class TaskPin: NSObject, MKAnnotation {
     dynamic var coordinate: CLLocationCoordinate2D
     var identifier: String
+    var title: String?
     
     init(coordinate: CLLocationCoordinate2D, identifier: String) {
         self.coordinate = coordinate
@@ -30,3 +31,6 @@ class TaskPin: NSObject, MKAnnotation {
         super.init()
     }
 }
+
+
+

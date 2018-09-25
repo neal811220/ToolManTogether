@@ -38,7 +38,6 @@
 #import "FBSDKUtility.h"
 
 #if !TARGET_OS_TV
-#import "FBSDKAppEventsUninstall.h"
 #import "FBSDKBoltsMeasurementEventListener.h"
 #import "FBSDKBridgeAPIRequest.h"
 #import "FBSDKBridgeAPIResponse.h"
@@ -93,13 +92,6 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
 
   // Remove the observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  
-#if !TARGET_OS_TV
-  if (![FBSDKAppEventsUninstall initiated]){
-    [FBSDKAppEventsUninstall installSwizzler];
-  }
-#endif
-
 }
 
 + (instancetype)sharedInstance
@@ -361,18 +353,13 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
     if ([sender isAuthenticationURL:url]) {
       Class SFAuthenticationSessionClass = fbsdkdfl_SFAuthenticationSessionClass();
       if (SFAuthenticationSessionClass != nil) {
-          if (_authenticationSession != nil) {
-              [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                                 formatString:@"There is already a request for authenticated session. Cancelling active SFAuthenticationSession before starting the new one.", nil];
-              [_authenticationSession cancel];
+        _authenticationSession = [[SFAuthenticationSessionClass alloc] initWithURL:url callbackURLScheme:[FBSDKInternalUtility appURLScheme] completionHandler:^ (NSURL *aURL, NSError *error) {
+          handler(error == nil, error);
+          if (error == nil) {
+            [self application:[UIApplication sharedApplication] openURL:aURL sourceApplication:@"com.apple" annotation:nil];
           }
-          _authenticationSession = [[SFAuthenticationSessionClass alloc] initWithURL:url callbackURLScheme:[FBSDKInternalUtility appURLScheme] completionHandler:^ (NSURL *aURL, NSError *error) {
-              handler(error == nil, error);
-              if (error == nil) {
-                  [self application:[UIApplication sharedApplication] openURL:aURL sourceApplication:@"com.apple" annotation:nil];
-              }
-              _authenticationSession = nil;
-          }];
+          _authenticationSession = nil;
+        }];
         [_authenticationSession start];
         return;
       }
