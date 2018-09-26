@@ -35,11 +35,11 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: 93, height: 30)
-        layout.minimumLineSpacing = CGFloat(integerLiteral: 5)
-        layout.minimumInteritemSpacing = CGFloat(integerLiteral: 5)
+//        layout.estimatedItemSize = CGSize(width: 93, height: 30)
+//        layout.minimumLineSpacing = CGFloat(integerLiteral: 5)
+//        layout.minimumInteritemSpacing = CGFloat(integerLiteral: 5)
         layout.scrollDirection = .horizontal
-        layout.itemSize = UICollectionViewFlowLayout.automaticSize
+//        layout.itemSize = UICollectionViewFlowLayout.automaticSize
         
         typeCollectionView.collectionViewLayout = layout
         typeCollectionView.showsHorizontalScrollIndicator = false
@@ -72,10 +72,9 @@ class HomeViewController: UIViewController {
             for (keys, value) in value {
                 self.typeTxtArray.append(keys)
                 self.typeColorArray.append(value)
-                
-                if self.typeTxtArray.count == snapshot.key.count - 1 {
-//                    self.typeCollectionView.reloadData()
-                }
+            }
+            if self.typeTxtArray.count == snapshot.key.count - 1 {
+                self.typeCollectionView.reloadData()
             }
         }
     }
@@ -120,18 +119,26 @@ class HomeViewController: UIViewController {
         }
     }
     
-    func addTap() {
+    func addTap(taskCoordinate: CLLocationCoordinate2D) {
         let mapTap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
         mapView.addGestureRecognizer(mapTap)
+        let coordinateRegion = MKCoordinateRegion(
+            center: taskCoordinate,
+            latitudinalMeters: regionRadious * 0.5,
+            longitudinalMeters: regionRadious * 0.5)
+        
+            UIView.animate(withDuration: 0.3) {
+            self.mapView.setRegion(coordinateRegion, animated: true)
+        }
     }
     
     func addSwipe() {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
         swipe.direction = .down
         pullUpView.addGestureRecognizer(swipe)
+        
     }
 
-    
     func animateViewUp() {
         pullUpViewHeightConstraint.constant = 300
         UIView.animate(withDuration: 0.3) {
@@ -157,10 +164,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "typeCell", for: indexPath) as? TypeCollectionViewCell {
 
-            cell.typeLabel.text = typeTxtArray[indexPath.row]
-            print(typeTxtArray)
-            print(indexPath.row)
-            cell.typeView.backgroundColor = typeColorArray[indexPath.row].color()
+            if typeTxtArray.count != 0 {
+                cell.typeLabel.text = typeTxtArray[indexPath.row]
+                cell.typeView.backgroundColor = typeColorArray[indexPath.row].color()
+            }
             return cell
         }
         return UICollectionViewCell()
@@ -169,10 +176,17 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return collectionView.layout
-//    }
-//
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 90 , height: 100)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
     
 }
 
@@ -215,7 +229,11 @@ extension HomeViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         animateViewUp()
         addSwipe()
-        addTap()
+        guard let coordinate = view.annotation?.coordinate else {
+            return
+        }
+
+        addTap(taskCoordinate: coordinate)
     }
     
     
