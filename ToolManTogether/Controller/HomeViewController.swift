@@ -28,19 +28,15 @@ class HomeViewController: UIViewController {
     let authorizationStatus = CLLocationManager.authorizationStatus()
     var regionRadious: Double = 1000
     var allUserTask: [UserTaskInfo] = []
-    
+    let screenSize = UIScreen.main.bounds.size
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let layout = UICollectionViewFlowLayout()
-//        layout.estimatedItemSize = CGSize(width: 93, height: 30)
-//        layout.minimumLineSpacing = CGFloat(integerLiteral: 5)
-//        layout.minimumInteritemSpacing = CGFloat(integerLiteral: 5)
-        layout.scrollDirection = .horizontal
-//        layout.itemSize = UICollectionViewFlowLayout.automaticSize
-        
+
+        layout.scrollDirection = .horizontal        
         typeCollectionView.collectionViewLayout = layout
         typeCollectionView.showsHorizontalScrollIndicator = false
         
@@ -63,6 +59,11 @@ class HomeViewController: UIViewController {
         mapView.tintColor = #colorLiteral(red: 0.3450980392, green: 0.768627451, blue: 0.6156862745, alpha: 1)
 
         configureLocationServices()
+        
+        
+    }
+    
+    func test() {
         
     }
     
@@ -124,19 +125,16 @@ class HomeViewController: UIViewController {
         mapView.addGestureRecognizer(mapTap)
         let coordinateRegion = MKCoordinateRegion(
             center: taskCoordinate,
-            latitudinalMeters: regionRadious * 0.5,
-            longitudinalMeters: regionRadious * 0.5)
+            latitudinalMeters: regionRadious * 0.2,
+            longitudinalMeters: regionRadious * 0.2)
         
-            UIView.animate(withDuration: 0.3) {
             self.mapView.setRegion(coordinateRegion, animated: true)
-        }
     }
     
     func addSwipe() {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
         swipe.direction = .down
         pullUpView.addGestureRecognizer(swipe)
-        
     }
 
     func animateViewUp() {
@@ -227,13 +225,14 @@ extension HomeViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        animateViewUp()
-        addSwipe()
+
         guard let coordinate = view.annotation?.coordinate else {
             return
         }
-
         addTap(taskCoordinate: coordinate)
+        
+        animateViewUp()
+        addSwipe()
     }
     
     
@@ -243,8 +242,8 @@ extension HomeViewController: MKMapViewDelegate {
         }
         let coordinateRegion = MKCoordinateRegion(
             center: coordinate,
-            latitudinalMeters: regionRadious * 2.0,
-            longitudinalMeters: regionRadious * 2.0)
+            latitudinalMeters: regionRadious * 0.3,
+            longitudinalMeters: regionRadious * 0.3)
         mapView.setRegion(coordinateRegion, animated: true)
     }
     

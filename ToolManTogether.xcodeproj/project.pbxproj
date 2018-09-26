@@ -15,6 +15,8 @@
 		8E097DD221536D22006B574E /* TypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */; };
 		8E097DD321536D22006B574E /* TypeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */; };
 		8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E25D317215249D800CD23F9 /* GoogleService-Info.plist */; };
+		8E28F7F9215B6A6E004954F0 /* TaskDetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28F7F8215B6A6E004954F0 /* TaskDetailInfoView.swift */; };
+		8E28F7FB215B6AA6004954F0 /* TaskDetailInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E28F7FA215B6AA6004954F0 /* TaskDetailInfoView.xib */; };
 		8E36B7532159E4C50073E7A6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E36B7522159E4C50073E7A6 /* Location.swift */; };
 		8E58D777215513DB008274F1 /* AddTaskContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58D775215513DB008274F1 /* AddTaskContentCell.swift */; };
 		8E58D778215513DB008274F1 /* AddTaskContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E58D776215513DB008274F1 /* AddTaskContentCell.xib */; };
@@ -47,6 +49,8 @@
 		8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypeCollectionViewCell.xib; sourceTree = "<group>"; };
 		8E25D317215249D800CD23F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8E28F7F8215B6A6E004954F0 /* TaskDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailInfoView.swift; sourceTree = "<group>"; };
+		8E28F7FA215B6AA6004954F0 /* TaskDetailInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskDetailInfoView.xib; sourceTree = "<group>"; };
 		8E36B7522159E4C50073E7A6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		8E58D775215513DB008274F1 /* AddTaskContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskContentCell.swift; sourceTree = "<group>"; };
 		8E58D776215513DB008274F1 /* AddTaskContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTaskContentCell.xib; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 				8E58D776215513DB008274F1 /* AddTaskContentCell.xib */,
 				8E58D77A2155369B008274F1 /* AddTaskTypeCell.xib */,
 				8E58D77E215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib */,
+				8E28F7FA215B6AA6004954F0 /* TaskDetailInfoView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -169,6 +174,7 @@
 				8E58D775215513DB008274F1 /* AddTaskContentCell.swift */,
 				8E58D7792155369B008274F1 /* AddTaskTypeCell.swift */,
 				8E58D77D215537D6008274F1 /* AddTaskTypeCollectionViewCell.swift */,
+				8E28F7F8215B6A6E004954F0 /* TaskDetailInfoView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -291,6 +297,7 @@
 				8E5BB6F52151EB3C0016C44A /* Login.storyboard in Resources */,
 				8E097DC921534503006B574E /* home.storyboard in Resources */,
 				8E5BB6EC2151E88B0016C44A /* LaunchScreen.storyboard in Resources */,
+				8E28F7FB215B6AA6004954F0 /* TaskDetailInfoView.xib in Resources */,
 				8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */,
 				8ED7279F2154C22400EE697F /* addTask.storyboard in Resources */,
 				8E58D780215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib in Resources */,
@@ -387,6 +394,7 @@
 				8ED727A82154D80000EE697F /* AddTaskTitleCell.swift in Sources */,
 				8E097DCD21534BDF006B574E /* UserManager.swift in Sources */,
 				8E58D77B2155369B008274F1 /* AddTaskTypeCell.swift in Sources */,
+				8E28F7F9215B6A6E004954F0 /* TaskDetailInfoView.swift in Sources */,
 				8ED727A42154D0CB00EE697F /* AddTaskInfoCell.swift in Sources */,
 				8E5BB6E22151E8830016C44A /* AppDelegate.swift in Sources */,
 				8ED727A12154C8FE00EE697F /* AddTaskViewController.swift in Sources */,
