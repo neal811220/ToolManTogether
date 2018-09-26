@@ -8,6 +8,9 @@
 
 import UIKit
 import Firebase
+import FBSDKLoginKit
+import FBSDKCoreKit
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +24,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         switchToLoginStoryBoard()
         FirebaseApp.configure()
+        
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        FBSDKSettings.setAppID("236162267244807")
+        
+        IQKeyboardManager.shared.enable = true
+        
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
         guard UserManager.fbUser.getUserToken() == nil else {
             switchToMainStoryBoard()
@@ -53,8 +66,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
+        FBSDKAppEvents.activateApp()
 
     }
+    
+    func application(_ app: UIApplication, open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        let result = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        return result
+    }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        let result = FBSDKApplicationDelegate.sharedInstance().application(
+            application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+        return result
+    }
+
 
     func applicationDidEnterBackground(_ application: UIApplication) {
      

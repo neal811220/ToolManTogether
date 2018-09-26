@@ -33,21 +33,21 @@ class LoginViewController: UIViewController {
     @IBAction func connectFB(_ sender: Any) {
         manager.facebookLogin(fromController: self, success: { [weak self] token in
             
-            print("test")
-//            self?.getUserInfo(token: token)
-//            self?.switchView()
-//            self?.uploadImagePic()
-//
-//            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-//
-//            Auth.auth().signInAndRetrieveData(with: credential, completion:
-//                { (result, error) in
-//                if error == nil {
-//                    print("Firebase Success")
-//                } else {
-//                    print(error)
-//                }
-//            })
+            print("Successed \(token)")
+            self?.getUserInfo(token: token)
+            self?.switchView()
+            self?.uploadImagePic()
+
+            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+
+            Auth.auth().signInAndRetrieveData(with: credential, completion:
+                { (result, error) in
+                if error == nil {
+                    print("Firebase Success")
+                } else {
+                    print(error)
+                }
+            })
         }) { (error) in
             print(error)
         }

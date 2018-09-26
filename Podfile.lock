@@ -73,6 +73,7 @@ PODS:
   - GoogleUtilities/Reachability (5.3.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.0)
+  - IQKeyboardManagerSwift (6.1.1)
   - leveldb-library (1.20)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -87,6 +88,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - IQKeyboardManagerSwift
   - SwiftLint
 
 SPEC REPOS:
@@ -105,6 +107,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleUtilities
     - GTMSessionFetcher
+    - IQKeyboardManagerSwift
     - leveldb-library
     - nanopb
     - SwiftLint
@@ -124,10 +127,11 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 7d2552cea4e12d09ce737ef0441887a746585ff3
   GoogleUtilities: 760ccb53b7c7f40f9c02d8c241f76f841a7a6162
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
+  IQKeyboardManagerSwift: 977affaeb4d6e971975c7790a6850f31d38f1207
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: 03969ab6ca9a931970d71b0827775b9548eb581f
+PODFILE CHECKSUM: bc4644e794d5e617a96af7002abff6c696da49bd
 
 COCOAPODS: 1.5.3

@@ -74,7 +74,7 @@ class HomeViewController: UIViewController {
                 self.typeColorArray.append(value)
                 
                 if self.typeTxtArray.count == snapshot.key.count - 1 {
-                    self.typeCollectionView.reloadData()
+//                    self.typeCollectionView.reloadData()
                 }
             }
         }
@@ -114,6 +114,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func centerMapBtnWasPressed(_ sender: Any) {
+        print(authorizationStatus)
         if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
             centerMapOnUserLocation()
         }
@@ -121,7 +122,6 @@ class HomeViewController: UIViewController {
     
     func addTap() {
         let mapTap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
-//        tap.delegate = self
         mapView.addGestureRecognizer(mapTap)
     }
     
@@ -231,6 +231,7 @@ extension HomeViewController: MKMapViewDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        locationManager.startUpdatingLocation()
         centerMapOnUserLocation()
     }
 
