@@ -23,18 +23,16 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         super.awakeFromNib()
         // Initialization code
         
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        
         let cellNib = UINib(nibName: "AddTaskTypeCollectionViewCell", bundle: nil)
         self.collectionView.register(cellNib, forCellWithReuseIdentifier: "addTaskTypeCollectionCell")
         
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.itemSize = CGSize(width: 100, height: 70)
-        flowLayout.minimumLineSpacing = 5.0
-        flowLayout.minimumInteritemSpacing = 5.0
-        self.collectionView.collectionViewLayout = flowLayout
+        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.collectionViewLayout = flowLayout
         
         myRef = Database.database().reference()
         getDataBaseType()
@@ -78,15 +76,20 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
-//        let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell
-//        self.cellDelegate?.collectionView(collectioncell: cell, didTappedInTableview: self)
-    }
-    
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 137, height: 50)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
 }

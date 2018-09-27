@@ -20,5 +20,14 @@ class UserManager {
             return nil
         }
         return userToken
-    }   
+    }
+    
+    func getUserPhotoUrl() -> URL? {
+        
+        guard let photoURL = fbUserDefault.object(forKey: "photoURL") as? URL else {
+            return nil
+        }
+        return photoURL
+    }
+    
 }

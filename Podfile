@@ -14,6 +14,8 @@ target 'ToolManTogether' do
   	pod 'Firebase/Database'
   	pod 'Firebase/Auth'
 	pod 'IQKeyboardManagerSwift'
+  	pod 'SDWebImage'
+
 
 
 end

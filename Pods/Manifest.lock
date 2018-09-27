@@ -80,6 +80,9 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
   - SwiftLint (0.27.0)
 
 DEPENDENCIES:
@@ -89,6 +92,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - IQKeyboardManagerSwift
+  - SDWebImage
   - SwiftLint
 
 SPEC REPOS:
@@ -110,6 +114,7 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - leveldb-library
     - nanopb
+    - SDWebImage
     - SwiftLint
 
 SPEC CHECKSUMS:
@@ -130,8 +135,9 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 977affaeb4d6e971975c7790a6850f31d38f1207
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: bc4644e794d5e617a96af7002abff6c696da49bd
+PODFILE CHECKSUM: 5eaeacdf515691f4d3b576b5a0061c0ad997d386
 
 COCOAPODS: 1.5.3

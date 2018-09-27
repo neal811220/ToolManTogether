@@ -44,9 +44,9 @@ class AddTaskViewController: UIViewController {
         let typeNib = UINib(nibName: "AddTaskTypeCell", bundle: nil)
         self.addTaskTableView.register(typeNib, forCellReuseIdentifier: "TypeTableVIewCell")
         
-        setLayer()
-        
         myRef = Database.database().reference()
+        
+        addTaskBgView.layer.cornerRadius = 23
         
     }
     
@@ -89,20 +89,6 @@ class AddTaskViewController: UIViewController {
     }
     
     
-    func setLayer() {
-        let gradint = CAGradientLayer()
-        gradint.frame = self.addTaskBgView.frame
-
-        let leftColor: UIColor = #colorLiteral(red: 1, green: 0.5647058824, blue: 0.3058823529, alpha: 1)
-        let rightColor: UIColor = #colorLiteral(red: 0.7843137255, green: 0.1294117647, blue: 0.3294117647, alpha: 1)
-        gradint.colors = [leftColor.cgColor, rightColor.cgColor]
-
-        gradint.startPoint = CGPoint(x: 0, y: 0.5)
-        gradint.endPoint = CGPoint(x: 1.0, y: 0.5)
-
-        self.addTaskBgView.layer.insertSublayer(gradint, below: addTaskButton.layer)
-    }
-    
     func showAlert(title: String = "Incomplete Information", content: String) {
         let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -115,7 +101,7 @@ class AddTaskViewController: UIViewController {
 extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 6
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -142,25 +128,8 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
         } else if indexPath.section == 2 {
             
-            if let cell = tableView.dequeueReusableCell(
-                withIdentifier: "Content", for: indexPath) as? AddTaskContentCell {
-                cell.contentTextView.text = "Content"
-                cell.contentTextView.textColor = #colorLiteral(red: 0.7843137255, green: 0.7803921569, blue: 0.8039215686, alpha: 1)
-                cell.contentTextView.delegate = self
-                return cell
-            }
-        } else if indexPath.section == 3 {
-            
-            if let cell = tableView.dequeueReusableCell(
-                withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
-                cell.textField.placeholder = "Price"
-                cell.titleCompletion = { [weak self] (result) in
-                    self?.priceTxt = result
-                }
-                return cell
-            }
-        } else if indexPath.section == 4 {
 
+            
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "TypeTableVIewCell", for: indexPath) as? AddTaskTypeCell {
                 cell.typeTitleCompletion = { [weak self] (result) in
@@ -168,21 +137,40 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 return cell
             }
+            
+            
+        } else if indexPath.section == 3 {
+            
+            if let cell = tableView.dequeueReusableCell(
+                withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
+                cell.textField.placeholder = "價格"
+                cell.titleCompletion = { [weak self] (result) in
+                    self?.priceTxt = result
+                }
+                return cell
+            }
+        } else if indexPath.section == 4 {
+            
+            if let cell = tableView.dequeueReusableCell(
+                withIdentifier: "Content", for: indexPath) as? AddTaskContentCell {
+                cell.contentTextView.text = "Content"
+                cell.contentTextView.textColor = #colorLiteral(red: 0.7843137255, green: 0.7803921569, blue: 0.8039215686, alpha: 1)
+                cell.contentTextView.delegate = self
+                cell.backgroundColor = .red
+                return cell
+            }
+        
         }
         return UITableViewCell()
     }
+    
+
+
 }
 
 extension AddTaskViewController: UITextViewDelegate {
     
-//    func textViewDidChange(textView: UITextView) {
-//        let fixedWidth = textView.frame.size.width
-//        textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-//        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-//        var newFrame = textView.frame
-//        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-//        textView.frame = newFrame
-//    }
+
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "Content" {
@@ -207,6 +195,3 @@ extension AddTaskViewController: UITextViewDelegate {
         }
     }
 }
-
-
-

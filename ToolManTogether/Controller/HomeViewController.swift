@@ -11,6 +11,8 @@ import FirebaseDatabase
 import MapKit
 import CoreLocation
 import FirebaseAuth
+import FirebaseStorage
+import SDWebImage
 
 class HomeViewController: UIViewController {
     
@@ -18,7 +20,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var pullUpViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var pullUpView: UIView!
+    @IBOutlet weak var collectionViewConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var pullUpDetailView: TaskDetailInfoView!
     
     var myRef: DatabaseReference!
     var typeDic: [String: String] = [:]
@@ -29,6 +33,7 @@ class HomeViewController: UIViewController {
     var regionRadious: Double = 1000
     var allUserTask: [UserTaskInfo] = []
     let screenSize = UIScreen.main.bounds.size
+    let loginVC = LoginViewController()
     
     
     override func viewDidLoad() {
@@ -48,6 +53,9 @@ class HomeViewController: UIViewController {
         
         myRef = Database.database().reference()
         
+        
+        collectionViewConstraint.constant = 0.0
+
         dataBaseTypeAdd()
         dataBaseTaskAdd()
         
@@ -60,13 +68,9 @@ class HomeViewController: UIViewController {
 
         configureLocationServices()
         
-        
     }
     
-    func test() {
-        
-    }
-    
+
     func dataBaseTypeAdd() {
         myRef.child("TaskType").observeSingleEvent(of: .value) { (snapshot) in
             guard let value = snapshot.value as? [String: String] else { return }
@@ -76,6 +80,9 @@ class HomeViewController: UIViewController {
             }
             if self.typeTxtArray.count == snapshot.key.count - 1 {
                 self.typeCollectionView.reloadData()
+                UIView.animate(withDuration: 0.3) {
+                    self.collectionViewConstraint.constant = 40
+                }
             }
         }
     }
@@ -92,6 +99,8 @@ class HomeViewController: UIViewController {
             guard let taskLon = value["lon"] as? Double else { return }
             guard let userID = value["UserID"] as? String else { return }
             guard let userName = value["UserName"] as? String else { return }
+            
+            self.pullUpDetailView.taskTitleLabel.text = "Test"
 
 
             let userTaskInfo = UserTaskInfo(userID: userID, userName: userName, title: title, content: content, type: type, price: price, taskLat: taskLat, taskLon: taskLon)
@@ -99,7 +108,30 @@ class HomeViewController: UIViewController {
             self.allUserTask.append(userTaskInfo)
             
             self.mapTaskPoint(taskLat: taskLat, taskLon: taskLon, type: type)
+            
         }
+        updataTaskInfoDetail()
+    }
+    
+    func updataTaskInfoDetail() {
+        
+        let storageRef = Storage.storage().reference()
+        
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        storageRef.child("UserPhoto").child(userId).downloadURL(completion: { (url, error) in
+            
+            if let error = error {
+                print("User photo download Fail: \(error.localizedDescription)")
+            }
+            
+            if let url = url {
+                print("url \(url)")
+                
+                self.pullUpDetailView.userPhoto.sd_setImage(with: url, completed: nil)
+            }
+        })
+        
     }
     
     func mapTaskPoint(taskLat: Double, taskLon: Double, type: String) {
@@ -134,7 +166,7 @@ class HomeViewController: UIViewController {
     func addSwipe() {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
         swipe.direction = .down
-        pullUpView.addGestureRecognizer(swipe)
+        pullUpDetailView.addGestureRecognizer(swipe)
     }
 
     func animateViewUp() {

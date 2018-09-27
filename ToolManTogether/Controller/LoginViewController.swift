@@ -21,12 +21,13 @@ class LoginViewController: UIViewController {
     let manager = SPFacebookManager()
     var dataRef: DatabaseReference!
     let fbUserDefault: UserDefaults = UserDefaults.standard
+    var userPhotoComplement: ((_ data: URL) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bgView.backgroundColor = .clear
-        setButtonBorder()
-        setLayer()
+//        setButtonBorder()
+//        setLayer()
         dataRef = Database.database().reference()
     }
     
@@ -103,7 +104,6 @@ class LoginViewController: UIViewController {
     }
     
     func uploadImagePic(
-        
         ) {
         
         let storageRef = Storage.storage().reference()
@@ -118,26 +118,10 @@ class LoginViewController: UIViewController {
         metaData.contentType = "image/jpg"
         
         storageRef.child("UserPhoto").child(userId).putData(data, metadata: metaData) { (_, error) in
-            
             if let error = error {
-                
                 return
-                
             } else {
-                
                 print("Storage Success")
-//                storageRef.child(userId).child(fileName).downloadURL(completion: { (url, error) in
-//
-//                    if let error = error {
-//
-//                        failure(error)
-//                    }
-//
-//                    if let url = url {
-//
-//                        success(url.absoluteString)
-//                    }
-//                })
             }
         }
     }

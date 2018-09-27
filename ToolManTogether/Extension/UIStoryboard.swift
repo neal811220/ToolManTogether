@@ -26,5 +26,16 @@ extension UIStoryboard {
         return UIStoryboard(name: "addTask", bundle: nil)
     }
     
+    static func searchTask() -> UIStoryboard {
+        return UIStoryboard(name: "searchTask", bundle: nil)
+    }
+    
+    static func historyTask() -> UIStoryboard {
+        return UIStoryboard(name: "historyTask", bundle: nil)
+    }
+    
+    static func profile() -> UIStoryboard {
+    return UIStoryboard(name: "profile", bundle: nil)
+    }
     
 }

@@ -35,27 +35,6 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyj-gY-8JE">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tool Man Together" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lkM-H2-YeY">
-                                        <rect key="frame" x="25" y="24.5" width="325" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="AvT-4L-kls"/>
-                                            <constraint firstAttribute="width" constant="325" id="tRL-nj-F2d"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="16"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.34509803921568627" green="0.7686274509803922" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="lkM-H2-YeY" firstAttribute="centerY" secondItem="jyj-gY-8JE" secondAttribute="centerY" id="1YP-hX-tHF"/>
-                                    <constraint firstAttribute="height" constant="70" id="9Dh-hF-esF"/>
-                                    <constraint firstItem="lkM-H2-YeY" firstAttribute="centerX" secondItem="jyj-gY-8JE" secondAttribute="centerX" id="vzH-hW-NUC"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnQ-vJ-kcj">
                                 <rect key="frame" x="310" y="498" width="60" height="60"/>
                                 <constraints>
@@ -78,16 +57,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="aqa-GX-Ewo" firstAttribute="trailing" secondItem="nnQ-vJ-kcj" secondAttribute="trailing" constant="5" id="4fr-d5-eSE"/>
-                            <constraint firstItem="jyj-gY-8JE" firstAttribute="leading" secondItem="aqa-GX-Ewo" secondAttribute="leading" id="4kx-Rt-6a2"/>
                             <constraint firstItem="fuU-DZ-6iz" firstAttribute="leading" secondItem="7dG-RT-dHw" secondAttribute="leading" id="RNH-IJ-2Hf"/>
                             <constraint firstItem="uTa-l5-Ukm" firstAttribute="trailing" secondItem="aqa-GX-Ewo" secondAttribute="trailing" id="SBx-CV-GLH"/>
                             <constraint firstItem="0xB-dp-mdM" firstAttribute="top" secondItem="nnQ-vJ-kcj" secondAttribute="bottom" constant="20" id="UWG-pr-Blu"/>
-                            <constraint firstItem="jyj-gY-8JE" firstAttribute="top" secondItem="7dG-RT-dHw" secondAttribute="top" id="YdR-CG-yQW"/>
                             <constraint firstItem="uTa-l5-Ukm" firstAttribute="leading" secondItem="aqa-GX-Ewo" secondAttribute="leading" id="Yfd-0H-LG1"/>
                             <constraint firstItem="0xB-dp-mdM" firstAttribute="top" secondItem="uTa-l5-Ukm" secondAttribute="bottom" id="Ynk-lg-bG4"/>
                             <constraint firstAttribute="bottom" secondItem="fuU-DZ-6iz" secondAttribute="bottom" constant="48" id="ZVs-zE-Yqj"/>
                             <constraint firstItem="0xB-dp-mdM" firstAttribute="leading" secondItem="aqa-GX-Ewo" secondAttribute="leading" id="dU6-dw-pVT"/>
-                            <constraint firstItem="jyj-gY-8JE" firstAttribute="trailing" secondItem="aqa-GX-Ewo" secondAttribute="trailing" id="ihe-Kg-dwM"/>
                             <constraint firstItem="fuU-DZ-6iz" firstAttribute="top" secondItem="0xB-dp-mdM" secondAttribute="bottom" id="j17-qG-AzZ"/>
                             <constraint firstItem="aqa-GX-Ewo" firstAttribute="trailing" secondItem="0xB-dp-mdM" secondAttribute="trailing" id="jDf-Wc-k1P"/>
                             <constraint firstItem="uTa-l5-Ukm" firstAttribute="top" secondItem="aqa-GX-Ewo" secondAttribute="top" constant="-20" id="lx3-7i-bKs"/>
@@ -97,9 +73,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="Ui0-7c-puK"/>
                     <connections>
+                        <outlet property="collectionViewConstraint" destination="qJs-rm-wdI" id="pkq-Jx-cf2"/>
                         <outlet property="locationButton" destination="nnQ-vJ-kcj" id="dgo-Xd-6k2"/>
                         <outlet property="mapView" destination="uTa-l5-Ukm" id="4q4-B5-mpe"/>
-                        <outlet property="pullUpView" destination="fuU-DZ-6iz" id="wI5-PL-bc9"/>
+                        <outlet property="pullUpDetailView" destination="fuU-DZ-6iz" id="8Nm-IL-8zF"/>
                         <outlet property="pullUpViewHeightConstraint" destination="TUO-o9-Io4" id="KcW-RV-2du"/>
                         <outlet property="typeCollectionView" destination="0xB-dp-mdM" id="jhp-S2-3BA"/>
                     </connections>

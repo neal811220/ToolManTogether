@@ -15,6 +15,7 @@ class AddTaskContentCell: UITableViewCell, UITextViewDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         contentTextView.delegate = self
+        contentTextView.setContentOffset(CGPoint.zero, animated: false)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

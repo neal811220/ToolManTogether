@@ -11,6 +11,9 @@ import UIKit
 private enum Tab {
     case home
     case addTask
+    case searchTask
+    case historyTask
+    case profile
     
     func controller() -> UIViewController {
       
@@ -21,6 +24,16 @@ private enum Tab {
             
         case .addTask:
             return UIStoryboard.addStoryboard().instantiateInitialViewController()!
+            
+        case .searchTask:
+            return UIStoryboard.searchTask().instantiateInitialViewController()!
+            
+        case .historyTask:
+            return UIStoryboard.historyTask().instantiateInitialViewController()!
+            
+        case .profile:
+            return UIStoryboard.profile().instantiateInitialViewController()!
+
         }
       
     }
@@ -29,8 +42,10 @@ private enum Tab {
         switch self {
             
         case.home: return #imageLiteral(resourceName: "tab_main_normal")
-        case .addTask: return #imageLiteral(resourceName: "add")
-            
+        case .addTask: return #imageLiteral(resourceName: "tabbar-3")
+        case .searchTask: return #imageLiteral(resourceName: "tabbar-2")
+        case .historyTask: return #imageLiteral(resourceName: "tabbar-4")
+        case .profile: return #imageLiteral(resourceName: "tabbar-6")
         }
     }
 }
@@ -45,11 +60,12 @@ class TabBarViewController: UITabBarController {
     
     private func setTab() {
         
-        tabBar.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        tabBar.tintColor = #colorLiteral(red: 0.9568627451, green: 0.7215686275, blue: 0, alpha: 1)
+        tabBar.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
         var controllers: [UIViewController] = []
         
-        let tabs: [Tab] = [.home, .addTask]
+        let tabs: [Tab] = [.home, .searchTask, .addTask, .historyTask, .profile]
         
         for myTab in tabs {
             let controller = myTab.controller()
