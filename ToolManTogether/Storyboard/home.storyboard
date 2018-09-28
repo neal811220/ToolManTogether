@@ -41,31 +41,41 @@
                                     <constraint firstAttribute="height" constant="60" id="ph2-T4-f9P"/>
                                     <constraint firstAttribute="width" constant="60" id="tU1-Q5-vpG"/>
                                 </constraints>
-                                <state key="normal" image="location"/>
+                                <state key="normal" image="locationButton"/>
                                 <connections>
                                     <action selector="centerMapBtnWasPressed:" destination="OCb-6x-2Uh" eventType="touchUpInside" id="6hy-4l-wUZ"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fuU-DZ-6iz" customClass="TaskDetailInfoView" customModule="ToolManTogether" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="618" width="375" height="1"/>
-                                <color key="backgroundColor" red="0.80784313730000001" green="0.66666666669999997" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="TUO-o9-Io4"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfc-0E-6DG">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                                <color key="backgroundColor" red="0.98039215686274506" green="0.7686274509803922" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="dXa-ka-TEP"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="aqa-GX-Ewo" firstAttribute="trailing" secondItem="nnQ-vJ-kcj" secondAttribute="trailing" constant="5" id="4fr-d5-eSE"/>
+                            <constraint firstItem="aqa-GX-Ewo" firstAttribute="trailing" secondItem="Xfc-0E-6DG" secondAttribute="trailing" id="Gne-qg-raz"/>
                             <constraint firstItem="fuU-DZ-6iz" firstAttribute="leading" secondItem="7dG-RT-dHw" secondAttribute="leading" id="RNH-IJ-2Hf"/>
                             <constraint firstItem="uTa-l5-Ukm" firstAttribute="trailing" secondItem="aqa-GX-Ewo" secondAttribute="trailing" id="SBx-CV-GLH"/>
                             <constraint firstItem="0xB-dp-mdM" firstAttribute="top" secondItem="nnQ-vJ-kcj" secondAttribute="bottom" constant="20" id="UWG-pr-Blu"/>
                             <constraint firstItem="uTa-l5-Ukm" firstAttribute="leading" secondItem="aqa-GX-Ewo" secondAttribute="leading" id="Yfd-0H-LG1"/>
                             <constraint firstItem="0xB-dp-mdM" firstAttribute="top" secondItem="uTa-l5-Ukm" secondAttribute="bottom" id="Ynk-lg-bG4"/>
                             <constraint firstAttribute="bottom" secondItem="fuU-DZ-6iz" secondAttribute="bottom" constant="48" id="ZVs-zE-Yqj"/>
+                            <constraint firstItem="Xfc-0E-6DG" firstAttribute="leading" secondItem="aqa-GX-Ewo" secondAttribute="leading" id="bxP-oR-37V"/>
                             <constraint firstItem="0xB-dp-mdM" firstAttribute="leading" secondItem="aqa-GX-Ewo" secondAttribute="leading" id="dU6-dw-pVT"/>
                             <constraint firstItem="fuU-DZ-6iz" firstAttribute="top" secondItem="0xB-dp-mdM" secondAttribute="bottom" id="j17-qG-AzZ"/>
                             <constraint firstItem="aqa-GX-Ewo" firstAttribute="trailing" secondItem="0xB-dp-mdM" secondAttribute="trailing" id="jDf-Wc-k1P"/>
+                            <constraint firstItem="Xfc-0E-6DG" firstAttribute="top" secondItem="7dG-RT-dHw" secondAttribute="top" id="l80-iW-5rN"/>
                             <constraint firstItem="uTa-l5-Ukm" firstAttribute="top" secondItem="aqa-GX-Ewo" secondAttribute="top" constant="-20" id="lx3-7i-bKs"/>
                             <constraint firstItem="fuU-DZ-6iz" firstAttribute="trailing" secondItem="7dG-RT-dHw" secondAttribute="trailing" id="q41-KL-Fet"/>
                         </constraints>
@@ -87,6 +97,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="location" width="108" height="96"/>
+        <image name="locationButton" width="67" height="67"/>
     </resources>
 </document>

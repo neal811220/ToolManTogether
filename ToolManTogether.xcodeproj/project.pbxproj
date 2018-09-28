@@ -35,6 +35,12 @@
 		8E6C6A76215232F9007259D3 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C6A75215232F8007259D3 /* HTTPClient.swift */; };
 		8E8EC459215CCAB800CCABE7 /* SearchTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */; };
 		8E8EC45A215CCAB800CCABE7 /* searchTaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E8EC458215CCAB800CCABE7 /* searchTaskCell.xib */; };
+		8ECAB993215DF95200649128 /* HistoryTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECAB991215DF95200649128 /* HistoryTaskCell.swift */; };
+		8ECAB994215DF95200649128 /* HistoryTaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECAB992215DF95200649128 /* HistoryTaskCell.xib */; };
+		8ECAB997215E14CD00649128 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECAB995215E14CD00649128 /* RequestCell.swift */; };
+		8ECAB998215E14CD00649128 /* RequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECAB996215E14CD00649128 /* RequestCell.xib */; };
+		8ECAB99B215E177A00649128 /* RequestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECAB999215E177A00649128 /* RequestCollectionViewCell.swift */; };
+		8ECAB99C215E177A00649128 /* RequestCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECAB99A215E177A00649128 /* RequestCollectionViewCell.xib */; };
 		8ED7279F2154C22400EE697F /* addTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8ED7279E2154C22400EE697F /* addTask.storyboard */; };
 		8ED727A12154C8FE00EE697F /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED727A02154C8FE00EE697F /* AddTaskViewController.swift */; };
 		8ED727A42154D0CB00EE697F /* AddTaskInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED727A22154D0CB00EE697F /* AddTaskInfoCell.swift */; };
@@ -79,6 +85,12 @@
 		8E6C6A75215232F8007259D3 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTaskCell.swift; sourceTree = "<group>"; };
 		8E8EC458215CCAB800CCABE7 /* searchTaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = searchTaskCell.xib; sourceTree = "<group>"; };
+		8ECAB991215DF95200649128 /* HistoryTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTaskCell.swift; sourceTree = "<group>"; };
+		8ECAB992215DF95200649128 /* HistoryTaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTaskCell.xib; sourceTree = "<group>"; };
+		8ECAB995215E14CD00649128 /* RequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
+		8ECAB996215E14CD00649128 /* RequestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestCell.xib; sourceTree = "<group>"; };
+		8ECAB999215E177A00649128 /* RequestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCollectionViewCell.swift; sourceTree = "<group>"; };
+		8ECAB99A215E177A00649128 /* RequestCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestCollectionViewCell.xib; sourceTree = "<group>"; };
 		8ED7279E2154C22400EE697F /* addTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = addTask.storyboard; sourceTree = "<group>"; };
 		8ED727A02154C8FE00EE697F /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		8ED727A22154D0CB00EE697F /* AddTaskInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskInfoCell.swift; sourceTree = "<group>"; };
@@ -119,6 +131,9 @@
 				8E58D77E215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib */,
 				8E28F7FA215B6AA6004954F0 /* TaskDetailInfoView.xib */,
 				8E8EC458215CCAB800CCABE7 /* searchTaskCell.xib */,
+				8ECAB992215DF95200649128 /* HistoryTaskCell.xib */,
+				8ECAB996215E14CD00649128 /* RequestCell.xib */,
+				8ECAB99A215E177A00649128 /* RequestCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -199,6 +214,9 @@
 				8EEC3312215C924A00DE8C31 /* HistoryTaskViewController.swift */,
 				8EEC3316215CA24300DE8C31 /* ProfileViewController.swift */,
 				8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */,
+				8ECAB991215DF95200649128 /* HistoryTaskCell.swift */,
+				8ECAB995215E14CD00649128 /* RequestCell.swift */,
+				8ECAB999215E177A00649128 /* RequestCollectionViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -324,13 +342,16 @@
 				8E5BB6F52151EB3C0016C44A /* Login.storyboard in Resources */,
 				8E097DC921534503006B574E /* home.storyboard in Resources */,
 				8E5BB6EC2151E88B0016C44A /* LaunchScreen.storyboard in Resources */,
+				8ECAB998215E14CD00649128 /* RequestCell.xib in Resources */,
 				8E28F7FB215B6AA6004954F0 /* TaskDetailInfoView.xib in Resources */,
 				8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */,
 				8ED7279F2154C22400EE697F /* addTask.storyboard in Resources */,
 				8E8EC45A215CCAB800CCABE7 /* searchTaskCell.xib in Resources */,
 				8E58D780215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib in Resources */,
+				8ECAB99C215E177A00649128 /* RequestCollectionViewCell.xib in Resources */,
 				8E5BB6E92151E88B0016C44A /* Assets.xcassets in Resources */,
 				8E5BB6E72151E8830016C44A /* Main.storyboard in Resources */,
+				8ECAB994215DF95200649128 /* HistoryTaskCell.xib in Resources */,
 				8E58D77C2155369B008274F1 /* AddTaskTypeCell.xib in Resources */,
 				8E58D778215513DB008274F1 /* AddTaskContentCell.xib in Resources */,
 			);
@@ -420,11 +441,14 @@
 				8E6C6A76215232F9007259D3 /* HTTPClient.swift in Sources */,
 				8E58D777215513DB008274F1 /* AddTaskContentCell.swift in Sources */,
 				8E6C6A732152245E007259D3 /* FacebookManager.swift in Sources */,
+				8ECAB993215DF95200649128 /* HistoryTaskCell.swift in Sources */,
+				8ECAB99B215E177A00649128 /* RequestCollectionViewCell.swift in Sources */,
 				8E097DC721534179006B574E /* TabBarViewController.swift in Sources */,
 				8E8EC459215CCAB800CCABE7 /* SearchTaskCell.swift in Sources */,
 				8E097DD221536D22006B574E /* TypeCollectionViewCell.swift in Sources */,
 				8E097DCB21534579006B574E /* HomeViewController.swift in Sources */,
 				8ED727A82154D80000EE697F /* AddTaskTitleCell.swift in Sources */,
+				8ECAB997215E14CD00649128 /* RequestCell.swift in Sources */,
 				8E097DCD21534BDF006B574E /* UserManager.swift in Sources */,
 				8E58D77B2155369B008274F1 /* AddTaskTypeCell.swift in Sources */,
 				8E28F7F9215B6A6E004954F0 /* TaskDetailInfoView.swift in Sources */,

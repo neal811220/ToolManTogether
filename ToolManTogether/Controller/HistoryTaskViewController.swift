@@ -9,22 +9,36 @@
 import UIKit
 
 class HistoryTaskViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var historyTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        historyTableView.delegate = self
+        historyTableView.dataSource = self
+        
+        let typeNib = UINib(nibName: "RequestCell", bundle: nil)
+        self.historyTableView.register(typeNib, forCellReuseIdentifier: "requestedCell")
+        
 
-        // Do any additional setup after loading the view.
+
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "requestedCell", for: indexPath) as? RequestCell {
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
 }

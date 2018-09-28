@@ -22,6 +22,7 @@ class TaskDetailInfoView: UIView {
     @IBOutlet weak var starFour: UIButton!
     @IBOutlet weak var starFive: UIButton!
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var separatorView: UIView!
     
     
     

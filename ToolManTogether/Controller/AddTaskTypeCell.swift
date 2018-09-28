@@ -71,6 +71,7 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     @objc func typeButtonPressed(button: UIButton) {
         if let typeButtonTxt = button.titleLabel?.text  {
             typeTitleCompletion?(typeButtonTxt)
+            print(typeButtonTxt)
         } else {
             typeTitleCompletion?("Type Button 無資料")
         }

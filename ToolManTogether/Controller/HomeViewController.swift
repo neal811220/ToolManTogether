@@ -35,7 +35,6 @@ class HomeViewController: UIViewController {
     let screenSize = UIScreen.main.bounds.size
     let loginVC = LoginViewController()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,8 +53,9 @@ class HomeViewController: UIViewController {
         myRef = Database.database().reference()
         
         
-        collectionViewConstraint.constant = 0.0
+        collectionViewConstraint.constant = 40
 
+        
         dataBaseTypeAdd()
         dataBaseTaskAdd()
         
@@ -207,11 +207,11 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 90 , height: 100)
+        return CGSize(width: 103 , height: 40)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -238,7 +238,7 @@ extension HomeViewController: MKMapViewDelegate {
         }
         
         if let title = annotation.title, title == "搬運" {
-            annotationView?.image = #imageLiteral(resourceName: "yellowPoint")
+            annotationView?.image = #imageLiteral(resourceName: "userImage_Spock")
         } else if let title = annotation.title, title == "科技維修" {
             annotationView?.image = #imageLiteral(resourceName: "bluePoint")
         } else if let title = annotation.title, title == "清除害蟲" {
