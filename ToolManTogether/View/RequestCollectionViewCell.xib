@@ -20,16 +20,16 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MFz-Fr-aA4" customClass="TaskDetailInfoView" customModule="ToolManTogether" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="298"/>
+                        <rect key="frame" x="0.0" y="0.0" width="355" height="298"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="MFz-Fr-aA4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0sF-lC-wi4"/>
                 <constraint firstAttribute="bottom" secondItem="MFz-Fr-aA4" secondAttribute="bottom" id="AdT-N5-t6l"/>
                 <constraint firstItem="MFz-Fr-aA4" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="AgU-bw-Srp"/>
-                <constraint firstItem="MFz-Fr-aA4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="VsB-nh-gcv"/>
-                <constraint firstAttribute="trailing" secondItem="MFz-Fr-aA4" secondAttribute="trailing" id="Wgo-KX-tam"/>
+                <constraint firstAttribute="trailing" secondItem="MFz-Fr-aA4" secondAttribute="trailing" constant="20" id="sVP-Ih-y0m"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>

@@ -1,4 +1,5 @@
 PODS:
+  - AnimatedCollectionViewLayout (0.4.0)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -86,6 +87,7 @@ PODS:
   - SwiftLint (0.27.0)
 
 DEPENDENCIES:
+  - AnimatedCollectionViewLayout
   - FBSDKLoginKit
   - Firebase/Auth
   - Firebase/Core
@@ -97,6 +99,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AnimatedCollectionViewLayout
     - Bolts
     - FBSDKCoreKit
     - FBSDKLoginKit
@@ -118,6 +121,7 @@ SPEC REPOS:
     - SwiftLint
 
 SPEC CHECKSUMS:
+  AnimatedCollectionViewLayout: f0295119f94d8492fc6ac39e2ced64a471b12699
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FBSDKCoreKit: 1a5b2e3ceb5ca827a53c54aa5f4a3480efff80d2
   FBSDKLoginKit: 00a3d65d1226852f9d76dcddff01981e5e6d9c38
@@ -138,6 +142,6 @@ SPEC CHECKSUMS:
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: 5eaeacdf515691f4d3b576b5a0061c0ad997d386
+PODFILE CHECKSUM: a4870ef9774033442e919aea5676d4c652863c23
 
 COCOAPODS: 1.5.3

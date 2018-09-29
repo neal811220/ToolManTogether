@@ -15,6 +15,8 @@ target 'ToolManTogether' do
   	pod 'Firebase/Auth'
 	pod 'IQKeyboardManagerSwift'
   	pod 'SDWebImage'
+	pod 'AnimatedCollectionViewLayout'
+
 
 
 

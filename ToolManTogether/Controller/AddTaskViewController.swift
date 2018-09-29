@@ -26,7 +26,6 @@ class AddTaskViewController: UIViewController {
     var locationManager = CLLocationManager()
     var myRef: DatabaseReference!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         addTaskTableView.delegate = self
@@ -195,3 +194,5 @@ extension AddTaskViewController: UITextViewDelegate {
         }
     }
 }
+
+

@@ -301,19 +301,19 @@ extension String {
     func color() -> UIColor? {
         switch(self){
         case "green":
-            return #colorLiteral(red: 0, green: 0.9764705882, blue: 0, alpha: 1)
+            return #colorLiteral(red: 0.4274509804, green: 0.8078431373, blue: 0.7568627451, alpha: 1)
         case "brown":
-            return #colorLiteral(red: 0.6666666667, green: 0.4745098039, blue: 0.2588235294, alpha: 1)
+            return #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
         case "purple":
-            return #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+            return #colorLiteral(red: 0.7843137255, green: 0.6078431373, blue: 0.8, alpha: 1)
         case "orange":
-            return #colorLiteral(red: 0.9450980392, green: 0.537254902, blue: 0.2235294118, alpha: 1)
+            return #colorLiteral(red: 0.968627451, green: 0.537254902, blue: 0.2156862745, alpha: 1)
         case "yellow":
-            return #colorLiteral(red: 1, green: 0.9843137255, blue: 0, alpha: 1)
+            return #colorLiteral(red: 0.9568627451, green: 0.7215686275, blue: 0, alpha: 1)
         case "red":
-            return #colorLiteral(red: 1, green: 0.1490196078, blue: 0, alpha: 1)
+            return #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
         case "blue":
-            return #colorLiteral(red: 0.01568627451, green: 0.2, blue: 1, alpha: 1)
+            return #colorLiteral(red: 0.5294117647, green: 0.6352941176, blue: 0.8509803922, alpha: 1)
         default:
             return nil
         }

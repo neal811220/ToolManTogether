@@ -16,7 +16,9 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     
     var myRef: DatabaseReference!
     var typeTxtArray: [String] = []
+    var typeColorArray: [String] = []
     var typeTitleCompletion: ((_ data: String) -> Void)?
+    var typeBtnPressed = false
 
     
     override func awakeFromNib() {
@@ -41,8 +43,12 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     func getDataBaseType() {
         myRef.child("TaskType").observeSingleEvent(of: .value) { (snapshot) in
             guard let value = snapshot.value as? [String: String] else { return }
-            for keys in value.keys {
+            let sortValue = value.sorted(by: { (firstDictionary, secondDictionary) -> Bool in
+                return firstDictionary.0 > secondDictionary.0
+            })
+            for (keys, value) in sortValue {
                 self.typeTxtArray.append(keys)
+                self.typeColorArray.append(value)
             }
             self.collectionView.reloadData()
         }
@@ -59,8 +65,11 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addTaskTypeCollectionCell", for: indexPath) as? AddTaskTypeCollectionViewCell {
             if typeTxtArray.count != 0 {
-                typeTxtArray.sort(by: >)
+
                 cell.typeButton.setTitle(typeTxtArray[indexPath.row], for: .normal)
+                cell.typeButton.backgroundColor = typeColorArray[indexPath.row].color()
+               
+                
             }
             cell.typeButton.addTarget(self, action: #selector(typeButtonPressed), for: .touchUpInside)
             return cell
@@ -68,9 +77,22 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         return UICollectionViewCell()
     }
     
+
+    
+    
     @objc func typeButtonPressed(button: UIButton) {
         if let typeButtonTxt = button.titleLabel?.text  {
             typeTitleCompletion?(typeButtonTxt)
+            var select = !button.isSelected
+            if select == true && typeBtnPressed == false {
+                button.layer.borderWidth = 4
+                button.layer.borderColor = #colorLiteral(red: 0.9568627451, green: 0.7215686275, blue: 0, alpha: 1)
+                typeBtnPressed = true
+            } else {
+                 button.layer.borderWidth = 0
+                 typeBtnPressed = false
+            }
+           
             print(typeButtonTxt)
         } else {
             typeTitleCompletion?("Type Button 無資料")
@@ -94,3 +116,5 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     }
     
 }
+
+

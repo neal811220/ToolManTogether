@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import AnimatedCollectionViewLayout
+
 
 class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    let layout = AnimatedCollectionViewLayout()
+    
+    let screenSize = UIScreen.main.bounds.size
     
     
     override func awakeFromNib() {
@@ -21,10 +27,13 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+        self.collectionView.isPagingEnabled = true
         
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        collectionView.collectionViewLayout = flowLayout
+        self.collectionView.showsHorizontalScrollIndicator = false
+        layout.animator = PageAttributesAnimator()
+        layout.scrollDirection = .horizontal
+        collectionView.collectionViewLayout = layout
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -38,6 +47,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "requestCollectionView", for: indexPath) as? RequestCollectionViewCell {
+            print(indexPath.row)
+            cell.requestCollectionView.sendButton.setTitle("Cancel", for: .normal)
             return cell
         }
         return UICollectionViewCell()
@@ -50,7 +61,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 375, height: 298)
+        return CGSize(width: collectionView.frame.width, height: 298)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -60,5 +71,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
 
 }
