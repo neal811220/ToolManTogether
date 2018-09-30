@@ -22,13 +22,6 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZV-wP-FX4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="139.5"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YM0-hc-Fd2">
-                                <rect key="frame" x="18" y="136" width="339" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="sv2-TV-lfZ"/>
-                                </constraints>
-                            </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="bottomLeft" text=" " translatesAutoresizingMaskIntoConstraints="NO" id="9FS-S1-NBD">
                                 <rect key="frame" x="18" y="12" width="339" height="119"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -44,11 +37,16 @@
                         <constraints>
                             <constraint firstItem="9FS-S1-NBD" firstAttribute="top" secondItem="aZV-wP-FX4" secondAttribute="top" constant="12" id="4zt-Cb-4Jn"/>
                             <constraint firstAttribute="trailing" secondItem="9FS-S1-NBD" secondAttribute="trailing" constant="18" id="DoP-rf-qRC"/>
-                            <constraint firstItem="YM0-hc-Fd2" firstAttribute="leading" secondItem="aZV-wP-FX4" secondAttribute="leading" constant="18" id="abQ-ci-m38"/>
                             <constraint firstAttribute="bottom" secondItem="9FS-S1-NBD" secondAttribute="bottom" constant="8.5" id="c2S-fr-8OB"/>
                             <constraint firstItem="9FS-S1-NBD" firstAttribute="leading" secondItem="aZV-wP-FX4" secondAttribute="leading" constant="18" id="jOk-Yh-obs"/>
-                            <constraint firstAttribute="bottom" secondItem="YM0-hc-Fd2" secondAttribute="bottom" constant="2.5" id="uwg-2n-T1y"/>
-                            <constraint firstAttribute="trailing" secondItem="YM0-hc-Fd2" secondAttribute="trailing" constant="18" id="zm7-H2-0bd"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pxn-Ss-WNe">
+                        <rect key="frame" x="18" y="136" width="339" height="1"/>
+                        <color key="backgroundColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="RHe-sk-9ex"/>
+                            <constraint firstAttribute="height" constant="1" id="bMR-g0-neg"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -56,7 +54,10 @@
                     <constraint firstItem="aZV-wP-FX4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0gH-v8-OSD"/>
                     <constraint firstAttribute="trailing" secondItem="aZV-wP-FX4" secondAttribute="trailing" id="57u-fO-myd"/>
                     <constraint firstAttribute="bottom" secondItem="aZV-wP-FX4" secondAttribute="bottom" id="5AS-s6-Faz"/>
+                    <constraint firstAttribute="trailing" secondItem="pxn-Ss-WNe" secondAttribute="trailing" constant="18" id="Kl3-no-oFA"/>
+                    <constraint firstAttribute="bottom" secondItem="pxn-Ss-WNe" secondAttribute="bottom" constant="2.5" id="Lrp-Un-MFg"/>
                     <constraint firstItem="aZV-wP-FX4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="h01-WW-cQd"/>
+                    <constraint firstItem="pxn-Ss-WNe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="rHZ-gG-IQ2"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

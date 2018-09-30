@@ -13,6 +13,7 @@ import AnimatedCollectionViewLayout
 class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     let layout = AnimatedCollectionViewLayout()
     
@@ -49,6 +50,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "requestCollectionView", for: indexPath) as? RequestCollectionViewCell {
             print(indexPath.row)
             cell.requestCollectionView.sendButton.setTitle("Cancel", for: .normal)
+            self.titleLabel.text = "10筆任務"
             return cell
         }
         return UICollectionViewCell()

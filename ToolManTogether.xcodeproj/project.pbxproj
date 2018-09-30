@@ -33,10 +33,20 @@
 		8E6C6A6E2151F6DC007259D3 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C6A6D2151F6DC007259D3 /* UIStoryboard.swift */; };
 		8E6C6A732152245E007259D3 /* FacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C6A722152245E007259D3 /* FacebookManager.swift */; };
 		8E6C6A76215232F9007259D3 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C6A75215232F8007259D3 /* HTTPClient.swift */; };
+		8E7575CB215FE9FA0021A403 /* ProfileDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7575C9215FE9FA0021A403 /* ProfileDetailCell.swift */; };
+		8E7575CC215FE9FA0021A403 /* ProfileDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E7575CA215FE9FA0021A403 /* ProfileDetailCell.xib */; };
 		8E8EC459215CCAB800CCABE7 /* SearchTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */; };
 		8E8EC45A215CCAB800CCABE7 /* searchTaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E8EC458215CCAB800CCABE7 /* searchTaskCell.xib */; };
-		8ECAB993215DF95200649128 /* HistoryTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECAB991215DF95200649128 /* HistoryTaskCell.swift */; };
-		8ECAB994215DF95200649128 /* HistoryTaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECAB992215DF95200649128 /* HistoryTaskCell.xib */; };
+		8EA01DA52160554B00104A55 /* ProfileServcedListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA01DA32160554B00104A55 /* ProfileServcedListCell.swift */; };
+		8EA01DA62160554B00104A55 /* ProfileServcedListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA01DA42160554B00104A55 /* ProfileServcedListCell.xib */; };
+		8EA01DA921606C3500104A55 /* GoodCitizenCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA01DA721606C3500104A55 /* GoodCitizenCardCell.swift */; };
+		8EA01DAA21606C3500104A55 /* GoodCitizenCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA01DA821606C3500104A55 /* GoodCitizenCardCell.xib */; };
+		8EA01DAC2160831B00104A55 /* profileServced.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA01DAB2160831B00104A55 /* profileServced.storyboard */; };
+		8EA01DAE2160836300104A55 /* ServcedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA01DAD2160836300104A55 /* ServcedListViewController.swift */; };
+		8EC92177215F146C00BEE92D /* RequestToolsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC92175215F146C00BEE92D /* RequestToolsTableViewCell.swift */; };
+		8EC92178215F146C00BEE92D /* RequestToolsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC92176215F146C00BEE92D /* RequestToolsTableViewCell.xib */; };
+		8EC9217B215F87FE00BEE92D /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC92179215F87FE00BEE92D /* ProfileCell.swift */; };
+		8EC9217C215F87FE00BEE92D /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC9217A215F87FE00BEE92D /* ProfileCell.xib */; };
 		8ECAB997215E14CD00649128 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECAB995215E14CD00649128 /* RequestCell.swift */; };
 		8ECAB998215E14CD00649128 /* RequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECAB996215E14CD00649128 /* RequestCell.xib */; };
 		8ECAB99B215E177A00649128 /* RequestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECAB999215E177A00649128 /* RequestCollectionViewCell.swift */; };
@@ -47,6 +57,8 @@
 		8ED727A52154D0CB00EE697F /* AddTaskInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ED727A32154D0CB00EE697F /* AddTaskInfoCell.xib */; };
 		8ED727A82154D80000EE697F /* AddTaskTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED727A62154D80000EE697F /* AddTaskTitleCell.swift */; };
 		8ED727A92154D80000EE697F /* AddTaskTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ED727A72154D80000EE697F /* AddTaskTitleCell.xib */; };
+		8EDA662E2160A0EF009FFB8D /* ServcedListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA662C2160A0EF009FFB8D /* ServcedListCell.swift */; };
+		8EDA662F2160A0EF009FFB8D /* ServcedListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EDA662D2160A0EF009FFB8D /* ServcedListCell.xib */; };
 		8EEC330D215BF32A00DE8C31 /* searchTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EEC330C215BF32A00DE8C31 /* searchTask.storyboard */; };
 		8EEC330F215C885D00DE8C31 /* SearchTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEC330E215C885D00DE8C31 /* SearchTaskViewController.swift */; };
 		8EEC3311215C920400DE8C31 /* historyTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EEC3310215C920400DE8C31 /* historyTask.storyboard */; };
@@ -83,10 +95,20 @@
 		8E6C6A6D2151F6DC007259D3 /* UIStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboard.swift; sourceTree = "<group>"; };
 		8E6C6A722152245E007259D3 /* FacebookManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookManager.swift; sourceTree = "<group>"; };
 		8E6C6A75215232F8007259D3 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		8E7575C9215FE9FA0021A403 /* ProfileDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailCell.swift; sourceTree = "<group>"; };
+		8E7575CA215FE9FA0021A403 /* ProfileDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileDetailCell.xib; sourceTree = "<group>"; };
 		8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTaskCell.swift; sourceTree = "<group>"; };
 		8E8EC458215CCAB800CCABE7 /* searchTaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = searchTaskCell.xib; sourceTree = "<group>"; };
-		8ECAB991215DF95200649128 /* HistoryTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTaskCell.swift; sourceTree = "<group>"; };
-		8ECAB992215DF95200649128 /* HistoryTaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTaskCell.xib; sourceTree = "<group>"; };
+		8EA01DA32160554B00104A55 /* ProfileServcedListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServcedListCell.swift; sourceTree = "<group>"; };
+		8EA01DA42160554B00104A55 /* ProfileServcedListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileServcedListCell.xib; sourceTree = "<group>"; };
+		8EA01DA721606C3500104A55 /* GoodCitizenCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodCitizenCardCell.swift; sourceTree = "<group>"; };
+		8EA01DA821606C3500104A55 /* GoodCitizenCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoodCitizenCardCell.xib; sourceTree = "<group>"; };
+		8EA01DAB2160831B00104A55 /* profileServced.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = profileServced.storyboard; sourceTree = "<group>"; };
+		8EA01DAD2160836300104A55 /* ServcedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServcedListViewController.swift; sourceTree = "<group>"; };
+		8EC92175215F146C00BEE92D /* RequestToolsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestToolsTableViewCell.swift; sourceTree = "<group>"; };
+		8EC92176215F146C00BEE92D /* RequestToolsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestToolsTableViewCell.xib; sourceTree = "<group>"; };
+		8EC92179215F87FE00BEE92D /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		8EC9217A215F87FE00BEE92D /* ProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCell.xib; sourceTree = "<group>"; };
 		8ECAB995215E14CD00649128 /* RequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		8ECAB996215E14CD00649128 /* RequestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestCell.xib; sourceTree = "<group>"; };
 		8ECAB999215E177A00649128 /* RequestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -97,6 +119,8 @@
 		8ED727A32154D0CB00EE697F /* AddTaskInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTaskInfoCell.xib; sourceTree = "<group>"; };
 		8ED727A62154D80000EE697F /* AddTaskTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskTitleCell.swift; sourceTree = "<group>"; };
 		8ED727A72154D80000EE697F /* AddTaskTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTaskTitleCell.xib; sourceTree = "<group>"; };
+		8EDA662C2160A0EF009FFB8D /* ServcedListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServcedListCell.swift; sourceTree = "<group>"; };
+		8EDA662D2160A0EF009FFB8D /* ServcedListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServcedListCell.xib; sourceTree = "<group>"; };
 		8EEC330C215BF32A00DE8C31 /* searchTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = searchTask.storyboard; sourceTree = "<group>"; };
 		8EEC330E215C885D00DE8C31 /* SearchTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTaskViewController.swift; sourceTree = "<group>"; };
 		8EEC3310215C920400DE8C31 /* historyTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = historyTask.storyboard; sourceTree = "<group>"; };
@@ -131,9 +155,14 @@
 				8E58D77E215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib */,
 				8E28F7FA215B6AA6004954F0 /* TaskDetailInfoView.xib */,
 				8E8EC458215CCAB800CCABE7 /* searchTaskCell.xib */,
-				8ECAB992215DF95200649128 /* HistoryTaskCell.xib */,
 				8ECAB996215E14CD00649128 /* RequestCell.xib */,
 				8ECAB99A215E177A00649128 /* RequestCollectionViewCell.xib */,
+				8EC92176215F146C00BEE92D /* RequestToolsTableViewCell.xib */,
+				8EC9217A215F87FE00BEE92D /* ProfileCell.xib */,
+				8E7575CA215FE9FA0021A403 /* ProfileDetailCell.xib */,
+				8EA01DA42160554B00104A55 /* ProfileServcedListCell.xib */,
+				8EA01DA821606C3500104A55 /* GoodCitizenCardCell.xib */,
+				8EDA662D2160A0EF009FFB8D /* ServcedListCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -191,6 +220,7 @@
 				8EEC330C215BF32A00DE8C31 /* searchTask.storyboard */,
 				8EEC3310215C920400DE8C31 /* historyTask.storyboard */,
 				8EEC3314215C928100DE8C31 /* profile.storyboard */,
+				8EA01DAB2160831B00104A55 /* profileServced.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -214,9 +244,15 @@
 				8EEC3312215C924A00DE8C31 /* HistoryTaskViewController.swift */,
 				8EEC3316215CA24300DE8C31 /* ProfileViewController.swift */,
 				8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */,
-				8ECAB991215DF95200649128 /* HistoryTaskCell.swift */,
 				8ECAB995215E14CD00649128 /* RequestCell.swift */,
 				8ECAB999215E177A00649128 /* RequestCollectionViewCell.swift */,
+				8EC92175215F146C00BEE92D /* RequestToolsTableViewCell.swift */,
+				8EC92179215F87FE00BEE92D /* ProfileCell.swift */,
+				8E7575C9215FE9FA0021A403 /* ProfileDetailCell.swift */,
+				8EA01DA32160554B00104A55 /* ProfileServcedListCell.swift */,
+				8EA01DA721606C3500104A55 /* GoodCitizenCardCell.swift */,
+				8EA01DAD2160836300104A55 /* ServcedListViewController.swift */,
+				8EDA662C2160A0EF009FFB8D /* ServcedListCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -336,11 +372,15 @@
 				8E097DD321536D22006B574E /* TypeCollectionViewCell.xib in Resources */,
 				8ED727A92154D80000EE697F /* AddTaskTitleCell.xib in Resources */,
 				8EEC3311215C920400DE8C31 /* historyTask.storyboard in Resources */,
+				8EDA662F2160A0EF009FFB8D /* ServcedListCell.xib in Resources */,
 				8EEC3315215C928100DE8C31 /* profile.storyboard in Resources */,
+				8EA01DA62160554B00104A55 /* ProfileServcedListCell.xib in Resources */,
 				8EEC330D215BF32A00DE8C31 /* searchTask.storyboard in Resources */,
 				8ED727A52154D0CB00EE697F /* AddTaskInfoCell.xib in Resources */,
 				8E5BB6F52151EB3C0016C44A /* Login.storyboard in Resources */,
 				8E097DC921534503006B574E /* home.storyboard in Resources */,
+				8EA01DAC2160831B00104A55 /* profileServced.storyboard in Resources */,
+				8E7575CC215FE9FA0021A403 /* ProfileDetailCell.xib in Resources */,
 				8E5BB6EC2151E88B0016C44A /* LaunchScreen.storyboard in Resources */,
 				8ECAB998215E14CD00649128 /* RequestCell.xib in Resources */,
 				8E28F7FB215B6AA6004954F0 /* TaskDetailInfoView.xib in Resources */,
@@ -348,11 +388,13 @@
 				8ED7279F2154C22400EE697F /* addTask.storyboard in Resources */,
 				8E8EC45A215CCAB800CCABE7 /* searchTaskCell.xib in Resources */,
 				8E58D780215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib in Resources */,
+				8EC9217C215F87FE00BEE92D /* ProfileCell.xib in Resources */,
 				8ECAB99C215E177A00649128 /* RequestCollectionViewCell.xib in Resources */,
 				8E5BB6E92151E88B0016C44A /* Assets.xcassets in Resources */,
 				8E5BB6E72151E8830016C44A /* Main.storyboard in Resources */,
-				8ECAB994215DF95200649128 /* HistoryTaskCell.xib in Resources */,
+				8EC92178215F146C00BEE92D /* RequestToolsTableViewCell.xib in Resources */,
 				8E58D77C2155369B008274F1 /* AddTaskTypeCell.xib in Resources */,
+				8EA01DAA21606C3500104A55 /* GoodCitizenCardCell.xib in Resources */,
 				8E58D778215513DB008274F1 /* AddTaskContentCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -443,18 +485,24 @@
 				8E6C6A76215232F9007259D3 /* HTTPClient.swift in Sources */,
 				8E58D777215513DB008274F1 /* AddTaskContentCell.swift in Sources */,
 				8E6C6A732152245E007259D3 /* FacebookManager.swift in Sources */,
-				8ECAB993215DF95200649128 /* HistoryTaskCell.swift in Sources */,
 				8ECAB99B215E177A00649128 /* RequestCollectionViewCell.swift in Sources */,
+				8EA01DAE2160836300104A55 /* ServcedListViewController.swift in Sources */,
+				8EA01DA52160554B00104A55 /* ProfileServcedListCell.swift in Sources */,
 				8E097DC721534179006B574E /* TabBarViewController.swift in Sources */,
 				8E8EC459215CCAB800CCABE7 /* SearchTaskCell.swift in Sources */,
+				8EA01DA921606C3500104A55 /* GoodCitizenCardCell.swift in Sources */,
 				8E097DD221536D22006B574E /* TypeCollectionViewCell.swift in Sources */,
 				8E097DCB21534579006B574E /* HomeViewController.swift in Sources */,
 				8ED727A82154D80000EE697F /* AddTaskTitleCell.swift in Sources */,
+				8EC92177215F146C00BEE92D /* RequestToolsTableViewCell.swift in Sources */,
 				8ECAB997215E14CD00649128 /* RequestCell.swift in Sources */,
 				8E097DCD21534BDF006B574E /* UserManager.swift in Sources */,
 				8E58D77B2155369B008274F1 /* AddTaskTypeCell.swift in Sources */,
+				8EDA662E2160A0EF009FFB8D /* ServcedListCell.swift in Sources */,
+				8EC9217B215F87FE00BEE92D /* ProfileCell.swift in Sources */,
 				8E28F7F9215B6A6E004954F0 /* TaskDetailInfoView.swift in Sources */,
 				8ED727A42154D0CB00EE697F /* AddTaskInfoCell.swift in Sources */,
+				8E7575CB215FE9FA0021A403 /* ProfileDetailCell.swift in Sources */,
 				8E5BB6E22151E8830016C44A /* AppDelegate.swift in Sources */,
 				8EEC3313215C924A00DE8C31 /* HistoryTaskViewController.swift in Sources */,
 				8ED727A12154C8FE00EE697F /* AddTaskViewController.swift in Sources */,

@@ -9,22 +9,80 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
+    
+    @IBOutlet weak var profileTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        profileTableView.delegate = self
+        profileTableView.dataSource = self
+        
+        let titleNib = UINib(nibName: "ProfileCell", bundle: nil)
+        self.profileTableView.register(titleNib, forCellReuseIdentifier: "profileTitle")
+        
+        let detailNib = UINib(nibName: "ProfileDetailCell", bundle: nil)
+        self.profileTableView.register(detailNib, forCellReuseIdentifier: "profileDetail")
+        
+        let servcedNib = UINib(nibName: "ProfileServcedListCell", bundle: nil)
+        self.profileTableView.register(servcedNib, forCellReuseIdentifier: "servcedList")
+        
+        let goodCitizenNib = UINib(nibName: "GoodCitizenCardCell", bundle: nil)
+        self.profileTableView.register(goodCitizenNib, forCellReuseIdentifier: "goodCitizen")
 
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0 {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "profileTitle",
+                                                        for: indexPath) as? ProfileCell {
+                return cell
+            }
+        } else if indexPath.section == 1 {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "profileDetail",
+                                                        for: indexPath) as? ProfileDetailCell {
+                return cell
+            }
+        } else if indexPath.section == 2 {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "servcedList",
+                                                        for: indexPath) as? ProfileServcedListCell {
+                return cell
+            }
+        } else if indexPath.section == 3 {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "goodCitizen",
+                                                        for: indexPath) as? GoodCitizenCardCell {
+                return cell
+            }
+        }
+
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+        if indexPath.section == 2 {
+            
+            let storyBoard = UIStoryboard(name: "profileServced", bundle: nil)
+            
+            if let viewController = storyBoard.instantiateViewController(withIdentifier: "servcedListVC") as? ServcedListViewController {
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
+        }
+    }
+    
+}
+
