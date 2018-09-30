@@ -9,7 +9,18 @@
 import UIKit
 
 class ServcedListCell: UITableViewCell {
-
+    
+    @IBOutlet weak var userPhoto: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var createdTimeLabel: UILabel!
+    @IBOutlet weak var contentTxtView: UITextView!
+    
+    @IBOutlet weak var starOne: UIButton!
+    @IBOutlet weak var starTwo: UIButton!
+    @IBOutlet weak var starThree: UIButton!
+    @IBOutlet weak var starFour: UIButton!
+    @IBOutlet weak var starFive: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

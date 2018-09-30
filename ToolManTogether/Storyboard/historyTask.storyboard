@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--History Task View Controller-->
+        <!--History-->
         <scene sceneID="n8f-VH-a6Y">
             <objects>
                 <viewController id="zuG-Oh-31N" customClass="HistoryTaskViewController" customModule="ToolManTogether" customModuleProvider="target" sceneMemberID="viewController">
@@ -32,7 +32,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XvR-U4-PAm"/>
                     </view>
-                    <navigationItem key="navigationItem" id="CDg-XJ-luI"/>
+                    <navigationItem key="navigationItem" title="History" id="CDg-XJ-luI"/>
                     <connections>
                         <outlet property="historyTableView" destination="SNR-Zy-RDH" id="hMc-Y6-I8v"/>
                     </connections>
@@ -49,7 +49,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0W3-fZ-ABm">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.94901960784313721" green="0.71764705882352942" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

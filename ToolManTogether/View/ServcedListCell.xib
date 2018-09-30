@@ -134,6 +134,17 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="contentTxtView" destination="lN7-2B-w5n" id="5jp-Un-QKG"/>
+                <outlet property="createdTimeLabel" destination="wLc-fu-aQx" id="xmi-fS-O6X"/>
+                <outlet property="starFive" destination="ku8-rr-kpd" id="V2B-yZ-FGD"/>
+                <outlet property="starFour" destination="Q9t-kZ-TT0" id="gaD-nW-JDQ"/>
+                <outlet property="starOne" destination="AjB-VW-9oU" id="Cxv-JO-pmz"/>
+                <outlet property="starThree" destination="CUr-kS-5mE" id="ocb-zj-V5V"/>
+                <outlet property="starTwo" destination="tGu-TF-TlT" id="R4V-iI-brc"/>
+                <outlet property="userNameLabel" destination="rlP-YQ-xpB" id="mkD-mW-4IZ"/>
+                <outlet property="userPhoto" destination="ta8-83-Rls" id="wuf-iB-YMN"/>
+            </connections>
             <point key="canvasLocation" x="140" y="183.05847076461771"/>
         </tableViewCell>
     </objects>

@@ -10,15 +10,21 @@ import UIKit
 
 class TaskAgreeInfoCell: UITableViewCell {
 
+    @IBOutlet weak var contentTxtView: UITextView!
+    @IBOutlet weak var callBtn: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        callBtn.layer.cornerRadius = 15
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
+    
+    @IBAction func callBtnTapped(_ sender: Any) {
+        print("打電話")
+    }
+    
     
 }

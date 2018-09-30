@@ -63,6 +63,8 @@
 		8EDA66332160B889009FFB8D /* TaskAgreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA66322160B889009FFB8D /* TaskAgreeViewController.swift */; };
 		8EDA66362160B8EF009FFB8D /* TaskAgreeInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA66342160B8EF009FFB8D /* TaskAgreeInfoCell.swift */; };
 		8EDA66372160B8EF009FFB8D /* TaskAgreeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EDA66352160B8EF009FFB8D /* TaskAgreeInfoCell.xib */; };
+		8EDB25652160F7A000DBBF6D /* TaskAgreeMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB25632160F7A000DBBF6D /* TaskAgreeMapCell.swift */; };
+		8EDB25662160F7A000DBBF6D /* TaskAgreeMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EDB25642160F7A000DBBF6D /* TaskAgreeMapCell.xib */; };
 		8EEC330D215BF32A00DE8C31 /* searchTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EEC330C215BF32A00DE8C31 /* searchTask.storyboard */; };
 		8EEC330F215C885D00DE8C31 /* SearchTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEC330E215C885D00DE8C31 /* SearchTaskViewController.swift */; };
 		8EEC3311215C920400DE8C31 /* historyTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EEC3310215C920400DE8C31 /* historyTask.storyboard */; };
@@ -129,6 +131,8 @@
 		8EDA66322160B889009FFB8D /* TaskAgreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAgreeViewController.swift; sourceTree = "<group>"; };
 		8EDA66342160B8EF009FFB8D /* TaskAgreeInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAgreeInfoCell.swift; sourceTree = "<group>"; };
 		8EDA66352160B8EF009FFB8D /* TaskAgreeInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskAgreeInfoCell.xib; sourceTree = "<group>"; };
+		8EDB25632160F7A000DBBF6D /* TaskAgreeMapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAgreeMapCell.swift; sourceTree = "<group>"; };
+		8EDB25642160F7A000DBBF6D /* TaskAgreeMapCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskAgreeMapCell.xib; sourceTree = "<group>"; };
 		8EEC330C215BF32A00DE8C31 /* searchTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = searchTask.storyboard; sourceTree = "<group>"; };
 		8EEC330E215C885D00DE8C31 /* SearchTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTaskViewController.swift; sourceTree = "<group>"; };
 		8EEC3310215C920400DE8C31 /* historyTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = historyTask.storyboard; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 				8EA01DA821606C3500104A55 /* GoodCitizenCardCell.xib */,
 				8EDA662D2160A0EF009FFB8D /* ServcedListCell.xib */,
 				8EDA66352160B8EF009FFB8D /* TaskAgreeInfoCell.xib */,
+				8EDB25642160F7A000DBBF6D /* TaskAgreeMapCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 				8EDA662C2160A0EF009FFB8D /* ServcedListCell.swift */,
 				8EDA66322160B889009FFB8D /* TaskAgreeViewController.swift */,
 				8EDA66342160B8EF009FFB8D /* TaskAgreeInfoCell.swift */,
+				8EDB25632160F7A000DBBF6D /* TaskAgreeMapCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -409,6 +415,7 @@
 				8E58D77C2155369B008274F1 /* AddTaskTypeCell.xib in Resources */,
 				8EA01DAA21606C3500104A55 /* GoodCitizenCardCell.xib in Resources */,
 				8EDA66312160B84D009FFB8D /* TaskAgree.storyboard in Resources */,
+				8EDB25662160F7A000DBBF6D /* TaskAgreeMapCell.xib in Resources */,
 				8E58D778215513DB008274F1 /* AddTaskContentCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,6 +508,7 @@
 				8E6C6A732152245E007259D3 /* FacebookManager.swift in Sources */,
 				8ECAB99B215E177A00649128 /* RequestCollectionViewCell.swift in Sources */,
 				8EA01DAE2160836300104A55 /* ServcedListViewController.swift in Sources */,
+				8EDB25652160F7A000DBBF6D /* TaskAgreeMapCell.swift in Sources */,
 				8EA01DA52160554B00104A55 /* ProfileServcedListCell.swift in Sources */,
 				8E097DC721534179006B574E /* TabBarViewController.swift in Sources */,
 				8E8EC459215CCAB800CCABE7 /* SearchTaskCell.swift in Sources */,

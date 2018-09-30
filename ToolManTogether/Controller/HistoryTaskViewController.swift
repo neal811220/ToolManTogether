@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol TableViewCellDelegate: class {
+    func tableViewCellDidTapAgreeBtn(_ send: RequestToolsTableViewCell)
+}
+
 class HistoryTaskViewController: UIViewController {
     
     
@@ -52,7 +56,7 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
             }
         } else if indexPath.section == 1 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "requestTools", for: indexPath) as? RequestToolsTableViewCell {
-                
+                cell.delegate = self
                 return cell
             }
         }
@@ -60,4 +64,20 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
         return UITableViewCell()
     }
     
+}
+
+extension HistoryTaskViewController: TableViewCellDelegate {
+    func tableViewCellDidTapAgreeBtn(_ send: RequestToolsTableViewCell) {
+        
+        guard let sselectIndex = self.historyTableView.indexPath(for: send) else {
+            return
+        }
+        
+        let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
+        
+        if let viewController = storyBoard.instantiateViewController(withIdentifier: "taskAgreeVC") as? TaskAgreeViewController {
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+
+    }
 }

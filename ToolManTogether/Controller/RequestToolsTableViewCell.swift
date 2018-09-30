@@ -21,6 +21,8 @@ class RequestToolsTableViewCell: UITableViewCell {
     @IBOutlet weak var starFour: UIButton!
     @IBOutlet weak var starFive: UIButton!
     
+    weak var delegate: TableViewCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         userPhoto.layer.cornerRadius = userPhoto.frame.width / 2
@@ -34,8 +36,11 @@ class RequestToolsTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    }
+    
+    
+    @IBAction func agreeTapped(_ sender: Any) {
+        delegate?.tableViewCellDidTapAgreeBtn(self)
     }
     
 }
