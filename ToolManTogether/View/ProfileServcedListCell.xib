@@ -12,18 +12,33 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="servcedList" id="KGk-i7-Jjw" customClass="ProfileServcedListCell" customModule="ToolManTogether" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="servcedList" rowHeight="127" id="KGk-i7-Jjw" customClass="ProfileServcedListCell" customModule="ToolManTogether" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="127"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="126.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6bn-ff-hcl">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="126.5"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Tio-yy-Iun">
-                                <rect key="frame" x="31.5" y="44" width="312" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q4L-xW-nUw">
+                                <rect key="frame" x="10" y="5" width="355" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="McP-nb-y2D"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rk8-oN-Wqd">
+                                <rect key="frame" x="10" y="120.5" width="355" height="1"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="JSI-SN-HDa"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="Svr-Ta-YIZ"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Tio-yy-Iun">
+                                <rect key="frame" x="31.5" y="33.5" width="312" height="60"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userImage_Spock" translatesAutoresizingMaskIntoConstraints="NO" id="wcD-Mw-hYL">
                                         <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
@@ -46,7 +61,7 @@
                                             <constraint firstAttribute="width" constant="60" id="89R-XC-QJN"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NfU-Mb-8rm">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NfU-Mb-8rm">
                                         <rect key="frame" x="252" y="0.0" width="60" height="60"/>
                                         <color key="backgroundColor" red="0.4823529411764706" green="0.34509803921568627" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -62,30 +77,15 @@
                                     <constraint firstAttribute="height" constant="60" id="vnh-c4-MJI"/>
                                 </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q4L-xW-nUw">
-                                <rect key="frame" x="10" y="5" width="355" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="McP-nb-y2D"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rk8-oN-Wqd">
-                                <rect key="frame" x="10" y="143.5" width="355" height="1"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="JSI-SN-HDa"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="Svr-Ta-YIZ"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Rk8-oN-Wqd" firstAttribute="top" secondItem="Tio-yy-Iun" secondAttribute="bottom" constant="27" id="0Fn-1r-jtt"/>
                             <constraint firstAttribute="trailing" secondItem="q4L-xW-nUw" secondAttribute="trailing" constant="10" id="0yV-Mt-Yph"/>
                             <constraint firstItem="q4L-xW-nUw" firstAttribute="top" secondItem="6bn-ff-hcl" secondAttribute="top" constant="5" id="58l-vh-W87"/>
                             <constraint firstItem="Rk8-oN-Wqd" firstAttribute="leading" secondItem="6bn-ff-hcl" secondAttribute="leading" constant="10" id="GP8-fV-uza"/>
+                            <constraint firstItem="Tio-yy-Iun" firstAttribute="top" secondItem="q4L-xW-nUw" secondAttribute="bottom" constant="27.5" id="Ggp-W3-2QT"/>
                             <constraint firstAttribute="trailing" secondItem="Tio-yy-Iun" secondAttribute="trailing" constant="31.5" id="KHj-aM-WJi"/>
-                            <constraint firstItem="Tio-yy-Iun" firstAttribute="top" secondItem="6bn-ff-hcl" secondAttribute="top" constant="44" id="Sg5-eK-bin"/>
-                            <constraint firstAttribute="bottom" secondItem="Tio-yy-Iun" secondAttribute="bottom" constant="45.5" id="Zvt-xg-kC1"/>
                             <constraint firstItem="Tio-yy-Iun" firstAttribute="centerX" secondItem="6bn-ff-hcl" secondAttribute="centerX" id="eyy-pH-5EJ"/>
                             <constraint firstItem="Tio-yy-Iun" firstAttribute="leading" secondItem="6bn-ff-hcl" secondAttribute="leading" constant="31.5" id="pGK-Cn-S9a"/>
                             <constraint firstItem="q4L-xW-nUw" firstAttribute="leading" secondItem="6bn-ff-hcl" secondAttribute="leading" constant="10" id="t67-q3-34S"/>
@@ -108,7 +108,7 @@
                 <outlet property="photoTwo" destination="fBx-Kv-oZF" id="XsD-89-GPI"/>
                 <outlet property="viewFour" destination="NfU-Mb-8rm" id="a2v-pm-hdq"/>
             </connections>
-            <point key="canvasLocation" x="55.200000000000003" y="48.575712143928037"/>
+            <point key="canvasLocation" x="55.200000000000003" y="38.23088455772114"/>
         </tableViewCell>
     </objects>
     <resources>
