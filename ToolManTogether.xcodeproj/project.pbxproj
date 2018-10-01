@@ -43,6 +43,7 @@
 		8EA01DAA21606C3500104A55 /* GoodCitizenCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA01DA821606C3500104A55 /* GoodCitizenCardCell.xib */; };
 		8EA01DAC2160831B00104A55 /* profileServced.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA01DAB2160831B00104A55 /* profileServced.storyboard */; };
 		8EA01DAE2160836300104A55 /* ServcedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA01DAD2160836300104A55 /* ServcedListViewController.swift */; };
+		8EB0A21E2162609200FD81F1 /* FilterAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */; };
 		8EC92177215F146C00BEE92D /* RequestToolsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC92175215F146C00BEE92D /* RequestToolsTableViewCell.swift */; };
 		8EC92178215F146C00BEE92D /* RequestToolsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC92176215F146C00BEE92D /* RequestToolsTableViewCell.xib */; };
 		8EC9217B215F87FE00BEE92D /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC92179215F87FE00BEE92D /* ProfileCell.swift */; };
@@ -113,6 +114,7 @@
 		8EA01DA821606C3500104A55 /* GoodCitizenCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoodCitizenCardCell.xib; sourceTree = "<group>"; };
 		8EA01DAB2160831B00104A55 /* profileServced.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = profileServced.storyboard; sourceTree = "<group>"; };
 		8EA01DAD2160836300104A55 /* ServcedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServcedListViewController.swift; sourceTree = "<group>"; };
+		8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAnnotation.swift; sourceTree = "<group>"; };
 		8EC92175215F146C00BEE92D /* RequestToolsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestToolsTableViewCell.swift; sourceTree = "<group>"; };
 		8EC92176215F146C00BEE92D /* RequestToolsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestToolsTableViewCell.xib; sourceTree = "<group>"; };
 		8EC92179215F87FE00BEE92D /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
@@ -237,12 +239,10 @@
 		8E5BB6F62151EC820016C44A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8EB0A2182161BA7000FD81F1 /* New Group1 */,
 				8EB0A2172161B9F700FD81F1 /* Profile */,
 				8EB0A2162161B9C600FD81F1 /* Current */,
 				8EB0A2152161B95400FD81F1 /* Already */,
 				8EB0A2142161B59700FD81F1 /* Add */,
-				8EB0A2132161B56C00FD81F1 /* Already */,
 				8EB0A2122161B54300FD81F1 /* Home */,
 				8E5BB6F72151ECB50016C44A /* LoginViewController.swift */,
 				8E097DC621534179006B574E /* TabBarViewController.swift */,
@@ -321,15 +321,10 @@
 			isa = PBXGroup;
 			children = (
 				8E097DCA21534579006B574E /* HomeViewController.swift */,
+				8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */,
+				8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		8EB0A2132161B56C00FD81F1 /* Already */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Already;
 			sourceTree = "<group>";
 		};
 		8EB0A2142161B59700FD81F1 /* Add */ = {
@@ -341,7 +336,6 @@
 				8E58D775215513DB008274F1 /* AddTaskContentCell.swift */,
 				8E58D7792155369B008274F1 /* AddTaskTypeCell.swift */,
 				8E58D77D215537D6008274F1 /* AddTaskTypeCollectionViewCell.swift */,
-				8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -383,13 +377,6 @@
 				8EDA662C2160A0EF009FFB8D /* ServcedListCell.swift */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		8EB0A2182161BA7000FD81F1 /* New Group1 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group1";
 			sourceTree = "<group>";
 		};
 		8EDB25712161B0B800DBBF6D /* Home */ = {
@@ -609,6 +596,7 @@
 				8E5BB6F82151ECB50016C44A /* LoginViewController.swift in Sources */,
 				8E6C6A76215232F9007259D3 /* HTTPClient.swift in Sources */,
 				8E58D777215513DB008274F1 /* AddTaskContentCell.swift in Sources */,
+				8EB0A21E2162609200FD81F1 /* FilterAnnotation.swift in Sources */,
 				8E6C6A732152245E007259D3 /* FacebookManager.swift in Sources */,
 				8ECAB99B215E177A00649128 /* RequestCollectionViewCell.swift in Sources */,
 				8EA01DAE2160836300104A55 /* ServcedListViewController.swift in Sources */,

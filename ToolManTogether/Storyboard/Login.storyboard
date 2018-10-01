@@ -24,11 +24,11 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login" translatesAutoresizingMaskIntoConstraints="NO" id="Q2N-xF-F7Y">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     </imageView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-75" translatesAutoresizingMaskIntoConstraints="NO" id="bH0-1X-XkI">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-65" translatesAutoresizingMaskIntoConstraints="NO" id="bH0-1X-XkI">
                                         <rect key="frame" x="31" y="346" width="313" height="204.5"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTE-Me-ngP">
-                                                <rect key="frame" x="0.0" y="0.0" width="313" height="139.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="313" height="134.5"/>
                                                 <state key="normal" image="loginBtn">
                                                     <color key="titleColor" red="0.4392156862745098" green="0.0" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -37,7 +37,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gcg-oR-bDF">
-                                                <rect key="frame" x="0.0" y="64.5" width="313" height="140"/>
+                                                <rect key="frame" x="0.0" y="69.5" width="313" height="135"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-32"/>
                                                 <state key="normal" image="guestBtn">
                                                     <color key="titleColor" red="0.44705882352941179" green="0.0" blue="0.87450980392156863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -85,8 +85,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="guestBtn" width="313" height="156"/>
+        <image name="guestBtn" width="300" height="150"/>
         <image name="login" width="2588" height="4600"/>
-        <image name="loginBtn" width="312" height="156"/>
+        <image name="loginBtn" width="300" height="150"/>
     </resources>
 </document>

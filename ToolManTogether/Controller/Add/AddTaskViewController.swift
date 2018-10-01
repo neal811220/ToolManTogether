@@ -84,9 +84,9 @@ class AddTaskViewController: UIViewController {
             "UserID": userID,
             "UserName": userName,
             "lat": userCoordinate.latitude,
-            "lon": userCoordinate.longitude])
+            "lon": userCoordinate.longitude,
+            "searchAnnotation": "\(userCoordinate.latitude)_\(userCoordinate.longitude)"])
     }
-    
     
     func showAlert(title: String = "Incomplete Information", content: String) {
         let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)

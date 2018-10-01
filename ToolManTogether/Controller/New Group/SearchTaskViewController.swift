@@ -16,8 +16,6 @@ class SearchTaskViewController: UIViewController {
     @IBOutlet weak var searchTaskTableVIew: UITableView!
     var photoURL: [URL] = []
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         

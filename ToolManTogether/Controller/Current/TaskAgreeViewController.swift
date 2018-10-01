@@ -41,7 +41,7 @@ class TaskAgreeViewController: UIViewController {
 extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,16 +58,11 @@ extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
         } else if indexPath.section == 2 {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "servcedList", for: indexPath) as? ProfileServcedListCell {
-                return cell
-            }
-        } else if indexPath.section == 3 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "taskAgreeMapCell", for: indexPath) as? TaskAgreeMapCell {
                 cell.sendScoreBtnTest.addTarget(self, action: #selector(testScoreSend), for: .touchUpInside)
                 return cell
             }
         }
-        
         return UITableViewCell()
     }
     

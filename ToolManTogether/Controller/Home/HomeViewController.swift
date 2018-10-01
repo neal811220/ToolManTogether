@@ -34,7 +34,15 @@ class HomeViewController: UIViewController {
     var allUserTask: [UserTaskInfo] = []
     let screenSize = UIScreen.main.bounds.size
     let loginVC = LoginViewController()
-    
+    var techAnnotationArray: [MKAnnotation] = []
+    var bugAnnotationArray: [MKAnnotation] = []
+    var carryAnnotationArray: [MKAnnotation] = []
+    var houseAnnotationArray: [MKAnnotation] = []
+    var foodAnnotationArray: [MKAnnotation] = []
+    var otherAnnotationArray: [MKAnnotation] = []
+    var trafficAnnotationArray: [MKAnnotation] = []
+    var allAnnotationArray: [MKAnnotation] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,7 +80,10 @@ class HomeViewController: UIViewController {
     func dataBaseTypeAdd() {
         myRef.child("TaskType").observeSingleEvent(of: .value) { (snapshot) in
             guard let value = snapshot.value as? [String: String] else { return }
-            for (keys, value) in value {
+            let sortValue = value.sorted(by: { (firstDictionary, secondDictionary) -> Bool in
+                return firstDictionary.0 > secondDictionary.0
+            })
+            for (keys, value) in sortValue {
                 self.typeTxtArray.append(keys)
                 self.typeColorArray.append(value)
             }
@@ -87,7 +98,6 @@ class HomeViewController: UIViewController {
     
     func dataBaseTaskAdd() {
         myRef.child("Task").observe(.childAdded) { (snapshot) in
-            print(snapshot)
             guard let value = snapshot.value as? NSDictionary else { return }
             guard let title = value["Title"] as? String else { return }
             guard let content = value["Content"] as? String else { return }
@@ -97,9 +107,6 @@ class HomeViewController: UIViewController {
             guard let taskLon = value["lon"] as? Double else { return }
             guard let userID = value["UserID"] as? String else { return }
             guard let userName = value["UserName"] as? String else { return }
-            
-            self.pullUpDetailView.taskTitleLabel.text = "Test"
-
 
             let userTaskInfo = UserTaskInfo(userID: userID, userName: userName, title: title, content: content, type: type, price: price, taskLat: taskLat, taskLon: taskLon)
             
@@ -125,11 +132,9 @@ class HomeViewController: UIViewController {
             
             if let url = url {
                 print("url \(url)")
-                
                 self.pullUpDetailView.userPhoto.sd_setImage(with: url, completed: nil)
             }
         })
-        
     }
     
     func mapTaskPoint(taskLat: Double, taskLon: Double, type: String) {
@@ -141,6 +146,10 @@ class HomeViewController: UIViewController {
         
         mapView.addAnnotation(annotation)
         
+    }
+    
+    func filterPoint() {
+        print(mapView.annotations)
     }
     
     @IBAction func centerMapBtnWasPressed(_ sender: Any) {
@@ -158,7 +167,43 @@ class HomeViewController: UIViewController {
             latitudinalMeters: regionRadious * 0.2,
             longitudinalMeters: regionRadious * 0.2)
         
-            self.mapView.setRegion(coordinateRegion, animated: true)
+        searchFireBase(child: "Task", byChild: "searchAnnotation", toValue: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)") { (data) in
+            for value in data.allValues{
+                
+                guard let dictionary = value as? [String: Any] else { return }
+                guard let title = dictionary["Title"] as? String else { return }
+                guard let content = dictionary["Content"] as? String else { return }
+                guard let price = dictionary["Price"] as? String else { return }
+                guard let type = dictionary["Type"] as? String else { return }
+                guard let userName = dictionary["UserName"] as? String else { return }
+                
+                self.pullUpDetailView.taskTitleLabel.text = title
+                self.pullUpDetailView.taskContentTxtView.text = content
+                self.pullUpDetailView.distanceLabel.text = "5.0m"
+                self.pullUpDetailView.priceLabel.text = price
+                self.pullUpDetailView.userName.text = userName
+                self.pullUpDetailView.typeLabel.text = type
+            }
+        }
+        
+        self.mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    func searchFireBase(
+        child: String,
+        byChild: String,
+        toValue: String,
+        success: @escaping (NSDictionary) -> Void) {
+    
+        myRef.child(child)
+            .queryOrdered(byChild: byChild).queryEqual(toValue: toValue)
+            .observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                guard let data = snapshot.value as? NSDictionary else { return }
+                success(data)
+            }) { (error) in
+                print(error.localizedDescription)
+        }
     }
     
     func addSwipe() {
@@ -168,6 +213,7 @@ class HomeViewController: UIViewController {
     }
 
     func animateViewUp() {
+        filterPoint()
         pullUpViewHeightConstraint.constant = 300
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
@@ -199,6 +245,43 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return cell
         }
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        mapView.removeAnnotations(allAnnotationArray)
+        
+        switch indexPath.row {
+        // 科技維修
+        case 0:
+            mapView.addAnnotations(techAnnotationArray)
+            
+        // 清除害蟲
+        case 1:
+            mapView.addAnnotations(bugAnnotationArray)
+
+        // 搬運重物
+        case 2:
+            mapView.addAnnotations(carryAnnotationArray)
+        // 居家維修
+        case 3:
+            mapView.addAnnotations(houseAnnotationArray)
+
+        // 外送食物
+        case 4:
+            mapView.addAnnotations(foodAnnotationArray)
+
+        // 其他任務
+        case 5:
+            mapView.addAnnotations(otherAnnotationArray)
+
+        // 交通接送
+        case 6:
+            mapView.addAnnotations(trafficAnnotationArray)
+        default:
+            return
+        }
+
     }
 }
 
@@ -235,21 +318,34 @@ extension HomeViewController: MKMapViewDelegate {
             return nil
         }
         
-        if let title = annotation.title, title == "搬運" {
-            annotationView?.image = #imageLiteral(resourceName: "userImage_Spock")
-        } else if let title = annotation.title, title == "科技維修" {
+        allAnnotationArray.append(annotation)
+        
+        switch annotation.title {
+        case "搬運重物":
+            annotationView?.image = #imageLiteral(resourceName: "yellowPoint")
+            carryAnnotationArray.append(annotation)
+        case "科技維修":
             annotationView?.image = #imageLiteral(resourceName: "bluePoint")
-        } else if let title = annotation.title, title == "清除害蟲" {
+            techAnnotationArray.append(annotation)
+        case "清除害蟲":
+            bugAnnotationArray.append(annotation)
             annotationView?.image = #imageLiteral(resourceName: "redPoint")
-        } else if let title = annotation.title, title == "外送食物" {
+        case "外送食物":
+            foodAnnotationArray.append(annotation)
             annotationView?.image = #imageLiteral(resourceName: "purplePoint")
-        } else if let title = annotation.title, title == "其他" {
+        case "其他任務":
+            otherAnnotationArray.append(annotation)
             annotationView?.image = #imageLiteral(resourceName: "brownPoint")
-        } else if let title = annotation.title, title == "居家維修" {
+        case "居家維修":
+            houseAnnotationArray.append(annotation)
             annotationView?.image = #imageLiteral(resourceName: "orangePoint")
-        } else if let title = annotation.title, title == "交通接送" {
+        case "交通接送":
+            trafficAnnotationArray.append(annotation)
             annotationView?.image = #imageLiteral(resourceName: "greenPoint")
+        default:
+            annotationView?.image = #imageLiteral(resourceName: "yellowPoint")
         }
+        
         annotationView?.canShowCallout = true
         return annotationView
     }
@@ -289,7 +385,6 @@ extension HomeViewController: CLLocationManagerDelegate {
         if authorizationStatus == .notDetermined {
             locationManager.requestAlwaysAuthorization()
         } else {
-
             return
         }
     }
