@@ -18,7 +18,7 @@ class RequestCollectionViewCell: UICollectionViewCell {
         requestCollectionView.layer.borderWidth = 1
         requestCollectionView.layer.borderColor = #colorLiteral(red: 0.9568627451, green: 0.7215686275, blue: 0, alpha: 1)
         requestCollectionView.separatorView.isHidden = true
-        requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 1, green: 0.6588235294, blue: 0.662745098, alpha: 1)
+        requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
     }
 
 }

@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--History-->
+        <!--任務配對-->
         <scene sceneID="n8f-VH-a6Y">
             <objects>
                 <viewController id="zuG-Oh-31N" customClass="HistoryTaskViewController" customModule="ToolManTogether" customModuleProvider="target" sceneMemberID="viewController">
@@ -32,7 +32,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XvR-U4-PAm"/>
                     </view>
-                    <navigationItem key="navigationItem" title="History" id="CDg-XJ-luI"/>
+                    <navigationItem key="navigationItem" title="任務配對" id="CDg-XJ-luI"/>
                     <connections>
                         <outlet property="historyTableView" destination="SNR-Zy-RDH" id="hMc-Y6-I8v"/>
                     </connections>

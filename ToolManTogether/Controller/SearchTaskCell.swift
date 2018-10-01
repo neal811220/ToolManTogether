@@ -12,8 +12,6 @@ class SearchTaskCell: UITableViewCell {
     
     @IBOutlet weak var searchTaskView: TaskDetailInfoView!
     
-    
-
     override func awakeFromNib() {
         super.awakeFromNib()
         searchTaskView.layer.cornerRadius = 22
@@ -24,7 +22,6 @@ class SearchTaskCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
 }

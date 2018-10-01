@@ -27,8 +27,6 @@ class SearchTaskViewController: UIViewController {
         searchTaskTableVIew.delegate = self
         searchTaskTableVIew.dataSource = self
         
-        
-
     }
     
 //    func updataTaskInfoDetail() {
@@ -65,6 +63,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "searchTask", for: indexPath) as? SearchTaskCell {
             cell.searchTaskView.userPhoto.image = UIImage(named: "userImage_Spock")
+            cell.searchTaskView.sendButton.addTarget(self, action: #selector(requestBtnPressed), for: .touchUpInside)
             return cell
         }
         return UITableViewCell()
@@ -72,6 +71,15 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
+    }
+    
+    @objc func requestBtnPressed() {
+        
+        let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
+        
+        if let viewController = storyBoard.instantiateViewController(withIdentifier: "taskAgreeVC") as? TaskAgreeViewController {
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
     
     

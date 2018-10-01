@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--任務清單-->
+        <!--已接任務清單-->
         <scene sceneID="E0n-ZP-Ack">
             <objects>
                 <viewController id="aJ6-3c-Pmp" customClass="SearchTaskViewController" customModule="ToolManTogether" customModuleProvider="target" sceneMemberID="viewController">
@@ -32,7 +32,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="egE-oO-ASO"/>
                     </view>
-                    <navigationItem key="navigationItem" title="任務清單" id="Z0s-R2-DFD"/>
+                    <navigationItem key="navigationItem" title="已接任務清單" id="Z0s-R2-DFD"/>
                     <connections>
                         <outlet property="searchTaskTableVIew" destination="apo-jo-COq" id="Dwd-CJ-YJr"/>
                     </connections>
@@ -49,6 +49,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="U37-1R-e0Q">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.95686274510000002" green="0.72156862749999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

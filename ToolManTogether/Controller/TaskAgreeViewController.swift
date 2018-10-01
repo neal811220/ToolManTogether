@@ -11,10 +11,13 @@ import UIKit
 class TaskAgreeViewController: UIViewController {
     
     @IBOutlet weak var taskAgreeTableView: UITableView!
+    @IBOutlet weak var popUpScoreView: UIView!
+    @IBOutlet weak var popUpScoreHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.title = "任務進行中"
+
         taskAgreeTableView.delegate = self
         taskAgreeTableView.dataSource = self
         
@@ -27,16 +30,18 @@ class TaskAgreeViewController: UIViewController {
         let taskMapNib = UINib(nibName: "TaskAgreeMapCell", bundle: nil)
         self.taskAgreeTableView.register(taskMapNib, forCellReuseIdentifier: "taskAgreeMapCell")
         
+        let servcedNib = UINib(nibName: "ProfileServcedListCell", bundle: nil)
+        self.taskAgreeTableView.register(servcedNib, forCellReuseIdentifier: "servcedList")
+        
         
     }
-
 
 }
 
 extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,11 +58,35 @@ extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
         } else if indexPath.section == 2 {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "servcedList", for: indexPath) as? ProfileServcedListCell {
+                return cell
+            }
+        } else if indexPath.section == 3 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "taskAgreeMapCell", for: indexPath) as? TaskAgreeMapCell {
+                cell.sendScoreBtnTest.addTarget(self, action: #selector(testScoreSend), for: .touchUpInside)
                 return cell
             }
         }
+        
         return UITableViewCell()
+    }
+    
+    @objc func testScoreSend() {
+        animateViewUp()
+    }
+
+    func animateViewUp() {
+        popUpScoreHeight.constant = 280
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func animateViewDown() {
+        popUpScoreHeight.constant = 0
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
     }
 
 }

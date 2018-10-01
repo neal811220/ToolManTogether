@@ -25,15 +25,27 @@
                             <constraint firstAttribute="height" constant="359.5" id="Hne-Jh-Eq7"/>
                         </constraints>
                     </mapView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSm-l4-CIT">
+                        <rect key="frame" x="156.5" y="165" width="62" height="30"/>
+                        <state key="normal" title="測試評分"/>
+                        <connections>
+                            <action selector="sendScoreTest:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qCR-cf-hRw"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="bvh-So-v9Q" secondAttribute="bottom" id="E84-TT-Xsn"/>
+                    <constraint firstItem="TSm-l4-CIT" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="K4v-3D-e9P"/>
                     <constraint firstItem="bvh-So-v9Q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Ngt-HQ-6GW"/>
                     <constraint firstAttribute="trailing" secondItem="bvh-So-v9Q" secondAttribute="trailing" id="TED-g5-HA3"/>
+                    <constraint firstItem="TSm-l4-CIT" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="cjt-11-iV6"/>
                     <constraint firstItem="bvh-So-v9Q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="mPx-uT-9Sn"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="sendScoreBtnTest" destination="TSm-l4-CIT" id="77d-RG-NiF"/>
+            </connections>
             <point key="canvasLocation" x="53.600000000000001" y="135.832083958021"/>
         </tableViewCell>
     </objects>

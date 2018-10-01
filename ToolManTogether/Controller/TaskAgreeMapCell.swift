@@ -9,7 +9,9 @@
 import UIKit
 
 class TaskAgreeMapCell: UITableViewCell {
-
+    
+    @IBOutlet weak var sendScoreBtnTest: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -17,6 +19,11 @@ class TaskAgreeMapCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
+    }
+    
+    
+    @IBAction func sendScoreTest(_ sender: Any) {
+        
     }
     
 }

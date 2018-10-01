@@ -78,6 +78,5 @@ extension HistoryTaskViewController: TableViewCellDelegate {
         if let viewController = storyBoard.instantiateViewController(withIdentifier: "taskAgreeVC") as? TaskAgreeViewController {
             self.navigationController?.pushViewController(viewController, animated: true)
         }
-
     }
 }

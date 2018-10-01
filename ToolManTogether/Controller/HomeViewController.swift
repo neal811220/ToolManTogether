@@ -52,10 +52,8 @@ class HomeViewController: UIViewController {
         
         myRef = Database.database().reference()
         
-        
-        collectionViewConstraint.constant = 40
+        collectionViewConstraint.constant = 0
 
-        
         dataBaseTypeAdd()
         dataBaseTaskAdd()
         
