@@ -14,7 +14,7 @@ class RequestToolsTableViewCell: UITableViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userContentTxtView: UITextView!
     @IBOutlet weak var agreeButton: UIButton!
-    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var starOne: UIButton!
     @IBOutlet weak var starTwo: UIButton!
     @IBOutlet weak var starThree: UIButton!

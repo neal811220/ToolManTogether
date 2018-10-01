@@ -16,7 +16,7 @@ class SearchTaskCell: UITableViewCell {
         super.awakeFromNib()
         searchTaskView.layer.cornerRadius = 22
         searchTaskView.layer.borderWidth = 1
-        searchTaskView.layer.borderColor = #colorLiteral(red: 0.9568627451, green: 0.7215686275, blue: 0, alpha: 1)
+        searchTaskView.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

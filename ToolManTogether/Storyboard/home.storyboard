@@ -55,9 +55,23 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfc-0E-6DG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜尋任務" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhH-xq-QNj">
+                                        <rect key="frame" x="153.5" y="28" width="68" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="TA4-8B-BSN"/>
+                                            <constraint firstAttribute="width" constant="68" id="fUe-B5-eAS"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" red="0.98039215686274506" green="0.7686274509803922" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="vhH-xq-QNj" firstAttribute="top" secondItem="Xfc-0E-6DG" secondAttribute="top" constant="28" id="PWO-Y6-s1a"/>
                                     <constraint firstAttribute="height" constant="65" id="dXa-ka-TEP"/>
+                                    <constraint firstItem="vhH-xq-QNj" firstAttribute="centerX" secondItem="Xfc-0E-6DG" secondAttribute="centerX" id="lEs-8d-00a"/>
                                 </constraints>
                             </view>
                         </subviews>

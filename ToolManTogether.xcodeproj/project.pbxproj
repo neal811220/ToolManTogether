@@ -163,24 +163,12 @@
 		8E097DD421536D55006B574E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */,
-				8ED727A72154D80000EE697F /* AddTaskTitleCell.xib */,
-				8ED727A32154D0CB00EE697F /* AddTaskInfoCell.xib */,
-				8E58D776215513DB008274F1 /* AddTaskContentCell.xib */,
-				8E58D77A2155369B008274F1 /* AddTaskTypeCell.xib */,
-				8E58D77E215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib */,
+				8EB0A2112161B46600FD81F1 /* Profile */,
+				8EB0A2102161B41E00FD81F1 /* Current */,
+				8EB0A20F2161B3F500FD81F1 /* Already */,
+				8EDB25722161B0E700DBBF6D /* Add */,
+				8EDB25712161B0B800DBBF6D /* Home */,
 				8E28F7FA215B6AA6004954F0 /* TaskDetailInfoView.xib */,
-				8E8EC458215CCAB800CCABE7 /* searchTaskCell.xib */,
-				8ECAB996215E14CD00649128 /* RequestCell.xib */,
-				8ECAB99A215E177A00649128 /* RequestCollectionViewCell.xib */,
-				8EC92176215F146C00BEE92D /* RequestToolsTableViewCell.xib */,
-				8EC9217A215F87FE00BEE92D /* ProfileCell.xib */,
-				8E7575CA215FE9FA0021A403 /* ProfileDetailCell.xib */,
-				8EA01DA42160554B00104A55 /* ProfileServcedListCell.xib */,
-				8EA01DA821606C3500104A55 /* GoodCitizenCardCell.xib */,
-				8EDA662D2160A0EF009FFB8D /* ServcedListCell.xib */,
-				8EDA66352160B8EF009FFB8D /* TaskAgreeInfoCell.xib */,
-				8EDB25642160F7A000DBBF6D /* TaskAgreeMapCell.xib */,
 				8EDB256F2161137F00DBBF6D /* ScoreSendView.xib */,
 			);
 			path = View;
@@ -249,34 +237,16 @@
 		8E5BB6F62151EC820016C44A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8EB0A2182161BA7000FD81F1 /* New Group1 */,
+				8EB0A2172161B9F700FD81F1 /* Profile */,
+				8EB0A2162161B9C600FD81F1 /* Current */,
+				8EB0A2152161B95400FD81F1 /* Already */,
+				8EB0A2142161B59700FD81F1 /* Add */,
+				8EB0A2132161B56C00FD81F1 /* Already */,
+				8EB0A2122161B54300FD81F1 /* Home */,
 				8E5BB6F72151ECB50016C44A /* LoginViewController.swift */,
 				8E097DC621534179006B574E /* TabBarViewController.swift */,
-				8E097DCA21534579006B574E /* HomeViewController.swift */,
-				8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */,
-				8ED727A02154C8FE00EE697F /* AddTaskViewController.swift */,
-				8ED727A22154D0CB00EE697F /* AddTaskInfoCell.swift */,
-				8ED727A62154D80000EE697F /* AddTaskTitleCell.swift */,
-				8E58D775215513DB008274F1 /* AddTaskContentCell.swift */,
-				8E58D7792155369B008274F1 /* AddTaskTypeCell.swift */,
-				8E58D77D215537D6008274F1 /* AddTaskTypeCollectionViewCell.swift */,
 				8E28F7F8215B6A6E004954F0 /* TaskDetailInfoView.swift */,
-				8EEC330E215C885D00DE8C31 /* SearchTaskViewController.swift */,
-				8EEC3312215C924A00DE8C31 /* HistoryTaskViewController.swift */,
-				8EEC3316215CA24300DE8C31 /* ProfileViewController.swift */,
-				8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */,
-				8ECAB995215E14CD00649128 /* RequestCell.swift */,
-				8ECAB999215E177A00649128 /* RequestCollectionViewCell.swift */,
-				8EC92175215F146C00BEE92D /* RequestToolsTableViewCell.swift */,
-				8EC92179215F87FE00BEE92D /* ProfileCell.swift */,
-				8E7575C9215FE9FA0021A403 /* ProfileDetailCell.swift */,
-				8EA01DA32160554B00104A55 /* ProfileServcedListCell.swift */,
-				8EA01DA721606C3500104A55 /* GoodCitizenCardCell.swift */,
-				8EA01DAD2160836300104A55 /* ServcedListViewController.swift */,
-				8EDA662C2160A0EF009FFB8D /* ServcedListCell.swift */,
-				8EDA66322160B889009FFB8D /* TaskAgreeViewController.swift */,
-				8EDA66342160B8EF009FFB8D /* TaskAgreeInfoCell.swift */,
-				8EDB25632160F7A000DBBF6D /* TaskAgreeMapCell.swift */,
-				8EDB256D2161135400DBBF6D /* ScoreSendView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -313,6 +283,133 @@
 				8E6C6A75215232F8007259D3 /* HTTPClient.swift */,
 			);
 			path = HTTP;
+			sourceTree = "<group>";
+		};
+		8EB0A20F2161B3F500FD81F1 /* Already */ = {
+			isa = PBXGroup;
+			children = (
+				8E8EC458215CCAB800CCABE7 /* searchTaskCell.xib */,
+			);
+			path = Already;
+			sourceTree = "<group>";
+		};
+		8EB0A2102161B41E00FD81F1 /* Current */ = {
+			isa = PBXGroup;
+			children = (
+				8ECAB996215E14CD00649128 /* RequestCell.xib */,
+				8ECAB99A215E177A00649128 /* RequestCollectionViewCell.xib */,
+				8EC92176215F146C00BEE92D /* RequestToolsTableViewCell.xib */,
+				8EDA66352160B8EF009FFB8D /* TaskAgreeInfoCell.xib */,
+				8EDB25642160F7A000DBBF6D /* TaskAgreeMapCell.xib */,
+			);
+			path = Current;
+			sourceTree = "<group>";
+		};
+		8EB0A2112161B46600FD81F1 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				8EC9217A215F87FE00BEE92D /* ProfileCell.xib */,
+				8E7575CA215FE9FA0021A403 /* ProfileDetailCell.xib */,
+				8EA01DA42160554B00104A55 /* ProfileServcedListCell.xib */,
+				8EA01DA821606C3500104A55 /* GoodCitizenCardCell.xib */,
+				8EDA662D2160A0EF009FFB8D /* ServcedListCell.xib */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		8EB0A2122161B54300FD81F1 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				8E097DCA21534579006B574E /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		8EB0A2132161B56C00FD81F1 /* Already */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Already;
+			sourceTree = "<group>";
+		};
+		8EB0A2142161B59700FD81F1 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				8ED727A02154C8FE00EE697F /* AddTaskViewController.swift */,
+				8ED727A22154D0CB00EE697F /* AddTaskInfoCell.swift */,
+				8ED727A62154D80000EE697F /* AddTaskTitleCell.swift */,
+				8E58D775215513DB008274F1 /* AddTaskContentCell.swift */,
+				8E58D7792155369B008274F1 /* AddTaskTypeCell.swift */,
+				8E58D77D215537D6008274F1 /* AddTaskTypeCollectionViewCell.swift */,
+				8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
+		8EB0A2152161B95400FD81F1 /* Already */ = {
+			isa = PBXGroup;
+			children = (
+				8EEC330E215C885D00DE8C31 /* SearchTaskViewController.swift */,
+				8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */,
+			);
+			name = Already;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		8EB0A2162161B9C600FD81F1 /* Current */ = {
+			isa = PBXGroup;
+			children = (
+				8EEC3312215C924A00DE8C31 /* HistoryTaskViewController.swift */,
+				8ECAB995215E14CD00649128 /* RequestCell.swift */,
+				8ECAB999215E177A00649128 /* RequestCollectionViewCell.swift */,
+				8EC92175215F146C00BEE92D /* RequestToolsTableViewCell.swift */,
+				8EDA66322160B889009FFB8D /* TaskAgreeViewController.swift */,
+				8EDA66342160B8EF009FFB8D /* TaskAgreeInfoCell.swift */,
+				8EDB25632160F7A000DBBF6D /* TaskAgreeMapCell.swift */,
+				8EDB256D2161135400DBBF6D /* ScoreSendView.swift */,
+			);
+			path = Current;
+			sourceTree = "<group>";
+		};
+		8EB0A2172161B9F700FD81F1 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				8EEC3316215CA24300DE8C31 /* ProfileViewController.swift */,
+				8EC92179215F87FE00BEE92D /* ProfileCell.swift */,
+				8E7575C9215FE9FA0021A403 /* ProfileDetailCell.swift */,
+				8EA01DA32160554B00104A55 /* ProfileServcedListCell.swift */,
+				8EA01DA721606C3500104A55 /* GoodCitizenCardCell.swift */,
+				8EA01DAD2160836300104A55 /* ServcedListViewController.swift */,
+				8EDA662C2160A0EF009FFB8D /* ServcedListCell.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		8EB0A2182161BA7000FD81F1 /* New Group1 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group1";
+			sourceTree = "<group>";
+		};
+		8EDB25712161B0B800DBBF6D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		8EDB25722161B0E700DBBF6D /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				8ED727A32154D0CB00EE697F /* AddTaskInfoCell.xib */,
+				8ED727A72154D80000EE697F /* AddTaskTitleCell.xib */,
+				8E58D776215513DB008274F1 /* AddTaskContentCell.xib */,
+				8E58D77A2155369B008274F1 /* AddTaskTypeCell.xib */,
+				8E58D77E215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib */,
+			);
+			path = Add;
 			sourceTree = "<group>";
 		};
 		C750D43D3BBE8D4EBB4053FC /* Pods */ = {

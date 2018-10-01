@@ -17,7 +17,10 @@ class ProfileServcedListCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        photoOne.layer.cornerRadius = 10
+        photoTwo.layer.cornerRadius = 10
+        photoThree.layer.cornerRadius = 10
+        viewFour.layer.cornerRadius = 10
 
     }
 

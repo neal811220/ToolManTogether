@@ -41,7 +41,5 @@ class ScoreSendView: UIView {
     @IBAction func submit(_ sender: Any) {
         print("送出評分")
     }
-    
-    
 }
 

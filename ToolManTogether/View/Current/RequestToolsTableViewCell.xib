@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -166,12 +162,12 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="agreeButton" destination="DJv-ka-rjr" id="dAN-8z-9IO"/>
+                <outlet property="distanceLabel" destination="SSN-nC-ELj" id="a6S-qZ-CeW"/>
                 <outlet property="starFive" destination="X6n-sk-F1K" id="iHl-0O-r1C"/>
                 <outlet property="starFour" destination="ddw-yo-emV" id="9Wv-vA-ZG8"/>
                 <outlet property="starOne" destination="3FO-ik-yuE" id="COM-Nl-D3M"/>
                 <outlet property="starThree" destination="Amk-H7-Hdd" id="QUD-4f-FE3"/>
                 <outlet property="starTwo" destination="Yzc-gw-w9z" id="jKS-dg-QJ2"/>
-                <outlet property="timeLabel" destination="SSN-nC-ELj" id="a6S-qZ-CeW"/>
                 <outlet property="userContentTxtView" destination="gOW-DJ-SZu" id="EUa-i7-klh"/>
                 <outlet property="userNameLabel" destination="3Ns-EN-7PJ" id="v0R-Xl-yYY"/>
                 <outlet property="userPhoto" destination="9M2-f0-rVD" id="A37-Wk-76r"/>
