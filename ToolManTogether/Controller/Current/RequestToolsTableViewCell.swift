@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol TableViewCellDelegate: AnyObject {
+    func tableViewCellDidTapAgreeBtn(_ send: RequestToolsTableViewCell)
+}
+
 class RequestToolsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var userPhoto: UIImageView!
@@ -37,7 +41,6 @@ class RequestToolsTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
     
     @IBAction func agreeTapped(_ sender: Any) {
         delegate?.tableViewCellDidTapAgreeBtn(self)

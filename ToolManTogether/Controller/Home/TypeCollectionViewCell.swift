@@ -17,5 +17,4 @@ class TypeCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         typeView.layer.cornerRadius = typeView.frame.width / 2
     }
-
 }

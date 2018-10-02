@@ -8,12 +8,9 @@
 
 import UIKit
 
-protocol TableViewCellDelegate: class {
-    func tableViewCellDidTapAgreeBtn(_ send: RequestToolsTableViewCell)
-}
+
 
 class HistoryTaskViewController: UIViewController {
-    
     
     @IBOutlet weak var historyTableView: UITableView!
     
@@ -67,11 +64,13 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
 }
 
 extension HistoryTaskViewController: TableViewCellDelegate {
-    func tableViewCellDidTapAgreeBtn(_ send: RequestToolsTableViewCell) {
+    func tableViewCellDidTapAgreeBtn(_ cell: RequestToolsTableViewCell) {
         
-        guard let sselectIndex = self.historyTableView.indexPath(for: send) else {
+        guard let selectIndex = self.historyTableView.indexPath(for: cell) else {
             return
         }
+        
+        print(selectIndex)
         
         let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
         

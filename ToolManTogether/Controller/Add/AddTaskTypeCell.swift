@@ -33,7 +33,7 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.collectionViewLayout = flowLayout
         
         myRef = Database.database().reference()

@@ -126,9 +126,7 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
         } else if indexPath.section == 2 {
-            
-
-            
+        
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "TypeTableVIewCell", for: indexPath) as? AddTaskTypeCell {
                 cell.typeTitleCompletion = { [weak self] (result) in
@@ -162,15 +160,10 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return UITableViewCell()
     }
-    
-
-
 }
 
 extension AddTaskViewController: UITextViewDelegate {
-    
 
-    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "Content" {
             textView.text = ""
@@ -180,7 +173,7 @@ extension AddTaskViewController: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
-            textView.resignFirstResponder()
+//            textView.resignFirstResponder()
         }
         return true
     }
