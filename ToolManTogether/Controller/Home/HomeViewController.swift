@@ -102,49 +102,28 @@ class HomeViewController: UIViewController {
     func dataBaseTaskAdd() {
         myRef.child("Task").observe(.childAdded) { (snapshot) in
             guard let value = snapshot.value as? NSDictionary else { return }
-            guard let title = value["Title"] as? String else { return }
-            guard let content = value["Content"] as? String else { return }
-            guard let price = value["Price"] as? String else { return }
             guard let type = value["Type"] as? String else { return }
             guard let taskLat = value["lat"] as? Double else { return }
             guard let taskLon = value["lon"] as? Double else { return }
-            guard let userID = value["UserID"] as? String else { return }
-            guard let userName = value["UserName"] as? String else { return }
-
-            let userTaskInfo = UserTaskInfo(userID: userID, userName: userName, title: title, content: content, type: type, price: price, taskLat: taskLat, taskLon: taskLon)
-            
-//            self.allUserTask.append(userTaskInfo)
-            
             self.addMapTaskPoint(taskLat: taskLat, taskLon: taskLon, type: type)
-            
         }
-        updataTaskUserPhoto()
     }
     
     func dataBaseTaskRemove() {
         myRef.child("Task").observe(.childRemoved) { (snapshot) in
             guard let value = snapshot.value as? NSDictionary else { return }
-            guard let title = value["Title"] as? String else { return }
-            guard let content = value["Content"] as? String else { return }
-            guard let price = value["Price"] as? String else { return }
-            guard let type = value["Type"] as? String else { return }
             guard let taskLat = value["lat"] as? Double else { return }
             guard let taskLon = value["lon"] as? Double else { return }
-            guard let userID = value["UserID"] as? String else { return }
-            guard let userName = value["UserName"] as? String else { return }
-            
             self.removeMapTaskPoint(taskLat: taskLat, taskLon: taskLon)
         }
     }
 
     
-    func updataTaskUserPhoto() {
+    func updataTaskUserPhoto(userID: String) {
         
         let storageRef = Storage.storage().reference()
         
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        
-        storageRef.child("UserPhoto").child(userId).downloadURL(completion: { (url, error) in
+        storageRef.child("UserPhoto").child(userID).downloadURL(completion: { (url, error) in
             
             if let error = error {
                 print("User photo download Fail: \(error.localizedDescription)")
@@ -180,12 +159,12 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func centerMapBtnWasPressed(_ sender: Any) {
-        print(authorizationStatus)
         if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
             centerMapOnUserLocation()
         }
     }
     
+    // 縮回去時 加上取消
     func addTap(taskCoordinate: CLLocationCoordinate2D) {
         let mapTap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
         mapView.addGestureRecognizer(mapTap)
@@ -203,27 +182,33 @@ class HomeViewController: UIViewController {
                 guard let price = dictionary["Price"] as? String else { return }
                 guard let type = dictionary["Type"] as? String else { return }
                 guard let userName = dictionary["UserName"] as? String else { return }
-                
-                self.pullUpDetailView.taskTitleLabel.text = title
-                self.pullUpDetailView.taskContentTxtView.text = content
-                self.pullUpDetailView.priceLabel.text = price
-                self.pullUpDetailView.userName.text = userName
-                self.pullUpDetailView.typeLabel.text = type
+                guard let userID = dictionary["UserID"] as? String else { return }
                 
                 guard let myLocation = self.locationManager.location else {
                     return
                 }
+                
                 let taskLocation = CLLocation(latitude: taskCoordinate.latitude, longitude: taskCoordinate.longitude)
                 
                 let distance = myLocation.distance(from: taskLocation) / 1000
                 
                 let roundDistance = round(distance * 100) / 100
-                
+                self.updataTaskUserPhoto(userID: userID)
+                self.pullUpDetailView.taskTitleLabel.text = title
+                self.pullUpDetailView.taskContentTxtView.text = content
+                self.pullUpDetailView.priceLabel.text = price
+                self.pullUpDetailView.userName.text = userName
+                self.pullUpDetailView.typeLabel.text = type
                 self.pullUpDetailView.distanceLabel.text = "\(roundDistance)km"
+                self.pullUpDetailView.sendButton.addTarget(self, action: #selector(self.requestBtnSend), for: .touchUpInside)
             }
         }
         
         self.mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    @objc func requestBtnSend() {
+        print("TestSSS")
     }
     
     func searchFireBase(
@@ -316,8 +301,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         mapView.removeAnnotations(allAnnotationArray)
-        
-        print(indexPath)
         
         switch indexPath.row {
         // 科技維修
@@ -426,6 +409,11 @@ extension HomeViewController: MKMapViewDelegate {
         guard let coordinate = view.annotation?.coordinate else {
             return
         }
+        
+        guard coordinate != locationManager.location?.coordinate else {
+            return
+        }
+        
         addTap(taskCoordinate: coordinate)
         
         animateViewUp()
