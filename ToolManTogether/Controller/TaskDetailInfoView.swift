@@ -45,9 +45,9 @@ class TaskDetailInfoView: UIView {
         contentView.fixInView(self)
     }
     
-//    @IBAction func request(_ sender: Any) {
-//        print("Send")
-//    }
+    @IBAction func request(_ sender: Any) {
+        print("Send")
+    }
     
 }
 

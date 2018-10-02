@@ -29,7 +29,4 @@ class AddTaskInfoCell: UITableViewCell, UITextFieldDelegate {
             titleCompletion?(titleTxt)
         }
     }
-    
-    
-    
 }

@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
     var locationManager = CLLocationManager()
     let authorizationStatus = CLLocationManager.authorizationStatus()
     var regionRadious: Double = 1000
-    var allUserTask: [UserTaskInfo] = []
+    var selectTask: [UserTaskInfo] = []
     let screenSize = UIScreen.main.bounds.size
     let loginVC = LoginViewController()
     var techAnnotationArray: [MKAnnotation] = []
@@ -58,7 +58,8 @@ class HomeViewController: UIViewController {
         let cellNib = UINib(nibName: "TypeCollectionViewCell", bundle: nil)
         self.typeCollectionView.register(cellNib, forCellWithReuseIdentifier: "typeCell")
         
-        typeCollectionView.register(cellNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "typeCell")
+        typeCollectionView.register(cellNib,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "typeCell")
         
         myRef = Database.database().reference()
         
@@ -79,7 +80,6 @@ class HomeViewController: UIViewController {
         
     }
     
-
     func dataBaseTypeAdd() {
         myRef.child("TaskType").observeSingleEvent(of: .value) { (snapshot) in
             guard let value = snapshot.value as? [String: String] else { return }
@@ -106,6 +106,7 @@ class HomeViewController: UIViewController {
             guard let taskLat = value["lat"] as? Double else { return }
             guard let taskLon = value["lon"] as? Double else { return }
             self.addMapTaskPoint(taskLat: taskLat, taskLon: taskLon, type: type)
+           
         }
     }
     
@@ -117,7 +118,6 @@ class HomeViewController: UIViewController {
             self.removeMapTaskPoint(taskLat: taskLat, taskLon: taskLon)
         }
     }
-
     
     func updataTaskUserPhoto(userID: String) {
         
@@ -173,8 +173,10 @@ class HomeViewController: UIViewController {
             latitudinalMeters: regionRadious * 0.2,
             longitudinalMeters: regionRadious * 0.2)
         
-        searchFireBase(child: "Task", byChild: "searchAnnotation", toValue: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)") { (data) in
-            for value in data.allValues{
+        searchFireBase(child: "Task", byChild: "searchAnnotation",
+                       toValue: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)") { (data) in
+            
+            for value in data.allValues {
                 
                 guard let dictionary = value as? [String: Any] else { return }
                 guard let title = dictionary["Title"] as? String else { return }
@@ -189,10 +191,21 @@ class HomeViewController: UIViewController {
                 }
                 
                 let taskLocation = CLLocation(latitude: taskCoordinate.latitude, longitude: taskCoordinate.longitude)
-                
                 let distance = myLocation.distance(from: taskLocation) / 1000
-                
                 let roundDistance = round(distance * 100) / 100
+                
+                 let selectTask = UserTaskInfo(userID: userID,
+                                               userName: userName,
+                                               title: title,
+                                               content: content,
+                                               type: type,
+                                               price: price,
+                                               taskLat: taskCoordinate.latitude,
+                                               taskLon: taskCoordinate.longitude,
+                                               checkTask: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)")
+                
+                self.selectTask.append(selectTask)
+                
                 self.updataTaskUserPhoto(userID: userID)
                 self.pullUpDetailView.taskTitleLabel.text = title
                 self.pullUpDetailView.taskContentTxtView.text = content
@@ -200,7 +213,8 @@ class HomeViewController: UIViewController {
                 self.pullUpDetailView.userName.text = userName
                 self.pullUpDetailView.typeLabel.text = type
                 self.pullUpDetailView.distanceLabel.text = "\(roundDistance)km"
-                self.pullUpDetailView.sendButton.addTarget(self, action: #selector(self.requestBtnSend), for: .touchUpInside)
+                self.pullUpDetailView.sendButton.addTarget(self,
+                                                           action: #selector(self.requestBtnSend), for: .touchUpInside)
             }
         }
         
@@ -208,7 +222,39 @@ class HomeViewController: UIViewController {
     }
     
     @objc func requestBtnSend() {
-        print("TestSSS")
+        
+        print("test")
+        
+        let autoID = myRef.childByAutoId().key
+
+        guard let selectData = selectTask.last else { return }
+        
+            myRef.child("RequestTask")
+                .queryOrdered(byChild: "checkTask").queryEqual(toValue: "\(selectData.taskLat)_\(selectData.taskLon)")
+                .observeSingleEvent(of: .value, with: { (snapshot) in
+                    
+                    print(snapshot.value.debugDescription)
+                    print(snapshot.key.debugDescription)
+                    print(snapshot.debugDescription)
+                    
+                    guard snapshot.value as? NSDictionary == nil else {
+                        self.showAlert(content: "請耐心等待對方同意")
+                        return
+                    }
+                    
+                    self.myRef.child("RequestTask").child(autoID!).setValue([
+                        "Title": selectData.title,
+                        "Content": selectData.content,
+                        "UserName": selectData.userName,
+                        "UserID": selectData.userID,
+                        "Type": selectData.type,
+                        "Price": selectData.price,
+                        "Lat": selectData.taskLat,
+                        "Lon": selectData.taskLon,
+                        "checkTask": "\(selectData.taskLat)_\(selectData.taskLon)"])
+                }) { (error) in
+                    print(error.localizedDescription)
+        }
     }
     
     func searchFireBase(
@@ -220,7 +266,6 @@ class HomeViewController: UIViewController {
         myRef.child(child)
             .queryOrdered(byChild: byChild).queryEqual(toValue: toValue)
             .observeSingleEvent(of: .value, with: { (snapshot) in
-                
                 guard let data = snapshot.value as? NSDictionary else { return }
                 success(data)
             }) { (error) in
@@ -246,6 +291,13 @@ class HomeViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
+    }
+    
+    func showAlert(title: String = "Already Request", content: String) {
+        let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
@@ -338,8 +390,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
-
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
@@ -358,7 +408,6 @@ extension HomeViewController: MKMapViewDelegate {
     
     // To Change the maker view
 
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "taskPin")
@@ -371,7 +420,6 @@ extension HomeViewController: MKMapViewDelegate {
             return nil
         }
         
-
         allAnnotationArray.append(annotation)
         
         switch annotation.title {
@@ -419,7 +467,6 @@ extension HomeViewController: MKMapViewDelegate {
         animateViewUp()
         addSwipe()
     }
-    
     
     func centerMapOnUserLocation() {
         guard let coordinate = locationManager.location?.coordinate else {

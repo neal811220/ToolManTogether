@@ -116,5 +116,3 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     }
     
 }
-
-

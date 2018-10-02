@@ -18,6 +18,7 @@ struct UserTaskInfo {
     var price: String
     var taskLat: Double
     var taskLon: Double
+    var checkTask: String
 }
 
 class TaskPin: NSObject, MKAnnotation {

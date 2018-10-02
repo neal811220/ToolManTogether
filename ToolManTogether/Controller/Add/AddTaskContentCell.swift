@@ -22,6 +22,4 @@ class AddTaskContentCell: UITableViewCell, UITextViewDelegate {
         super.setSelected(selected, animated: animated)
 
     }
-
-    
 }
