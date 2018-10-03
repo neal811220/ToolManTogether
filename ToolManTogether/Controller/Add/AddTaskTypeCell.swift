@@ -13,14 +13,12 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    
     var myRef: DatabaseReference!
     var typeTxtArray: [String] = []
     var typeColorArray: [String] = []
     var typeTitleCompletion: ((_ data: String) -> Void)?
     var typeBtnPressed = false
 
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -76,10 +74,7 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         }
         return UICollectionViewCell()
     }
-    
 
-    
-    
     @objc func typeButtonPressed(button: UIButton) {
         if let typeButtonTxt = button.titleLabel?.text  {
             typeTitleCompletion?(typeButtonTxt)

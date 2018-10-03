@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import FirebaseAuth
+import SDWebImage
+import FirebaseDatabase
 
 class ProfileViewController: UIViewController {
     
     @IBOutlet weak var profileTableView: UITableView!
+    
+    var myRef: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +33,13 @@ class ProfileViewController: UIViewController {
         
         let goodCitizenNib = UINib(nibName: "GoodCitizenCardCell", bundle: nil)
         self.profileTableView.register(goodCitizenNib, forCellReuseIdentifier: "goodCitizen")
+        
+        myRef = Database.database().reference()
 
     }
+    
+    
+    
     
 }
 
@@ -48,6 +58,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "profileTitle",
                                                         for: indexPath) as? ProfileCell {
+                cell.userName.text = "test"
                 return cell
             }
         } else if indexPath.section == 1 {

@@ -30,7 +30,8 @@ class HomeViewController: UIViewController {
     var locationManager = CLLocationManager()
     let authorizationStatus = CLLocationManager.authorizationStatus()
     var regionRadious: Double = 1000
-    var selectTask: [UserTaskInfo] = []
+    var selectTask: UserTaskInfo?
+    var selectTaskKey: String?
     let screenSize = UIScreen.main.bounds.size
     let loginVC = LoginViewController()
     var techAnnotationArray: [MKAnnotation] = []
@@ -175,10 +176,11 @@ class HomeViewController: UIViewController {
         
         searchFireBase(child: "Task", byChild: "searchAnnotation",
                        toValue: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)") { (data) in
+                        
             
-            for value in data.allValues {
-                
-                guard let dictionary = value as? [String: Any] else { return }
+            for value in data {
+                guard let keyValue = value.key as? String else { return }
+                guard let dictionary = value.value as? [String: Any] else { return }
                 guard let title = dictionary["Title"] as? String else { return }
                 guard let content = dictionary["Content"] as? String else { return }
                 guard let price = dictionary["Price"] as? String else { return }
@@ -194,7 +196,9 @@ class HomeViewController: UIViewController {
                 let distance = myLocation.distance(from: taskLocation) / 1000
                 let roundDistance = round(distance * 100) / 100
                 
-                 let selectTask = UserTaskInfo(userID: userID,
+                self.selectTaskKey = keyValue
+                
+                self.selectTask = UserTaskInfo(userID: userID,
                                                userName: userName,
                                                title: title,
                                                content: content,
@@ -202,9 +206,7 @@ class HomeViewController: UIViewController {
                                                price: price,
                                                taskLat: taskCoordinate.latitude,
                                                taskLon: taskCoordinate.longitude,
-                                               checkTask: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)")
-                
-                self.selectTask.append(selectTask)
+                                               checkTask: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)", distance: roundDistance)
                 
                 self.updataTaskUserPhoto(userID: userID)
                 self.pullUpDetailView.taskTitleLabel.text = title
@@ -223,22 +225,17 @@ class HomeViewController: UIViewController {
     
     @objc func requestBtnSend() {
         
-        print("test")
-        
         let autoID = myRef.childByAutoId().key
 
-        guard let selectData = selectTask.last else { return }
+        guard let selectData = selectTask else { return }
+        guard let selectDataKey = selectTaskKey else { return }
         
             myRef.child("RequestTask")
                 .queryOrdered(byChild: "checkTask").queryEqual(toValue: "\(selectData.taskLat)_\(selectData.taskLon)")
                 .observeSingleEvent(of: .value, with: { (snapshot) in
                     
-                    print(snapshot.value.debugDescription)
-                    print(snapshot.key.debugDescription)
-                    print(snapshot.debugDescription)
-                    
                     guard snapshot.value as? NSDictionary == nil else {
-                        self.showAlert(content: "請耐心等待對方同意")
+                        self.showAlert(content: "請耐心等待對方同意，或尋找其他任務")
                         return
                     }
                     
@@ -251,11 +248,22 @@ class HomeViewController: UIViewController {
                         "Price": selectData.price,
                         "Lat": selectData.taskLat,
                         "Lon": selectData.taskLon,
-                        "checkTask": "\(selectData.taskLat)_\(selectData.taskLon)"])
+                        "checkTask": "\(selectData.taskLat)_\(selectData.taskLon)",
+                        "distance": selectData.distance])
+                    
+                    self.sendRequestToOwner(taskKey: selectDataKey)
+                    
+                    NotificationCenter.default.post(name: .sendRequest, object: nil)
+                    
                 }) { (error) in
                     print(error.localizedDescription)
         }
     }
+    
+    func sendRequestToOwner(taskKey: String) {
+        myRef.child("Task").child(taskKey).child("Test").setValue(["test": "test"])
+    }
+    
     
     func searchFireBase(
         child: String,
@@ -293,7 +301,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-    func showAlert(title: String = "Already Request", content: String) {
+    func showAlert(title: String = "已申請過此任務", content: String) {
         let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(okAction)
@@ -323,12 +331,11 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         return UICollectionViewCell()
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: 103, height: 40)
     }
 
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind:
         String, at indexPath: IndexPath) -> UICollectionReusableView {
         
@@ -533,4 +540,9 @@ extension CLLocationCoordinate2D: Hashable {
 // Conform to the Equatable protocol.
 public func ==(mylhs: CLLocationCoordinate2D, myrhs: CLLocationCoordinate2D) -> Bool {
     return mylhs.latitude == myrhs.latitude && mylhs.longitude == myrhs.longitude
+}
+
+extension Notification.Name {
+    static let sendRequest = Notification.Name("sendRequest")
+    
 }

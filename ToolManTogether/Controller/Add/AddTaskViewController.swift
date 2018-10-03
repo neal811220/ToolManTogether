@@ -26,6 +26,12 @@ class AddTaskViewController: UIViewController {
     var locationManager = CLLocationManager()
     var myRef: DatabaseReference!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addTaskTableView.rowHeight = 100
+        addTaskTableView.rowHeight = UITableView.automaticDimension
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addTaskTableView.delegate = self
@@ -86,6 +92,8 @@ class AddTaskViewController: UIViewController {
             "lat": userCoordinate.latitude,
             "lon": userCoordinate.longitude,
             "searchAnnotation": "\(userCoordinate.latitude)_\(userCoordinate.longitude)"])
+        
+        NotificationCenter.default.post(name: .addTask, object: nil)
     }
     
     func showAlert(title: String = "Incomplete Information", content: String) {
@@ -188,4 +196,7 @@ extension AddTaskViewController: UITextViewDelegate {
     }
 }
 
+extension Notification.Name {
+    static let addTask = Notification.Name("addTask")
+}
 

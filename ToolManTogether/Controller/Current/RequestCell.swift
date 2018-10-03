@@ -8,6 +8,10 @@
 
 import UIKit
 import AnimatedCollectionViewLayout
+import FirebaseAuth
+import FirebaseStorage
+import SDWebImage
+import FirebaseDatabase
 
 
 class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -16,8 +20,9 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     @IBOutlet weak var titleLabel: UILabel!
     
     let layout = AnimatedCollectionViewLayout()
-    
     let screenSize = UIScreen.main.bounds.size
+    var myRef: DatabaseReference!
+    var addTask: [UserTaskInfo] = []
     
     
     override func awakeFromNib() {
@@ -35,20 +40,60 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         layout.scrollDirection = .horizontal
         collectionView.collectionViewLayout = layout
         
+        myRef = Database.database().reference()
+        createTaskAdd()
+        
+        let notificationName = Notification.Name("addTask")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.createTaskAdd), name: notificationName, object: nil)
+    }
+    
+    @objc func createTaskAdd () {
+        
+        self.addTask.removeAll()
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        myRef.child("Task").queryOrdered(byChild: "UserID").queryEqual(toValue: userID).observeSingleEvent(of: .value) { (snapshot) in
+            guard let data = snapshot.value as? NSDictionary else { return }
+            
+            for value in data.allValues {
+                
+                guard let dictionary = value as? [String: Any] else { return }
+                print(dictionary)
+                guard let title = dictionary["Title"] as? String else { return }
+                guard let content = dictionary["Content"] as? String else { return }
+                guard let price = dictionary["Price"] as? String else { return }
+                guard let type = dictionary["Type"] as? String else { return }
+                guard let userName = dictionary["UserName"] as? String else { return }
+                guard let userID = dictionary["UserID"] as? String else { return }
+                guard let taskLat = dictionary["lat"] as? Double else { return }
+                guard let taskLon = dictionary["lon"] as? Double else { return }
+
+                let task = UserTaskInfo(userID: userID,
+                                        userName: userName,
+                                        title: title,
+                                        content: content,
+                                        type: type, price: price,
+                                        taskLat: taskLat, taskLon: taskLon, checkTask: nil,
+                                        distance: nil)
+                self.addTask.append(task)
+            }
+            self.collectionView.reloadData()
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return addTask.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "requestCollectionView", for: indexPath) as? RequestCollectionViewCell {
-            print(indexPath.row)
+            let cellData = addTask[indexPath.row]
+            cell.requestCollectionView.taskTitleLabel.text = cellData.title
+            cell.requestCollectionView.taskContentTxtView.text = cellData.content
             cell.requestCollectionView.sendButton.setTitle("Cancel", for: .normal)
             self.titleLabel.text = "10筆任務"
             return cell
