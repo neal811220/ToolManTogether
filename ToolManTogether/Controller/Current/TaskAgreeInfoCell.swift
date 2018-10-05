@@ -8,14 +8,23 @@
 
 import UIKit
 
+protocol CallBtnTapped: AnyObject {
+    func callBtnTapped (_ send: UIButton)
+    func messageBtnTapped (_ send: UIButton)
+}
+
 class TaskAgreeInfoCell: UITableViewCell {
 
     @IBOutlet weak var contentTxtView: UITextView!
     @IBOutlet weak var callBtn: UIButton!
+    @IBOutlet weak var messageBtn: UIButton!
+    
+    weak var callBtnDelegate: CallBtnTapped?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         callBtn.layer.cornerRadius = 15
+        messageBtn.layer.cornerRadius = 15
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -23,8 +32,10 @@ class TaskAgreeInfoCell: UITableViewCell {
     }
     
     @IBAction func callBtnTapped(_ sender: Any) {
-        print("打電話")
+        callBtnDelegate?.callBtnTapped(self.callBtn)
     }
     
-    
+    @IBAction func messageBtnTapped(_ sender: Any) {
+        callBtnDelegate?.messageBtnTapped(self.messageBtn)
+    }
 }

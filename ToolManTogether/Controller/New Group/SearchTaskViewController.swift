@@ -58,16 +58,14 @@ class SearchTaskViewController: UIViewController {
                     guard let taskLon = dictionary["Lon"] as? Double else { return }
                     guard let checkTask = dictionary["checkTask"] as? String else { return }
                     guard let distance = dictionary["distance"] as? Double else { return }
-                    
-
-                    
+                    let time = dictionary["Time"] as? Int
                     let task = UserTaskInfo(userID: userID,
                                             userName: userName,
                                             title: title,
                                             content: content,
                                             type: type, price: price,
                                             taskLat: taskLat, taskLon: taskLon,
-                                            checkTask: checkTask, distance: distance, time: nil)
+                                            checkTask: checkTask, distance: distance, time: time)
                     
                     
 //                    if self.selectTask.count != 0 {
@@ -85,8 +83,8 @@ class SearchTaskViewController: UIViewController {
 //                        self.selectTask.append(task)
 //                    }
                     
-                    
                     self.selectTask.append(task)
+                    self.selectTask.sort(by: { $0.time! > $1.time!})
                 }
 
                 self.searchTaskTableVIew.reloadData()

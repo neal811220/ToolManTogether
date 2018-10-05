@@ -25,7 +25,8 @@ class TaskDetailInfoView: UIView {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
-    
+    @IBOutlet weak var priceImageView: UIImageView!
+    @IBOutlet weak var distanceImageView: UIImageView!
     
     
     override init(frame: CGRect) {

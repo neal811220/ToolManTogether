@@ -248,7 +248,8 @@ class HomeViewController: UIViewController {
                         "Lat": selectData.taskLat,
                         "Lon": selectData.taskLon,
                         "checkTask": "\(selectData.taskLat)_\(selectData.taskLon)",
-                        "distance": selectData.distance])
+                        "distance": selectData.distance,
+                        "Time": Double(Date().millisecondsSince1970)])
                     
                     self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance)
                     

@@ -14,14 +14,13 @@ protocol selectPhotoDelegate: AnyObject {
 
 class GoodCitizenCardCell: UITableViewCell, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    
     @IBOutlet weak var selectButton: UIButton!
     @IBOutlet weak var imagePicker: UIImageView!
     weak var photoBtnDelegage: selectPhotoDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        self.selectButton.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

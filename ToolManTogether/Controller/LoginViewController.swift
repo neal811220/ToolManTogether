@@ -97,11 +97,14 @@ class LoginViewController: UIViewController {
                     self.uploadImagePic(url: URL(string: photoURL)!)
                     
                     self.fbUserDefault.set(token, forKey: "token")
+                    
+                    guard let userID = Auth.auth().currentUser?.uid else { return }
 
                     self.dataRef.child("UserData").child(userId).updateChildValues([
                         "FBID": fbID,
                         "FBName": fbName,
-                        "FBEmail": fbEmail])
+                        "FBEmail": fbEmail,
+                        "UserID": userID])
                 }
             }
         })

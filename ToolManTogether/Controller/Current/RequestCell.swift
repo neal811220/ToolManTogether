@@ -121,7 +121,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             cell.requestCollectionView.sendButton.setTitle("Cancel", for: .normal)
             cell.requestCollectionView.priceLabel.text = cellData.price
             cell.requestCollectionView.typeLabel.text = cellData.type
-            cell.requestCollectionView.distanceLabel.isHidden = true
             self.titleLabel.text = "\(addTask.count)"
             return cell
         }
