@@ -15,6 +15,8 @@
 		8E097DD221536D22006B574E /* TypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */; };
 		8E097DD321536D22006B574E /* TypeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */; };
 		8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E25D317215249D800CD23F9 /* GoogleService-Info.plist */; };
+		8E28DF5621652DDF0077B259 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28DF5521652DDF0077B259 /* ProfileManager.swift */; };
+		8E28DF58216618FB0077B259 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28DF57216618FA0077B259 /* Date.swift */; };
 		8E28F7F9215B6A6E004954F0 /* TaskDetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28F7F8215B6A6E004954F0 /* TaskDetailInfoView.swift */; };
 		8E28F7FB215B6AA6004954F0 /* TaskDetailInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E28F7FA215B6AA6004954F0 /* TaskDetailInfoView.xib */; };
 		8E36B7532159E4C50073E7A6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E36B7522159E4C50073E7A6 /* Location.swift */; };
@@ -84,6 +86,8 @@
 		8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypeCollectionViewCell.xib; sourceTree = "<group>"; };
 		8E25D317215249D800CD23F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8E28DF5521652DDF0077B259 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
+		8E28DF57216618FA0077B259 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		8E28F7F8215B6A6E004954F0 /* TaskDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailInfoView.swift; sourceTree = "<group>"; };
 		8E28F7FA215B6AA6004954F0 /* TaskDetailInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskDetailInfoView.xib; sourceTree = "<group>"; };
 		8E36B7522159E4C50073E7A6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -181,6 +185,7 @@
 			children = (
 				8E36B7522159E4C50073E7A6 /* Location.swift */,
 				8E097DCC21534BDF006B574E /* UserManager.swift */,
+				8E28DF5521652DDF0077B259 /* ProfileManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -255,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				8E6C6A6D2151F6DC007259D3 /* UIStoryboard.swift */,
+				8E28DF57216618FA0077B259 /* Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -595,6 +601,7 @@
 				8E36B7532159E4C50073E7A6 /* Location.swift in Sources */,
 				8E5BB6F82151ECB50016C44A /* LoginViewController.swift in Sources */,
 				8E6C6A76215232F9007259D3 /* HTTPClient.swift in Sources */,
+				8E28DF5621652DDF0077B259 /* ProfileManager.swift in Sources */,
 				8E58D777215513DB008274F1 /* AddTaskContentCell.swift in Sources */,
 				8EB0A21E2162609200FD81F1 /* FilterAnnotation.swift in Sources */,
 				8E6C6A732152245E007259D3 /* FacebookManager.swift in Sources */,
@@ -618,6 +625,7 @@
 				8EC9217B215F87FE00BEE92D /* ProfileCell.swift in Sources */,
 				8E28F7F9215B6A6E004954F0 /* TaskDetailInfoView.swift in Sources */,
 				8ED727A42154D0CB00EE697F /* AddTaskInfoCell.swift in Sources */,
+				8E28DF58216618FB0077B259 /* Date.swift in Sources */,
 				8EDB256E2161135400DBBF6D /* ScoreSendView.swift in Sources */,
 				8E7575CB215FE9FA0021A403 /* ProfileDetailCell.swift in Sources */,
 				8E5BB6E22151E8830016C44A /* AppDelegate.swift in Sources */,

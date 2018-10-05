@@ -12,6 +12,7 @@ class ProfileCell: UITableViewCell {
     
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var userEmail: UILabel!
     @IBOutlet weak var userScoresLabel: UILabel!
     @IBOutlet weak var badgePhoto: UIImageView!
     @IBOutlet weak var starOne: UIButton!

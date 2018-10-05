@@ -13,8 +13,11 @@ import FirebaseStorage
 import SDWebImage
 import FirebaseDatabase
 
+protocol ScrollTask: AnyObject{
+    func didScrollTask(_ cell: String)
+}
 
-class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -23,7 +26,9 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     let screenSize = UIScreen.main.bounds.size
     var myRef: DatabaseReference!
     var addTask: [UserTaskInfo] = []
-    
+    private var indexOfCellBeforeDragging = 0
+    weak var scrollTaslDelegate: ScrollTask?
+    var checkIndex = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,6 +50,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         let notificationName = Notification.Name("addTask")
         NotificationCenter.default.addObserver(self, selector: #selector(self.createTaskAdd), name: notificationName, object: nil)
+        
     }
     
     @objc func createTaskAdd () {
@@ -54,11 +60,10 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         myRef.child("Task").queryOrdered(byChild: "UserID").queryEqual(toValue: userID).observeSingleEvent(of: .value) { (snapshot) in
             guard let data = snapshot.value as? NSDictionary else { return }
-            
+
             for value in data.allValues {
                 
                 guard let dictionary = value as? [String: Any] else { return }
-                print(dictionary)
                 guard let title = dictionary["Title"] as? String else { return }
                 guard let content = dictionary["Content"] as? String else { return }
                 guard let price = dictionary["Price"] as? String else { return }
@@ -67,6 +72,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 guard let userID = dictionary["UserID"] as? String else { return }
                 guard let taskLat = dictionary["lat"] as? Double else { return }
                 guard let taskLon = dictionary["lon"] as? Double else { return }
+                let time = dictionary["Time"] as? Int
 
                 let task = UserTaskInfo(userID: userID,
                                         userName: userName,
@@ -74,13 +80,31 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                                         content: content,
                                         type: type, price: price,
                                         taskLat: taskLat, taskLon: taskLon, checkTask: nil,
-                                        distance: nil)
+                                        distance: nil, time: time)
                 self.addTask.append(task)
+                self.addTask.sort(by: { $0.time! > $1.time! })
+
             }
             self.collectionView.reloadData()
         }
     }
-
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let scrollIndex = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+        print(scrollView)
+        print(scrollIndex)
+        print(scrollView.contentOffset.x)
+        print(scrollView.frame.width)
+        
+        if scrollIndex != checkIndex {
+            let searchAnnotation = "\(addTask[scrollIndex].taskLat)_\(addTask[scrollIndex].taskLon)"
+            scrollTaslDelegate?.didScrollTask(searchAnnotation)
+            checkIndex = scrollIndex
+        } else {
+        }
+    }
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -95,7 +119,10 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             cell.requestCollectionView.taskTitleLabel.text = cellData.title
             cell.requestCollectionView.taskContentTxtView.text = cellData.content
             cell.requestCollectionView.sendButton.setTitle("Cancel", for: .normal)
-            self.titleLabel.text = "10筆任務"
+            cell.requestCollectionView.priceLabel.text = cellData.price
+            cell.requestCollectionView.typeLabel.text = cellData.type
+            cell.requestCollectionView.distanceLabel.isHidden = true
+            self.titleLabel.text = "\(addTask.count)"
             return cell
         }
         return UICollectionViewCell()
@@ -119,5 +146,4 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         return 0
     }
     
-
 }

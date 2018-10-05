@@ -131,6 +131,7 @@
                 <outlet property="starOne" destination="qx4-ds-iBh" id="5nS-f0-V8x"/>
                 <outlet property="starThree" destination="qC7-2N-i4f" id="PlQ-QJ-kEw"/>
                 <outlet property="starTwo" destination="Chp-ya-35P" id="P83-0F-f7b"/>
+                <outlet property="userEmail" destination="gIf-yC-puj" id="Gmh-eO-x2e"/>
                 <outlet property="userName" destination="Ene-0c-Yk6" id="4IG-Lc-4lV"/>
                 <outlet property="userPhoto" destination="8zB-pU-G4S" id="4v4-cZ-awi"/>
                 <outlet property="userScoresLabel" destination="Iv7-4n-GSG" id="5ZC-aa-S4V"/>

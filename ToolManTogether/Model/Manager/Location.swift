@@ -20,7 +20,7 @@ struct UserTaskInfo {
     var taskLon: Double
     var checkTask: String?
     var distance: Double?
-    
+    var time: Int?
 }
 
 class TaskPin: NSObject, MKAnnotation {

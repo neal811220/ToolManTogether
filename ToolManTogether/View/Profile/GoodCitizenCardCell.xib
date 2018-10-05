@@ -26,22 +26,36 @@
                             <constraint firstAttribute="height" constant="543" id="Pse-bS-gyj"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="良民證 :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Gm-WM-2RG">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="良民證 :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Gm-WM-2RG">
                         <rect key="frame" x="16" y="16" width="61" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DLP-bJ-R3g">
+                        <rect key="frame" x="82" y="13" width="62" height="30"/>
+                        <state key="normal" title="選擇照片"/>
+                        <connections>
+                            <action selector="selectBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IhR-fN-iV3"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="yLn-x6-5JX" secondAttribute="trailing" constant="16" id="Ook-1K-19y"/>
+                    <constraint firstItem="DLP-bJ-R3g" firstAttribute="leading" secondItem="8Gm-WM-2RG" secondAttribute="trailing" constant="5" id="QlR-Cu-2Td"/>
                     <constraint firstItem="yLn-x6-5JX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="UmF-5t-nZR"/>
                     <constraint firstAttribute="bottom" secondItem="yLn-x6-5JX" secondAttribute="bottom" constant="10.5" id="X62-vQ-Qbe"/>
+                    <constraint firstItem="8Gm-WM-2RG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="mpU-TM-K9c"/>
+                    <constraint firstItem="DLP-bJ-R3g" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="pED-WI-LYz"/>
                     <constraint firstItem="yLn-x6-5JX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="54" id="twO-xd-G6N"/>
+                    <constraint firstItem="8Gm-WM-2RG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="u2L-CT-vFJ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="imagePicker" destination="yLn-x6-5JX" id="Erg-fI-AXy"/>
+                <outlet property="selectButton" destination="DLP-bJ-R3g" id="qHx-a8-zmB"/>
+            </connections>
             <point key="canvasLocation" x="55.200000000000003" y="187.1064467766117"/>
         </tableViewCell>
     </objects>

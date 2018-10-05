@@ -176,7 +176,6 @@ class HomeViewController: UIViewController {
         
         searchFireBase(child: "Task", byChild: "searchAnnotation",
                        toValue: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)") { (data) in
-                        
             
             for value in data {
                 guard let keyValue = value.key as? String else { return }
@@ -206,7 +205,7 @@ class HomeViewController: UIViewController {
                                                price: price,
                                                taskLat: taskCoordinate.latitude,
                                                taskLon: taskCoordinate.longitude,
-                                               checkTask: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)", distance: roundDistance)
+                                               checkTask: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)", distance: roundDistance, time: nil)
                 
                 self.updataTaskUserPhoto(userID: userID)
                 self.pullUpDetailView.taskTitleLabel.text = title
@@ -251,7 +250,7 @@ class HomeViewController: UIViewController {
                         "checkTask": "\(selectData.taskLat)_\(selectData.taskLon)",
                         "distance": selectData.distance])
                     
-                    self.sendRequestToOwner(taskKey: selectDataKey)
+                    self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance)
                     
                     NotificationCenter.default.post(name: .sendRequest, object: nil)
                     
@@ -260,10 +259,17 @@ class HomeViewController: UIViewController {
         }
     }
     
-    func sendRequestToOwner(taskKey: String) {
-        myRef.child("Task").child(taskKey).child("Test").setValue(["test": "test"])
-    }
     
+    func sendRequestToOwner(taskKey: String, distance: Double?) {
+        
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        guard let distance = distance else { return }
+        
+        myRef.child("Task").child(taskKey).child("RequestUser").updateChildValues([
+            "userID": userID,
+            "distance": distance,
+            "agree": false])
+    }
     
     func searchFireBase(
         child: String,

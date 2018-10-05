@@ -7,12 +7,18 @@
 //
 
 import UIKit
-
+import FirebaseAuth
+import SDWebImage
+import FirebaseDatabase
+import FirebaseStorage
 
 
 class HistoryTaskViewController: UIViewController {
     
     @IBOutlet weak var historyTableView: UITableView!
+    
+    var myRef: DatabaseReference!
+    var requestTools: [RequestUser] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +31,10 @@ class HistoryTaskViewController: UIViewController {
         
         let toosNib = UINib(nibName: "RequestToolsTableViewCell", bundle: nil)
         self.historyTableView.register(toosNib, forCellReuseIdentifier: "requestTools")
+        
+        myRef = Database.database().reference()
     }
+
     
 }
 
@@ -49,6 +58,7 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
         
         if indexPath.section == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "requestedCell", for: indexPath) as? RequestCell {
+                cell.scrollTaslDelegate = self
                 return cell
             }
         } else if indexPath.section == 1 {
@@ -76,6 +86,42 @@ extension HistoryTaskViewController: TableViewCellDelegate {
         
         if let viewController = storyBoard.instantiateViewController(withIdentifier: "taskAgreeVC") as? TaskAgreeViewController {
             self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+}
+
+extension HistoryTaskViewController: ScrollTask {
+    
+    func didScrollTask(_ cell: String) {
+        
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        myRef.child("Task").queryOrdered(byChild: "searchAnnotation")
+            .queryEqual(toValue: cell)
+            .observeSingleEvent(of: .value) { (snapshot) in
+            
+                guard let data = snapshot.value as? NSDictionary else { return }
+                
+                for value in data.allValues {
+                    
+                    guard let dictionary = value as? [String: Any] else { return }
+                    
+                    guard let requestUser = dictionary["RequestUser"] as? [String: Any] else { return }
+                    
+                    print(requestUser)
+                    
+                    guard let distance = requestUser["distance"] as? Double else { return }
+                    guard let userID = requestUser["userID"] as? String else { return }
+                    guard let agree = requestUser["agree"] as? Bool else { return }
+                    
+                    let requestData = RequestUser(agree: agree, distance: distance, userID: userID)
+                    
+                    print(requestData)
+                    
+                    
+                    
+                    
+                }
         }
     }
 }

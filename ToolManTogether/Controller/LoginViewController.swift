@@ -98,7 +98,7 @@ class LoginViewController: UIViewController {
                     
                     self.fbUserDefault.set(token, forKey: "token")
 
-                    self.dataRef.child("UserData").child(userId).setValue([
+                    self.dataRef.child("UserData").child(userId).updateChildValues([
                         "FBID": fbID,
                         "FBName": fbName,
                         "FBEmail": fbEmail])

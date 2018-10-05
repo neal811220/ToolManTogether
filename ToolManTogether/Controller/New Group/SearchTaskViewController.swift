@@ -58,6 +58,7 @@ class SearchTaskViewController: UIViewController {
                     guard let taskLon = dictionary["Lon"] as? Double else { return }
                     guard let checkTask = dictionary["checkTask"] as? String else { return }
                     guard let distance = dictionary["distance"] as? Double else { return }
+                    
 
                     
                     let task = UserTaskInfo(userID: userID,
@@ -66,7 +67,7 @@ class SearchTaskViewController: UIViewController {
                                             content: content,
                                             type: type, price: price,
                                             taskLat: taskLat, taskLon: taskLon,
-                                            checkTask: checkTask, distance: distance)
+                                            checkTask: checkTask, distance: distance, time: nil)
                     
                     
 //                    if self.selectTask.count != 0 {

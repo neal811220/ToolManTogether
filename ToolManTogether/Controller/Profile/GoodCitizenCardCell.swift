@@ -8,17 +8,40 @@
 
 import UIKit
 
-class GoodCitizenCardCell: UITableViewCell {
+protocol selectPhotoDelegate: AnyObject {
+    func selectBtnPressed(_ btnSend: UIButton, _ imageView: UIImageView)
+}
+
+class GoodCitizenCardCell: UITableViewCell, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    
+    @IBOutlet weak var selectButton: UIButton!
+    @IBOutlet weak var imagePicker: UIImageView!
+    weak var photoBtnDelegage: selectPhotoDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
+    
+    @IBAction func selectBtn(_ sender: Any) {
+        
+        photoBtnDelegage?.selectBtnPressed(self.selectButton, self.imagePicker)
+        
+//        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+//            var imagePicker = UIImagePickerController()
+//            imagePicker.delegate = self
+//            imagePicker.sourceType = .photoLibrary
+//            imagePicker.allowsEditing = true
+        
+//        }
+        
+    }
+    
     
 }

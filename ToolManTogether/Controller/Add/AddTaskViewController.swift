@@ -91,7 +91,8 @@ class AddTaskViewController: UIViewController {
             "UserName": userName,
             "lat": userCoordinate.latitude,
             "lon": userCoordinate.longitude,
-            "searchAnnotation": "\(userCoordinate.latitude)_\(userCoordinate.longitude)"])
+            "searchAnnotation": "\(userCoordinate.latitude)_\(userCoordinate.longitude)",
+            "Time": Double(Date().millisecondsSince1970)])
         
         NotificationCenter.default.post(name: .addTask, object: nil)
     }
