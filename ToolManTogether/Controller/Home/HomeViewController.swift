@@ -265,8 +265,8 @@ class HomeViewController: UIViewController {
         
         guard let userID = Auth.auth().currentUser?.uid else { return }
         guard let distance = distance else { return }
-        
-        myRef.child("Task").child(taskKey).child("RequestUser").updateChildValues([
+        let autoID = myRef.childByAutoId().key
+        myRef.child("Task").child(taskKey).child("RequestUser").child(autoID!).updateChildValues([
             "userID": userID,
             "distance": distance,
             "agree": false])

@@ -119,6 +119,8 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "requestTools", for: indexPath) as? RequestToolsTableViewCell {
                 cell.delegate = self
                 
+                
+                
                 let cellData = toolsInfo[indexPath.row]
                 let requestData = requestTools[indexPath.row]
                 cell.userNameLabel.text = cellData.fbName
@@ -172,16 +174,21 @@ extension HistoryTaskViewController: ScrollTask {
                 for value in data.allValues {
                     
                     guard let dictionary = value as? [String: Any] else { return }
-                    guard let requestUser = dictionary["RequestUser"] as? [String: Any] else { return }
-                    guard let distance = requestUser["distance"] as? Double else { return }
-                    guard let userID = requestUser["userID"] as? String else { return }
-                    guard let agree = requestUser["agree"] as? Bool else { return }
+                    guard let requestUser = dictionary["RequestUser"] as? NSDictionary else { return }
+                    print(requestUser)
                     
-                    let requestData = RequestUser(agree: agree, distance: distance, userID: userID)
-                    
-                    self.requestTools.append(requestData)
+                    for requestUserData in requestUser.allValues {
+                        
+                        guard let requestDictionary = requestUserData as? [String: Any] else { return }
+
+                        guard let distance = requestDictionary["distance"] as? Double else { return }
+                        guard let userID = requestDictionary["userID"] as? String else { return }
+                        guard let agree = requestDictionary["agree"] as? Bool else { return }
+                        
+                        let requestData = RequestUser(agree: agree, distance: distance, userID: userID)
+                        self.requestTools.append(requestData)
+                    }
                     self.searchToos()
-                    
                 }
         }
     }

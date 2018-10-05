@@ -28,6 +28,5 @@ class RequestCollectionViewCell: UICollectionViewCell {
         
         requestCollectionView.distanceLabel.isHidden = true
         requestCollectionView.distanceImageView.isHidden = true
-        
     }
 }
