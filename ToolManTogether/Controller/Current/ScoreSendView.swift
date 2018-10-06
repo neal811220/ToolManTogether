@@ -8,38 +8,43 @@
 
 import UIKit
 
+protocol AlertViewDelegate {
+    func alertBtn(actionType: String)
+}
+
 class ScoreSendView: UIView {
     
+    @IBOutlet weak var alertLabel: UILabel!
+    @IBOutlet weak var okButton: UIButton!
     
-    @IBOutlet var contentView: UIView!
-    @IBOutlet weak var starOne: UIButton!
-    @IBOutlet weak var starTwo: UIButton!
-    @IBOutlet weak var starThree: UIButton!
-    @IBOutlet weak var starFour: UIButton!
-    @IBOutlet weak var starFive: UIButton!
-    @IBOutlet weak var contentTxtView: UITextView!
-    @IBOutlet weak var submitBtn: UIButton!
+    var delegate: AlertViewDelegate?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.frame.size = CGSize(width: 375.0, height: 200.0)
+        self.center = CGPoint(x: UIScreen.main.bounds.midX, y: -self.frame.size.height)
+        
+        self.layer.shadowColor = UIColor(white: 0, alpha: 1).cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 5)
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowRadius = 30
+        
+        self.layer.borderWidth = 0.3
+        self.layer.borderColor = UIColor(white: 0, alpha: 0.5).cgColor
+        
+       
+        self.layer.opacity = 0
+        self.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi / 4))
+        
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            self.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
+            self.layer.opacity = 1
+            self.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+        }, completion: nil)
+        
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-        submitBtn.layer.cornerRadius = 13
-        contentTxtView.layer.borderWidth = 1
-        contentTxtView.layer.borderColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
-    }
-    
-    func commonInit() {
-        Bundle.main.loadNibNamed("ScoreSendView", owner: self, options: nil)
-        contentView.fixInView(self)
-    }
-    
-    @IBAction func submit(_ sender: Any) {
-        print("送出評分")
+    @IBAction func okButton(_ sender: Any) {
+        delegate?.alertBtn(actionType: "confirm")
     }
 }
 

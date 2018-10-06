@@ -251,7 +251,7 @@ class HomeViewController: UIViewController {
                         "distance": selectData.distance,
                         "Time": Double(Date().millisecondsSince1970)])
                     
-                    self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance)
+                    self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoID!)
                     
                     NotificationCenter.default.post(name: .sendRequest, object: nil)
                     
@@ -261,7 +261,7 @@ class HomeViewController: UIViewController {
     }
     
     
-    func sendRequestToOwner(taskKey: String, distance: Double?) {
+    func sendRequestToOwner(taskKey: String, distance: Double?, requestTaskID: String) {
         
         guard let userID = Auth.auth().currentUser?.uid else { return }
         guard let distance = distance else { return }
@@ -269,7 +269,9 @@ class HomeViewController: UIViewController {
         myRef.child("Task").child(taskKey).child("RequestUser").child(autoID!).updateChildValues([
             "userID": userID,
             "distance": distance,
-            "agree": false])
+            "agree": false,
+            "RequestTaskID": requestTaskID,
+            "taskKey": taskKey])
     }
     
     func searchFireBase(

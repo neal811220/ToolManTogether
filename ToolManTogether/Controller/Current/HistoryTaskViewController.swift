@@ -12,7 +12,6 @@ import SDWebImage
 import FirebaseDatabase
 import FirebaseStorage
 
-
 class HistoryTaskViewController: UIViewController {
     
     @IBOutlet weak var historyTableView: UITableView!
@@ -146,12 +145,54 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
     }
 }
 
-extension HistoryTaskViewController: TableViewCellDelegate {
+extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
 
     func tableViewCellDidTapAgreeBtn(_ cell: RequestToolsTableViewCell) {
 
+        if let alertView = Bundle.main.loadNibNamed("ScoreSendView", owner: nil, options: nil)?.first as? ScoreSendView {
+            alertView.delegate = self
+            alertView.tag = 101
+            self.historyTableView.addSubview(alertView)
+            
+            
+            guard let tappedIndex = self.historyTableView.indexPath(for: cell) else {
+                return
+            }
+            
+            let selectToosData = requestTools[tappedIndex.row]
+            print(selectToosData.requestTaskID)
+            let requestTaskKey = selectToosData.requestTaskID
+            
+            myRef.child("RequestTask").child(requestTaskKey).updateChildValues([
+                "OwnerAgree": "true"])
+            
+            myRef.child("Task").removeValue()
+        }
+    }
+    
+    func alertBtn(actionType: String) {
         
-        
+        guard let alertView = self.historyTableView.viewWithTag(101) as? ScoreSendView else { return }
+
+        if actionType == "confirm" {
+            
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                alertView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.maxY)
+                alertView.layer.opacity = 0
+            }) { (_) -> Void in
+                alertView.removeFromSuperview()
+                
+                // 刪除Task database (地圖頁會自己刪掉ａｎｎｏｔａｉｏｎ)
+                // 新增一個參數到request database, 看來要使用child change 來監聽自訂的通知事件？ 藉著改變按鈕顏色
+                
+                
+                
+                
+            }
+            
+        }else {
+            alertView.removeFromSuperview()
+        }
     }
 }
 
@@ -184,8 +225,10 @@ extension HistoryTaskViewController: ScrollTask {
                         guard let distance = requestDictionary["distance"] as? Double else { return }
                         guard let userID = requestDictionary["userID"] as? String else { return }
                         guard let agree = requestDictionary["agree"] as? Bool else { return }
+                        guard let requestTaskID = requestDictionary["RequestTaskID"] as? String else { return }
+                        guard let taskOwnerID = requestDictionary["taskKey"] as? String else { return }
                         
-                        let requestData = RequestUser(agree: agree, distance: distance, userID: userID)
+                        let requestData = RequestUser(agree: agree, distance: distance, userID: userID, requestTaskID: requestTaskID, taskOwnerID: taskOwnerID)
                         self.requestTools.append(requestData)
                     }
                     self.searchToos()

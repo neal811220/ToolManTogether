@@ -20,6 +20,8 @@ struct RequestUser {
     var agree: Bool
     var distance: Double
     var userID: String
+    var requestTaskID: String
+    var taskOwnerID: String
 }
 
 struct RequestUserInfo {
