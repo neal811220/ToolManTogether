@@ -40,14 +40,16 @@ class SearchTaskViewController: UIViewController {
     @objc func selectTaskAdd() {
         self.selectTask.removeAll()
         guard let userID = Auth.auth().currentUser?.uid else { return }
+        
         myRef.child("RequestTask")
             .queryOrdered(byChild: "UserID").queryEqual(toValue: userID)
             .observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let data = snapshot.value as? NSDictionary else { return }
                 
                 for value in data.allValues {
-                    
+                    print(data.allKeys)
                     guard let dictionary = value as? [String: Any] else { return }
+                    print(dictionary)
                     guard let title = dictionary["Title"] as? String else { return }
                     guard let content = dictionary["Content"] as? String else { return }
                     guard let price = dictionary["Price"] as? String else { return }
@@ -58,6 +60,8 @@ class SearchTaskViewController: UIViewController {
                     guard let taskLon = dictionary["Lon"] as? Double else { return }
                     guard let checkTask = dictionary["checkTask"] as? String else { return }
                     guard let distance = dictionary["distance"] as? Double else { return }
+                    guard let taskOwner = dictionary["ownerID"] as? String else { return }
+
                     let time = dictionary["Time"] as? Int
                     let task = UserTaskInfo(userID: userID,
                                             userName: userName,
@@ -65,7 +69,7 @@ class SearchTaskViewController: UIViewController {
                                             content: content,
                                             type: type, price: price,
                                             taskLat: taskLat, taskLon: taskLon,
-                                            checkTask: checkTask, distance: distance, time: time)
+                                            checkTask: checkTask, distance: distance, time: time, ownerID: taskOwner)
                     
                     
 //                    if self.selectTask.count != 0 {
@@ -112,11 +116,16 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             cell.searchTaskView.distanceLabel.text = "\(cellData.distance!)km"
             cell.searchTaskView.typeLabel.text = cellData.type
             cell.searchTaskView.priceLabel.text = cellData.price
-            updataTaskUserPhoto(userID: cellData.userID) { (url) in
-                if url == url {
-                    cell.searchTaskView.userPhoto.sd_setImage(with: url, completed: nil)
+            if let ownerID = cellData.ownerID {
+                updataTaskUserPhoto(userID: ownerID) { (url) in
+                    if url == url {
+                        cell.searchTaskView.userPhoto.sd_setImage(with: url, completed: nil)
+                    }
                 }
+            } else {
+                cell.searchTaskView.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
             }
+
             cell.searchTaskView.sendButton.addTarget(self, action: #selector(requestBtnPressed), for: .touchUpInside)
             
             return cell

@@ -72,6 +72,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 guard let userID = dictionary["UserID"] as? String else { return }
                 guard let taskLat = dictionary["lat"] as? Double else { return }
                 guard let taskLon = dictionary["lon"] as? Double else { return }
+//                guard let taskOwner = dictionary["ownerID"] as? String else { return }
                 let time = dictionary["Time"] as? Int
 
                 let task = UserTaskInfo(userID: userID,
@@ -80,7 +81,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                                         content: content,
                                         type: type, price: price,
                                         taskLat: taskLat, taskLon: taskLon, checkTask: nil,
-                                        distance: nil, time: time)
+                                        distance: nil, time: time,
+                                        ownerID: nil)
                 self.addTask.append(task)
                 self.addTask.sort(by: { $0.time! > $1.time! })
 

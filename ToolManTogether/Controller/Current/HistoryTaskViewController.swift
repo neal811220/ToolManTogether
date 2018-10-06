@@ -160,13 +160,19 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
             }
             
             let selectToosData = requestTools[tappedIndex.row]
-            print(selectToosData.requestTaskID)
             let requestTaskKey = selectToosData.requestTaskID
             
-            myRef.child("RequestTask").child(requestTaskKey).updateChildValues([
-                "OwnerAgree": "true"])
-            
-            myRef.child("Task").removeValue()
+            for value in requestTools {
+                if requestTaskKey == value.requestTaskID {
+                    myRef.child("RequestTask").child(requestTaskKey).updateChildValues([
+                        "OwnerAgree": "true"])
+                } else {
+                    myRef.child("RequestTask").child(value.requestTaskID).updateChildValues([
+                        "OwnerAgree": "false"])
+                }
+            }
+
+//            myRef.child("Task").child(selectToosData.taskOwnerID).removeValue()
         }
     }
     
@@ -184,10 +190,7 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
                 
                 // 刪除Task database (地圖頁會自己刪掉ａｎｎｏｔａｉｏｎ)
                 // 新增一個參數到request database, 看來要使用child change 來監聽自訂的通知事件？ 藉著改變按鈕顏色
-                
-                
-                
-                
+  
             }
             
         }else {

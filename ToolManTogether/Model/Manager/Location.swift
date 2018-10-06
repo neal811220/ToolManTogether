@@ -21,6 +21,7 @@ struct UserTaskInfo {
     var checkTask: String?
     var distance: Double?
     var time: Int?
+    var ownerID: String?
 }
 
 class TaskPin: NSObject, MKAnnotation {

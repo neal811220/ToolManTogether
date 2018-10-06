@@ -86,21 +86,21 @@ class LoginViewController: UIViewController {
             if error == nil {
                 if let info = result as? [String: Any] {
                     print("info: \(info)")
-                    guard let fbID = info["id"] as? String else { return }
-                    guard let fbName = info["name"] as? String else { return }
-                    guard let fbEmail = info["email"] as? String else { return }
-                    guard let fbPhoto = info["picture"] as? [String: Any] else { return }
-                    guard let photoData = fbPhoto["data"] as? [String: Any] else { return }
-                    guard let photoURL = photoData["url"] as? String else { return }
-                    guard let userId = Auth.auth().currentUser?.uid else { return }
+                    let fbID = info["id"] as? String
+                    let fbName = info["name"] as? String
+                    let fbEmail = info["email"] as? String
+                    let fbPhoto = info["picture"] as? [String: Any]
+                    let photoData = fbPhoto?["data"] as? [String: Any]
+                    let photoURL = photoData?["url"] as? String
+                    let userId = Auth.auth().currentUser?.uid
                     
-                    self.uploadImagePic(url: URL(string: photoURL)!)
+                    self.uploadImagePic(url: URL(string: photoURL!)!)
                     
                     self.fbUserDefault.set(token, forKey: "token")
                     
                     guard let userID = Auth.auth().currentUser?.uid else { return }
-
-                    self.dataRef.child("UserData").child(userId).updateChildValues([
+                    
+                    self.dataRef.child("UserData").child(userId!).updateChildValues([
                         "FBID": fbID,
                         "FBName": fbName,
                         "FBEmail": fbEmail,

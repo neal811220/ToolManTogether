@@ -46,20 +46,24 @@ class ProfileViewController: UIViewController {
     }
     
     func searchProfile() {
+        self.userProfile.removeAll()
+        self.profileTableView.reloadData()
+        
         guard let userID = Auth.auth().currentUser?.uid else { return }
 
         myRef.child("UserData")
-            .queryOrdered(byChild: userID)
+            .queryOrderedByKey()
+            .queryEqual(toValue: userID)
             .observeSingleEvent(of: .value) { (snaoshot) in
                 guard let data = snaoshot.value as? NSDictionary else { return }
-                
+                print(data)
                 for value in data.allValues {
                     guard let dictionary = value as? [String: Any] else { return }
                     let aboutUser = dictionary["AboutUser"] as? String
                     let phone = dictionary["UserPhone"] as? String
-                    guard let fbEmail = dictionary["FBEmail"] as? String else { return }
-                    guard let fbID = dictionary["FBID"] as? String else { return }
-                    guard let fbName = dictionary["FBName"] as? String else { return }
+                    let fbEmail = dictionary["FBEmail"] as? String
+                    let fbID = dictionary["FBID"] as? String
+                    let fbName = dictionary["FBName"] as? String
                     
                     let data = ProfileManager(fbEmail: fbEmail,
                                               fbID: fbID,

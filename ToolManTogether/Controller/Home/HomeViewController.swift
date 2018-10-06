@@ -174,6 +174,8 @@ class HomeViewController: UIViewController {
             latitudinalMeters: regionRadious * 0.2,
             longitudinalMeters: regionRadious * 0.2)
         
+        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
+        
         searchFireBase(child: "Task", byChild: "searchAnnotation",
                        toValue: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)") { (data) in
             
@@ -197,7 +199,7 @@ class HomeViewController: UIViewController {
                 
                 self.selectTaskKey = keyValue
                 
-                self.selectTask = UserTaskInfo(userID: userID,
+                self.selectTask = UserTaskInfo(userID: currentUserID,
                                                userName: userName,
                                                title: title,
                                                content: content,
@@ -205,7 +207,8 @@ class HomeViewController: UIViewController {
                                                price: price,
                                                taskLat: taskCoordinate.latitude,
                                                taskLon: taskCoordinate.longitude,
-                                               checkTask: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)", distance: roundDistance, time: nil)
+                                               checkTask: "\(currentUserID)_\(taskCoordinate.latitude)_\(taskCoordinate.longitude)", distance: roundDistance, time: nil,
+                                               ownerID: userID)
                 
                 self.updataTaskUserPhoto(userID: userID)
                 self.pullUpDetailView.taskTitleLabel.text = title
@@ -230,7 +233,7 @@ class HomeViewController: UIViewController {
         guard let selectDataKey = selectTaskKey else { return }
         
             myRef.child("RequestTask")
-                .queryOrdered(byChild: "checkTask").queryEqual(toValue: "\(selectData.taskLat)_\(selectData.taskLon)")
+                .queryOrdered(byChild: "checkTask").queryEqual(toValue: selectData.checkTask)
                 .observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     guard snapshot.value as? NSDictionary == nil else {
@@ -247,9 +250,10 @@ class HomeViewController: UIViewController {
                         "Price": selectData.price,
                         "Lat": selectData.taskLat,
                         "Lon": selectData.taskLon,
-                        "checkTask": "\(selectData.taskLat)_\(selectData.taskLon)",
+                        "checkTask": selectData.checkTask,
                         "distance": selectData.distance,
-                        "Time": Double(Date().millisecondsSince1970)])
+                        "Time": Double(Date().millisecondsSince1970),
+                        "ownerID": selectData.ownerID])
                     
                     self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoID!)
                     

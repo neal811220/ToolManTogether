@@ -9,9 +9,9 @@
 import Foundation
 
 struct ProfileManager {
-    var fbEmail: String
-    var fbID: String
-    var fbName: String
+    var fbEmail: String?
+    var fbID: String?
+    var fbName: String?
     var aboutUser: String?
     var userPhone: String?
 }
