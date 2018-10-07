@@ -56,8 +56,11 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         myRef = Database.database().reference()
         createTaskAdd()
         
-        let notificationName = Notification.Name("addTask")
-        NotificationCenter.default.addObserver(self, selector: #selector(self.createTaskAdd), name: notificationName, object: nil)
+        let addTaskNotification = Notification.Name("addTask")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.createTaskAdd), name: addTaskNotification, object: nil)
+        
+        let agreeToolNotification = Notification.Name("agreeToos")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.createTaskAdd), name: agreeToolNotification, object: nil)
         
     }
     
@@ -68,7 +71,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         myRef.child("Task").queryOrdered(byChild: "UserID").queryEqual(toValue: userID).observeSingleEvent(of: .value) { (snapshot) in
             guard let data = snapshot.value as? NSDictionary else { return }
-
+            
             for value in data {
                 
                 guard let keyValue = value.key as? String else { return }
@@ -81,6 +84,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 guard let userID = dictionary["UserID"] as? String else { return }
                 guard let taskLat = dictionary["lat"] as? Double else { return }
                 guard let taskLon = dictionary["lon"] as? Double else { return }
+                guard let agree = dictionary["agree"] as? Bool else { return }
                 let time = dictionary["Time"] as? Int
 
                 let task = UserTaskInfo(userID: userID,
@@ -90,14 +94,61 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                                         type: type, price: price,
                                         taskLat: taskLat, taskLon: taskLon, checkTask: nil,
                                         distance: nil, time: time,
-                                        ownerID: nil, ownAgree: nil, taskKey: keyValue)
+                                        ownerID: nil, ownAgree: nil,
+                                        taskKey: keyValue, agree: agree)
+                
                 self.addTask.append(task)
                 self.addTask.sort(by: { $0.time! > $1.time! })
+                
+//                self.createTaskChange(taskKey: keyValue)
 
             }
             self.collectionView.reloadData()
         }
     }
+    
+//    func createTaskChange(taskKey: String) {
+//
+//        guard let userID = Auth.auth().currentUser?.uid else { return }
+//
+//        myRef.child("Task").child(taskKey).observe(.childAdded) { (snapshot) in
+//
+//            self.myRef.child("Task").queryOrdered(byChild: "UserID").queryEqual(toValue: userID).observeSingleEvent(of: .value) { (snapshot) in
+//                guard let data = snapshot.value as? NSDictionary else { return }
+//
+//                self.addTask.removeAll()
+//                for value in data {
+//
+//                    guard let keyValue = value.key as? String else { return }
+//                    guard let dictionary = value.value as? [String: Any] else { return }
+//                    guard let title = dictionary["Title"] as? String else { return }
+//                    guard let content = dictionary["Content"] as? String else { return }
+//                    guard let price = dictionary["Price"] as? String else { return }
+//                    guard let type = dictionary["Type"] as? String else { return }
+//                    guard let userName = dictionary["UserName"] as? String else { return }
+//                    guard let userID = dictionary["UserID"] as? String else { return }
+//                    guard let taskLat = dictionary["lat"] as? Double else { return }
+//                    guard let taskLon = dictionary["lon"] as? Double else { return }
+//                    guard let agree = dictionary["agree"] as? Bool else { return }
+//                    let time = dictionary["Time"] as? Int
+//
+//                    let task = UserTaskInfo(userID: userID,
+//                                            userName: userName,
+//                                            title: title,
+//                                            content: content,
+//                                            type: type, price: price,
+//                                            taskLat: taskLat, taskLon: taskLon, checkTask: nil,
+//                                            distance: nil, time: time,
+//                                            ownerID: nil, ownAgree: nil,
+//                                            taskKey: keyValue, agree: agree)
+//                    self.addTask.append(task)
+//                    self.addTask.sort(by: { $0.time! > $1.time! })
+//
+//                }
+//                self.collectionView.reloadData()
+//            }
+//        }
+//    }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         scrollIndex = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
@@ -148,6 +199,15 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             cell.requestCollectionView.priceLabel.text = cellData.price
             cell.requestCollectionView.typeLabel.text = cellData.type
             cell.requestCollectionView.userName.text = cellData.userName
+            
+            if cellData.agree == false {
+                cell.requestCollectionView.sendButton.setTitle("取消任務", for: .normal)
+            } else if cellData.agree == true {
+                cell.requestCollectionView.sendButton.setTitle("存到個人歷史紀錄", for: .normal)
+                cell.requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 0.5294117647, green: 0.6352941176, blue: 0.8509803922, alpha: 1)
+            } else {
+                cell.requestCollectionView.sendButton.setTitle("取消任務", for: .normal)
+            }
            
             downloadUserPhoto(userID: cellData.userID, finder: "UserPhoto") { (url) in
                 if url == url {

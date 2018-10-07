@@ -107,7 +107,7 @@ class HomeViewController: UIViewController {
             guard let taskLat = value["lat"] as? Double else { return }
             guard let taskLon = value["lon"] as? Double else { return }
             self.addMapTaskPoint(taskLat: taskLat, taskLon: taskLon, type: type)
-           
+           self.databaseTaskClose(taskKey: snapshot.key)
         }
     }
     
@@ -119,6 +119,23 @@ class HomeViewController: UIViewController {
             self.removeMapTaskPoint(taskLat: taskLat, taskLon: taskLon)
         }
     }
+    
+    
+    func databaseTaskClose(taskKey: String) {
+        myRef.child("Task")
+            .child(taskKey).observe(.childRemoved) { (snapshot) in
+                
+                guard let searchAnnotation = snapshot.value as? String else { return }
+                let spliteArray = searchAnnotation.components(separatedBy: "_")
+                
+                let taskLat = Double(spliteArray.first!)!
+                let taskLon = Double(spliteArray.last!)!
+
+            
+                self.removeMapTaskPoint(taskLat: taskLat, taskLon: taskLon)
+        }
+    }
+    
     
     func updataTaskUserPhoto(userID: String) {
         
@@ -208,7 +225,7 @@ class HomeViewController: UIViewController {
                                                taskLat: taskCoordinate.latitude,
                                                taskLon: taskCoordinate.longitude,
                                                checkTask: "\(currentUserID)_\(taskCoordinate.latitude)_\(taskCoordinate.longitude)", distance: roundDistance, time: nil,
-                                               ownerID: userID, ownAgree: nil, taskKey: keyValue)
+                                               ownerID: userID, ownAgree: nil, taskKey: keyValue, agree: nil)
                 
                 self.updataTaskUserPhoto(userID: userID)
                 self.pullUpDetailView.taskTitleLabel.text = title
@@ -559,5 +576,4 @@ public func ==(mylhs: CLLocationCoordinate2D, myrhs: CLLocationCoordinate2D) -> 
 
 extension Notification.Name {
     static let sendRequest = Notification.Name("sendRequest")
-    
 }

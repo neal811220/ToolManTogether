@@ -22,15 +22,16 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZV-wP-FX4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="139.5"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="bottomLeft" text=" " translatesAutoresizingMaskIntoConstraints="NO" id="9FS-S1-NBD">
+                            <textView multipleTouchEnabled="YES" contentMode="bottomLeft" translatesAutoresizingMaskIntoConstraints="NO" id="9FS-S1-NBD">
                                 <rect key="frame" x="18" y="12" width="339" height="119"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="119" id="OUL-au-9kQ"/>
                                 </constraints>
                                 <color key="textColor" red="0.95686274509803926" green="0.72156862745098038" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -41,23 +42,12 @@
                             <constraint firstItem="9FS-S1-NBD" firstAttribute="leading" secondItem="aZV-wP-FX4" secondAttribute="leading" constant="18" id="jOk-Yh-obs"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pxn-Ss-WNe">
-                        <rect key="frame" x="18" y="136" width="339" height="1"/>
-                        <color key="backgroundColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="RHe-sk-9ex"/>
-                            <constraint firstAttribute="height" constant="1" id="bMR-g0-neg"/>
-                        </constraints>
-                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="aZV-wP-FX4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0gH-v8-OSD"/>
                     <constraint firstAttribute="trailing" secondItem="aZV-wP-FX4" secondAttribute="trailing" id="57u-fO-myd"/>
                     <constraint firstAttribute="bottom" secondItem="aZV-wP-FX4" secondAttribute="bottom" id="5AS-s6-Faz"/>
-                    <constraint firstAttribute="trailing" secondItem="pxn-Ss-WNe" secondAttribute="trailing" constant="18" id="Kl3-no-oFA"/>
-                    <constraint firstAttribute="bottom" secondItem="pxn-Ss-WNe" secondAttribute="bottom" constant="2.5" id="Lrp-Un-MFg"/>
                     <constraint firstItem="aZV-wP-FX4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="h01-WW-cQd"/>
-                    <constraint firstItem="pxn-Ss-WNe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="rHZ-gG-IQ2"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

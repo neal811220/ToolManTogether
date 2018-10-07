@@ -22,6 +22,7 @@ struct RequestUser {
     var userID: String
     var requestTaskID: String
     var taskOwnerID: String
+    var requestKey: String
 }
 
 struct RequestUserInfo {

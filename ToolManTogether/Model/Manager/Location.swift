@@ -24,6 +24,7 @@ struct UserTaskInfo {
     var ownerID: String?
     var ownAgree: String?
     var taskKey: String?
+    var agree: Bool?
 }
 
 class TaskPin: NSObject, MKAnnotation {

@@ -21,6 +21,9 @@ class HistoryTaskViewController: UIViewController {
     var toolsInfo: [RequestUserInfo] = []
     var selectToosData: RequestUser!
     
+    var agreeToos: RequestUser?
+    var agreeToolsInfo: RequestUserInfo?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -123,13 +126,19 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "requestTools", for: indexPath) as? RequestToolsTableViewCell {
                 cell.delegate = self
                 
-                
-                
                 let cellData = toolsInfo[indexPath.row]
                 let requestData = requestTools[indexPath.row]
+                
                 cell.userNameLabel.text = cellData.fbName
                 cell.userContentTxtView.text = cellData.aboutUser
                 cell.distanceLabel.text = "\(requestData.distance)"
+                
+                if requestData.agree == true {
+                    cell.agreeButton.isHidden = true
+                } else {
+                    cell.agreeButton.isHidden = false
+                }
+                
                 cell.selectionStyle = .none
                 downloadUserPhoto(userID: requestData.userID, finder: "UserPhoto") { (url) in
                     cell.userPhoto.sd_setImage(with: url, completed: nil)
@@ -164,7 +173,9 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
             }
             
             self.selectToosData = requestTools[tappedIndex.row]
-
+            
+            self.agreeToos = self.requestTools[tappedIndex.row]
+            self.agreeToolsInfo = self.toolsInfo[tappedIndex.row]
 
 //            myRef.child("Task").child(selectToosData.taskOwnerID).removeValue()
         }
@@ -176,6 +187,8 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
 
         if actionType == "confirm" {
             
+
+            
             UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 alertView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.maxY)
                 alertView.layer.opacity = 0
@@ -183,16 +196,31 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
                 alertView.removeFromSuperview()
                 
                 let requestTaskKey = self.selectToosData.requestTaskID
-                
+                let taskOwnerKey = self.selectToosData.taskOwnerID
+                let taskRequestUserKey = self.selectToosData.requestKey
+
                 for value in self.requestTools {
+                    
                     if requestTaskKey == value.requestTaskID {
                         self.myRef.child("RequestTask").child(requestTaskKey).updateChildValues([
                             "OwnerAgree": "agree"])
+                    self.myRef.child("Task").child(taskOwnerKey).updateChildValues(["agree": true])
+                    self.myRef.child("Task").child(taskOwnerKey).child("RequestUser").child(taskRequestUserKey).updateChildValues(["agree": true])
+
+                    NotificationCenter.default.post(name: .agreeToos, object: nil)
+                        
                     } else {
                         self.myRef.child("RequestTask").child(value.requestTaskID).updateChildValues([
                             "OwnerAgree": "disAgree"])
                     }
                 }
+                
+                self.requestTools.removeAll()
+                self.toolsInfo.removeAll()
+                guard let agreeToos = self.agreeToos, let toolsInfo = self.agreeToolsInfo else { return }
+                self.requestTools.append(agreeToos)
+                self.toolsInfo.append(toolsInfo)
+                self.historyTableView.reloadData()
             }
             
         }else if actionType == "cancel" {
@@ -222,10 +250,10 @@ extension HistoryTaskViewController: ScrollTask {
                     guard let dictionary = value as? [String: Any] else { return }
                     guard let requestUser = dictionary["RequestUser"] as? NSDictionary else { return }
                     
-                    
-                    for requestUserData in requestUser.allValues {
+                    for requestUserData in requestUser {
                         
-                        guard let requestDictionary = requestUserData as? [String: Any] else { return }
+                        guard let keyValue = requestUserData.key as? String else { return }
+                        guard let requestDictionary = requestUserData.value as? [String: Any] else { return }
                         print(requestDictionary)
                         guard let distance = requestDictionary["distance"] as? Double else { return }
                         guard let userID = requestDictionary["userID"] as? String else { return }
@@ -233,10 +261,17 @@ extension HistoryTaskViewController: ScrollTask {
                         guard let requestTaskID = requestDictionary["RequestTaskID"] as? String else { return }
                         guard let taskOwnerID = requestDictionary["taskKey"] as? String else { return }
                         
-                        let requestData = RequestUser(agree: agree, distance: distance, userID: userID, requestTaskID: requestTaskID, taskOwnerID: taskOwnerID)
-                        self.requestTools.append(requestData)
+                         let requestData = RequestUser(agree: agree, distance: distance, userID: userID, requestTaskID: requestTaskID, taskOwnerID: taskOwnerID, requestKey: keyValue)
+                        
+                        if agree == true {
+                           self.requestTools.removeAll()
+                            self.requestTools.append(requestData)
+                        } else {
+                            self.requestTools.append(requestData)
+                        }
+                        
                     }
-                    self.searchToos()
+                        self.searchToos()
                 }
         }
     }
@@ -249,4 +284,6 @@ extension HistoryTaskViewController: btnPressed {
     }
 }
 
-
+extension Notification.Name {
+    static let agreeToos = Notification.Name("agreeToos")
+}

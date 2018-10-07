@@ -74,9 +74,17 @@ class SearchTaskViewController: UIViewController {
                                             userName: userName,
                                             title: title,
                                             content: content,
-                                            type: type, price: price,
-                                            taskLat: taskLat, taskLon: taskLon,
-                                            checkTask: checkTask, distance: distance, time: time, ownerID: taskOwner, ownAgree: ownerAgree, taskKey: keyValue)
+                                            type: type,
+                                            price: price,
+                                            taskLat: taskLat,
+                                            taskLon: taskLon,
+                                            checkTask: checkTask,
+                                            distance: distance,
+                                            time: time,
+                                            ownerID: taskOwner,
+                                            ownAgree: ownerAgree,
+                                            taskKey: keyValue,
+                                            agree: nil)
                     
                     self.selectTask.append(task)
                     self.selectTask.sort(by: { $0.time! > $1.time!})
@@ -125,9 +133,17 @@ class SearchTaskViewController: UIViewController {
                                                         userName: userName,
                                                         title: title,
                                                         content: content,
-                                                        type: type, price: price,
-                                                        taskLat: taskLat, taskLon: taskLon,
-                                                        checkTask: checkTask, distance: distance, time: time, ownerID: taskOwner, ownAgree: ownerAgree, taskKey: keyValue)
+                                                        type: type,
+                                                        price: price,
+                                                        taskLat: taskLat,
+                                                        taskLon: taskLon,
+                                                        checkTask: checkTask,
+                                                        distance: distance,
+                                                        time: time,
+                                                        ownerID: taskOwner,
+                                                        ownAgree: ownerAgree,
+                                                        taskKey: keyValue,
+                                                        agree: nil)
                                 
                                 self.selectTask.append(task)
                                 self.selectTask.sort(by: { $0.time! > $1.time!})
@@ -157,10 +173,13 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             cell.searchTaskView.priceLabel.text = cellData.price
             if cellData.ownAgree == "waiting" {
                 cell.searchTaskView.sendButton.setTitle("尚未同意", for: .normal)
+                cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.4470588235, green: 0.4470588235, blue: 0.4470588235, alpha: 1)
             } else if cellData.ownAgree == "agree" {
                 cell.searchTaskView.sendButton.setTitle("對方已經同意", for: .normal)
+                cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.5294117647, green: 0.6352941176, blue: 0.8509803922, alpha: 1)
             } else if cellData.ownAgree == "disAgree" {
                 cell.searchTaskView.sendButton.setTitle("對方拒絕", for: .normal)
+                cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
             }
             if let ownerID = cellData.ownerID {
                 updataTaskUserPhoto(userID: ownerID) { (url) in
