@@ -14,6 +14,8 @@
 		8E097DCD21534BDF006B574E /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DCC21534BDF006B574E /* UserManager.swift */; };
 		8E097DD221536D22006B574E /* TypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */; };
 		8E097DD321536D22006B574E /* TypeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */; };
+		8E19FC242169AA16009C01D2 /* cusomeAlert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */; };
+		8E19FC262169AAD8009C01D2 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E19FC252169AAD8009C01D2 /* CustomAlertView.swift */; };
 		8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E25D317215249D800CD23F9 /* GoogleService-Info.plist */; };
 		8E28DF5621652DDF0077B259 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28DF5521652DDF0077B259 /* ProfileManager.swift */; };
 		8E28DF58216618FB0077B259 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28DF57216618FA0077B259 /* Date.swift */; };
@@ -85,6 +87,8 @@
 		8E097DCC21534BDF006B574E /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypeCollectionViewCell.xib; sourceTree = "<group>"; };
+		8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = cusomeAlert.storyboard; sourceTree = "<group>"; };
+		8E19FC252169AAD8009C01D2 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		8E25D317215249D800CD23F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8E28DF5521652DDF0077B259 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		8E28DF57216618FA0077B259 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -237,6 +241,7 @@
 				8EEC3314215C928100DE8C31 /* profile.storyboard */,
 				8EA01DAB2160831B00104A55 /* profileServced.storyboard */,
 				8EDA66302160B84D009FFB8D /* TaskAgree.storyboard */,
+				8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -252,6 +257,7 @@
 				8E5BB6F72151ECB50016C44A /* LoginViewController.swift */,
 				8E097DC621534179006B574E /* TabBarViewController.swift */,
 				8E28F7F8215B6A6E004954F0 /* TaskDetailInfoView.swift */,
+				8E19FC252169AAD8009C01D2 /* CustomAlertView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -500,6 +506,7 @@
 				8E5BB6EC2151E88B0016C44A /* LaunchScreen.storyboard in Resources */,
 				8ECAB998215E14CD00649128 /* RequestCell.xib in Resources */,
 				8E28F7FB215B6AA6004954F0 /* TaskDetailInfoView.xib in Resources */,
+				8E19FC242169AA16009C01D2 /* cusomeAlert.storyboard in Resources */,
 				8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */,
 				8ED7279F2154C22400EE697F /* addTask.storyboard in Resources */,
 				8E8EC45A215CCAB800CCABE7 /* searchTaskCell.xib in Resources */,
@@ -608,6 +615,7 @@
 				8ECAB99B215E177A00649128 /* RequestCollectionViewCell.swift in Sources */,
 				8EA01DAE2160836300104A55 /* ServcedListViewController.swift in Sources */,
 				8EDB25652160F7A000DBBF6D /* TaskAgreeMapCell.swift in Sources */,
+				8E19FC262169AAD8009C01D2 /* CustomAlertView.swift in Sources */,
 				8EA01DA52160554B00104A55 /* ProfileServcedListCell.swift in Sources */,
 				8E097DC721534179006B574E /* TabBarViewController.swift in Sources */,
 				8E8EC459215CCAB800CCABE7 /* SearchTaskCell.swift in Sources */,

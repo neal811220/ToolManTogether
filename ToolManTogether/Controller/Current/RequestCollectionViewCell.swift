@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol ScrollTaskBtn: AnyObject {
+    func didPressed(_ scrollView: TaskDetailInfoView)
+}
+
 class RequestCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var requestCollectionView: TaskDetailInfoView!
+    
+    weak var taskBtnDelegate: ScrollTaskBtn?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,5 +34,13 @@ class RequestCollectionViewCell: UICollectionViewCell {
         
         requestCollectionView.distanceLabel.isHidden = true
         requestCollectionView.distanceImageView.isHidden = true
+        
+        requestCollectionView.sendButton.addTarget(self, action: #selector(sendBtnPressed), for: .touchUpInside)
+    }
+    
+    @objc func sendBtnPressed() {
+        print("Yaa")
+        self.taskBtnDelegate?.didPressed(self.requestCollectionView)
+        
     }
 }

@@ -17,18 +17,26 @@ protocol ScrollTask: AnyObject{
     func didScrollTask(_ cell: String)
 }
 
+protocol btnPressed: AnyObject {
+    func btnPressed(_ send: TaskDetailInfoView)
+}
+
 class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var taskNumTitleLabel: UILabel!
+    @IBOutlet weak var toosNumTitleLabel: UILabel!
     
     let layout = AnimatedCollectionViewLayout()
     let screenSize = UIScreen.main.bounds.size
     var myRef: DatabaseReference!
     var addTask: [UserTaskInfo] = []
+    var addTaskKey: [String] = []
     private var indexOfCellBeforeDragging = 0
-    weak var scrollTaslDelegate: ScrollTask?
+    weak var scrollTaskDelegate: ScrollTask?
+    weak var scrollTaskBtnDelegate: btnPressed?
     var checkIndex = 0
+    var scrollIndex: Int!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -61,9 +69,10 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         myRef.child("Task").queryOrdered(byChild: "UserID").queryEqual(toValue: userID).observeSingleEvent(of: .value) { (snapshot) in
             guard let data = snapshot.value as? NSDictionary else { return }
 
-            for value in data.allValues {
+            for value in data {
                 
-                guard let dictionary = value as? [String: Any] else { return }
+                guard let keyValue = value.key as? String else { return }
+                guard let dictionary = value.value as? [String: Any] else { return }
                 guard let title = dictionary["Title"] as? String else { return }
                 guard let content = dictionary["Content"] as? String else { return }
                 guard let price = dictionary["Price"] as? String else { return }
@@ -72,7 +81,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 guard let userID = dictionary["UserID"] as? String else { return }
                 guard let taskLat = dictionary["lat"] as? Double else { return }
                 guard let taskLon = dictionary["lon"] as? Double else { return }
-//                guard let taskOwner = dictionary["ownerID"] as? String else { return }
                 let time = dictionary["Time"] as? Int
 
                 let task = UserTaskInfo(userID: userID,
@@ -82,7 +90,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                                         type: type, price: price,
                                         taskLat: taskLat, taskLon: taskLon, checkTask: nil,
                                         distance: nil, time: time,
-                                        ownerID: nil)
+                                        ownerID: nil, ownAgree: nil, taskKey: keyValue)
                 self.addTask.append(task)
                 self.addTask.sort(by: { $0.time! > $1.time! })
 
@@ -92,18 +100,34 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let scrollIndex = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        print(scrollView)
-        print(scrollIndex)
-        print(scrollView.contentOffset.x)
-        print(scrollView.frame.width)
-        
+        scrollIndex = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
         if scrollIndex != checkIndex {
-            let searchAnnotation = "\(addTask[scrollIndex].taskLat)_\(addTask[scrollIndex].taskLon)"
-            scrollTaslDelegate?.didScrollTask(searchAnnotation)
+            let searchAnnotation = addTask[scrollIndex].taskKey
+            scrollTaskDelegate?.didScrollTask(searchAnnotation!)
             checkIndex = scrollIndex
+            self.taskNumTitleLabel.text = "第\(checkIndex + 1)/\(addTask.count)筆任務"
+
         } else {
         }
+    }
+    
+    func downloadUserPhoto(
+        userID: String,
+        finder: String,
+        success: @escaping (URL) -> Void) {
+        
+        let storageRef = Storage.storage().reference()
+        
+        storageRef.child(finder).child(userID).downloadURL(completion: { (url, error) in
+            
+            if let error = error {
+                print("User photo download Fail: \(error.localizedDescription)")
+            }
+            if let url = url {
+                print("url \(url)")
+                success(url)
+            }
+        })
     }
     
     
@@ -118,18 +142,25 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "requestCollectionView", for: indexPath) as? RequestCollectionViewCell {
             let cellData = addTask[indexPath.row]
+            cell.taskBtnDelegate = self
             cell.requestCollectionView.taskTitleLabel.text = cellData.title
             cell.requestCollectionView.taskContentTxtView.text = cellData.content
-            cell.requestCollectionView.sendButton.setTitle("Cancel", for: .normal)
             cell.requestCollectionView.priceLabel.text = cellData.price
             cell.requestCollectionView.typeLabel.text = cellData.type
-            self.titleLabel.text = "\(addTask.count)"
+            cell.requestCollectionView.userName.text = cellData.userName
+           
+            downloadUserPhoto(userID: cellData.userID, finder: "UserPhoto") { (url) in
+                if url == url {
+                    cell.requestCollectionView.userPhoto.sd_setImage(with: url, completed: nil)
+                } else {
+                    cell.requestCollectionView.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
+                }
+            }
+
             return cell
         }
         return UICollectionViewCell()
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
@@ -147,4 +178,11 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         return 0
     }
     
+}
+
+extension RequestCell: ScrollTaskBtn{
+    
+    func didPressed(_ scrollView: TaskDetailInfoView) {
+        scrollTaskBtnDelegate?.btnPressed(scrollView)
+    }
 }

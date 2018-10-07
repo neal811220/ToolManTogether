@@ -18,6 +18,8 @@ class SearchTaskViewController: UIViewController {
     var photoURL: [URL] = []
     var myRef: DatabaseReference!
     var selectTask: [UserTaskInfo] = []
+    var selectTaskKey: [String] = []
+    var reloadFromFirebase = false
 
     
     override func viewDidLoad() {
@@ -35,21 +37,22 @@ class SearchTaskViewController: UIViewController {
         let notificationName = Notification.Name("sendRequest")
         NotificationCenter.default.addObserver(self, selector: #selector(self.selectTaskAdd), name: notificationName, object: nil)
 
+
     }
     
     @objc func selectTaskAdd() {
         self.selectTask.removeAll()
+        self.selectTaskKey.removeAll()
         guard let userID = Auth.auth().currentUser?.uid else { return }
-        
+
         myRef.child("RequestTask")
             .queryOrdered(byChild: "UserID").queryEqual(toValue: userID)
             .observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let data = snapshot.value as? NSDictionary else { return }
                 
-                for value in data.allValues {
-                    print(data.allKeys)
-                    guard let dictionary = value as? [String: Any] else { return }
-                    print(dictionary)
+                for value in data {
+                    guard let keyValue = value.key as? String else { return }
+                    guard let dictionary = value.value as? [String: Any] else { return }
                     guard let title = dictionary["Title"] as? String else { return }
                     guard let content = dictionary["Content"] as? String else { return }
                     guard let price = dictionary["Price"] as? String else { return }
@@ -61,41 +64,77 @@ class SearchTaskViewController: UIViewController {
                     guard let checkTask = dictionary["checkTask"] as? String else { return }
                     guard let distance = dictionary["distance"] as? Double else { return }
                     guard let taskOwner = dictionary["ownerID"] as? String else { return }
-
                     let time = dictionary["Time"] as? Int
+                    guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
+                    
+                    
+                    self.selectTaskKey.append(keyValue)
+                    
                     let task = UserTaskInfo(userID: userID,
                                             userName: userName,
                                             title: title,
                                             content: content,
                                             type: type, price: price,
                                             taskLat: taskLat, taskLon: taskLon,
-                                            checkTask: checkTask, distance: distance, time: time, ownerID: taskOwner)
-                    
-                    
-//                    if self.selectTask.count != 0 {
-//                        var result = false
-//                        for eachTask in self.selectTask {
-//                            if (task.taskLat + task.taskLon) == (eachTask.taskLat + eachTask.taskLon) {
-//                                result = true
-//                            }
-//                        }
-//                        if result == false {
-//                            self.selectTask.append(task)
-//                        }
-//
-//                    } else {
-//                        self.selectTask.append(task)
-//                    }
+                                            checkTask: checkTask, distance: distance, time: time, ownerID: taskOwner, ownAgree: ownerAgree, taskKey: keyValue)
                     
                     self.selectTask.append(task)
                     self.selectTask.sort(by: { $0.time! > $1.time!})
-                }
+                    
+                    self.selectTaskChange(requestTaskKey: keyValue)
 
+                }
                 self.searchTaskTableVIew.reloadData()
-                
+
             }) { (error) in
                 print(error.localizedDescription)
         }
+    }
+    
+    func selectTaskChange(requestTaskKey: String) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+
+            myRef.child("RequestTask")
+                .child(requestTaskKey)
+                .observe(.childChanged) { (snapshot) in
+                    
+                    self.myRef.child("RequestTask")
+                        .queryOrdered(byChild: "UserID").queryEqual(toValue: userID)
+                        .observeSingleEvent(of: .value, with: { (snapshot) in
+                            
+                            self.selectTask.removeAll()
+                            guard let data = snapshot.value as? NSDictionary else { return }
+                            for value in data {
+                                guard let keyValue = value.key as? String else { return }
+                                guard let dictionary = value.value as? [String: Any] else { return }
+                                guard let title = dictionary["Title"] as? String else { return }
+                                guard let content = dictionary["Content"] as? String else { return }
+                                guard let price = dictionary["Price"] as? String else { return }
+                                guard let type = dictionary["Type"] as? String else { return }
+                                guard let userName = dictionary["UserName"] as? String else { return }
+                                guard let userID = dictionary["UserID"] as? String else { return }
+                                guard let taskLat = dictionary["Lat"] as? Double else { return }
+                                guard let taskLon = dictionary["Lon"] as? Double else { return }
+                                guard let checkTask = dictionary["checkTask"] as? String else { return }
+                                guard let distance = dictionary["distance"] as? Double else { return }
+                                guard let taskOwner = dictionary["ownerID"] as? String else { return }
+                                let time = dictionary["Time"] as? Int
+                                guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
+                                
+                                let task = UserTaskInfo(userID: userID,
+                                                        userName: userName,
+                                                        title: title,
+                                                        content: content,
+                                                        type: type, price: price,
+                                                        taskLat: taskLat, taskLon: taskLon,
+                                                        checkTask: checkTask, distance: distance, time: time, ownerID: taskOwner, ownAgree: ownerAgree, taskKey: keyValue)
+                                
+                                self.selectTask.append(task)
+                                self.selectTask.sort(by: { $0.time! > $1.time!})
+                            }
+                            self.searchTaskTableVIew.reloadData()
+                        }
+            )}
     }
 }
 
@@ -116,6 +155,13 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             cell.searchTaskView.distanceLabel.text = "\(cellData.distance!)km"
             cell.searchTaskView.typeLabel.text = cellData.type
             cell.searchTaskView.priceLabel.text = cellData.price
+            if cellData.ownAgree == "waiting" {
+                cell.searchTaskView.sendButton.setTitle("尚未同意", for: .normal)
+            } else if cellData.ownAgree == "agree" {
+                cell.searchTaskView.sendButton.setTitle("對方已經同意", for: .normal)
+            } else if cellData.ownAgree == "disAgree" {
+                cell.searchTaskView.sendButton.setTitle("對方拒絕", for: .normal)
+            }
             if let ownerID = cellData.ownerID {
                 updataTaskUserPhoto(userID: ownerID) { (url) in
                     if url == url {

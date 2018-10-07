@@ -25,10 +25,10 @@ struct RequestUser {
 }
 
 struct RequestUserInfo {
-    var aboutUser: String
-    var fbEmail: String
-    var fbID: String
-    var fbName: String
-    var userPhone: String
+    var aboutUser: String?
+    var fbEmail: String?
+    var fbID: String?
+    var fbName: String?
+    var userPhone: String?
     var userID: String
 }

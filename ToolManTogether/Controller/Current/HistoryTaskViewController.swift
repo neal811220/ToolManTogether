@@ -19,7 +19,8 @@ class HistoryTaskViewController: UIViewController {
     var myRef: DatabaseReference!
     var requestTools: [RequestUser] = []
     var toolsInfo: [RequestUserInfo] = []
-        
+    var selectToosData: RequestUser!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +34,7 @@ class HistoryTaskViewController: UIViewController {
         self.historyTableView.register(toosNib, forCellReuseIdentifier: "requestTools")
         
         myRef = Database.database().reference()
+        
     }
     
     func downloadUserPhoto(
@@ -69,11 +71,11 @@ class HistoryTaskViewController: UIViewController {
                     
                     for value in data.allValues {
                         guard let dictionary = value as? [String: Any] else { return }
-                        guard let aboutUser = dictionary["AboutUser"] as? String else { return }
-                        guard let fbEmail = dictionary["FBEmail"] as? String else { return }
-                        guard let fbID = dictionary["FBID"] as? String else { return }
-                        guard let fbName = dictionary["FBName"] as? String else { return }
-                        guard let userPhone = dictionary["UserPhone"] as? String else { return }
+                        let aboutUser = dictionary["AboutUser"] as? String
+                        let fbEmail = dictionary["FBEmail"] as? String
+                        let fbID = dictionary["FBID"] as? String
+                        let fbName = dictionary["FBName"] as? String
+                        let userPhone = dictionary["UserPhone"] as? String
                         guard let userID = dictionary["UserID"] as? String else { return }
                         
                         let toolsInfo = RequestUserInfo(aboutUser: aboutUser,
@@ -110,8 +112,11 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
         
         if indexPath.section == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "requestedCell", for: indexPath) as? RequestCell {
-                cell.scrollTaslDelegate = self
+                cell.scrollTaskDelegate = self
+                cell.toosNumTitleLabel.text = "\(toolsInfo.count)個申請"
                 cell.selectionStyle = .none
+                cell.scrollTaskBtnDelegate = self
+                
                 return cell
             }
         } else if indexPath.section == 1 {
@@ -154,23 +159,12 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
             alertView.tag = 101
             self.historyTableView.addSubview(alertView)
             
-            
             guard let tappedIndex = self.historyTableView.indexPath(for: cell) else {
                 return
             }
             
-            let selectToosData = requestTools[tappedIndex.row]
-            let requestTaskKey = selectToosData.requestTaskID
-            
-            for value in requestTools {
-                if requestTaskKey == value.requestTaskID {
-                    myRef.child("RequestTask").child(requestTaskKey).updateChildValues([
-                        "OwnerAgree": "true"])
-                } else {
-                    myRef.child("RequestTask").child(value.requestTaskID).updateChildValues([
-                        "OwnerAgree": "false"])
-                }
-            }
+            self.selectToosData = requestTools[tappedIndex.row]
+
 
 //            myRef.child("Task").child(selectToosData.taskOwnerID).removeValue()
         }
@@ -188,12 +182,20 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
             }) { (_) -> Void in
                 alertView.removeFromSuperview()
                 
-                // 刪除Task database (地圖頁會自己刪掉ａｎｎｏｔａｉｏｎ)
-                // 新增一個參數到request database, 看來要使用child change 來監聽自訂的通知事件？ 藉著改變按鈕顏色
-  
+                let requestTaskKey = self.selectToosData.requestTaskID
+                
+                for value in self.requestTools {
+                    if requestTaskKey == value.requestTaskID {
+                        self.myRef.child("RequestTask").child(requestTaskKey).updateChildValues([
+                            "OwnerAgree": "agree"])
+                    } else {
+                        self.myRef.child("RequestTask").child(value.requestTaskID).updateChildValues([
+                            "OwnerAgree": "disAgree"])
+                    }
+                }
             }
             
-        }else {
+        }else if actionType == "cancel" {
             alertView.removeFromSuperview()
         }
     }
@@ -209,7 +211,7 @@ extension HistoryTaskViewController: ScrollTask {
 
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        myRef.child("Task").queryOrdered(byChild: "searchAnnotation")
+        myRef.child("Task").queryOrderedByKey()
             .queryEqual(toValue: cell)
             .observeSingleEvent(of: .value) { (snapshot) in
             
@@ -219,12 +221,12 @@ extension HistoryTaskViewController: ScrollTask {
                     
                     guard let dictionary = value as? [String: Any] else { return }
                     guard let requestUser = dictionary["RequestUser"] as? NSDictionary else { return }
-                    print(requestUser)
+                    
                     
                     for requestUserData in requestUser.allValues {
                         
                         guard let requestDictionary = requestUserData as? [String: Any] else { return }
-
+                        print(requestDictionary)
                         guard let distance = requestDictionary["distance"] as? Double else { return }
                         guard let userID = requestDictionary["userID"] as? String else { return }
                         guard let agree = requestDictionary["agree"] as? Bool else { return }
@@ -239,3 +241,12 @@ extension HistoryTaskViewController: ScrollTask {
         }
     }
 }
+
+extension HistoryTaskViewController: btnPressed {
+    
+    func btnPressed(_ send: TaskDetailInfoView) {
+        send.sendButton.setTitle("YAA", for: .normal)
+    }
+}
+
+

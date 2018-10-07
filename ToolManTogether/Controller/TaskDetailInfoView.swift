@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class TaskDetailInfoView: UIView {
     
     @IBOutlet var contentView: UIView!
@@ -29,6 +30,7 @@ class TaskDetailInfoView: UIView {
     @IBOutlet weak var distanceImageView: UIImageView!
     
     
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -39,6 +41,7 @@ class TaskDetailInfoView: UIView {
         commonInit()
         sendButton.layer.cornerRadius = 8.0
         userPhoto.layer.cornerRadius = userPhoto.frame.width / 2
+
     }
     
     func commonInit() {
@@ -49,7 +52,6 @@ class TaskDetailInfoView: UIView {
     @IBAction func request(_ sender: Any) {
         print("Send")
     }
-    
 }
 
 extension UIView {

@@ -208,7 +208,7 @@ class HomeViewController: UIViewController {
                                                taskLat: taskCoordinate.latitude,
                                                taskLon: taskCoordinate.longitude,
                                                checkTask: "\(currentUserID)_\(taskCoordinate.latitude)_\(taskCoordinate.longitude)", distance: roundDistance, time: nil,
-                                               ownerID: userID)
+                                               ownerID: userID, ownAgree: nil, taskKey: keyValue)
                 
                 self.updataTaskUserPhoto(userID: userID)
                 self.pullUpDetailView.taskTitleLabel.text = title
@@ -216,6 +216,7 @@ class HomeViewController: UIViewController {
                 self.pullUpDetailView.priceLabel.text = price
                 self.pullUpDetailView.userName.text = userName
                 self.pullUpDetailView.typeLabel.text = type
+                self.pullUpDetailView.sendButton.setTitle("申請任務", for: .normal)
                 self.pullUpDetailView.distanceLabel.text = "\(roundDistance)km"
                 self.pullUpDetailView.sendButton.addTarget(self,
                                                            action: #selector(self.requestBtnSend), for: .touchUpInside)
@@ -253,7 +254,8 @@ class HomeViewController: UIViewController {
                         "checkTask": selectData.checkTask,
                         "distance": selectData.distance,
                         "Time": Double(Date().millisecondsSince1970),
-                        "ownerID": selectData.ownerID])
+                        "ownerID": selectData.ownerID,
+                        "OwnerAgree": "waiting"])
                     
                     self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoID!)
                     
