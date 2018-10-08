@@ -165,11 +165,11 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
 extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
 
     func tableViewCellDidTapAgreeBtn(_ cell: RequestToolsTableViewCell) {
+        
+            let storyBoard = UIStoryboard(name: "cusomeAlert", bundle: nil)
+            let viewController = storyBoard.instantiateViewController(withIdentifier: "cusomeAlert")
 
-        if let alertView = Bundle.main.loadNibNamed("ScoreSendView", owner: nil, options: nil)?.first as? ScoreSendView {
-            alertView.delegate = self
-            alertView.tag = 101
-            self.historyTableView.addSubview(alertView)
+            self.present(viewController, animated: true, completion: nil)
             
             guard let tappedIndex = self.historyTableView.indexPath(for: cell) else {
                 return
@@ -180,8 +180,6 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
             self.agreeToos = self.requestTools[tappedIndex.row]
             self.agreeToolsInfo = self.toolsInfo[tappedIndex.row]
 
-//            myRef.child("Task").child(selectToosData.taskOwnerID).removeValue()
-        }
     }
     
     func alertBtn(actionType: String) {
