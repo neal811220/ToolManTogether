@@ -128,11 +128,10 @@ class HomeViewController: UIViewController {
                 guard let searchAnnotation = snapshot.value as? String else { return }
                 let spliteArray = searchAnnotation.components(separatedBy: "_")
                 
-                let taskLat = Double(spliteArray.first!)!
-                let taskLon = Double(spliteArray.last!)!
-
-            
-                self.removeMapTaskPoint(taskLat: taskLat, taskLon: taskLon)
+                
+                if let taskLat = Double(spliteArray.first!), let taskLon = Double(spliteArray.last!) {
+                    self.removeMapTaskPoint(taskLat: taskLat, taskLon: taskLon)
+                }
         }
     }
     

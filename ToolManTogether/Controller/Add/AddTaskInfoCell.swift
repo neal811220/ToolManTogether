@@ -11,6 +11,8 @@ import UIKit
 class AddTaskInfoCell: UITableViewCell, UITextFieldDelegate {
     
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var titleLabel: UILabel!
+    
     var titleCompletion: ((_ data: String) -> Void)?
     
     override func awakeFromNib() {
@@ -18,7 +20,8 @@ class AddTaskInfoCell: UITableViewCell, UITextFieldDelegate {
         textField.delegate = self
         
         textField.layer.shadowColor = UIColor.darkGray.cgColor
-        textField.layer.shadowRadius = 3
+//        textField.layer.cornerRadius = 10
+        textField.layer.shadowRadius = 1
         textField.layer.shadowOpacity = 0.5
         textField.layer.shadowOffset = CGSize(width: 0, height: 0)
 

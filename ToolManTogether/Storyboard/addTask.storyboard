@@ -69,6 +69,7 @@
                         <outlet property="addTaskBgView" destination="vQG-6V-Bdn" id="GcX-o2-oM7"/>
                         <outlet property="addTaskButton" destination="aHO-p0-AxC" id="BpJ-KK-rcg"/>
                         <outlet property="addTaskTableView" destination="JEF-Qj-nmF" id="a7O-fd-lyB"/>
+                        <outlet property="addressLabel" destination="a7R-v7-FI5" id="Oer-oo-RCe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pS8-lo-xM7" userLabel="First Responder" sceneMemberID="firstResponder"/>

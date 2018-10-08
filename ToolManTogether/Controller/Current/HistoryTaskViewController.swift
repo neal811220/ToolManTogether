@@ -38,6 +38,7 @@ class HistoryTaskViewController: UIViewController {
         
         myRef = Database.database().reference()
         
+        
     }
     
     func downloadUserPhoto(
@@ -116,6 +117,7 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
         if indexPath.section == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "requestedCell", for: indexPath) as? RequestCell {
                 cell.scrollTaskDelegate = self
+                                
                 cell.toosNumTitleLabel.text = "\(toolsInfo.count)個申請"
                 cell.selectionStyle = .none
                 cell.scrollTaskBtnDelegate = self
@@ -125,6 +127,7 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
         } else if indexPath.section == 1 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "requestTools", for: indexPath) as? RequestToolsTableViewCell {
                 cell.delegate = self
+                
                 
                 let cellData = toolsInfo[indexPath.row]
                 let requestData = requestTools[indexPath.row]
@@ -186,9 +189,7 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
         guard let alertView = self.historyTableView.viewWithTag(101) as? ScoreSendView else { return }
 
         if actionType == "confirm" {
-            
-
-            
+        
             UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 alertView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.maxY)
                 alertView.layer.opacity = 0
@@ -205,8 +206,15 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
                         self.myRef.child("RequestTask").child(requestTaskKey).updateChildValues([
                             "OwnerAgree": "agree"])
                     self.myRef.child("Task").child(taskOwnerKey).updateChildValues(["agree": true])
-                    self.myRef.child("Task").child(taskOwnerKey).child("RequestUser").child(taskRequestUserKey).updateChildValues(["agree": true])
+                self.myRef.child("Task").child(taskOwnerKey).child("RequestUser").child(taskRequestUserKey).updateChildValues(["agree": true])
+                        
+                    self.myRef.child("Task").child(taskOwnerKey).child("searchAnnotation").removeValue()
+                        
+                    self.myRef.child("Task").child(taskOwnerKey).child("lat").removeValue()
+                    self.myRef.child("Task").child(taskOwnerKey).child("lon").removeValue()
 
+
+                        
                     NotificationCenter.default.post(name: .agreeToos, object: nil)
                         
                     } else {

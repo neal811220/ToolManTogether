@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
         guard UserManager.fbUser.getUserToken() == nil else {
+            
             switchToMainStoryBoard()
             return true
         }

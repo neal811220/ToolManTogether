@@ -19,13 +19,13 @@ class AddTaskContentCell: UITableViewCell, UITextViewDelegate {
         
         contentTextView.clipsToBounds = false
         contentTextView.layer.shadowColor = UIColor.darkGray.cgColor
-        contentTextView.layer.shadowRadius = 3
+        contentTextView.layer.cornerRadius = 10
+        contentTextView.layer.shadowRadius = 1
         contentTextView.layer.shadowOpacity = 0.5
         contentTextView.layer.shadowOffset = CGSize(width: 0, height: 0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
 }

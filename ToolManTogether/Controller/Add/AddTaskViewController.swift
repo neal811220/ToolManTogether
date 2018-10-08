@@ -10,13 +10,14 @@ import UIKit
 import CoreLocation
 import FirebaseDatabase
 import FirebaseAuth
+import MapKit
 
 class AddTaskViewController: UIViewController {
     
-    // Outlate
     @IBOutlet weak var addTaskTableView: UITableView!
     @IBOutlet weak var addTaskBgView: UIView!
     @IBOutlet weak var addTaskButton: UIButton!
+    @IBOutlet weak var addressLabel: UILabel!
     
     var titleTxt: String?
     var contentTxt: String?
@@ -25,6 +26,11 @@ class AddTaskViewController: UIViewController {
     var homeVC = HomeViewController()
     var locationManager = CLLocationManager()
     var myRef: DatabaseReference!
+    let authorizationStatus = CLLocationManager.authorizationStatus()
+    var regionRadious: Double = 1000
+    var customMapCenterLocation: CLLocationCoordinate2D!
+    let geoCoder = CLGeocoder()
+    var userAddress: String?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -49,6 +55,10 @@ class AddTaskViewController: UIViewController {
         let typeNib = UINib(nibName: "AddTaskTypeCell", bundle: nil)
         self.addTaskTableView.register(typeNib, forCellReuseIdentifier: "TypeTableVIewCell")
         
+        let customLocationNib = UINib(nibName: "AddCustomLocationMapCell", bundle: nil)
+        self.addTaskTableView.register(customLocationNib, forCellReuseIdentifier: "customLocation")
+        
+        
         myRef = Database.database().reference()
         
         addTaskBgView.layer.cornerRadius = 23
@@ -69,7 +79,7 @@ class AddTaskViewController: UIViewController {
             showAlert(content: "Please select the Type")
             return
         }
-        guard let userCoordinate = homeVC.locationManager.location?.coordinate else {
+        guard let userCoordinate = customMapCenterLocation else {
             showAlert(title: "Location is something wrong", content: "Please try again later")
             return
         }
@@ -105,12 +115,70 @@ class AddTaskViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    func addUserLocationPoint() -> CLLocationCoordinate2D? {
+        
+         if let userLocation = homeVC.locationManager.location?.coordinate {
+            return userLocation
+        }
+        return nil
+    }
+    
+    func centerMapOnUserLocation() -> MKCoordinateRegion? {
+        if let coordinate = locationManager.location?.coordinate {
+            let coordinateRegion = MKCoordinateRegion(
+                center: coordinate,
+                latitudinalMeters: regionRadious * 0.3,
+                longitudinalMeters: regionRadious * 0.3)
+            return coordinateRegion
+        }
+        return nil
+    }
+    
+    func reverseGeocodeLocation() {
+        
+        let addressLocation = CLLocation(latitude: customMapCenterLocation.latitude, longitude: customMapCenterLocation.longitude)
+        
+        geoCoder.reverseGeocodeLocation(addressLocation, completionHandler: {(placemarks: [AnyObject]!, error) -> Void in
+            if error != nil {
+                print(error)
+                return
+            }
+            
+            let array = NSArray(object: "zh-TW")
+            
+            UserDefaults.standard.set(array, forKey: "AppleLanguages")
+            
+            if let address = placemarks?[0] {
+                var userAddress = ""
+                
+                if let locality = address.locality {
+                    if locality != nil {
+                        userAddress.append(locality!)
+                    }
+                }
+                
+                if let thoroughfare = address.thoroughfare {
+                    if thoroughfare != nil {
+                        userAddress.append(thoroughfare!)
+                    }
+                }
+                
+                if let subThoroughfare = address.subThoroughfare {
+                    if subThoroughfare != nil {
+                        userAddress.append(subThoroughfare!)
+                    }
+                }
+                    self.addressLabel.text = userAddress
+            }
+        })
+    }
+
 }
 
 extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -150,7 +218,7 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
-                cell.textField.placeholder = "價格"
+                cell.titleLabel.text = "價格"
                 cell.titleCompletion = { [weak self] (result) in
                     self?.priceTxt = result
                 }
@@ -160,13 +228,24 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "Content", for: indexPath) as? AddTaskContentCell {
-                cell.contentTextView.text = "Content"
                 cell.contentTextView.textColor = #colorLiteral(red: 0.7843137255, green: 0.7803921569, blue: 0.8039215686, alpha: 1)
                 cell.contentTextView.delegate = self
                 cell.backgroundColor = .red
                 return cell
             }
         
+        } else if indexPath.section == 5 {
+            
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "customLocation") as? AddCustomLocationMapCell {
+                
+                cell.mapDelegate = self
+        
+                if let centerUser = self.centerMapOnUserLocation() {
+                    cell.customMapView.setRegion(centerUser, animated: true)
+                }
+                
+                return cell
+            }
         }
         return UITableViewCell()
     }
@@ -188,6 +267,10 @@ extension AddTaskViewController: UITextViewDelegate {
         return true
     }
     
+    func textViewdidchange(_ textView: UITextView) {
+        contentTxt = textView.text
+    }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text == "" {
             textView.text = "Content"
@@ -200,5 +283,15 @@ extension AddTaskViewController: UITextViewDelegate {
 
 extension Notification.Name {
     static let addTask = Notification.Name("addTask")
+}
+
+
+extension AddTaskViewController: CustomLocation {
+    
+    func locationChange(_ coordinate: CLLocationCoordinate2D) {
+        customMapCenterLocation = coordinate
+        
+        self.reverseGeocodeLocation()
+    }
 }
 
