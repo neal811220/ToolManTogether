@@ -16,6 +16,9 @@ target 'ToolManTogether' do
 	pod 'IQKeyboardManagerSwift'
   	pod 'SDWebImage'
 	pod 'AnimatedCollectionViewLayout'
+	pod 'Firebase/Messaging'
+   	pod 'Alamofire', '~> 4.7'
+
 
 
 

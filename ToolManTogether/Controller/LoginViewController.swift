@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import Firebase
 import FBSDKLoginKit
 import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
+import UserNotifications
+import FirebaseMessaging
+
 
 class LoginViewController: UIViewController {
     
@@ -93,7 +97,6 @@ class LoginViewController: UIViewController {
                     let fbPhoto = info["picture"] as? [String: Any]
                     let photoData = fbPhoto?["data"] as? [String: Any]
                     let photoURL = photoData?["url"] as? String
-                    let userId = Auth.auth().currentUser?.uid
                     
                     self.uploadImagePic(url: URL(string: photoURL!)!)
                     
@@ -101,7 +104,7 @@ class LoginViewController: UIViewController {
                     
                     guard let userID = Auth.auth().currentUser?.uid else { return }
                     
-                    self.dataRef.child("UserData").child(userId!).updateChildValues([
+                    self.dataRef.child("UserData").child(userID).updateChildValues([
                         "FBID": fbID,
                         "FBName": fbName,
                         "FBEmail": fbEmail,
@@ -136,6 +139,23 @@ class LoginViewController: UIViewController {
     func switchView() {
         DispatchQueue.main.async {
             AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
+            
+            guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+            InstanceID.instanceID().instanceID { (result, error) in
+                if let error = error {
+                    print("Error fetching remote instange ID: \(error)")
+                } else if let result = result {
+                    print("Remote instance ID token: \(result.token)")
+                    
+                    self.dataRef.child("UserData").child(userID).updateChildValues([
+                        "RemoteToken": result.token])
+                    
+                    Messaging.messaging().subscribe(toTopic: "AllTask") { error in
+                        print("Subscribed to AllTask topic")
+                    }
+                }
+            }
         }
     }
 }

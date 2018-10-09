@@ -11,6 +11,7 @@ import CoreLocation
 import FirebaseDatabase
 import FirebaseAuth
 import MapKit
+import FirebaseMessaging
 
 class AddTaskViewController: UIViewController {
     
@@ -31,6 +32,7 @@ class AddTaskViewController: UIViewController {
     var customMapCenterLocation: CLLocationCoordinate2D!
     let geoCoder = CLGeocoder()
     var userAddress: String?
+    var client = HTTPClient(configuration: .default)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -64,7 +66,17 @@ class AddTaskViewController: UIViewController {
         addTaskBgView.layer.cornerRadius = 23
         
     }
-    
+
+    func sendNotification(title: String = "", content: String) {
+        
+        if let token = Messaging.messaging().fcmToken {
+            client.sendNotification(fromToken: token, toToken: "/topics/AllTask", title: title, content: content) { (bool, error) in
+                print(bool)
+                print(error)
+            }
+        }
+    }
+   
     @IBAction func addTask(_ sender: Any) {
         
         guard let title = titleTxt else {
@@ -106,6 +118,8 @@ class AddTaskViewController: UIViewController {
             "agree": false])
         
         NotificationCenter.default.post(name: .addTask, object: nil)
+        
+        self.sendNotification(content: "工具人出任務: 一筆\(taskType)任務")
     }
     
     func showAlert(title: String = "Incomplete Information", content: String) {

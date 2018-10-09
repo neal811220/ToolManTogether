@@ -79,6 +79,7 @@ class HomeViewController: UIViewController {
 
         configureLocationServices()
         
+        
     }
     
     func dataBaseTypeAdd() {

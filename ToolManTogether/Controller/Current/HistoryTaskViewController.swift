@@ -168,6 +168,11 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
         
             let storyBoard = UIStoryboard(name: "cusomeAlert", bundle: nil)
             let viewController = storyBoard.instantiateViewController(withIdentifier: "cusomeAlert")
+        
+            viewController.providesPresentationContextTransitionStyle = false
+            viewController.definesPresentationContext = false
+            viewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            viewController.view.backgroundColor = UIColor.init(white: 0.4, alpha: 0.8)
 
             self.present(viewController, animated: true, completion: nil)
             

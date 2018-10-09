@@ -116,6 +116,7 @@
 		8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTaskCell.swift; sourceTree = "<group>"; };
 		8E8EC458215CCAB800CCABE7 /* searchTaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = searchTaskCell.xib; sourceTree = "<group>"; };
 		8E93F769216B9A370059BAEE /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		8E93F76B216C60A30059BAEE /* ToolManTogether.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToolManTogether.entitlements; sourceTree = "<group>"; };
 		8EA01DA32160554B00104A55 /* ProfileServcedListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServcedListCell.swift; sourceTree = "<group>"; };
 		8EA01DA42160554B00104A55 /* ProfileServcedListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileServcedListCell.xib; sourceTree = "<group>"; };
 		8EA01DA721606C3500104A55 /* GoodCitizenCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodCitizenCardCell.swift; sourceTree = "<group>"; };
@@ -215,6 +216,7 @@
 		8E5BB6E02151E8830016C44A /* ToolManTogether */ = {
 			isa = PBXGroup;
 			children = (
+				8E93F76B216C60A30059BAEE /* ToolManTogether.entitlements */,
 				8E097DD421536D55006B574E /* View */,
 				8E6C6A7021522410007259D3 /* Model */,
 				8E6C6A6C2151F6C4007259D3 /* Extension */,
@@ -463,6 +465,11 @@
 				TargetAttributes = {
 					8E5BB6DD2151E8830016C44A = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -534,6 +541,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ToolManTogether/Pods-ToolManTogether-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AnimatedCollectionViewLayout/AnimatedCollectionViewLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
@@ -541,12 +549,14 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AnimatedCollectionViewLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
@@ -554,6 +564,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -785,6 +796,7 @@
 			baseConfigurationReference = E97E8B2878069B46EFA64257 /* Pods-ToolManTogether.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ToolManTogether/ToolManTogether.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 26WBMBDFCZ;
 				INFOPLIST_FILE = ToolManTogether/Info.plist;
@@ -805,6 +817,7 @@
 			baseConfigurationReference = AA9850B54DD82A117E99917C /* Pods-ToolManTogether.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ToolManTogether/ToolManTogether.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 26WBMBDFCZ;
 				INFOPLIST_FILE = ToolManTogether/Info.plist;
