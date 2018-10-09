@@ -32,4 +32,5 @@ struct RequestUserInfo {
     var fbName: String?
     var userPhone: String?
     var userID: String
+    var remoteToken: String?
 }

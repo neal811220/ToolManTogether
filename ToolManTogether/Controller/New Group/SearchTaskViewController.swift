@@ -21,7 +21,6 @@ class SearchTaskViewController: UIViewController {
     var selectTaskKey: [String] = []
     var reloadFromFirebase = false
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

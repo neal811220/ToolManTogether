@@ -11,6 +11,8 @@ import FirebaseAuth
 import SDWebImage
 import FirebaseDatabase
 import FirebaseStorage
+import FirebaseMessaging
+
 
 class HistoryTaskViewController: UIViewController {
     
@@ -23,6 +25,8 @@ class HistoryTaskViewController: UIViewController {
     
     var agreeToos: RequestUser?
     var agreeToolsInfo: RequestUserInfo?
+    var client = HTTPClient(configuration: .default)
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,16 +85,29 @@ class HistoryTaskViewController: UIViewController {
                         let fbName = dictionary["FBName"] as? String
                         let userPhone = dictionary["UserPhone"] as? String
                         guard let userID = dictionary["UserID"] as? String else { return }
+                        let remoteToken = dictionary["RemoteToken"] as? String
                         
-                        let toolsInfo = RequestUserInfo(aboutUser: aboutUser,
-                                                        fbEmail: fbEmail,
-                                                        fbID: fbID,
-                                                        fbName: fbName,
-                                                        userPhone: userPhone, userID: userID)
+                        let extractedExpr = RequestUserInfo(aboutUser: aboutUser,
+                                                            fbEmail: fbEmail,
+                                                            fbID: fbID,
+                                                            fbName: fbName,
+                                                            userPhone: userPhone, userID: userID,
+                                                            remoteToken: remoteToken)
+                        let toolsInfo = extractedExpr
                         
                         self.toolsInfo.append(toolsInfo)
                         self.historyTableView.reloadData()
                     }
+            }
+        }
+    }
+    
+    func sendNotification(title: String = "", content: String, toToken: String) {
+        
+        if let token = Messaging.messaging().fcmToken {
+            client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content) { (bool, error) in
+                print(bool)
+                print(error)
             }
         }
     }
@@ -215,8 +232,6 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
                         
                     self.myRef.child("Task").child(taskOwnerKey).child("lat").removeValue()
                     self.myRef.child("Task").child(taskOwnerKey).child("lon").removeValue()
-
-
                         
                     NotificationCenter.default.post(name: .agreeToos, object: nil)
                         
@@ -231,6 +246,11 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
                 guard let agreeToos = self.agreeToos, let toolsInfo = self.agreeToolsInfo else { return }
                 self.requestTools.append(agreeToos)
                 self.toolsInfo.append(toolsInfo)
+                
+                if let toolsToken = toolsInfo.remoteToken {
+                    self.sendNotification(content: "您的任務已被\(toolsInfo.fbName)同意，趕快來查看", toToken: toolsToken)
+                }
+
                 self.historyTableView.reloadData()
             }
             
