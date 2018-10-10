@@ -72,6 +72,9 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
         myRef.child("Task").queryOrdered(byChild: "UserID").queryEqual(toValue: userID).observeSingleEvent(of: .value) { (snapshot) in
+            
+            print(snapshot)
+            
             guard let data = snapshot.value as? NSDictionary else { return }
             
             for value in data {
@@ -105,7 +108,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 self.addTask.append(task)
                 self.addTask.sort(by: { $0.time! > $1.time! })
                 
-                self.createTaskChange(taskKey: keyValue)
+//                self.createTaskChange(taskKey: keyValue)
             }
             
             self.collectionView.reloadData()
@@ -210,6 +213,10 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         })
     }
     
+    @objc func deleteScrollTask() {
+        print("delete")
+    }
+    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -232,8 +239,9 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             if cellData.agree == false {
                 cell.requestCollectionView.sendButton.setTitle("取消任務", for: .normal)
             } else if cellData.agree == true {
-                cell.requestCollectionView.sendButton.setTitle("存到個人歷史紀錄", for: .normal)
+                cell.requestCollectionView.sendButton.setTitle("從列表中刪除", for: .normal)
                 cell.requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 0.5294117647, green: 0.6352941176, blue: 0.8509803922, alpha: 1)
+                cell.requestCollectionView.sendButton.addTarget(self, action: #selector(deleteScrollTask), for: .touchUpInside)
             } else {
                 cell.requestCollectionView.sendButton.setTitle("取消任務", for: .normal)
             }

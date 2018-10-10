@@ -117,10 +117,6 @@ class AddTaskViewController: UIViewController {
             "Time": Double(Date().millisecondsSince1970),
             "agree": false])
         
-        myRef.child("Task").child(autoID!).child("RequestUser").updateChildValues([
-            "nil": "nil"
-            ])
-        
         NotificationCenter.default.post(name: .addTask, object: nil)
         
         self.sendNotification(title: "工具人出任務", content: "一筆\(taskType)的新任務")

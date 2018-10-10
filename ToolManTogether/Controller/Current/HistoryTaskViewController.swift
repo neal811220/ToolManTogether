@@ -26,11 +26,19 @@ class HistoryTaskViewController: UIViewController {
     var agreeToolsInfo: RequestUserInfo?
     var client = HTTPClient(configuration: .default)
     
+    var refreshController: UIRefreshControl!
+    var scrollViewDefine: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         historyTableView.delegate = self
         historyTableView.dataSource = self
+        refreshController = UIRefreshControl()
+        refreshController.attributedTitle = NSAttributedString(string: "refresh...")
+
+        historyTableView.addSubview(refreshController)
+        refreshController.addTarget(self, action: #selector(loadData), for: UIControl.Event.valueChanged)
         
         let typeNib = UINib(nibName: "RequestCell", bundle: nil)
         self.historyTableView.register(typeNib, forCellReuseIdentifier: "requestedCell")
@@ -40,6 +48,20 @@ class HistoryTaskViewController: UIViewController {
         
         myRef = Database.database().reference()
         
+    }
+    
+    @objc func loadData() {
+        
+        refreshController.beginRefreshing()
+        
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.historyTableView.contentOffset = CGPoint(x: 0, y: -self.refreshController.bounds.height)
+        }) { (finish) in
+            self.didScrollTask(self.scrollViewDefine)
+            self.refreshController.endRefreshing()
+            
+        }
+    
     }
     
     func downloadUserPhoto(
@@ -132,35 +154,22 @@ class HistoryTaskViewController: UIViewController {
                 self.myRef.child("Task").child(taskOwnerKey).child("lat").removeValue()
                 self.myRef.child("Task").child(taskOwnerKey).child("lon").removeValue()
                 
-                NotificationCenter.default.post(name: .agreeToos, object: nil)
+//                NotificationCenter.default.post(name: .agreeToos, object: nil)
+                
+                self.didScrollTask(self.scrollViewDefine)
+                
+                if let toolsToken = self.agreeToolsInfo?.remoteToken {
+                    self.sendNotification(content: "任務已被\(currentUser)同意，趕快來查看", toToken: toolsToken)
+                }
                 
             } else {
                 
                 self.myRef.child("RequestTask").child(value.requestTaskID).updateChildValues([
                     "OwnerAgree": "disAgree"])
-            }
-            
-            
-            if let agreeRemoteToken = self.agreeToolsInfo?.remoteToken {
                 
-                for requestRemoteToken in toolsInfo {
-                    
-                    if agreeRemoteToken == requestRemoteToken.remoteToken {
-                        
-                        if let currentUser = Auth.auth().currentUser?.displayName {
-                            
-                            if let toolsToken = self.agreeToolsInfo?.remoteToken {
-                                self.sendNotification(content: "任務已被\(currentUser)同意，趕快來查看", toToken: toolsToken)
-                            }
-                        }
-                    } else {
-                        
-                        if let currentUser = Auth.auth().currentUser?.displayName {
-                            
-                            if let toolsToken = self.agreeToolsInfo?.remoteToken {
-                                self.sendNotification(content: "任務已被\(currentUser)拒絕!", toToken: toolsToken)
-                            }
-                        }
+                for disAgreeRemoteToken in self.toolsInfo {
+                    if disAgreeRemoteToken.remoteToken != self.agreeToolsInfo!.remoteToken {
+                            self.sendNotification(content: "任務已被\(currentUser)同意，趕快來查看", toToken: disAgreeRemoteToken.remoteToken!)
                     }
                 }
             }
@@ -201,7 +210,7 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
                                 
                 cell.toosNumTitleLabel.text = "\(toolsInfo.count)個申請"
                 cell.selectionStyle = .none
-                cell.scrollTaskBtnDelegate = self
+//                cell.scrollTaskBtnDelegate = self
                 
                 return cell
             }
@@ -277,6 +286,7 @@ extension HistoryTaskViewController: ScrollTask {
         self.requestTools.removeAll()
         self.toolsInfo.removeAll()
         self.historyTableView.reloadData()
+        self.scrollViewDefine = cell
 
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
@@ -308,7 +318,8 @@ extension HistoryTaskViewController: ScrollTask {
                         if agree == true {
                            self.requestTools.removeAll()
                             self.requestTools.append(requestData)
-//                            self.searchToos()
+                            self.searchToos()
+                            return
                         } else {
                             self.requestTools.append(requestData)
 //                            self.searchToos()
@@ -322,12 +333,11 @@ extension HistoryTaskViewController: ScrollTask {
     }
 }
 
-extension HistoryTaskViewController: btnPressed {
-    
-    func btnPressed(_ send: TaskDetailInfoView) {
-        send.sendButton.setTitle("YAA", for: .normal)
-    }
-}
+//extension HistoryTaskViewController: btnPressed {
+//
+//    func btnPressed(_ send: TaskDetailInfoView) {
+//    }
+//}
 
 extension Notification.Name {
     static let agreeToos = Notification.Name("agreeToos")

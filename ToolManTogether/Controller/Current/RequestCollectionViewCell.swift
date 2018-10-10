@@ -39,7 +39,6 @@ class RequestCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func sendBtnPressed() {
-        print("Yaa")
         self.taskBtnDelegate?.didPressed(self.requestCollectionView)
         
     }
