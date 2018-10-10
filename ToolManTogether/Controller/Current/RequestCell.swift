@@ -64,6 +64,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
     }
     
+    // 已發任務
+    
     @objc func createTaskAdd () {
         
         self.addTask.removeAll()
@@ -76,14 +78,17 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 
                 guard let keyValue = value.key as? String else { return }
                 guard let dictionary = value.value as? [String: Any] else { return }
+                print(dictionary)
+                
                 guard let title = dictionary["Title"] as? String else { return }
                 guard let content = dictionary["Content"] as? String else { return }
                 guard let price = dictionary["Price"] as? String else { return }
                 guard let type = dictionary["Type"] as? String else { return }
                 guard let userName = dictionary["UserName"] as? String else { return }
                 guard let userID = dictionary["UserID"] as? String else { return }
-                guard let taskLat = dictionary["lat"] as? Double else { return }
-                guard let taskLon = dictionary["lon"] as? Double else { return }
+                
+                let taskLat = dictionary["lat"] as? Double
+                let taskLon = dictionary["lon"] as? Double
                 guard let agree = dictionary["agree"] as? Bool else { return }
                 let time = dictionary["Time"] as? Int
 
@@ -101,12 +106,14 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 self.addTask.sort(by: { $0.time! > $1.time! })
                 
                 self.createTaskChange(taskKey: keyValue)
-                self.collectionView.reloadData()
-
             }
+            
+            self.collectionView.reloadData()
             let searchAnnotation = self.addTask[self.scrollIndex].taskKey
+            
             self.scrollTaskDelegate?.didScrollTask(searchAnnotation!)
             self.taskNumTitleLabel.text = "第\(self.scrollIndex + 1)/\(self.addTask.count)筆任務"
+
         }
     }
     
@@ -114,24 +121,30 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
 
         guard let userID = Auth.auth().currentUser?.uid else { return }
 
-        myRef.child("Task").child(taskKey).observe(.childAdded) { (snapshot) in
+        myRef.child("Task").child(taskKey).child("RequestUser").observe(.childAdded) { (snapshot) in
+            
+            print(snapshot)
 
             self.myRef.child("Task").queryOrdered(byChild: "UserID").queryEqual(toValue: userID).observeSingleEvent(of: .value) { (snapshot) in
-                guard let data = snapshot.value as? NSDictionary else { return }
 
                 self.addTask.removeAll()
+
+                print(snapshot)
+                guard let data = snapshot.value as? NSDictionary else { return }
+
                 for value in data {
 
                     guard let keyValue = value.key as? String else { return }
                     guard let dictionary = value.value as? [String: Any] else { return }
+                    print(dictionary)
                     guard let title = dictionary["Title"] as? String else { return }
                     guard let content = dictionary["Content"] as? String else { return }
                     guard let price = dictionary["Price"] as? String else { return }
                     guard let type = dictionary["Type"] as? String else { return }
                     guard let userName = dictionary["UserName"] as? String else { return }
                     guard let userID = dictionary["UserID"] as? String else { return }
-                    guard let taskLat = dictionary["lat"] as? Double else { return }
-                    guard let taskLon = dictionary["lon"] as? Double else { return }
+                    let taskLat = dictionary["lat"] as? Double
+                    let taskLon = dictionary["lon"] as? Double
                     guard let agree = dictionary["agree"] as? Bool else { return }
                     let time = dictionary["Time"] as? Int
 
@@ -146,17 +159,28 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                                             taskKey: keyValue, agree: agree)
                     self.addTask.append(task)
                     self.addTask.sort(by: { $0.time! > $1.time! })
-
+                    
                 }
+                
                 self.collectionView.reloadData()
+                let searchAnnotation = self.addTask[self.checkIndex].taskKey
+                self.scrollTaskDelegate?.didScrollTask(searchAnnotation!)
             }
         }
     }
     
     
-    
+    // 滑動結束觸發
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        print(scrollView.contentOffset.x)
+        print(scrollView.frame.width)
+        print(Int(scrollView.contentOffset.x) / Int(scrollView.frame.width))
+        
         scrollIndex = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+        
+        print(scrollIndex)
+        
         if scrollIndex != checkIndex {
             let searchAnnotation = addTask[scrollIndex].taskKey
             scrollTaskDelegate?.didScrollTask(searchAnnotation!)

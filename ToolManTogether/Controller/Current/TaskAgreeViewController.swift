@@ -127,20 +127,6 @@ extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
         return UITableViewCell()
     }
 
-
-    func animateViewUp() {
-        popUpScoreHeight.constant = 280
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    func animateViewDown() {
-        popUpScoreHeight.constant = 0
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-    }
 }
 
 extension TaskAgreeViewController: CallBtnTapped {

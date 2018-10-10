@@ -156,6 +156,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                                                         for: indexPath) as? GoodCitizenCardCell {
                 cell.photoBtnDelegage = self
                 
+                cell.selectButton.isHidden = false
+                
                 if let userID = Auth.auth().currentUser?.uid {
                     self.downloadTaskUserPhoto(userID: userID, finder: "GoodCitizen") { (url) in
                         if url != nil {

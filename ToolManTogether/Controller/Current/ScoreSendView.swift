@@ -56,4 +56,3 @@ class ScoreSendView: UIView {
     }
     
 }
-

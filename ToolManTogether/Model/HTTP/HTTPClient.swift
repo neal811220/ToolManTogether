@@ -35,7 +35,8 @@ class HTTPClient {
         
         let parameters = ["to": toToken, "priority" : "high", "notification": [
            
-            "body": content ]] as [String : Any]
+            "body": content,
+            "title": title ]] as [String : Any]
     
         
         Alamofire.request(notificationURL, method: .post,

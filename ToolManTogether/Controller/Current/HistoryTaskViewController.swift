@@ -13,7 +13,6 @@ import FirebaseDatabase
 import FirebaseStorage
 import FirebaseMessaging
 
-
 class HistoryTaskViewController: UIViewController {
     
     @IBOutlet weak var historyTableView: UITableView!
@@ -26,7 +25,6 @@ class HistoryTaskViewController: UIViewController {
     var agreeToos: RequestUser?
     var agreeToolsInfo: RequestUserInfo?
     var client = HTTPClient(configuration: .default)
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +39,6 @@ class HistoryTaskViewController: UIViewController {
         self.historyTableView.register(toosNib, forCellReuseIdentifier: "requestTools")
         
         myRef = Database.database().reference()
-        
         
     }
     
@@ -66,7 +63,7 @@ class HistoryTaskViewController: UIViewController {
     
     func searchToos() {
         
-        toolsInfo.removeAll()
+        self.toolsInfo.removeAll()
         self.historyTableView.reloadData()
         
         for data in requestTools {
@@ -75,10 +72,12 @@ class HistoryTaskViewController: UIViewController {
                 .queryEqual(toValue: data.userID)
                 .observeSingleEvent(of: .value) { (snapshot) in
                     
+//                    self.toolsInfo.removeAll()
                     guard let data = snapshot.value as? NSDictionary else { return }
-                    
                     for value in data.allValues {
+                        
                         guard let dictionary = value as? [String: Any] else { return }
+                        print(dictionary)
                         let aboutUser = dictionary["AboutUser"] as? String
                         let fbEmail = dictionary["FBEmail"] as? String
                         let fbID = dictionary["FBID"] as? String
@@ -111,6 +110,71 @@ class HistoryTaskViewController: UIViewController {
             }
         }
     }
+
+    func confirm() {
+        
+        let requestTaskKey = self.selectToosData.requestTaskID
+        let taskOwnerKey = self.selectToosData.taskOwnerID
+        let taskRequestUserKey = self.selectToosData.requestKey
+        let currentUser = Auth.auth().currentUser?.displayName
+        
+        
+        for value in self.requestTools {
+            
+            if requestTaskKey == value.requestTaskID {
+                self.myRef.child("RequestTask").child(requestTaskKey).updateChildValues([
+                    "OwnerAgree": "agree"])
+                self.myRef.child("Task").child(taskOwnerKey).updateChildValues(["agree": true])
+                self.myRef.child("Task").child(taskOwnerKey).child("RequestUser").child(taskRequestUserKey).updateChildValues(["agree": true])
+                
+                self.myRef.child("Task").child(taskOwnerKey).child("searchAnnotation").removeValue()
+                
+                self.myRef.child("Task").child(taskOwnerKey).child("lat").removeValue()
+                self.myRef.child("Task").child(taskOwnerKey).child("lon").removeValue()
+                
+                NotificationCenter.default.post(name: .agreeToos, object: nil)
+                
+            } else {
+                
+                self.myRef.child("RequestTask").child(value.requestTaskID).updateChildValues([
+                    "OwnerAgree": "disAgree"])
+            }
+            
+            
+            if let agreeRemoteToken = self.agreeToolsInfo?.remoteToken {
+                
+                for requestRemoteToken in toolsInfo {
+                    
+                    if agreeRemoteToken == requestRemoteToken.remoteToken {
+                        
+                        if let currentUser = Auth.auth().currentUser?.displayName {
+                            
+                            if let toolsToken = self.agreeToolsInfo?.remoteToken {
+                                self.sendNotification(content: "任務已被\(currentUser)同意，趕快來查看", toToken: toolsToken)
+                            }
+                        }
+                    } else {
+                        
+                        if let currentUser = Auth.auth().currentUser?.displayName {
+                            
+                            if let toolsToken = self.agreeToolsInfo?.remoteToken {
+                                self.sendNotification(content: "任務已被\(currentUser)拒絕!", toToken: toolsToken)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        self.requestTools.removeAll()
+        self.toolsInfo.removeAll()
+        guard let agreeToos = self.agreeToos, let toolsInfo = self.agreeToolsInfo else { return }
+        self.requestTools.append(agreeToos)
+        self.toolsInfo.append(toolsInfo)
+    
+        self.historyTableView.reloadData()
+    }
+    
 }
 
 extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate {
@@ -145,7 +209,6 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "requestTools", for: indexPath) as? RequestToolsTableViewCell {
                 cell.delegate = self
                 
-                
                 let cellData = toolsInfo[indexPath.row]
                 let requestData = requestTools[indexPath.row]
                 
@@ -172,27 +235,28 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
+//        let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
 
         let viewController = TaskAgreeViewController.profileDetailDataForTask(toolsInfo)
             self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
-extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
+extension HistoryTaskViewController: TableViewCellDelegate {
 
     func tableViewCellDidTapAgreeBtn(_ cell: RequestToolsTableViewCell) {
         
-            let storyBoard = UIStoryboard(name: "cusomeAlert", bundle: nil)
-            let viewController = storyBoard.instantiateViewController(withIdentifier: "cusomeAlert")
         
-            viewController.providesPresentationContextTransitionStyle = false
-            viewController.definesPresentationContext = false
-            viewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            viewController.view.backgroundColor = UIColor.init(white: 0.4, alpha: 0.8)
-
-            self.present(viewController, animated: true, completion: nil)
-            
+            let alert = UIAlertController(title: "確認新增？", message: "將新增對方為工具人", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "確認", style: .default) { (void) in
+                self.confirm()
+            }
+            let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+        
+            alert.addAction(cancelAction)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        
             guard let tappedIndex = self.historyTableView.indexPath(for: cell) else {
                 return
             }
@@ -204,60 +268,6 @@ extension HistoryTaskViewController: TableViewCellDelegate, AlertViewDelegate {
 
     }
     
-    func alertBtn(actionType: String) {
-        
-        guard let alertView = self.historyTableView.viewWithTag(101) as? ScoreSendView else { return }
-
-        if actionType == "confirm" {
-        
-            UIView.animate(withDuration: 0.3, animations: { () -> Void in
-                alertView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.maxY)
-                alertView.layer.opacity = 0
-            }) { (_) -> Void in
-                alertView.removeFromSuperview()
-                
-                let requestTaskKey = self.selectToosData.requestTaskID
-                let taskOwnerKey = self.selectToosData.taskOwnerID
-                let taskRequestUserKey = self.selectToosData.requestKey
-
-                for value in self.requestTools {
-                    
-                    if requestTaskKey == value.requestTaskID {
-                        self.myRef.child("RequestTask").child(requestTaskKey).updateChildValues([
-                            "OwnerAgree": "agree"])
-                    self.myRef.child("Task").child(taskOwnerKey).updateChildValues(["agree": true])
-                self.myRef.child("Task").child(taskOwnerKey).child("RequestUser").child(taskRequestUserKey).updateChildValues(["agree": true])
-                        
-                    self.myRef.child("Task").child(taskOwnerKey).child("searchAnnotation").removeValue()
-                        
-                    self.myRef.child("Task").child(taskOwnerKey).child("lat").removeValue()
-                    self.myRef.child("Task").child(taskOwnerKey).child("lon").removeValue()
-                        
-                    NotificationCenter.default.post(name: .agreeToos, object: nil)
-                        
-                    } else {
-                        self.myRef.child("RequestTask").child(value.requestTaskID).updateChildValues([
-                            "OwnerAgree": "disAgree"])
-                    }
-                }
-                
-                self.requestTools.removeAll()
-                self.toolsInfo.removeAll()
-                guard let agreeToos = self.agreeToos, let toolsInfo = self.agreeToolsInfo else { return }
-                self.requestTools.append(agreeToos)
-                self.toolsInfo.append(toolsInfo)
-                
-                if let toolsToken = toolsInfo.remoteToken {
-                    self.sendNotification(content: "您的任務已被\(toolsInfo.fbName)同意，趕快來查看", toToken: toolsToken)
-                }
-
-                self.historyTableView.reloadData()
-            }
-            
-        }else if actionType == "cancel" {
-            alertView.removeFromSuperview()
-        }
-    }
 }
 
 extension HistoryTaskViewController: ScrollTask {
@@ -284,6 +294,7 @@ extension HistoryTaskViewController: ScrollTask {
                     for requestUserData in requestUser {
                         
                         guard let keyValue = requestUserData.key as? String else { return }
+                        print(requestUserData.value)
                         guard let requestDictionary = requestUserData.value as? [String: Any] else { return }
                         print(requestDictionary)
                         guard let distance = requestDictionary["distance"] as? Double else { return }
@@ -297,12 +308,15 @@ extension HistoryTaskViewController: ScrollTask {
                         if agree == true {
                            self.requestTools.removeAll()
                             self.requestTools.append(requestData)
+//                            self.searchToos()
                         } else {
                             self.requestTools.append(requestData)
+//                            self.searchToos()
                         }
-                        
+
                     }
-                        self.searchToos()
+                    self.searchToos()
+
                 }
         }
     }

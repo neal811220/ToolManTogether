@@ -16,8 +16,8 @@ struct UserTaskInfo {
     var content: String
     var type: String
     var price: String
-    var taskLat: Double
-    var taskLon: Double
+    var taskLat: Double?
+    var taskLon: Double?
     var checkTask: String?
     var distance: Double?
     var time: Int?
