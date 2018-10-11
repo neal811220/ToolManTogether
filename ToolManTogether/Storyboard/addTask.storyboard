@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Add Task View Controller-->
+        <!--新增-->
         <scene sceneID="azG-ZV-KPa">
             <objects>
                 <viewController id="OPy-Sr-3Kq" customClass="AddTaskViewController" customModule="ToolManTogether" customModuleProvider="target" sceneMemberID="viewController">
@@ -64,7 +64,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="G06-HE-9t2"/>
                     </view>
-                    <navigationItem key="navigationItem" id="APP-fg-PwT"/>
+                    <navigationItem key="navigationItem" title="新增" id="APP-fg-PwT"/>
                     <connections>
                         <outlet property="addTaskBgView" destination="vQG-6V-Bdn" id="GcX-o2-oM7"/>
                         <outlet property="addTaskButton" destination="aHO-p0-AxC" id="BpJ-KK-rcg"/>

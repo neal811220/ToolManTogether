@@ -28,7 +28,7 @@ class TaskDetailInfoView: UIView {
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var priceImageView: UIImageView!
     @IBOutlet weak var distanceImageView: UIImageView!
-    
+    @IBOutlet weak var donBtn: UIButton!
     
 
     override init(frame: CGRect) {
@@ -41,6 +41,8 @@ class TaskDetailInfoView: UIView {
         commonInit()
         sendButton.layer.cornerRadius = 8.0
         userPhoto.layer.cornerRadius = userPhoto.frame.width / 2
+        
+        donBtn.layer.cornerRadius = 8.0
 
     }
     

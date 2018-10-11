@@ -119,7 +119,7 @@ class AddTaskViewController: UIViewController {
         
         NotificationCenter.default.post(name: .addTask, object: nil)
         
-        self.sendNotification(title: "工具人出任務", content: "一筆\(taskType)的新任務")
+//        self.sendNotification(title: "工具人出任務", content: "一筆\(taskType)的新任務")
     }
     
     func showAlert(title: String = "Incomplete Information", content: String) {
@@ -214,6 +214,9 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.titleCompletion = { [weak self] (result) in
                     self?.titleTxt = result
                 }
+                
+                
+                
                 return cell
             }
             
@@ -298,7 +301,6 @@ extension AddTaskViewController: UITextViewDelegate {
 extension Notification.Name {
     static let addTask = Notification.Name("addTask")
 }
-
 
 extension AddTaskViewController: CustomLocation {
     

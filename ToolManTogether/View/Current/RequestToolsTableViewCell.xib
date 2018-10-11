@@ -64,7 +64,7 @@
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yzc-gw-w9z">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yzc-gw-w9z">
                                 <rect key="frame" x="294" y="25" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="Z0q-mn-jZk"/>
@@ -72,7 +72,7 @@
                                 </constraints>
                                 <state key="normal" image="star"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Amk-H7-Hdd">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Amk-H7-Hdd">
                                 <rect key="frame" x="313" y="25" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="fTB-l0-lao"/>
@@ -80,7 +80,7 @@
                                 </constraints>
                                 <state key="normal" image="star"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddw-yo-emV">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddw-yo-emV">
                                 <rect key="frame" x="332" y="25" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="cRz-Jw-hTM"/>
@@ -88,7 +88,7 @@
                                 </constraints>
                                 <state key="normal" image="star"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X6n-sk-F1K">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X6n-sk-F1K">
                                 <rect key="frame" x="351" y="25" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="H5g-se-epl"/>
@@ -96,7 +96,7 @@
                                 </constraints>
                                 <state key="normal" image="star"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3FO-ik-yuE">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3FO-ik-yuE">
                                 <rect key="frame" x="275" y="25" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="rsp-oe-rld"/>
@@ -124,10 +124,22 @@
                                     <constraint firstAttribute="width" constant="15" id="rgP-fo-pRa"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSH-sE-jnF">
+                                <rect key="frame" x="297" y="91" width="64" height="39"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="3zq-rn-fce"/>
+                                    <constraint firstAttribute="height" constant="39" id="GRJ-5w-hpd"/>
+                                </constraints>
+                                <state key="normal" image="btn_more">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="3Ns-EN-7PJ" firstAttribute="top" secondItem="frp-d2-Ria" secondAttribute="top" constant="20" id="0TC-zH-BOI"/>
+                            <constraint firstItem="SSH-sE-jnF" firstAttribute="top" secondItem="SSN-nC-ELj" secondAttribute="bottom" constant="16" id="0uT-xE-EMb"/>
                             <constraint firstItem="Amk-H7-Hdd" firstAttribute="centerY" secondItem="ddw-yo-emV" secondAttribute="centerY" id="2vd-4S-UXv"/>
                             <constraint firstItem="X6n-sk-F1K" firstAttribute="top" secondItem="frp-d2-Ria" secondAttribute="top" constant="25" id="6Sb-Fl-NVc"/>
                             <constraint firstAttribute="trailing" secondItem="SSN-nC-ELj" secondAttribute="trailing" constant="14" id="8ig-qA-3oN"/>
@@ -136,11 +148,13 @@
                             <constraint firstItem="Yzc-gw-w9z" firstAttribute="centerY" secondItem="Amk-H7-Hdd" secondAttribute="centerY" id="G10-ai-n3N"/>
                             <constraint firstItem="9M2-f0-rVD" firstAttribute="leading" secondItem="frp-d2-Ria" secondAttribute="leading" constant="8" id="GGR-T6-6yz"/>
                             <constraint firstItem="gOW-DJ-SZu" firstAttribute="top" secondItem="frp-d2-Ria" secondAttribute="top" constant="60" id="OED-DH-dhH"/>
+                            <constraint firstAttribute="trailing" secondItem="SSH-sE-jnF" secondAttribute="trailing" constant="14" id="Pap-SF-TV2"/>
                             <constraint firstItem="Yzc-gw-w9z" firstAttribute="leading" secondItem="3FO-ik-yuE" secondAttribute="trailing" constant="3" id="QNZ-ug-u6H"/>
                             <constraint firstAttribute="trailing" secondItem="DJv-ka-rjr" secondAttribute="trailing" constant="14" id="VA5-xQ-kak"/>
                             <constraint firstItem="gOW-DJ-SZu" firstAttribute="leading" secondItem="9M2-f0-rVD" secondAttribute="trailing" constant="8" id="VyV-nc-169"/>
                             <constraint firstItem="3Ns-EN-7PJ" firstAttribute="leading" secondItem="gOW-DJ-SZu" secondAttribute="leading" id="Xm2-YC-9og"/>
                             <constraint firstItem="0d7-yx-6n1" firstAttribute="top" secondItem="Yzc-gw-w9z" secondAttribute="bottom" constant="13" id="aL3-4Z-bq5"/>
+                            <constraint firstItem="SSH-sE-jnF" firstAttribute="leading" secondItem="gOW-DJ-SZu" secondAttribute="trailing" constant="24" id="d1R-xy-km6"/>
                             <constraint firstItem="9M2-f0-rVD" firstAttribute="centerY" secondItem="frp-d2-Ria" secondAttribute="centerY" id="eF8-Sv-6bU"/>
                             <constraint firstItem="3FO-ik-yuE" firstAttribute="centerY" secondItem="Yzc-gw-w9z" secondAttribute="centerY" id="lft-Mm-Iq9"/>
                             <constraint firstItem="ddw-yo-emV" firstAttribute="centerY" secondItem="X6n-sk-F1K" secondAttribute="centerY" id="mHl-eM-DAI"/>
@@ -168,6 +182,7 @@
             <connections>
                 <outlet property="agreeButton" destination="DJv-ka-rjr" id="dAN-8z-9IO"/>
                 <outlet property="distanceLabel" destination="SSN-nC-ELj" id="a6S-qZ-CeW"/>
+                <outlet property="moreBtn" destination="SSH-sE-jnF" id="pOG-eH-4Eo"/>
                 <outlet property="starFive" destination="X6n-sk-F1K" id="iHl-0O-r1C"/>
                 <outlet property="starFour" destination="ddw-yo-emV" id="9Wv-vA-ZG8"/>
                 <outlet property="starOne" destination="3FO-ik-yuE" id="COM-Nl-D3M"/>
@@ -181,6 +196,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="btn_more" width="18" height="4"/>
         <image name="orangePoint" width="32" height="32"/>
         <image name="star" width="32" height="32"/>
         <image name="userImage_Spock" width="50" height="61"/>

@@ -24,6 +24,7 @@ class RequestToolsTableViewCell: UITableViewCell {
     @IBOutlet weak var starThree: UIButton!
     @IBOutlet weak var starFour: UIButton!
     @IBOutlet weak var starFive: UIButton!
+    @IBOutlet weak var moreBtn: UIButton!
     
     weak var delegate: TableViewCellDelegate?
     

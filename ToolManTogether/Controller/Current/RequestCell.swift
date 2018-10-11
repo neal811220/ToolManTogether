@@ -21,6 +21,7 @@ protocol btnPressed: AnyObject {
     func btnPressed(_ send: TaskDetailInfoView)
 }
 
+
 class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -37,12 +38,14 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     weak var scrollTaskBtnDelegate: btnPressed?
     var checkIndex = 0
     var scrollIndex = 0
+    var bgView: UIView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         let cellNib = UINib(nibName: "RequestCollectionViewCell", bundle: nil)
         self.collectionView.register(cellNib, forCellWithReuseIdentifier: "requestCollectionView")
+        
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -64,6 +67,15 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
     }
     
+    func changeView(addTask:DataSnapshot) {
+
+        if addTask.hasChildren() == false {
+            NotificationCenter.default.post(name: .noTask, object: nil)
+        } else {
+            NotificationCenter.default.post(name: .hasTask, object: nil)
+        }
+    }
+    
     // 已發任務
     
     @objc func createTaskAdd () {
@@ -74,6 +86,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         myRef.child("Task").queryOrdered(byChild: "UserID").queryEqual(toValue: userID).observeSingleEvent(of: .value) { (snapshot) in
             
             print(snapshot)
+            self.changeView(addTask: snapshot)
             
             guard let data = snapshot.value as? NSDictionary else { return }
             
@@ -113,7 +126,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             
             self.collectionView.reloadData()
             let searchAnnotation = self.addTask[self.scrollIndex].taskKey
-            
             self.scrollTaskDelegate?.didScrollTask(searchAnnotation!)
             self.taskNumTitleLabel.text = "第\(self.scrollIndex + 1)/\(self.addTask.count)筆任務"
 
@@ -212,9 +224,61 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             }
         })
     }
+
     
+    // 刪除任務
     @objc func deleteScrollTask() {
-        print("delete")
+        
+        guard addTask.count != 0 else {
+            NotificationCenter.default.post(name: .noTask, object: nil)
+            return
+        }
+        
+        guard let ownerTaskKey = addTask[scrollIndex].taskKey else { return }
+        myRef.child("Task").child(ownerTaskKey).removeValue()
+        self.addTask.remove(at: checkIndex)
+        
+        let index = IndexPath(row: checkIndex, section: 0)
+        self.collectionView.performBatchUpdates({
+        
+            self.collectionView.deleteItems(at: [index])
+            
+            print(checkIndex)
+            print(addTask.count)
+            print(scrollIndex)
+            
+            self.taskNumTitleLabel.text = "第\((checkIndex))/\(addTask.count)筆任務"
+            
+            if addTask.count == 0 {
+                NotificationCenter.default.post(name: .noTask, object: nil)
+            }
+
+        }, completion: {
+            (finished: Bool) in
+        })
+        print("刪除完成")
+    }
+
+    // 完成，刪除任務
+    @objc func doneDelect() {
+        guard let taskKey = addTask[scrollIndex].taskKey else { return }
+        myRef.child("Task").child(taskKey).removeValue()
+        self.addTask.remove(at: checkIndex)
+
+        let index = IndexPath(row: checkIndex, section: 0)
+        self.collectionView.performBatchUpdates({
+            self.collectionView.deleteItems(at: [index])
+            
+            self.taskNumTitleLabel.text = "第\((checkIndex))/\(addTask.count)筆任務"
+            
+            if addTask.count == 0 {
+                NotificationCenter.default.post(name: .noTask, object: nil)
+            }
+            
+        }, completion: {
+            (finished: Bool) in
+        })
+        print("刪除完成")
     }
     
     
@@ -238,12 +302,25 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             
             if cellData.agree == false {
                 cell.requestCollectionView.sendButton.setTitle("取消任務", for: .normal)
-            } else if cellData.agree == true {
-                cell.requestCollectionView.sendButton.setTitle("從列表中刪除", for: .normal)
-                cell.requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 0.5294117647, green: 0.6352941176, blue: 0.8509803922, alpha: 1)
+                cell.requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+                cell.requestCollectionView.donBtn.isHidden = true
+                cell.requestCollectionView.sendButton.isHidden = false
                 cell.requestCollectionView.sendButton.addTarget(self, action: #selector(deleteScrollTask), for: .touchUpInside)
+
+            } else if cellData.agree == true {
+                cell.requestCollectionView.sendButton.isHidden = true
+                cell.requestCollectionView.donBtn.isHidden = false
+                
+
+                // 完成刪除
+                cell.requestCollectionView.donBtn.addTarget(self, action: #selector(doneDelect), for: .touchUpInside)
+                
             } else {
                 cell.requestCollectionView.sendButton.setTitle("取消任務", for: .normal)
+                cell.requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+                cell.requestCollectionView.donBtn.isHidden = true
+                cell.requestCollectionView.sendButton.isHidden = false
+
             }
            
             downloadUserPhoto(userID: cellData.userID, finder: "UserPhoto") { (url) in
@@ -282,4 +359,9 @@ extension RequestCell: ScrollTaskBtn{
     func didPressed(_ scrollView: TaskDetailInfoView) {
         scrollTaskBtnDelegate?.btnPressed(scrollView)
     }
+}
+
+extension Notification.Name {
+    static let noTask = Notification.Name("noTask")
+    static let hasTask = Notification.Name("hasTask")
 }

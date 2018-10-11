@@ -16,6 +16,8 @@ import FirebaseMessaging
 class HistoryTaskViewController: UIViewController {
     
     @IBOutlet weak var historyTableView: UITableView!
+    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var bgLabel: UILabel!
     
     var myRef: DatabaseReference!
     var requestTools: [RequestUser] = []
@@ -35,7 +37,7 @@ class HistoryTaskViewController: UIViewController {
         historyTableView.delegate = self
         historyTableView.dataSource = self
         refreshController = UIRefreshControl()
-        refreshController.attributedTitle = NSAttributedString(string: "refresh...")
+        refreshController.attributedTitle = NSAttributedString(string: "資料讀取中...")
 
         historyTableView.addSubview(refreshController)
         refreshController.addTarget(self, action: #selector(loadData), for: UIControl.Event.valueChanged)
@@ -48,6 +50,23 @@ class HistoryTaskViewController: UIViewController {
         
         myRef = Database.database().reference()
         
+        let noTaskNotification = Notification.Name("noTask")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notask), name: noTaskNotification, object: nil)
+        
+        let hasTaskNotification = Notification.Name("hasTask")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.hastask), name: hasTaskNotification, object: nil)
+        
+    }
+    
+    @objc func notask() {
+        bgView.isHidden = false
+        bgLabel.isHidden = false
+    }
+    
+    @objc func hastask() {
+        bgView.isHidden = true
+        bgLabel.isHidden = true
+
     }
     
     @objc func loadData() {
@@ -57,12 +76,13 @@ class HistoryTaskViewController: UIViewController {
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: UIView.AnimationOptions.curveEaseIn, animations: {
             self.historyTableView.contentOffset = CGPoint(x: 0, y: -self.refreshController.bounds.height)
         }) { (finish) in
-            self.didScrollTask(self.scrollViewDefine)
+            if self.scrollViewDefine != nil {
+                self.didScrollTask(self.scrollViewDefine)
+            }
             self.refreshController.endRefreshing()
-            
         }
-    
     }
+    
     
     func downloadUserPhoto(
         userID: String,
@@ -138,7 +158,7 @@ class HistoryTaskViewController: UIViewController {
         let requestTaskKey = self.selectToosData.requestTaskID
         let taskOwnerKey = self.selectToosData.taskOwnerID
         let taskRequestUserKey = self.selectToosData.requestKey
-        let currentUser = Auth.auth().currentUser?.displayName
+        guard let currentUser = Auth.auth().currentUser?.displayName else { return }
         
         
         for value in self.requestTools {
@@ -154,7 +174,7 @@ class HistoryTaskViewController: UIViewController {
                 self.myRef.child("Task").child(taskOwnerKey).child("lat").removeValue()
                 self.myRef.child("Task").child(taskOwnerKey).child("lon").removeValue()
                 
-//                NotificationCenter.default.post(name: .agreeToos, object: nil)
+                NotificationCenter.default.post(name: .agreeToos, object: nil)
                 
                 self.didScrollTask(self.scrollViewDefine)
                 
@@ -169,7 +189,7 @@ class HistoryTaskViewController: UIViewController {
                 
                 for disAgreeRemoteToken in self.toolsInfo {
                     if disAgreeRemoteToken.remoteToken != self.agreeToolsInfo!.remoteToken {
-                            self.sendNotification(content: "任務已被\(currentUser)同意，趕快來查看", toToken: disAgreeRemoteToken.remoteToken!)
+                            self.sendNotification(content: "任務已被\(currentUser)拒絕！", toToken: disAgreeRemoteToken.remoteToken!)
                     }
                 }
             }
@@ -182,6 +202,28 @@ class HistoryTaskViewController: UIViewController {
         self.toolsInfo.append(toolsInfo)
     
         self.historyTableView.reloadData()
+    }
+    
+    @objc func showAlert() {
+        let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let reportAction = UIAlertAction(title: "檢舉", style: .destructive) { (void) in
+            
+            let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
+            
+            let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+            reportController.addAction(cancelAction)
+            reportController.addAction(okAction)
+            self.present(reportController, animated: true, completion: nil)
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        personAlertController.addAction(reportAction)
+        personAlertController.addAction(cancelAction)
+        self.present(personAlertController, animated: true, completion: nil)
     }
     
 }
@@ -210,8 +252,9 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
                                 
                 cell.toosNumTitleLabel.text = "\(toolsInfo.count)個申請"
                 cell.selectionStyle = .none
-//                cell.scrollTaskBtnDelegate = self
-                
+                cell.scrollTaskBtnDelegate = self
+
+
                 return cell
             }
         } else if indexPath.section == 1 {
@@ -227,8 +270,11 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
                 
                 if requestData.agree == true {
                     cell.agreeButton.isHidden = true
+                    cell.moreBtn.isHidden = false
+                    cell.moreBtn.addTarget(self, action: #selector(self.showAlert), for: .touchUpInside)
                 } else {
                     cell.agreeButton.isHidden = false
+                    cell.moreBtn.isHidden = true
                 }
                 
                 cell.selectionStyle = .none
@@ -244,8 +290,6 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
-
         let viewController = TaskAgreeViewController.profileDetailDataForTask(toolsInfo)
             self.navigationController?.pushViewController(viewController, animated: true)
     }
@@ -254,7 +298,6 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
 extension HistoryTaskViewController: TableViewCellDelegate {
 
     func tableViewCellDidTapAgreeBtn(_ cell: RequestToolsTableViewCell) {
-        
         
             let alert = UIAlertController(title: "確認新增？", message: "將新增對方為工具人", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "確認", style: .default) { (void) in
@@ -333,11 +376,17 @@ extension HistoryTaskViewController: ScrollTask {
     }
 }
 
-//extension HistoryTaskViewController: btnPressed {
-//
-//    func btnPressed(_ send: TaskDetailInfoView) {
-//    }
-//}
+extension HistoryTaskViewController: btnPressed {
+
+    func btnPressed(_ send: TaskDetailInfoView) {
+        
+        print(requestTools)
+        for requestTask in requestTools {
+                self.myRef.child("RequestTask").child(requestTask.requestTaskID).updateChildValues([
+                    "OwnerAgree": "delete"])
+        }
+    }
+}
 
 extension Notification.Name {
     static let agreeToos = Notification.Name("agreeToos")

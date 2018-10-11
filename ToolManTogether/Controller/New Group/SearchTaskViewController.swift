@@ -177,9 +177,13 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.searchTaskView.sendButton.setTitle("對方已經同意", for: .normal)
                 cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.5294117647, green: 0.6352941176, blue: 0.8509803922, alpha: 1)
             } else if cellData.ownAgree == "disAgree" {
-                cell.searchTaskView.sendButton.setTitle("對方拒絕", for: .normal)
+                cell.searchTaskView.sendButton.setTitle("對方已拒絕", for: .normal)
+                cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.7843137255, green: 0.6078431373, blue: 0.8, alpha: 1)
+            } else if cellData.ownAgree == "delete" {
+                cell.searchTaskView.sendButton.setTitle("對方已刪除任務", for: .normal)
                 cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
             }
+            
             if let ownerID = cellData.ownerID {
                 updataTaskUserPhoto(userID: ownerID) { (url) in
                     if url == url {
