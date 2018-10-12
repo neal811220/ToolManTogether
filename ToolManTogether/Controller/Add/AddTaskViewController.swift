@@ -67,10 +67,10 @@ class AddTaskViewController: UIViewController {
         
     }
 
-    func sendNotification(title: String = "", content: String) {
+    func sendNotification(title: String = "", content: String, data: String) {
         
         if let token = Messaging.messaging().fcmToken {
-            client.sendNotification(fromToken: token, toToken: "/topics/AllTask", title: title, content: content) { (bool, error) in
+            client.sendNotification(fromToken: token, toToken: "/topics/AllTask", title: title, content: content, data: data) { (bool, error) in
                 print(bool)
                 print(error)
             }
@@ -119,7 +119,7 @@ class AddTaskViewController: UIViewController {
         
         NotificationCenter.default.post(name: .addTask, object: nil)
         
-//        self.sendNotification(title: "工具人出任務", content: "一筆\(taskType)的新任務")
+//        self.sendNotification(title: "工具人出任務", content: "一筆\(taskType)的新任務", data: "wefwef")
         
         self.switchView()
         
@@ -153,10 +153,7 @@ class AddTaskViewController: UIViewController {
 //
 //        }
         let tabController = self.view.window!.rootViewController as? UITabBarController
-//        self.dismiss(animated: true, completion: nil)
-//        self.removeFromParent()
         self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
-        self.view.window?.rootViewController?.removeFromParent()
         tabController?.selectedIndex = 3
         
     }

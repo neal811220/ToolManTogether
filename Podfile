@@ -18,6 +18,8 @@ target 'ToolManTogether' do
 	pod 'AnimatedCollectionViewLayout'
 	pod 'Firebase/Messaging'
    	pod 'Alamofire', '~> 4.7'
+	pod 'lottie-ios'
+
 
 
 

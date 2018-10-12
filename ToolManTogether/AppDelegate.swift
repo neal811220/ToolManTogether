@@ -110,7 +110,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         
         // Print full message.
+        let testVC = window?.rootViewController as? UITabBarController
+        let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
+        let testVC2 = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
+        window?.rootViewController?.show(testVC2, sender: nil)
         print(userInfo)
+        
     }
     
 
@@ -119,6 +124,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         print("TestAgain")
+        print(notification)
 
         completionHandler([.alert, .badge, .sound])
     }

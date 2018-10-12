@@ -27,7 +27,7 @@ class HTTPClient {
     
     typealias SendNotification = (Bool?, Error?) -> Void
     
-    func sendNotification(fromToken: String, toToken: String, title: String, content: String, completion: @escaping SendNotification) {
+    func sendNotification(fromToken: String, toToken: String, title: String, content: String, data: String, completion: @escaping SendNotification) {
         
         let notificationURL: URL = URL(string: "https://fcm.googleapis.com/fcm/send")!
         
@@ -37,7 +37,11 @@ class HTTPClient {
            
             "body": content,
             "title": title,
-            "sound": "default"]] as [String : Any]
+            "sound": "default",
+            "data": data,
+            "category": "INVITATION",
+            "content-available": 1,
+            "mutable-content": 1 ]] as [String : Any]
     
         
         Alamofire.request(notificationURL, method: .post,

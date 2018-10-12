@@ -143,10 +143,10 @@ class HistoryTaskViewController: UIViewController {
         }
     }
     
-    func sendNotification(title: String = "", content: String, toToken: String) {
+    func sendNotification(title: String = "", content: String, toToken: String, data: String) {
         
         if let token = Messaging.messaging().fcmToken {
-            client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content) { (bool, error) in
+            client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content, data: data) { (bool, error) in
                 print(bool)
                 print(error)
             }
@@ -179,7 +179,7 @@ class HistoryTaskViewController: UIViewController {
                 self.didScrollTask(self.scrollViewDefine)
                 
                 if let toolsToken = self.agreeToolsInfo?.remoteToken {
-                    self.sendNotification(content: "任務已被\(currentUser)同意，趕快來查看", toToken: toolsToken)
+                    self.sendNotification(content: "任務已被\(currentUser)同意，趕快來查看", toToken: toolsToken, data: "wefwef")
                 }
                 
             } else {
@@ -189,7 +189,7 @@ class HistoryTaskViewController: UIViewController {
                 
                 for disAgreeRemoteToken in self.toolsInfo {
                     if disAgreeRemoteToken.remoteToken != self.agreeToolsInfo!.remoteToken {
-                            self.sendNotification(content: "任務已被\(currentUser)拒絕！", toToken: disAgreeRemoteToken.remoteToken!)
+                        self.sendNotification(content: "任務已被\(currentUser)拒絕！", toToken: disAgreeRemoteToken.remoteToken!, data: "wefwef")
                     }
                 }
             }
