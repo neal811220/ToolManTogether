@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uTa-l5-Ukm">
-                                <rect key="frame" x="0.0" y="44" width="375" height="582"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="583"/>
                             </mapView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0xB-dp-mdM">
-                                <rect key="frame" x="0.0" y="626" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="qJs-rm-wdI"/>
@@ -36,7 +36,7 @@
                                 <cells/>
                             </collectionView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnQ-vJ-kcj">
-                                <rect key="frame" x="310" y="546" width="60" height="60"/>
+                                <rect key="frame" x="310" y="547" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="ph2-T4-f9P"/>
                                     <constraint firstAttribute="width" constant="60" id="tU1-Q5-vpG"/>
@@ -47,10 +47,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fuU-DZ-6iz" customClass="TaskDetailInfoView" customModule="ToolManTogether" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="666" width="375" height="1"/>
+                                <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="TUO-o9-Io4"/>
+                                    <constraint firstAttribute="height" id="TUO-o9-Io4"/>
                                 </constraints>
                             </view>
                         </subviews>

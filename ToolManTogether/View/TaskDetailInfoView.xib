@@ -147,12 +147,13 @@
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNZ-PZ-awb" userLabel="reportBtn">
-                    <rect key="frame" x="291" y="16.5" width="59" height="22"/>
+                    <rect key="frame" x="311" y="15" width="59" height="25"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstAttribute="height" constant="25" id="RA5-5H-6fK"/>
                         <constraint firstAttribute="width" constant="59" id="mzM-wT-p1K"/>
                     </constraints>
-                    <state key="normal" image="btn_more">
+                    <state key="normal" image="showmoreBtn">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                 </button>
@@ -174,7 +175,7 @@
                 <constraint firstItem="tnl-tX-z0f" firstAttribute="top" secondItem="jYH-mE-1ot" secondAttribute="top" id="Ccq-dj-Uev"/>
                 <constraint firstItem="12t-Cy-vZ6" firstAttribute="bottom" secondItem="jYH-mE-1ot" secondAttribute="bottom" id="Eao-IM-8bH"/>
                 <constraint firstItem="aP5-i2-a8o" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="NQc-YF-rdy"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kNZ-PZ-awb" secondAttribute="trailing" constant="25" id="R50-sT-UtK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kNZ-PZ-awb" secondAttribute="trailing" constant="5" id="R50-sT-UtK"/>
                 <constraint firstItem="rXc-5i-tJA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="RAW-o8-Tgp"/>
                 <constraint firstItem="rXc-5i-tJA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="ThU-05-rAA"/>
                 <constraint firstItem="tnl-tX-z0f" firstAttribute="bottom" secondItem="jYH-mE-1ot" secondAttribute="bottom" id="Wf5-1F-AlE"/>
@@ -203,8 +204,8 @@
         </view>
     </objects>
     <resources>
-        <image name="btn_more" width="18" height="4"/>
         <image name="coin" width="32" height="32"/>
         <image name="orangePoint" width="32" height="32"/>
+        <image name="showmoreBtn" width="32" height="32"/>
     </resources>
 </document>

@@ -147,11 +147,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
         } else if indexPath.section == 2 {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "servcedList",
-                                                        for: indexPath) as? ProfileServcedListCell {
-                return cell
-            }
-        } else if indexPath.section == 3 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "goodCitizen",
                                                         for: indexPath) as? GoodCitizenCardCell {
                 cell.photoBtnDelegage = self

@@ -225,7 +225,7 @@ class HomeViewController: UIViewController {
                                                taskLat: taskCoordinate.latitude,
                                                taskLon: taskCoordinate.longitude,
                                                checkTask: "\(currentUserID)_\(taskCoordinate.latitude)_\(taskCoordinate.longitude)", distance: roundDistance, time: nil,
-                                               ownerID: userID, ownAgree: nil, taskKey: keyValue, agree: nil)
+                                               ownerID: userID, ownAgree: nil, taskKey: keyValue, agree: nil, requestKey: nil, requestTaskKey: nil)
                 
                 self.updataTaskUserPhoto(userID: userID)
                 self.pullUpDetailView.taskTitleLabel.text = title
@@ -295,6 +295,11 @@ class HomeViewController: UIViewController {
             "agree": false,
             "RequestTaskID": requestTaskID,
             "taskKey": taskKey])
+        
+        myRef.child("RequestTask").child(requestTaskID).updateChildValues([
+            "requestUserKey": autoID,
+            "taskKey": taskKey
+            ])
     }
     
     func searchFireBase(

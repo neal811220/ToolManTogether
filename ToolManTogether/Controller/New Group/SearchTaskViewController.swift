@@ -66,7 +66,8 @@ class SearchTaskViewController: UIViewController {
                     guard let taskOwner = dictionary["ownerID"] as? String else { return }
                     let time = dictionary["Time"] as? Int
                     guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
-                    
+                    let requestUserkey = dictionary["requestUserKey"] as? String
+                    let requestTaskKey = dictionary["taskKey"] as? String
                     
                     self.selectTaskKey.append(keyValue)
                     
@@ -84,7 +85,8 @@ class SearchTaskViewController: UIViewController {
                                             ownerID: taskOwner,
                                             ownAgree: ownerAgree,
                                             taskKey: keyValue,
-                                            agree: nil)
+                                            agree: nil, requestKey: requestUserkey,
+                                            requestTaskKey: requestTaskKey)
                     
                     self.selectTask.append(task)
                     self.selectTask.sort(by: { $0.time! > $1.time!})
@@ -128,7 +130,9 @@ class SearchTaskViewController: UIViewController {
                                 guard let taskOwner = dictionary["ownerID"] as? String else { return }
                                 let time = dictionary["Time"] as? Int
                                 guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
-                                
+                                let requestUserkey = dictionary["requestUserKey"] as? String
+                                let requestTaskKey = dictionary["taskKey"] as? String
+
                                 let task = UserTaskInfo(userID: userID,
                                                         userName: userName,
                                                         title: title,
@@ -143,7 +147,7 @@ class SearchTaskViewController: UIViewController {
                                                         ownerID: taskOwner,
                                                         ownAgree: ownerAgree,
                                                         taskKey: keyValue,
-                                                        agree: nil)
+                                                        agree: nil, requestKey: requestUserkey, requestTaskKey: requestTaskKey)
                                 
                                 self.selectTask.append(task)
                                 self.selectTask.sort(by: { $0.time! > $1.time!})
@@ -199,6 +203,8 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "searchTask", for: indexPath) as? SearchTaskCell {
             
             cell.searchTaskView.detailBtn.tag = indexPath.row
+            cell.searchTaskView.reportBtn.tag = indexPath.row
+            
             let cellData = selectTask[indexPath.row]
             cell.selectionStyle = .none
             cell.searchTaskView.taskTitleLabel.text = cellData.title
@@ -212,6 +218,9 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             if cellData.ownAgree == "waiting" {
                 cell.searchTaskView.sendButton.setTitle("尚未同意", for: .normal)
                 cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.4470588235, green: 0.4470588235, blue: 0.4470588235, alpha: 1)
+                cell.searchTaskView.detailBtn.isHidden = true
+                cell.searchTaskView.sendButton.isEnabled = true
+                cell.searchTaskView.sendButton.isHidden = false
                 
             // 對方同意
             } else if cellData.ownAgree == "agree" {
@@ -233,11 +242,19 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             } else if cellData.ownAgree == "disAgree" {
                 cell.searchTaskView.sendButton.setTitle("對方已拒絕", for: .normal)
                 cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.7843137255, green: 0.6078431373, blue: 0.8, alpha: 1)
+                cell.searchTaskView.detailBtn.isHidden = true
+                cell.searchTaskView.sendButton.isEnabled = true
+                cell.searchTaskView.sendButton.isHidden = false
+
                 
              // 對方刪除
             } else if cellData.ownAgree == "delete" {
                 cell.searchTaskView.sendButton.setTitle("對方已刪除任務", for: .normal)
                 cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+                cell.searchTaskView.detailBtn.isHidden = true
+                cell.searchTaskView.sendButton.isEnabled = true
+                cell.searchTaskView.sendButton.isHidden = false
+
             }
             
             if let ownerID = cellData.ownerID {
@@ -250,7 +267,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.searchTaskView.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
             }
             
-            cell.searchTaskView.reportBtn.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
+            cell.searchTaskView.reportBtn.addTarget(self, action: #selector(showAlert(send:)), for: .touchUpInside)
 
             
             return cell
@@ -269,13 +286,15 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
         if let taskOwnerID = selectTaskOwner {
             self.searchTaskOwnerInfo(ownerID: taskOwnerID)
         }
-        
-//        let viewController = TaskAgreeViewController.profileDetailDataForTask(toolsInfo)
-//        self.navigationController?.pushViewController(viewController, animated: true)
-        
     }
     
-    @objc func showAlert() {
+    @objc func showAlert(send: UIButton) {
+        
+        let requestTask = selectTask[send.tag].checkTask
+        
+        let taskKey = selectTask[send.tag].requestTaskKey
+        let userKey = selectTask[send.tag].requestKey
+
         let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let reportAction = UIAlertAction(title: "檢舉", style: .destructive) { (void) in
@@ -290,12 +309,58 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             self.present(reportController, animated: true, completion: nil)
         }
         
+        let deltetAction = UIAlertAction(title: "從列表中刪除", style: .default) { (void) in
+            let reportController = UIAlertController(title: "確定刪除？", message: "刪除後將無法再看到該任務", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "確定", style: .destructive, handler: { (void) in
+                
+                if let requestTaskKey = requestTask {
+                    self.myRef.child("RequestTask").queryOrdered(byChild: "checkTask").queryEqual(toValue: requestTaskKey).observeSingleEvent(of: .value, with: { (snapshot) in
+                        
+                        guard let data = snapshot.value as? NSDictionary else { return }
+                        
+                        for value in data {
+                            guard let keyValue = value.key as? String else { return }
+                            
+                            self.myRef.child("RequestTask").child(keyValue).removeValue()
+                            let index = IndexPath(row: send.tag, section: 0)
+                            self.selectTask.remove(at: send.tag)
+                            
+                            if let userKey = userKey, let taskKey = taskKey {
+                                
+                               print(taskKey)
+                               print(userKey)
+                                self.myRef.child("Task").child(taskKey).child("RequestUser").child(userKey).removeValue()
+                            }
+                            
+                            self.searchTaskTableVIew.performBatchUpdates({
+                                self.searchTaskTableVIew.deleteRows(at: [index], with: .left)
+                                
+                            }, completion: {
+                                (finished: Bool) in
+                                self.searchTaskTableVIew.reloadData()
+                                print("刪除完成")
+                            })
+                        }
+                    })
+                }
+            })
+            
+            let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+            reportController.addAction(cancelAction)
+            reportController.addAction(okAction)
+            self.present(reportController, animated: true, completion: nil)
+        }
+        
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
         personAlertController.addAction(reportAction)
+        personAlertController.addAction(deltetAction)
         personAlertController.addAction(cancelAction)
         self.present(personAlertController, animated: true, completion: nil)
     }
+    
+
     
 
     

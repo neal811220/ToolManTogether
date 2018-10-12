@@ -37,4 +37,8 @@ class AddTaskInfoCell: UITableViewCell, UITextFieldDelegate {
             titleCompletion?(titleTxt)
         }
     }
+    
+    override func prepareForReuse() {
+        textField.text = ""
+    }
 }

@@ -29,6 +29,8 @@ class AddTaskContentCell: UITableViewCell, UITextViewDelegate {
         super.setSelected(selected, animated: animated)
     }
     
-    
+    override func prepareForReuse() {
+        contentTextView.text = ""
+    }
         
 }

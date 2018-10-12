@@ -122,6 +122,10 @@ class AddTaskViewController: UIViewController {
 //        self.sendNotification(title: "工具人出任務", content: "一筆\(taskType)的新任務")
         
         self.switchView()
+        
+        self.addTaskTableView.reloadData()
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.addTaskTableView.scrollToRow(at: indexPath, at: .top, animated: false)
     }
     
     func showAlert(title: String = "Incomplete Information", content: String) {
@@ -155,12 +159,8 @@ class AddTaskViewController: UIViewController {
         self.view.window?.rootViewController?.removeFromParent()
         tabController?.selectedIndex = 3
         
-        cleanView()
     }
-    
-    func cleanView() {
-        
-    }
+
     
     func centerMapOnUserLocation() -> MKCoordinateRegion? {
         if let coordinate = locationManager.location?.coordinate {
