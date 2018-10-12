@@ -114,7 +114,7 @@ class HistoryTaskViewController: UIViewController {
                 .queryEqual(toValue: data.userID)
                 .observeSingleEvent(of: .value) { (snapshot) in
                     
-//                    self.toolsInfo.removeAll()
+                    self.toolsInfo.removeAll()
                     guard let data = snapshot.value as? NSDictionary else { return }
                     for value in data.allValues {
                         
@@ -197,6 +197,8 @@ class HistoryTaskViewController: UIViewController {
         
         self.requestTools.removeAll()
         self.toolsInfo.removeAll()
+        self.historyTableView.reloadData()
+
         guard let agreeToos = self.agreeToos, let toolsInfo = self.agreeToolsInfo else { return }
         self.requestTools.append(agreeToos)
         self.toolsInfo.append(toolsInfo)
@@ -261,6 +263,7 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "requestTools", for: indexPath) as? RequestToolsTableViewCell {
                 cell.delegate = self
                 
+                
                 let cellData = toolsInfo[indexPath.row]
                 let requestData = requestTools[indexPath.row]
                 
@@ -317,7 +320,6 @@ extension HistoryTaskViewController: TableViewCellDelegate {
             
             self.agreeToos = self.requestTools[tappedIndex.row]
             self.agreeToolsInfo = self.toolsInfo[tappedIndex.row]
-
     }
     
 }
@@ -360,9 +362,10 @@ extension HistoryTaskViewController: ScrollTask {
                         
                         if agree == true {
                            self.requestTools.removeAll()
+                            self.toolsInfo.removeAll()
                             self.requestTools.append(requestData)
-                            self.searchToos()
-                            return
+//                            self.searchToos()
+//                            return
                         } else {
                             self.requestTools.append(requestData)
 //                            self.searchToos()

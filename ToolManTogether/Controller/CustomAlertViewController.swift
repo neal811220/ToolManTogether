@@ -10,7 +10,6 @@ import UIKit
 
 class CustomAlertViewController: UIViewController {
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.isOpaque = false

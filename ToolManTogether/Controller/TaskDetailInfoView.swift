@@ -30,7 +30,10 @@ class TaskDetailInfoView: UIView {
     @IBOutlet weak var distanceImageView: UIImageView!
     @IBOutlet weak var donBtn: UIButton!
     
-
+    @IBOutlet weak var detailBtn: UIButton!
+    
+    @IBOutlet weak var reportBtn: UIButton!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -43,7 +46,8 @@ class TaskDetailInfoView: UIView {
         userPhoto.layer.cornerRadius = userPhoto.frame.width / 2
         
         donBtn.layer.cornerRadius = 8.0
-
+        
+        detailBtn.layer.cornerRadius = 8.0
     }
     
     func commonInit() {

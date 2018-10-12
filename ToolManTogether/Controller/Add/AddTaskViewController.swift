@@ -120,6 +120,8 @@ class AddTaskViewController: UIViewController {
         NotificationCenter.default.post(name: .addTask, object: nil)
         
 //        self.sendNotification(title: "工具人出任務", content: "一筆\(taskType)的新任務")
+        
+        self.switchView()
     }
     
     func showAlert(title: String = "Incomplete Information", content: String) {
@@ -135,6 +137,29 @@ class AddTaskViewController: UIViewController {
             return userLocation
         }
         return nil
+    }
+    
+    func switchView() {
+//
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+//
+//        if let viewController = storyboard.instantiateViewController(withIdentifier: "mainVC") as? UITabBarController {
+//            viewController.selectedIndex = 3
+//
+//        }
+        let tabController = self.view.window!.rootViewController as? UITabBarController
+//        self.dismiss(animated: true, completion: nil)
+//        self.removeFromParent()
+        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+        self.view.window?.rootViewController?.removeFromParent()
+        tabController?.selectedIndex = 3
+        
+        cleanView()
+    }
+    
+    func cleanView() {
+        
     }
     
     func centerMapOnUserLocation() -> MKCoordinateRegion? {
@@ -214,9 +239,7 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.titleCompletion = { [weak self] (result) in
                     self?.titleTxt = result
                 }
-                
-                
-                
+    
                 return cell
             }
             
@@ -269,32 +292,9 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension AddTaskViewController: UITextViewDelegate {
-
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == "Content" {
-            textView.text = ""
-            textView.textColor = UIColor.black
-        }
-    }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-//            textView.resignFirstResponder()
-        }
-        return true
-    }
-    
-    func textViewdidchange(_ textView: UITextView) {
+    func textViewDidChangeSelection(_ textView: UITextView) {
         contentTxt = textView.text
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text == "" {
-            textView.text = "Content"
-            textView.textColor = UIColor.lightGray
-        } else {
-            contentTxt = textView.text
-        }
     }
 }
 

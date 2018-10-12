@@ -234,6 +234,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             return
         }
         
+        guard addTask.count != scrollIndex else { return }
+        
         guard let ownerTaskKey = addTask[scrollIndex].taskKey else { return }
         myRef.child("Task").child(ownerTaskKey).removeValue()
         self.addTask.remove(at: checkIndex)
@@ -261,6 +263,14 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
 
     // 完成，刪除任務
     @objc func doneDelect() {
+        
+        guard addTask.count != 0 else {
+            NotificationCenter.default.post(name: .noTask, object: nil)
+            return
+        }
+        
+        guard addTask.count != scrollIndex else { return }
+        
         guard let taskKey = addTask[scrollIndex].taskKey else { return }
         myRef.child("Task").child(taskKey).removeValue()
         self.addTask.remove(at: checkIndex)
@@ -299,6 +309,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             cell.requestCollectionView.priceLabel.text = cellData.price
             cell.requestCollectionView.typeLabel.text = cellData.type
             cell.requestCollectionView.userName.text = cellData.userName
+            cell.requestCollectionView.reportBtn.isHidden = true
             
             if cellData.agree == false {
                 cell.requestCollectionView.sendButton.setTitle("取消任務", for: .normal)

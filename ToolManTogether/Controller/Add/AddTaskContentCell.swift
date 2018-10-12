@@ -30,6 +30,5 @@ class AddTaskContentCell: UITableViewCell, UITextViewDelegate {
     }
     
     
-    func text
         
 }

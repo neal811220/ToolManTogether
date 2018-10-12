@@ -30,8 +30,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bgView.backgroundColor = .clear
-//        setButtonBorder()
-//        setLayer()
         dataRef = Database.database().reference()
     }
     
