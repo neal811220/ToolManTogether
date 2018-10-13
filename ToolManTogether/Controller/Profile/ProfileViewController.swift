@@ -155,7 +155,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 if let userID = Auth.auth().currentUser?.uid {
                     self.downloadTaskUserPhoto(userID: userID, finder: "GoodCitizen") { (url) in
-                        if url == nil {
+                        if url != nil {
                             cell.imagePicker.isHidden = false
                             cell.bgView.isHidden = true
                             cell.imagePicker.sd_setImage(with: url, completed: nil)

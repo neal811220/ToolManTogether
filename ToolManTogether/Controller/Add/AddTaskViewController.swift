@@ -31,7 +31,7 @@ class AddTaskViewController: UIViewController {
     var regionRadious: Double = 1000
     var customMapCenterLocation: CLLocationCoordinate2D!
     let geoCoder = CLGeocoder()
-    var userAddress: String?
+    var alertAddress: String!
     var client = HTTPClient(configuration: .default)
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +65,14 @@ class AddTaskViewController: UIViewController {
         
         addTaskBgView.layer.cornerRadius = 23
         
+        var topFrame = self.addTaskTableView.bounds
+        topFrame.origin.y = -topFrame.size.height
+        let topView = UIView(frame: topFrame)
+        topView.backgroundColor = #colorLiteral(red: 0.2, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
+    
+        self.addTaskTableView.addSubview(topView)
+        
+
     }
 
     func sendNotification(title: String = "", content: String, data: String) {
@@ -103,29 +111,41 @@ class AddTaskViewController: UIViewController {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let autoID = myRef.childByAutoId().key
         guard let userName = Auth.auth().currentUser?.displayName else { return }
-
-        myRef.child("Task").child(autoID!).setValue([
-            "Title": title,
-            "Content": content,
-            "Type": taskType,
-            "Price": price,
-            "UserID": userID,
-            "UserName": userName,
-            "lat": userCoordinate.latitude,
-            "lon": userCoordinate.longitude,
-            "searchAnnotation": "\(userCoordinate.latitude)_\(userCoordinate.longitude)",
-            "Time": Double(Date().millisecondsSince1970),
-            "agree": false])
         
-        NotificationCenter.default.post(name: .addTask, object: nil)
+        if alertAddress == nil {
+            alertAddress = ""
+        }
         
-//        self.sendNotification(title: "工具人出任務", content: "一筆\(taskType)的新任務", data: "wefwef")
+        let addAlert = UIAlertController(title: "確定新增？", message: "地址為：\(alertAddress!)", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確定", style: .default) { (void) in
+            
+            self.myRef.child("Task").child(autoID!).setValue([
+                "Title": title,
+                "Content": content,
+                "Type": taskType,
+                "Price": price,
+                "UserID": userID,
+                "UserName": userName,
+                "lat": userCoordinate.latitude,
+                "lon": userCoordinate.longitude,
+                "searchAnnotation": "\(userCoordinate.latitude)_\(userCoordinate.longitude)",
+                "Time": Double(Date().millisecondsSince1970),
+                "agree": false])
+            
+            NotificationCenter.default.post(name: .addTask, object: nil)
+            
+            //        self.sendNotification(title: "工具人出任務", content: "一筆\(taskType)的新任務", data: "wefwef")
+            
+            self.switchView()
+            
+            self.addTaskTableView.reloadData()
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.addTaskTableView.scrollToRow(at: indexPath, at: .top, animated: false)
+        }
         
-        self.switchView()
-        
-        self.addTaskTableView.reloadData()
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.addTaskTableView.scrollToRow(at: indexPath, at: .top, animated: false)
+        let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+        addAlert.addAction(okAction)
+        self.present(addAlert, animated: true, completion: nil)
     }
     
     func showAlert(title: String = "Incomplete Information", content: String) {
@@ -204,7 +224,9 @@ class AddTaskViewController: UIViewController {
                         userAddress.append(subThoroughfare!)
                     }
                 }
-                    self.addressLabel.text = userAddress
+                    print(userAddress)
+                self.alertAddress = userAddress
+//                    self.addressLabel.text = userAddress
             }
         })
     }
@@ -276,7 +298,7 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "customLocation") as? AddCustomLocationMapCell {
                 
                 cell.mapDelegate = self
-        
+                
                 if let centerUser = self.centerMapOnUserLocation() {
                     cell.customMapView.setRegion(centerUser, animated: true)
                 }

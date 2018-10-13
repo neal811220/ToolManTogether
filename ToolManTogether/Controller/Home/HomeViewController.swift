@@ -233,10 +233,42 @@ class HomeViewController: UIViewController {
                 self.pullUpDetailView.priceLabel.text = price
                 self.pullUpDetailView.userName.text = userName
                 self.pullUpDetailView.typeLabel.text = type
-                self.pullUpDetailView.sendButton.setTitle("申請任務", for: .normal)
                 self.pullUpDetailView.distanceLabel.text = "\(roundDistance)km"
-                self.pullUpDetailView.sendButton.addTarget(self,
-                                                           action: #selector(self.requestBtnSend), for: .touchUpInside)
+                
+                guard let selectData = self.selectTask else { return }
+
+                self.myRef.child("RequestTask")
+                    .queryOrdered(byChild: "checkTask").queryEqual(toValue: selectData.checkTask)
+                    .observeSingleEvent(of: .value, with: { (snapshot) in
+                        
+                        guard snapshot.value as? NSDictionary == nil else {
+                            self.pullUpDetailView.sendButton.setTitle("已經申請過", for: .normal)
+                            self.pullUpDetailView.sendButton.isEnabled = false
+                            self.pullUpDetailView.sendButton.backgroundColor = .white
+                            self.pullUpDetailView.sendButton.layer.borderWidth = 1
+                            self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
+                            self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1), for: .normal)
+                            return
+                        }
+                    })
+                
+                if userID == currentUserID {
+                    self.pullUpDetailView.sendButton.setTitle("您的任務", for: .normal)
+                    self.pullUpDetailView.sendButton.isEnabled = false
+                    self.pullUpDetailView.sendButton.backgroundColor = .white
+                    self.pullUpDetailView.sendButton.layer.borderWidth = 1
+                    self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
+                    self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1), for: .normal)
+
+                } else {
+                    self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+                    self.pullUpDetailView.sendButton.layer.borderWidth = 0
+                    self.pullUpDetailView.sendButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
+                    self.pullUpDetailView.sendButton.isEnabled = true
+                    self.pullUpDetailView.sendButton.setTitle("申請任務", for: .normal)
+                    self.pullUpDetailView.sendButton.addTarget(self,
+                                                               action: #selector(self.requestBtnSend), for: .touchUpInside)
+                }
             }
         }
         
@@ -254,10 +286,12 @@ class HomeViewController: UIViewController {
                 .queryOrdered(byChild: "checkTask").queryEqual(toValue: selectData.checkTask)
                 .observeSingleEvent(of: .value, with: { (snapshot) in
                     
-                    guard snapshot.value as? NSDictionary == nil else {
-                        self.showAlert(content: "請耐心等待對方同意，或尋找其他任務")
-                        return
-                    }
+//                    guard snapshot.value as? NSDictionary == nil else {
+//                        self.pullUpDetailView.sendButton.setTitle("已經申請過", for: .normal)
+//                        self.pullUpDetailView.sendButton.backgroundColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
+//                        self.showAlert(content: "請耐心等待對方同意，或尋找其他任務")
+//                        return
+//                    }
                     
                     self.myRef.child("RequestTask").child(autoID!).setValue([
                         "Title": selectData.title,
@@ -277,6 +311,10 @@ class HomeViewController: UIViewController {
                     self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoID!)
                     
                     NotificationCenter.default.post(name: .sendRequest, object: nil)
+                    
+                    let tabController = self.view.window!.rootViewController as? UITabBarController
+                    self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+                    tabController?.selectedIndex = 1
                     
                 }) { (error) in
                     print(error.localizedDescription)

@@ -70,7 +70,7 @@ class TabBarViewController: UITabBarController {
     private func setTab() {
         
         tabBar.tintColor = #colorLiteral(red: 0.9568627451, green: 0.7215686275, blue: 0, alpha: 1)
-        tabBar.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        tabBar.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         var controllers: [UIViewController] = []
         

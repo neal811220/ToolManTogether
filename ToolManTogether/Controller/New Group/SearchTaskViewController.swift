@@ -204,6 +204,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.searchTaskView.detailBtn.tag = indexPath.row
             cell.searchTaskView.reportBtn.tag = indexPath.row
+            cell.backgroundColor = #colorLiteral(red: 0.2, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
             
             let cellData = selectTask[indexPath.row]
             cell.selectionStyle = .none

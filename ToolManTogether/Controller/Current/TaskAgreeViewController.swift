@@ -22,7 +22,7 @@ class TaskAgreeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "任務進行中"
+        self.title = "詳細資訊"
 
         taskAgreeTableView.delegate = self
         taskAgreeTableView.dataSource = self

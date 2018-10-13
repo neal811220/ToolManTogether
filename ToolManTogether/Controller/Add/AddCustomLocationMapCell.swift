@@ -18,6 +18,7 @@ class AddCustomLocationMapCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var customMapView: MKMapView!
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var addressLabel: UILabel!
     
     weak var mapDelegate: CustomLocation?
 

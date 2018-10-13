@@ -21,8 +21,6 @@ class RequestCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         requestCollectionView.layer.cornerRadius = 22
-        requestCollectionView.layer.borderWidth = 1
-        requestCollectionView.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         requestCollectionView.backgroundColor = #colorLiteral(red: 0.2509803922, green: 0.2823529412, blue: 0.337254902, alpha: 1)
         requestCollectionView.separatorView.isHidden = true
         requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)

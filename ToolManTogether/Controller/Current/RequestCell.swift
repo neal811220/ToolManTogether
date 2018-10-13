@@ -249,6 +249,10 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             print(addTask.count)
             print(scrollIndex)
             
+            if checkIndex == 0 {
+                checkIndex = 1
+            }
+            
             self.taskNumTitleLabel.text = "第\((checkIndex))/\(addTask.count)筆任務"
             
             if addTask.count == 0 {
@@ -279,6 +283,9 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         self.collectionView.performBatchUpdates({
             self.collectionView.deleteItems(at: [index])
             
+            if checkIndex == 0 {
+                checkIndex = 1
+            }
             self.taskNumTitleLabel.text = "第\((checkIndex))/\(addTask.count)筆任務"
             
             if addTask.count == 0 {

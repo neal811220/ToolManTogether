@@ -21,11 +21,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zoo-Z5-YGq">
                                 <rect key="frame" x="62.5" y="208" width="250" height="250"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZq-NE-N1z">
-                                        <rect key="frame" x="110" y="212" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Test"/>
-                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Pg-LH-fsR">
                                         <rect key="frame" x="0.0" y="0.0" width="250" height="164"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -44,7 +39,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zoo-Z5-YGq" firstAttribute="centerX" secondItem="TUm-Zv-JZ4" secondAttribute="centerX" id="B6i-vb-wJK"/>
                             <constraint firstItem="zoo-Z5-YGq" firstAttribute="centerY" secondItem="TUm-Zv-JZ4" secondAttribute="centerY" constant="-0.5" id="L6W-xK-pgZ"/>

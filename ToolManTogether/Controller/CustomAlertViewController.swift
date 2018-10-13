@@ -21,7 +21,7 @@ class CustomAlertViewController: UIViewController {
         self.view.isOpaque = false
         self.view.backgroundColor = .clear
         
-         let animationView = LOTAnimationView(name: "servishero_loading")
+         let animationView = LOTAnimationView(name: "check_animation")
             animationView.frame = aniView.frame
             animationView.center = aniView.center
             animationView.contentMode = .scaleAspectFill
