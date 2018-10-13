@@ -29,6 +29,7 @@ class ProfileCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        userPhoto.layer.cornerRadius = self.userPhoto.frame.height / 2
     }
     
 }

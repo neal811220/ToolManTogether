@@ -155,10 +155,14 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 if let userID = Auth.auth().currentUser?.uid {
                     self.downloadTaskUserPhoto(userID: userID, finder: "GoodCitizen") { (url) in
-                        if url != nil {
+                        if url == nil {
+                            cell.imagePicker.isHidden = false
+                            cell.bgView.isHidden = true
                             cell.imagePicker.sd_setImage(with: url, completed: nil)
+
                         } else {
-                            cell.imagePicker.image = UIImage(named: "良民證")
+                            cell.imagePicker.isHidden = true
+                            cell.bgView.isHidden = false
                         }
                     }
                 }
@@ -195,11 +199,14 @@ extension ProfileViewController: ButtonDelegate {
         self.userPhone = userPhone
         self.aboutUser = aboutUser
         
+        
         if let userID = Auth.auth().currentUser?.uid {
             myRef.child("UserData").child(userID).updateChildValues([
                 "UserPhone": userPhone,
                 "AboutUser": aboutUser])
         }
+//        self.profileTableView.reloadData()
+
     }
     
     func cancelBtnpressed(_ send: UIButton) {
@@ -251,12 +258,13 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
         
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
         guard let photo = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         
         citizenPhoto = photo
 
         dismiss(animated:true, completion: nil)
-        self.profileTableView.reloadData()
+//        self.profileTableView.reloadData()
         
         guard let data = photo.jpegData(compressionQuality: 0.1) else { return }
         
@@ -272,6 +280,8 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
                 return
             } else {
                 print("Storage Success")
+                self.profileTableView.reloadData()
+
             }
         }
     }

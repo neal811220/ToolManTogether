@@ -23,29 +23,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="137" height="59"/>
                         <subviews>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lA-UT-Lj6">
-                                <rect key="frame" x="5" y="5" width="127" height="45"/>
+                                <rect key="frame" x="5" y="5" width="127" height="49"/>
                                 <color key="backgroundColor" red="0.95686274509803926" green="0.72156862745098038" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="19"/>
                                 <state key="normal" title="居家維修">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="typeBtnPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="2ct-W9-qAw"/>
+                                </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AbF-nE-Tgh">
-                                <rect key="frame" x="18" y="54" width="102" height="3"/>
-                                <color key="backgroundColor" red="0.74509803919999995" green="0.6588235294" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="AbF-nE-Tgh" firstAttribute="trailing" secondItem="0lA-UT-Lj6" secondAttribute="trailing" constant="-12" id="1i1-eE-6df"/>
-                            <constraint firstAttribute="bottom" secondItem="AbF-nE-Tgh" secondAttribute="bottom" constant="2" id="2WJ-O5-fSq"/>
-                            <constraint firstAttribute="bottom" secondItem="0lA-UT-Lj6" secondAttribute="bottom" constant="9" id="Ad4-5s-6nz"/>
-                            <constraint firstItem="AbF-nE-Tgh" firstAttribute="leading" secondItem="0lA-UT-Lj6" secondAttribute="leading" constant="13" id="FkV-Lu-Uz4"/>
+                            <constraint firstAttribute="bottom" secondItem="0lA-UT-Lj6" secondAttribute="bottom" constant="5" id="Ad4-5s-6nz"/>
                             <constraint firstItem="0lA-UT-Lj6" firstAttribute="leading" secondItem="TJf-3N-toa" secondAttribute="leading" constant="5" id="Mjn-E5-sXG"/>
-                            <constraint firstItem="AbF-nE-Tgh" firstAttribute="width" secondItem="0lA-UT-Lj6" secondAttribute="width" constant="-25" id="aoN-u1-16Y"/>
                             <constraint firstItem="0lA-UT-Lj6" firstAttribute="top" secondItem="TJf-3N-toa" secondAttribute="top" constant="5" id="q6P-H5-nCt"/>
                             <constraint firstAttribute="trailing" secondItem="0lA-UT-Lj6" secondAttribute="trailing" constant="5" id="xq1-O7-ISH"/>
-                            <constraint firstItem="AbF-nE-Tgh" firstAttribute="top" secondItem="0lA-UT-Lj6" secondAttribute="bottom" constant="4" id="z0G-MX-PQy"/>
                         </constraints>
                     </view>
                 </subviews>

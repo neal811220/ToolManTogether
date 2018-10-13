@@ -19,28 +19,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zoo-Z5-YGq">
-                                <rect key="frame" x="49.5" y="245.5" width="276" height="176"/>
+                                <rect key="frame" x="62.5" y="208" width="250" height="250"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZq-NE-N1z">
-                                        <rect key="frame" x="123" y="132" width="30" height="30"/>
+                                        <rect key="frame" x="110" y="212" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Test"/>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Pg-LH-fsR">
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="164"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="164" id="cJ9-3j-6a9"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="276" id="1p7-mO-baf"/>
-                                    <constraint firstAttribute="height" constant="176" id="Gc4-6N-qXK"/>
+                                    <constraint firstAttribute="width" constant="250" id="1p7-mO-baf"/>
+                                    <constraint firstAttribute="height" constant="250" id="Gc4-6N-qXK"/>
+                                    <constraint firstItem="1Pg-LH-fsR" firstAttribute="top" secondItem="zoo-Z5-YGq" secondAttribute="top" id="R36-bA-kbi"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Pg-LH-fsR" secondAttribute="trailing" id="awm-kL-AUd"/>
+                                    <constraint firstItem="1Pg-LH-fsR" firstAttribute="leading" secondItem="zoo-Z5-YGq" secondAttribute="leading" id="boK-Jl-HVi"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zoo-Z5-YGq" firstAttribute="centerX" secondItem="TUm-Zv-JZ4" secondAttribute="centerX" id="B6i-vb-wJK"/>
-                            <constraint firstItem="zoo-Z5-YGq" firstAttribute="centerY" secondItem="TUm-Zv-JZ4" secondAttribute="centerY" id="L6W-xK-pgZ"/>
+                            <constraint firstItem="zoo-Z5-YGq" firstAttribute="centerY" secondItem="TUm-Zv-JZ4" secondAttribute="centerY" constant="-0.5" id="L6W-xK-pgZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Xo1-AE-Y8G"/>
                     </view>
+                    <connections>
+                        <outlet property="aniView" destination="1Pg-LH-fsR" id="WYP-AF-fsn"/>
+                        <outlet property="bgView" destination="zoo-Z5-YGq" id="FX1-fW-i1Y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KbP-7g-LOM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

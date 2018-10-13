@@ -14,6 +14,7 @@
 		8E097DCD21534BDF006B574E /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DCC21534BDF006B574E /* UserManager.swift */; };
 		8E097DD221536D22006B574E /* TypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */; };
 		8E097DD321536D22006B574E /* TypeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */; };
+		8E167DD32171DFED00A701AE /* cloud.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E167DD22171DFED00A701AE /* cloud.json */; };
 		8E19FC242169AA16009C01D2 /* cusomeAlert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */; };
 		8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E25D317215249D800CD23F9 /* GoogleService-Info.plist */; };
 		8E28DF5621652DDF0077B259 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28DF5521652DDF0077B259 /* ProfileManager.swift */; };
@@ -72,8 +73,6 @@
 		8EDA66372160B8EF009FFB8D /* TaskAgreeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EDA66352160B8EF009FFB8D /* TaskAgreeInfoCell.xib */; };
 		8EDB256E2161135400DBBF6D /* ScoreSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB256D2161135400DBBF6D /* ScoreSendView.swift */; };
 		8EDB25702161137F00DBBF6D /* ScoreSendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EDB256F2161137F00DBBF6D /* ScoreSendView.xib */; };
-		8EE2EFC32170BA54005A9DA4 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2EFC12170BA53005A9DA4 /* NotificationViewController.swift */; };
-		8EE2EFC62170BAA5005A9DA4 /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE2EFC52170BAA5005A9DA4 /* Notification.storyboard */; };
 		8EE2EFC82170D19C005A9DA4 /* servishero_loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE2EFC72170D19C005A9DA4 /* servishero_loading.json */; };
 		8EEC330D215BF32A00DE8C31 /* searchTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EEC330C215BF32A00DE8C31 /* searchTask.storyboard */; };
 		8EEC330F215C885D00DE8C31 /* SearchTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEC330E215C885D00DE8C31 /* SearchTaskViewController.swift */; };
@@ -90,6 +89,7 @@
 		8E097DCC21534BDF006B574E /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypeCollectionViewCell.xib; sourceTree = "<group>"; };
+		8E167DD22171DFED00A701AE /* cloud.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cloud.json; sourceTree = "<group>"; };
 		8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = cusomeAlert.storyboard; sourceTree = "<group>"; };
 		8E25D317215249D800CD23F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8E28DF5521652DDF0077B259 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
@@ -151,8 +151,6 @@
 		8EDA66352160B8EF009FFB8D /* TaskAgreeInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskAgreeInfoCell.xib; sourceTree = "<group>"; };
 		8EDB256D2161135400DBBF6D /* ScoreSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSendView.swift; sourceTree = "<group>"; };
 		8EDB256F2161137F00DBBF6D /* ScoreSendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreSendView.xib; sourceTree = "<group>"; };
-		8EE2EFC12170BA53005A9DA4 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
-		8EE2EFC52170BAA5005A9DA4 /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
 		8EE2EFC72170D19C005A9DA4 /* servishero_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = servishero_loading.json; sourceTree = "<group>"; };
 		8EEC330C215BF32A00DE8C31 /* searchTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = searchTask.storyboard; sourceTree = "<group>"; };
 		8EEC330E215C885D00DE8C31 /* SearchTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTaskViewController.swift; sourceTree = "<group>"; };
@@ -229,7 +227,7 @@
 				8E5BB6F62151EC820016C44A /* Controller */,
 				8E5BB6F32151EADE0016C44A /* Storyboard */,
 				8E5BB6E12151E8830016C44A /* AppDelegate.swift */,
-				8EE2EFC02170B9F3005A9DA4 /* AdvanceNotification */,
+				8EE2EFC02170B9F3005A9DA4 /* JSON */,
 				8E5BB6E82151E88B0016C44A /* Assets.xcassets */,
 				8E5BB6EA2151E88B0016C44A /* LaunchScreen.storyboard */,
 				8E5BB6ED2151E88B0016C44A /* Info.plist */,
@@ -420,14 +418,13 @@
 			path = Add;
 			sourceTree = "<group>";
 		};
-		8EE2EFC02170B9F3005A9DA4 /* AdvanceNotification */ = {
+		8EE2EFC02170B9F3005A9DA4 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				8E167DD22171DFED00A701AE /* cloud.json */,
 				8EE2EFC72170D19C005A9DA4 /* servishero_loading.json */,
-				8EE2EFC12170BA53005A9DA4 /* NotificationViewController.swift */,
-				8EE2EFC52170BAA5005A9DA4 /* Notification.storyboard */,
 			);
-			path = AdvanceNotification;
+			path = JSON;
 			sourceTree = "<group>";
 		};
 		C750D43D3BBE8D4EBB4053FC /* Pods */ = {
@@ -520,6 +517,7 @@
 				8EDA662F2160A0EF009FFB8D /* ServcedListCell.xib in Resources */,
 				8EEC3315215C928100DE8C31 /* profile.storyboard in Resources */,
 				8EA01DA62160554B00104A55 /* ProfileServcedListCell.xib in Resources */,
+				8E167DD32171DFED00A701AE /* cloud.json in Resources */,
 				8EDA66372160B8EF009FFB8D /* TaskAgreeInfoCell.xib in Resources */,
 				8EC7214E216B3EDA00BEB97D /* AddCustomLocationMapCell.xib in Resources */,
 				8EEC330D215BF32A00DE8C31 /* searchTask.storyboard in Resources */,
@@ -534,7 +532,6 @@
 				8E28F7FB215B6AA6004954F0 /* TaskDetailInfoView.xib in Resources */,
 				8E19FC242169AA16009C01D2 /* cusomeAlert.storyboard in Resources */,
 				8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */,
-				8EE2EFC62170BAA5005A9DA4 /* Notification.storyboard in Resources */,
 				8ED7279F2154C22400EE697F /* addTask.storyboard in Resources */,
 				8E8EC45A215CCAB800CCABE7 /* searchTaskCell.xib in Resources */,
 				8E58D780215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib in Resources */,
@@ -668,7 +665,6 @@
 				8EC7214D216B3EDA00BEB97D /* AddCustomLocationMapCell.swift in Sources */,
 				8EDB256E2161135400DBBF6D /* ScoreSendView.swift in Sources */,
 				8E7575CB215FE9FA0021A403 /* ProfileDetailCell.swift in Sources */,
-				8EE2EFC32170BA54005A9DA4 /* NotificationViewController.swift in Sources */,
 				8E5BB6E22151E8830016C44A /* AppDelegate.swift in Sources */,
 				8EEC3313215C924A00DE8C31 /* HistoryTaskViewController.swift in Sources */,
 				8ED727A12154C8FE00EE697F /* AddTaskViewController.swift in Sources */,

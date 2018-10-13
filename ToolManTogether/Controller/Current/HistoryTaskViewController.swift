@@ -12,12 +12,15 @@ import SDWebImage
 import FirebaseDatabase
 import FirebaseStorage
 import FirebaseMessaging
+import Lottie
+
 
 class HistoryTaskViewController: UIViewController {
     
     @IBOutlet weak var historyTableView: UITableView!
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var bgLabel: UILabel!
+    @IBOutlet weak var aniView: UIView!
     
     var myRef: DatabaseReference!
     var requestTools: [RequestUser] = []
@@ -42,6 +45,8 @@ class HistoryTaskViewController: UIViewController {
         historyTableView.addSubview(refreshController)
         refreshController.addTarget(self, action: #selector(loadData), for: UIControl.Event.valueChanged)
         
+        loadData()
+        
         let typeNib = UINib(nibName: "RequestCell", bundle: nil)
         self.historyTableView.register(typeNib, forCellReuseIdentifier: "requestedCell")
         
@@ -56,6 +61,20 @@ class HistoryTaskViewController: UIViewController {
         let hasTaskNotification = Notification.Name("hasTask")
         NotificationCenter.default.addObserver(self, selector: #selector(self.hastask), name: hasTaskNotification, object: nil)
         
+        setAniView()
+        
+    }
+    
+    func setAniView() {
+        let animationView = LOTAnimationView(name: "servishero_loading")
+        animationView.frame = aniView.frame
+        animationView.center = aniView.center
+        animationView.contentMode = .scaleAspectFill
+        animationView.loopAnimation = true
+
+        bgView.addSubview(animationView)
+        
+        animationView.play()
     }
     
     @objc func notask() {
@@ -189,7 +208,7 @@ class HistoryTaskViewController: UIViewController {
                 
                 for disAgreeRemoteToken in self.toolsInfo {
                     if disAgreeRemoteToken.remoteToken != self.agreeToolsInfo!.remoteToken {
-                        self.sendNotification(content: "任務已被\(currentUser)拒絕！", toToken: disAgreeRemoteToken.remoteToken!, data: "wefwef")
+                        self.sendNotification(content: "任務已被\(currentUser)拒絕！", toToken: disAgreeRemoteToken.remoteToken!, data: "\(selectToosData.requestKey)")
                     }
                 }
             }

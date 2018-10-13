@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Lottie
+
 
 protocol selectPhotoDelegate: AnyObject {
     func selectBtnPressed(_ btnSend: UIButton, _ imageView: UIImageView)
@@ -17,10 +19,14 @@ class GoodCitizenCardCell: UITableViewCell, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var selectButton: UIButton!
     @IBOutlet weak var imagePicker: UIImageView!
     weak var photoBtnDelegage: selectPhotoDelegate?
-
+    @IBOutlet weak var aniView: UIView!
+    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var updateLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectButton.isHidden = true
+        setAniView()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -31,15 +37,18 @@ class GoodCitizenCardCell: UITableViewCell, UIImagePickerControllerDelegate, UIN
     @IBAction func selectBtn(_ sender: Any) {
         
         photoBtnDelegage?.selectBtnPressed(self.selectButton, self.imagePicker)
+    }
+    
+    func setAniView() {
+        let animationView = LOTAnimationView(name: "cloud")
+        animationView.frame = aniView.frame
+        animationView.center = aniView.center
+        animationView.contentMode = .scaleAspectFill
+        animationView.loopAnimation = true
         
-//        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-//            var imagePicker = UIImagePickerController()
-//            imagePicker.delegate = self
-//            imagePicker.sourceType = .photoLibrary
-//            imagePicker.allowsEditing = true
+        bgView.addSubview(animationView)
         
-//        }
-        
+        animationView.play()
     }
     
     

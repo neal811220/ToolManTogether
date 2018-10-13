@@ -310,6 +310,14 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             cell.requestCollectionView.typeLabel.text = cellData.type
             cell.requestCollectionView.userName.text = cellData.userName
             cell.requestCollectionView.reportBtn.isHidden = true
+            cell.requestCollectionView.contentView.backgroundColor = .clear
+            cell.requestCollectionView.taskTitleLabel.textColor = .white
+            cell.requestCollectionView.taskContentTxtView.backgroundColor = #colorLiteral(red: 0.2470588235, green: 0.2784313725, blue: 0.3333333333, alpha: 1)
+            cell.requestCollectionView.taskContentTxtView.textColor = .white
+            cell.requestCollectionView.priceLabel.textColor = .white
+            cell.requestCollectionView.typeLabel.textColor = .white
+            cell.requestCollectionView.taskTitleLabel.textColor = .white
+            
             
             if cellData.agree == false {
                 cell.requestCollectionView.sendButton.setTitle("取消任務", for: .normal)

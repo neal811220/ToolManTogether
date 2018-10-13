@@ -17,7 +17,7 @@ protocol ButtonDelegate: AnyObject {
     func editBtnPressed(_ send: UIButton)
 }
 
-class ProfileDetailCell: UITableViewCell {
+class ProfileDetailCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet weak var profileTxtView: UITextView!
     @IBOutlet weak var doneBtn: UIButton!
@@ -27,12 +27,22 @@ class ProfileDetailCell: UITableViewCell {
     @IBOutlet weak var doneBtnHeight: NSLayoutConstraint!
     @IBOutlet weak var cancelBtnHeight: NSLayoutConstraint!
     
+    var phone: String!
+    var profile: String!
+    
     weak var btnDelegage: ButtonDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        profileTxtView.layer.cornerRadius = 15
-        phoneTxtField.layer.cornerRadius = 15
+        profileTxtView.layer.cornerRadius = 10
+//        phoneTxtField.layer.cornerRadius = 15
+        profileTxtView.layer.shadowColor = UIColor.darkGray.cgColor
+        profileTxtView.layer.shadowRadius = 0.8
+        profileTxtView.layer.shadowOpacity = 0.5
+        profileTxtView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        profileTxtView.clipsToBounds = false
+
+        
         profileTxtView.isEditable = false
         phoneTxtField.isEnabled = false
         doneBtn.layer.cornerRadius = 10
@@ -43,11 +53,26 @@ class ProfileDetailCell: UITableViewCell {
         doneBtn.titleLabel?.isHidden = true
         cancelBtn.titleLabel?.isHidden = true
 
+        profileTxtView.delegate = self
+        phoneTxtField.delegate = self
+    
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        phone = textField.text
+    }
+    
+
+    
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        profile = textView.text
+    }
+    
+    
     
     @IBAction func doneBtnPressed(_ sender: Any) {
         self.doneBtnHeight.constant = 0
@@ -60,11 +85,17 @@ class ProfileDetailCell: UITableViewCell {
         doneBtn.setTitle("", for: .normal)
         cancelBtn.setTitle("", for: .normal)
         dismissBorder()
+        self.profileTxtView.backgroundColor = .white
+        self.phoneTxtField.backgroundColor = .white
+        
         btnDelegage?.doneBtnPressed(self.doneBtn,
                                     self.phoneTxtField,
                                     self.profileTxtView)
         
-        UIView.animate(withDuration: 0.3) {
+        self.phoneTxtField.text = phone
+        self.profileTxtView.text = profile
+       
+        UIView.animate(withDuration: 0.1) {
             self.doneBtn.layoutIfNeeded()
             self.cancelBtn.layoutIfNeeded()
             self.profileTxtView.layoutIfNeeded()
@@ -85,8 +116,10 @@ class ProfileDetailCell: UITableViewCell {
         cancelBtn.setTitle("", for: .normal)
         dismissBorder()
         btnDelegage?.cancelBtnpressed(self.cancelBtn)
+        self.profileTxtView.backgroundColor = .white
+        self.phoneTxtField.backgroundColor = .white
 
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.1) {
             self.doneBtn.layoutIfNeeded()
             self.cancelBtn.layoutIfNeeded()
             self.profileTxtView.layoutIfNeeded()
@@ -101,10 +134,12 @@ class ProfileDetailCell: UITableViewCell {
         self.cancelBtnHeight.constant = 36
         profileTxtView.isEditable = true
         phoneTxtField.isEnabled = true
+        self.profileTxtView.backgroundColor = #colorLiteral(red: 0.952378909, green: 0.952378909, blue: 0.952378909, alpha: 1)
+        self.phoneTxtField.backgroundColor = #colorLiteral(red: 0.952378909, green: 0.952378909, blue: 0.952378909, alpha: 1)
         editBtn.isHidden = true
         doneBtn.setTitle("Done", for: .normal)
         cancelBtn.setTitle("Cancel", for: .normal)
-        setBorder()
+//        setBorder()
         btnDelegage?.editBtnPressed(self.cancelBtn)
 
         UIView.animate(withDuration: 0.1) {

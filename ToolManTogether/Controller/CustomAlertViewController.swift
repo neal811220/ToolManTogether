@@ -7,12 +7,28 @@
 //
 
 import UIKit
+import Lottie
 
 class CustomAlertViewController: UIViewController {
-
+    
+    @IBOutlet weak var bgView: UIView!
+    
+    @IBOutlet weak var aniView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.view.isOpaque = false
         self.view.backgroundColor = .clear
+        
+         let animationView = LOTAnimationView(name: "servishero_loading")
+            animationView.frame = aniView.frame
+            animationView.center = aniView.center
+            animationView.contentMode = .scaleAspectFill
+            
+            bgView.addSubview(animationView)
+            
+            animationView.play()
+        
     }
 }

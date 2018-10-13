@@ -265,7 +265,7 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "Content", for: indexPath) as? AddTaskContentCell {
-                cell.contentTextView.textColor = #colorLiteral(red: 0.7843137255, green: 0.7803921569, blue: 0.8039215686, alpha: 1)
+                cell.contentTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 cell.contentTextView.delegate = self
                 cell.backgroundColor = .red
                 return cell

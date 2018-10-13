@@ -18,6 +18,9 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     var typeColorArray: [String] = []
     var typeTitleCompletion: ((_ data: String) -> Void)?
     var typeBtnPressed = false
+    var checkType = "科技維修"
+    var checkBool = false
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -62,32 +65,45 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addTaskTypeCollectionCell", for: indexPath) as? AddTaskTypeCollectionViewCell {
+            
+            
+            cell.typeButton.isEnabled = false
             if typeTxtArray.count != 0 {
 
                 cell.typeButton.setTitle(typeTxtArray[indexPath.row], for: .normal)
-                cell.typeButton.backgroundColor = typeColorArray[indexPath.row].color()
-               
-                
+                cell.typeButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
             }
-            cell.typeButton.addTarget(self, action: #selector(typeButtonPressed), for: .touchUpInside)
+            
+            cell.typeButton.addTarget(self, action: #selector(typeButtonPressed(button:)), for: .touchUpInside)
+            
             return cell
         }
         return UICollectionViewCell()
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let selectType = typeTxtArray[indexPath.row]
+        print(selectType)
+        typeTitleCompletion?(selectType)
+        if let selectedCell: AddTaskTypeCollectionViewCell = (collectionView.cellForItem(at: indexPath)! as? AddTaskTypeCollectionViewCell) {
+            selectedCell.typeButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let selectedCell: AddTaskTypeCollectionViewCell = (collectionView.cellForItem(at: indexPath) as? AddTaskTypeCollectionViewCell) {
+            
+            selectedCell.typeButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        }
     }
 
     @objc func typeButtonPressed(button: UIButton) {
         if let typeButtonTxt = button.titleLabel?.text  {
             typeTitleCompletion?(typeButtonTxt)
-            var select = !button.isSelected
-            if select == true && typeBtnPressed == false {
-                button.layer.borderWidth = 4
-                button.layer.borderColor = #colorLiteral(red: 0.9568627451, green: 0.7215686275, blue: 0, alpha: 1)
-                typeBtnPressed = true
-            } else {
-                 button.layer.borderWidth = 0
-                 typeBtnPressed = false
-            }
            
+            print(button.tag)
             print(typeButtonTxt)
         } else {
             typeTitleCompletion?("Type Button 無資料")
@@ -111,3 +127,4 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     }
     
 }
+

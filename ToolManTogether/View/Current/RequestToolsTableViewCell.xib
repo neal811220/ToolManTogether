@@ -33,7 +33,7 @@
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userImage_Spock" translatesAutoresizingMaskIntoConstraints="NO" id="9M2-f0-rVD">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_sticker_placeholder02" translatesAutoresizingMaskIntoConstraints="NO" id="9M2-f0-rVD">
                                 <rect key="frame" x="8" y="57" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="5R3-3E-8v8"/>
@@ -198,7 +198,7 @@
     <resources>
         <image name="btn_more" width="18" height="4"/>
         <image name="orangePoint" width="32" height="32"/>
+        <image name="profile_sticker_placeholder02" width="110" height="110"/>
         <image name="star" width="32" height="32"/>
-        <image name="userImage_Spock" width="50" height="61"/>
     </resources>
 </document>

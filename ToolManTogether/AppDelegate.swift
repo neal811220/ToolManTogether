@@ -110,11 +110,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         
         // Print full message.
-        let testVC = window?.rootViewController as? UITabBarController
-        let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
-        let testVC2 = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
-        window?.rootViewController?.show(testVC2, sender: nil)
-        print(userInfo)
+//        let testVC = window?.rootViewController as? UITabBarController
+//        let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
+//        let testVC2 = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
+//        window?.rootViewController?.show(testVC2, sender: nil)
+//        print(userInfo)
+        
+        AppDelegate.shared?.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
+        let tabBarVC = AppDelegate.shared?.window?.rootViewController as? TabBarViewController
+        tabBarVC?.selectedIndex = 1
         
     }
     
