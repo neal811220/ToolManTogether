@@ -50,6 +50,8 @@
 		8EA01DAE2160836300104A55 /* ServcedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA01DAD2160836300104A55 /* ServcedListViewController.swift */; };
 		8EA04DE82172558B00D12775 /* check_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DE72172558B00D12775 /* check_animation.json */; };
 		8EA04DEA2172565800D12775 /* loading_and_done!.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DE92172565800D12775 /* loading_and_done!.json */; };
+		8EA04DF02172DD8300D12775 /* motorcycle.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DEF2172DD8300D12775 /* motorcycle.json */; };
+		8EA04DF42172FC4500D12775 /* empty_status.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DF32172FC4500D12775 /* empty_status.json */; };
 		8EB0A21E2162609200FD81F1 /* FilterAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */; };
 		8EC7214D216B3EDA00BEB97D /* AddCustomLocationMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC7214B216B3EDA00BEB97D /* AddCustomLocationMapCell.swift */; };
 		8EC7214E216B3EDA00BEB97D /* AddCustomLocationMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC7214C216B3EDA00BEB97D /* AddCustomLocationMapCell.xib */; };
@@ -130,6 +132,8 @@
 		8EA01DAD2160836300104A55 /* ServcedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServcedListViewController.swift; sourceTree = "<group>"; };
 		8EA04DE72172558B00D12775 /* check_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = check_animation.json; sourceTree = "<group>"; };
 		8EA04DE92172565800D12775 /* loading_and_done!.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "loading_and_done!.json"; sourceTree = "<group>"; };
+		8EA04DEF2172DD8300D12775 /* motorcycle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = motorcycle.json; sourceTree = "<group>"; };
+		8EA04DF32172FC4500D12775 /* empty_status.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = empty_status.json; sourceTree = "<group>"; };
 		8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAnnotation.swift; sourceTree = "<group>"; };
 		8EC7214B216B3EDA00BEB97D /* AddCustomLocationMapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomLocationMapCell.swift; sourceTree = "<group>"; };
 		8EC7214C216B3EDA00BEB97D /* AddCustomLocationMapCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCustomLocationMapCell.xib; sourceTree = "<group>"; };
@@ -260,6 +264,7 @@
 		8E5BB6F62151EC820016C44A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8EA04DF521730B3500D12775 /* Alert */,
 				8EB0A2172161B9F700FD81F1 /* Profile */,
 				8EB0A2162161B9C600FD81F1 /* Current */,
 				8EB0A2152161B95400FD81F1 /* Already */,
@@ -268,7 +273,6 @@
 				8E5BB6F72151ECB50016C44A /* LoginViewController.swift */,
 				8E097DC621534179006B574E /* TabBarViewController.swift */,
 				8E28F7F8215B6A6E004954F0 /* TaskDetailInfoView.swift */,
-				8E93F769216B9A370059BAEE /* CustomAlertViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -306,6 +310,14 @@
 				8E6C6A75215232F8007259D3 /* HTTPClient.swift */,
 			);
 			path = HTTP;
+			sourceTree = "<group>";
+		};
+		8EA04DF521730B3500D12775 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				8E93F769216B9A370059BAEE /* CustomAlertViewController.swift */,
+			);
+			path = Alert;
 			sourceTree = "<group>";
 		};
 		8EB0A20F2161B3F500FD81F1 /* Already */ = {
@@ -425,6 +437,8 @@
 		8EE2EFC02170B9F3005A9DA4 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				8EA04DF32172FC4500D12775 /* empty_status.json */,
+				8EA04DEF2172DD8300D12775 /* motorcycle.json */,
 				8EA04DE92172565800D12775 /* loading_and_done!.json */,
 				8EA04DE72172558B00D12775 /* check_animation.json */,
 				8E167DD22171DFED00A701AE /* cloud.json */,
@@ -531,6 +545,7 @@
 				8E5BB6F52151EB3C0016C44A /* Login.storyboard in Resources */,
 				8E097DC921534503006B574E /* home.storyboard in Resources */,
 				8EA01DAC2160831B00104A55 /* profileServced.storyboard in Resources */,
+				8EA04DF42172FC4500D12775 /* empty_status.json in Resources */,
 				8E7575CC215FE9FA0021A403 /* ProfileDetailCell.xib in Resources */,
 				8E5BB6EC2151E88B0016C44A /* LaunchScreen.storyboard in Resources */,
 				8EE2EFC82170D19C005A9DA4 /* servishero_loading.json in Resources */,
@@ -545,6 +560,7 @@
 				8E58D780215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib in Resources */,
 				8EC9217C215F87FE00BEE92D /* ProfileCell.xib in Resources */,
 				8ECAB99C215E177A00649128 /* RequestCollectionViewCell.xib in Resources */,
+				8EA04DF02172DD8300D12775 /* motorcycle.json in Resources */,
 				8E5BB6E92151E88B0016C44A /* Assets.xcassets in Resources */,
 				8E5BB6E72151E8830016C44A /* Main.storyboard in Resources */,
 				8EC92178215F146C00BEE92D /* RequestToolsTableViewCell.xib in Resources */,

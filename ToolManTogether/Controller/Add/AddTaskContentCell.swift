@@ -23,14 +23,19 @@ class AddTaskContentCell: UITableViewCell, UITextViewDelegate {
         contentTextView.layer.shadowRadius = 1
         contentTextView.layer.shadowOpacity = 0.5
         contentTextView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        
+        let claneDataNotification = Notification.Name("addTask")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.cleanData), name: claneDataNotification, object: nil)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    override func prepareForReuse() {
+    @objc func cleanData() {
         contentTextView.text = ""
     }
+    
+
         
 }

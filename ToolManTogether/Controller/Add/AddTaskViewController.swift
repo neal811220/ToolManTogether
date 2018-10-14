@@ -88,23 +88,23 @@ class AddTaskViewController: UIViewController {
     @IBAction func addTask(_ sender: Any) {
         
         guard let title = titleTxt else {
-            showAlert(content: "Title is required")
+            showAlert(content: "需要輸入標題")
             return
         }
         guard let content = contentTxt else {
-            showAlert(content: "Content is required")
+            showAlert(content: "需要簡單說明內容")
             return
         }
         guard let taskType = taskType else {
-            showAlert(content: "Please select the Type")
+            showAlert(content: "選擇一個種類")
             return
         }
         guard let userCoordinate = customMapCenterLocation else {
-            showAlert(title: "Location is something wrong", content: "Please try again later")
+            showAlert(title: "定位狀態連線中，無法正確定位", content: "請稍後再試")
             return
         }
         guard let price = priceTxt else {
-            showAlert(content: "Price is required")
+            showAlert(content: "需要輸入酬勞")
             return
         }
         
@@ -141,6 +141,8 @@ class AddTaskViewController: UIViewController {
             self.addTaskTableView.reloadData()
             let indexPath = IndexPath(row: 0, section: 0)
             self.addTaskTableView.scrollToRow(at: indexPath, at: .top, animated: false)
+            
+            self.cleanData()
         }
         
         let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
@@ -148,11 +150,18 @@ class AddTaskViewController: UIViewController {
         self.present(addAlert, animated: true, completion: nil)
     }
     
-    func showAlert(title: String = "Incomplete Information", content: String) {
+    func showAlert(title: String = "尚未輸入完整資訊", content: String) {
         let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func cleanData() {
+         titleTxt = nil
+         contentTxt = nil
+         taskType = nil
+         priceTxt = nil
     }
     
     func addUserLocationPoint() -> CLLocationCoordinate2D? {
@@ -172,10 +181,11 @@ class AddTaskViewController: UIViewController {
 //            viewController.selectedIndex = 3
 //
 //        }
+        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+
         let tabController = self.view.window!.rootViewController as? UITabBarController
         let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
         let alertVC = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
-        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
         tabController?.show(alertVC, sender: nil)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {

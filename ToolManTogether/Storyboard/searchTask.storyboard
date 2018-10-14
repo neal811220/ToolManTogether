@@ -22,18 +22,52 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZk-Ee-S0m" userLabel="bgView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="82R-1P-g0s" userLabel="aniView">
+                                        <rect key="frame" x="0.0" y="161" width="375" height="249"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="249" id="fxY-uY-II9"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尚未成為工具人，前往首頁搜尋任務。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n84-ci-qLV">
+                                        <rect key="frame" x="40" y="448" width="295" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="n84-ci-qLV" secondAttribute="trailing" constant="40" id="GaE-vP-Wxg"/>
+                                    <constraint firstItem="n84-ci-qLV" firstAttribute="top" secondItem="82R-1P-g0s" secondAttribute="bottom" constant="38" id="J7T-jK-oW4"/>
+                                    <constraint firstAttribute="trailing" secondItem="82R-1P-g0s" secondAttribute="trailing" id="b3a-lH-Qds"/>
+                                    <constraint firstAttribute="bottom" secondItem="n84-ci-qLV" secondAttribute="bottom" constant="131.5" id="rlP-5C-Bmm"/>
+                                    <constraint firstItem="82R-1P-g0s" firstAttribute="leading" secondItem="PZk-Ee-S0m" secondAttribute="leading" id="yJc-TT-vqA"/>
+                                    <constraint firstItem="n84-ci-qLV" firstAttribute="leading" secondItem="PZk-Ee-S0m" secondAttribute="leading" constant="40" id="yYn-uG-ohW"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="PZk-Ee-S0m" firstAttribute="leading" secondItem="egE-oO-ASO" secondAttribute="leading" id="1nc-Lm-Hwr"/>
                             <constraint firstItem="egE-oO-ASO" firstAttribute="bottom" secondItem="apo-jo-COq" secondAttribute="bottom" id="4XT-f6-vM7"/>
+                            <constraint firstItem="egE-oO-ASO" firstAttribute="bottom" secondItem="PZk-Ee-S0m" secondAttribute="bottom" id="JIG-oW-2Bw"/>
+                            <constraint firstItem="PZk-Ee-S0m" firstAttribute="trailing" secondItem="egE-oO-ASO" secondAttribute="trailing" id="Z6T-26-A7u"/>
                             <constraint firstItem="apo-jo-COq" firstAttribute="leading" secondItem="egE-oO-ASO" secondAttribute="leading" id="bXH-xO-AFE"/>
                             <constraint firstItem="egE-oO-ASO" firstAttribute="trailing" secondItem="apo-jo-COq" secondAttribute="trailing" id="gVK-zR-ttr"/>
                             <constraint firstItem="apo-jo-COq" firstAttribute="top" secondItem="egE-oO-ASO" secondAttribute="top" id="qy2-yz-jn9"/>
+                            <constraint firstItem="PZk-Ee-S0m" firstAttribute="top" secondItem="egE-oO-ASO" secondAttribute="top" id="tFw-4U-T4v"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="egE-oO-ASO"/>
                     </view>
                     <navigationItem key="navigationItem" title="已接任務清單" id="Z0s-R2-DFD"/>
                     <connections>
+                        <outlet property="aniView" destination="82R-1P-g0s" id="RLx-zf-lg0"/>
+                        <outlet property="bgLabel" destination="n84-ci-qLV" id="r1s-JV-jlx"/>
+                        <outlet property="bgView" destination="PZk-Ee-S0m" id="CVx-bt-cJD"/>
                         <outlet property="searchTaskTableVIew" destination="apo-jo-COq" id="Dwd-CJ-YJr"/>
                     </connections>
                 </viewController>

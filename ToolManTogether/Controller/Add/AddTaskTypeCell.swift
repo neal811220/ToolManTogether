@@ -39,6 +39,9 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         
         myRef = Database.database().reference()
         getDataBaseType()
+        
+        let claneDataNotification = Notification.Name("addTask")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.cleanData), name: claneDataNotification, object: nil)
     }
     
     func getDataBaseType() {
@@ -99,6 +102,11 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         }
     }
 
+    
+    @objc func cleanData() {
+        collectionView.reloadData()
+    }
+    
     @objc func typeButtonPressed(button: UIButton) {
         if let typeButtonTxt = button.titleLabel?.text  {
             typeTitleCompletion?(typeButtonTxt)

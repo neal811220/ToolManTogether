@@ -11,10 +11,18 @@ import FirebaseAuth
 import FirebaseStorage
 import SDWebImage
 import FirebaseDatabase
+import Lottie
+
 
 class SearchTaskViewController: UIViewController {
     
     @IBOutlet weak var searchTaskTableVIew: UITableView!
+    
+    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var aniView: UIView!
+    @IBOutlet weak var bgLabel: UILabel!
+    
+    
     var photoURL: [URL] = []
     var myRef: DatabaseReference!
     var selectTask: [UserTaskInfo] = []
@@ -36,8 +44,33 @@ class SearchTaskViewController: UIViewController {
         
         let notificationName = Notification.Name("sendRequest")
         NotificationCenter.default.addObserver(self, selector: #selector(self.selectTaskAdd), name: notificationName, object: nil)
+        
+        setAniView()
 
-
+    }
+    
+    func setAniView() {
+        let animationView = LOTAnimationView(name: "empty_status")
+        animationView.frame = aniView.frame
+        animationView.center = aniView.center
+        animationView.contentMode = .scaleAspectFill
+        animationView.loopAnimation = true
+        
+        bgView.addSubview(animationView)
+        
+        animationView.play()
+    }
+    
+    func changeView() {
+        self.bgView.isHidden = false
+        self.aniView.isHidden = false
+        self.bgLabel.isHidden = false
+    }
+    
+    func returnView() {
+        self.bgView.isHidden = true
+        self.aniView.isHidden = true
+        self.bgLabel.isHidden = true
     }
     
     @objc func selectTaskAdd() {
@@ -48,7 +81,13 @@ class SearchTaskViewController: UIViewController {
         myRef.child("RequestTask")
             .queryOrdered(byChild: "UserID").queryEqual(toValue: userID)
             .observeSingleEvent(of: .value, with: { (snapshot) in
-                guard let data = snapshot.value as? NSDictionary else { return }
+                
+                guard let data = snapshot.value as? NSDictionary else {
+                    self.changeView()
+                    return
+                }
+                
+                self.returnView()
                 
                 for value in data {
                     guard let keyValue = value.key as? String else { return }
@@ -340,6 +379,9 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                             }, completion: {
                                 (finished: Bool) in
                                 self.searchTaskTableVIew.reloadData()
+                                if self.selectTask.count == 0 {
+                                    self.changeView()
+                                }
                                 print("刪除完成")
                             })
                         }

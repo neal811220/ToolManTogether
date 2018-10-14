@@ -24,7 +24,9 @@ class AddTaskInfoCell: UITableViewCell, UITextFieldDelegate {
         textField.layer.shadowRadius = 1
         textField.layer.shadowOpacity = 0.5
         textField.layer.shadowOffset = CGSize(width: 0, height: 0)
-
+        
+        let claneDataNotification = Notification.Name("addTask")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.cleanData), name: claneDataNotification, object: nil)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -38,7 +40,9 @@ class AddTaskInfoCell: UITableViewCell, UITextFieldDelegate {
         }
     }
     
-    override func prepareForReuse() {
+    @objc func cleanData() {
         textField.text = ""
     }
+    
+
 }
