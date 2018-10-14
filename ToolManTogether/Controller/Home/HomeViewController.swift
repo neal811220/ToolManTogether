@@ -13,6 +13,7 @@ import CoreLocation
 import FirebaseAuth
 import FirebaseStorage
 import SDWebImage
+import KeychainSwift
 
 class HomeViewController: UIViewController {
     
@@ -42,6 +43,8 @@ class HomeViewController: UIViewController {
     var otherAnnotationArray: [MKAnnotation] = []
     var trafficAnnotationArray: [MKAnnotation] = []
     var allAnnotationArray: [MKAnnotation] = []
+    let keychain = KeychainSwift()
+    var isGuest = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,8 +81,13 @@ class HomeViewController: UIViewController {
         mapView.tintColor = #colorLiteral(red: 0.3450980392, green: 0.768627451, blue: 0.6156862745, alpha: 1)
 
         configureLocationServices()
-        
-        
+        guestMode()
+    }
+    
+    func guestMode() {
+        if keychain.get("token") == nil {
+            isGuest = true
+        }
     }
     
     func dataBaseTypeAdd() {
@@ -145,6 +153,7 @@ class HomeViewController: UIViewController {
             
             if let error = error {
                 print("User photo download Fail: \(error.localizedDescription)")
+                self.pullUpDetailView.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
             }
             
             if let url = url {
@@ -191,7 +200,12 @@ class HomeViewController: UIViewController {
             latitudinalMeters: regionRadious * 0.2,
             longitudinalMeters: regionRadious * 0.2)
         
-        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
+//        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
+        
+        var currentUserID = ""
+        if let userID = Auth.auth().currentUser?.uid {
+            currentUserID = userID
+        }
         
         searchFireBase(child: "Task", byChild: "searchAnnotation",
                        toValue: "\(taskCoordinate.latitude)_\(taskCoordinate.longitude)") { (data) in
@@ -215,6 +229,8 @@ class HomeViewController: UIViewController {
                 let roundDistance = round(distance * 100) / 100
                 
                 self.selectTaskKey = keyValue
+                
+
                 
                 self.selectTask = UserTaskInfo(userID: currentUserID,
                                                userName: userName,
@@ -251,6 +267,16 @@ class HomeViewController: UIViewController {
                             return
                         }
                     })
+                
+                guard self.isGuest == false else {
+                    self.pullUpDetailView.sendButton.setTitle("訪客模式無法申請任務", for: .normal)
+                    self.pullUpDetailView.sendButton.isEnabled = false
+                    self.pullUpDetailView.sendButton.backgroundColor = .white
+                    self.pullUpDetailView.sendButton.layer.borderWidth = 1
+                    self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
+                    self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1), for: .normal)
+                    return
+                }
                 
                 if userID == currentUserID {
                     self.pullUpDetailView.sendButton.setTitle("您的任務", for: .normal)

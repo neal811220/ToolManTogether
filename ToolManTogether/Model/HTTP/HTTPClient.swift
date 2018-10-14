@@ -66,28 +66,4 @@ class HTTPClient {
         }
     }
     
-    
-    func fbLogOut(completionHandler completion: @escaping FbLogOutCompletionHandler) {
-        
-        guard let userManger = UserManager.fbUser.getUserToken() else {
-            return
-        }
-        
-        let headers = [ "Authorization": "Bearer \(userManger)" ]
-        
-        let fbLogOutURL: URL = URL(string: "http://schoolvoyage.ga/api/1.0/logout")!
-        
-        Alamofire.request(fbLogOutURL, method: .post, headers: headers).validate().responseData { (response) in
-            
-            guard response.result.isSuccess else {
-                let errorMessage = response.result.error
-                completion(nil, errorMessage)
-                return
-            }
-            
-            completion(true, nil)
-        }
-    }
-    
-
 }

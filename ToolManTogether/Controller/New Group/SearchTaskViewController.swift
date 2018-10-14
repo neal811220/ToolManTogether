@@ -12,6 +12,7 @@ import FirebaseStorage
 import SDWebImage
 import FirebaseDatabase
 import Lottie
+import KeychainSwift
 
 
 class SearchTaskViewController: UIViewController {
@@ -31,6 +32,7 @@ class SearchTaskViewController: UIViewController {
     var taskOwnerInfo: [RequestUserInfo] = []
     var myActivityIndicator: UIActivityIndicatorView!
     let fullScreenSize = UIScreen.main.bounds.size
+    let keychain = KeychainSwift()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +52,14 @@ class SearchTaskViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.selectTaskAdd), name: notificationName, object: nil)
         
         setAniView()
-
+        
+        guestMode()
+    }
+    
+    func guestMode() {
+        if keychain.get("token") == nil {
+            changeView()
+        }
     }
     
     func setAniView() {
@@ -383,7 +392,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                                 
                                print(taskKey)
                                print(userKey)
-                                self.myRef.child("Task").child(taskKey).child("RequestUser").child(userKey).removeValue()
+                            self.myRef.child("Task").child(taskKey).child("RequestUser").child(userKey).removeValue()
                             }
                             
                             self.searchTaskTableVIew.performBatchUpdates({
@@ -415,10 +424,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
         personAlertController.addAction(cancelAction)
         self.present(personAlertController, animated: true, completion: nil)
     }
-    
-
-    
-
     
     func updataTaskUserPhoto(
         

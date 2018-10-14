@@ -14,7 +14,7 @@ import FirebaseStorage
 import FirebaseDatabase
 import UserNotifications
 import FirebaseMessaging
-
+import KeychainSwift
 
 class LoginViewController: UIViewController {
     
@@ -26,11 +26,13 @@ class LoginViewController: UIViewController {
     var dataRef: DatabaseReference!
     let fbUserDefault: UserDefaults = UserDefaults.standard
     var userPhotoComplement: ((_ data: URL) -> Void)?
+    let keychain = KeychainSwift()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bgView.backgroundColor = .clear
         dataRef = Database.database().reference()
+        setButtonBorder()
     }
     
     @IBAction func connectFB(_ sender: Any) {
@@ -57,6 +59,9 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func connectGuest(_ sender: Any) {
+        
+         AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
+        
     }
     
     func setLayer() {
@@ -74,12 +79,14 @@ class LoginViewController: UIViewController {
     }
     
     func setButtonBorder() {
-        fbButton.layer.borderWidth = 1
-        fbButton.layer.borderColor = #colorLiteral(red: 0.9137254902, green: 0.8352941176, blue: 0.8431372549, alpha: 1)
+
         fbButton.layer.cornerRadius = 19
-        guestButton.layer.borderWidth = 1
-        guestButton.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.8431372549, blue: 0.8431372549, alpha: 1)
+        fbButton.layer.borderWidth = 0.8
+        fbButton.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         guestButton.layer.cornerRadius = 19
+        guestButton.layer.borderWidth = 0.8
+        guestButton.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        
     }
     
     func getUserInfo(token: String) {
@@ -98,7 +105,8 @@ class LoginViewController: UIViewController {
                     
                     self.uploadImagePic(url: URL(string: photoURL!)!)
                     
-                    self.fbUserDefault.set(token, forKey: "token")
+//                    self.fbUserDefault.set(token, forKey: "token")
+                    self.keychain.set(token, forKey: "token")
                     
                     guard let userID = Auth.auth().currentUser?.uid else { return }
                     

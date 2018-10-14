@@ -7,16 +7,18 @@
 //
 
 import Foundation
+import KeychainSwift
 
 class UserManager {
     
     static let fbUser = UserManager()
     
     let fbUserDefault: UserDefaults = UserDefaults.standard
+    let keychain = KeychainSwift()
     
     func getUserToken() -> String? {
         
-        guard let userToken = fbUserDefault.object(forKey: "token") as? String else {
+        guard let userToken = keychain.get("token") else {
             return nil
         }
         return userToken

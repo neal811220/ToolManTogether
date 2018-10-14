@@ -12,6 +12,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import MapKit
 import FirebaseMessaging
+import KeychainSwift
 
 class AddTaskViewController: UIViewController {
     
@@ -33,6 +34,7 @@ class AddTaskViewController: UIViewController {
     let geoCoder = CLGeocoder()
     var alertAddress: String!
     var client = HTTPClient(configuration: .default)
+    let keychain = KeychainSwift()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -71,9 +73,10 @@ class AddTaskViewController: UIViewController {
         topView.backgroundColor = #colorLiteral(red: 0.2, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
     
         self.addTaskTableView.addSubview(topView)
-        
 
     }
+    
+    
 
     func sendNotification(title: String = "", content: String, data: String) {
         
@@ -86,6 +89,11 @@ class AddTaskViewController: UIViewController {
     }
    
     @IBAction func addTask(_ sender: Any) {
+        
+        guard let token = keychain.get("token") else {
+            showGuestAlert()
+            return
+        }
         
         guard let title = titleTxt else {
             showAlert(content: "需要輸入標題")
@@ -154,6 +162,21 @@ class AddTaskViewController: UIViewController {
     func showAlert(title: String = "尚未輸入完整資訊", content: String) {
         let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showGuestAlert() {
+        let alert = UIAlertController(title: "無法申請任務，需要登入才能發任務！", message: "您可以選擇取消，並繼續以訪客模式瀏覽。或是選擇登入，解開全部功能。", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "登入", style: .default) { (void) in
+            let storyboard = UIStoryboard(name: "Login", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "LoginView")
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            appDelegate?.window?.rootViewController = viewController
+            appDelegate?.window?.becomeKey()
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }

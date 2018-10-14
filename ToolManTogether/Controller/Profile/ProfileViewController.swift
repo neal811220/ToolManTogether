@@ -12,6 +12,7 @@ import SDWebImage
 import FirebaseDatabase
 import FirebaseStorage
 import FBSDKLoginKit
+import KeychainSwift
 
 class ProfileViewController: UIViewController {
     
@@ -27,6 +28,8 @@ class ProfileViewController: UIViewController {
     let client = HTTPClient(configuration: .default)
     let fbUserDefault: UserDefaults = UserDefaults.standard
     let loginManager = FBSDKLoginManager()
+    let keychain = KeychainSwift()
+    var isGuest = false
 
     
     override func viewDidLoad() {
@@ -52,7 +55,17 @@ class ProfileViewController: UIViewController {
         myRef = Database.database().reference()
         
         searchProfile()
-
+        
+        guestMode()
+    }
+    
+    func guestMode() {
+        if keychain.get("token") == nil {
+            let guestData = ProfileManager(fbEmail: "Guest@001.com", fbID: nil, fbName: "訪客", aboutUser: "我是一個訪客。", userPhone: "0800-000-123")
+            self.userProfile.append(guestData)
+            self.profileTableView.reloadData()
+            isGuest = true
+        }
     }
     
     func setIndicator() {
@@ -134,7 +147,7 @@ class ProfileViewController: UIViewController {
 //                        }
 //                    })
                     
-                    self.fbUserDefault.removeObject(forKey: "token")
+                    self.keychain.clear()
                     self.loginManager.logOut()
                     self.switchView()
 
@@ -171,15 +184,7 @@ class ProfileViewController: UIViewController {
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
 }
-
-
-
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -188,7 +193,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userProfile.count
+        if isGuest == true {
+            return 3
+        } else {
+            return userProfile.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -208,6 +217,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                     }
                 } else {
                     cell.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
+                    
                 }
                 
                 return cell
@@ -224,6 +234,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 } else {
                     cell.phoneTxtField.text = cellData.userPhone
                     cell.profileTxtView.text = cellData.aboutUser
+                }
+                
+                if isGuest == true {
+                    cell.editBtn.isHidden = true
                 }
                 
                 return cell
@@ -250,6 +264,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                             cell.bgView.isHidden = false
                         }
                     }
+                } else {
+                    cell.selectButton.isHidden = true
+                    cell.imagePicker.isHidden = true
+                    cell.bgView.isHidden = false
                 }
                 
                 return cell

@@ -13,6 +13,7 @@ import FirebaseDatabase
 import FirebaseStorage
 import FirebaseMessaging
 import Lottie
+import KeychainSwift
 
 
 class HistoryTaskViewController: UIViewController {
@@ -36,6 +37,8 @@ class HistoryTaskViewController: UIViewController {
     
     var myActivityIndicator: UIActivityIndicatorView!
     let fullScreenSize = UIScreen.main.bounds.size
+    
+    let keychain = KeychainSwift()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +69,15 @@ class HistoryTaskViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.hastask), name: hasTaskNotification, object: nil)
         
         setAniView()
+        
+        guestMode()
+    }
+    
+    func guestMode() {
+        if keychain.get("token") == nil {
+            
+           notask()
+        }
     }
     
     func setAniView() {
