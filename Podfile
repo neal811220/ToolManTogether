@@ -23,7 +23,4 @@ target 'ToolManTogether' do
 
 
 
-
-
-
 end
