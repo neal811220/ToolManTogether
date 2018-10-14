@@ -278,12 +278,16 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
             // 等待
             if cellData.ownAgree == "waiting" {
-                cell.searchTaskView.sendButton.setTitle("尚未同意", for: .normal)
-                cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.4470588235, green: 0.4470588235, blue: 0.4470588235, alpha: 1)
-                cell.searchTaskView.detailBtn.isHidden = true
-                cell.searchTaskView.sendButton.isEnabled = true
+                cell.searchTaskView.sendButton.setTitle("對方尚未同意", for: .normal)
+                cell.searchTaskView.sendButton.backgroundColor = .white
+                cell.searchTaskView.sendButton.isEnabled = false
                 cell.searchTaskView.sendButton.isHidden = false
-                
+                cell.searchTaskView.sendButton.layer.borderWidth = 1
+                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
+                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1), for: .normal)
+
+                cell.searchTaskView.detailBtn.isHidden = true
+
             // 對方同意
             } else if cellData.ownAgree == "agree" {
                 cell.isSelected = true
@@ -295,7 +299,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 cell.searchTaskView.detailBtn.isHidden = false
                 
-                
                 if let ownerID = cellData.ownerID {
                     cell.searchTaskView.detailBtn.addTarget(self, action: #selector(detailBtnTapped(data:)), for: .touchUpInside)
                 }
@@ -303,16 +306,22 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
              // 對方拒絕
             } else if cellData.ownAgree == "disAgree" {
                 cell.searchTaskView.sendButton.setTitle("對方已拒絕", for: .normal)
-                cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.7843137255, green: 0.6078431373, blue: 0.8, alpha: 1)
-                cell.searchTaskView.detailBtn.isHidden = true
+                cell.searchTaskView.sendButton.backgroundColor = .white
                 cell.searchTaskView.sendButton.isEnabled = true
                 cell.searchTaskView.sendButton.isHidden = false
-
+                cell.searchTaskView.sendButton.layer.borderWidth = 1
+                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1), for: .normal)
                 
+                cell.searchTaskView.detailBtn.isHidden = true
+
              // 對方刪除
             } else if cellData.ownAgree == "delete" {
                 cell.searchTaskView.sendButton.setTitle("對方已刪除任務", for: .normal)
-                cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+                cell.searchTaskView.sendButton.backgroundColor = .white
+                cell.searchTaskView.sendButton.layer.borderWidth = 1
+                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1), for: .normal)
                 cell.searchTaskView.detailBtn.isHidden = true
                 cell.searchTaskView.sendButton.isEnabled = true
                 cell.searchTaskView.sendButton.isHidden = false

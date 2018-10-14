@@ -196,7 +196,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         print(scrollIndex)
         
-        if scrollIndex != checkIndex {
+        if scrollIndex != checkIndex && scrollIndex != 0 {
             let searchAnnotation = addTask[scrollIndex].taskKey
             scrollTaskDelegate?.didScrollTask(searchAnnotation!)
             checkIndex = scrollIndex

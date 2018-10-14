@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FirebaseApp.configure()
         
         
-        
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self
@@ -121,7 +120,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
         let tabBarVC = AppDelegate.shared?.window?.rootViewController as? TabBarViewController
         tabBarVC?.selectedIndex = 1
-        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+
     }
     
 

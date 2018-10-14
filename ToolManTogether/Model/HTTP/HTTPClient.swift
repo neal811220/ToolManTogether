@@ -42,8 +42,7 @@ class HTTPClient {
             "sound": "default",
             "data": data,
             "category": "INVITATION",
-            "content-available": 1,
-            "mutable-content": 1 ]] as [String : Any]
+            "badge": 1 ]] as [String : Any]
     
         
         Alamofire.request(notificationURL, method: .post,
