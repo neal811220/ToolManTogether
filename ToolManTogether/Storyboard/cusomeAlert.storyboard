@@ -19,20 +19,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zoo-Z5-YGq">
-                                <rect key="frame" x="62.5" y="208" width="250" height="250"/>
+                                <rect key="frame" x="112.5" y="258" width="150" height="150"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Pg-LH-fsR">
-                                        <rect key="frame" x="0.0" y="0.0" width="250" height="164"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="164" id="cJ9-3j-6a9"/>
-                                        </constraints>
+                                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Pg-LH-fsR">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="1p7-mO-baf"/>
-                                    <constraint firstAttribute="height" constant="250" id="Gc4-6N-qXK"/>
+                                    <constraint firstAttribute="width" constant="150" id="1p7-mO-baf"/>
+                                    <constraint firstAttribute="height" constant="150" id="Gc4-6N-qXK"/>
+                                    <constraint firstAttribute="bottom" secondItem="1Pg-LH-fsR" secondAttribute="bottom" id="OMY-0u-npT"/>
                                     <constraint firstItem="1Pg-LH-fsR" firstAttribute="top" secondItem="zoo-Z5-YGq" secondAttribute="top" id="R36-bA-kbi"/>
                                     <constraint firstAttribute="trailing" secondItem="1Pg-LH-fsR" secondAttribute="trailing" id="awm-kL-AUd"/>
                                     <constraint firstItem="1Pg-LH-fsR" firstAttribute="leading" secondItem="zoo-Z5-YGq" secondAttribute="leading" id="boK-Jl-HVi"/>

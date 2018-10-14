@@ -31,4 +31,11 @@ class CustomAlertViewController: UIViewController {
             animationView.play()
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            self.dismiss(animated: true)
+        }
+    }
 }

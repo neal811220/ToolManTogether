@@ -173,9 +173,14 @@ class AddTaskViewController: UIViewController {
 //
 //        }
         let tabController = self.view.window!.rootViewController as? UITabBarController
+        let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
+        let alertVC = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
         self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
-        tabController?.selectedIndex = 3
-        
+        tabController?.show(alertVC, sender: nil)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+            tabController?.selectedIndex = 3
+        }
     }
 
     

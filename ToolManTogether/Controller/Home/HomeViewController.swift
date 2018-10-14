@@ -313,14 +313,21 @@ class HomeViewController: UIViewController {
                     NotificationCenter.default.post(name: .sendRequest, object: nil)
                     
                     let tabController = self.view.window!.rootViewController as? UITabBarController
+                    let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
+                    let alertVC = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
                     self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
-                    tabController?.selectedIndex = 1
+                    tabController?.show(alertVC, sender: nil)
                     
+                    self.animateViewDown()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+                        tabController?.selectedIndex = 1
+                    }
+                
                 }) { (error) in
                     print(error.localizedDescription)
         }
     }
-    
     
     func sendRequestToOwner(taskKey: String, distance: Double?, requestTaskID: String) {
         
