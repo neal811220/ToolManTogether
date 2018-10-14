@@ -238,9 +238,9 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         guard let ownerTaskKey = addTask[scrollIndex].taskKey else { return }
         myRef.child("Task").child(ownerTaskKey).removeValue()
-        self.addTask.remove(at: checkIndex)
+        self.addTask.remove(at: scrollIndex)
         
-        let index = IndexPath(row: checkIndex, section: 0)
+        let index = IndexPath(row: scrollIndex, section: 0)
         self.collectionView.performBatchUpdates({
         
             self.collectionView.deleteItems(at: [index])
@@ -277,9 +277,9 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         guard let taskKey = addTask[scrollIndex].taskKey else { return }
         myRef.child("Task").child(taskKey).removeValue()
-        self.addTask.remove(at: checkIndex)
+        self.addTask.remove(at: scrollIndex)
 
-        let index = IndexPath(row: checkIndex, section: 0)
+        let index = IndexPath(row: scrollIndex, section: 0)
         self.collectionView.performBatchUpdates({
             self.collectionView.deleteItems(at: [index])
             

@@ -19,6 +19,8 @@ target 'ToolManTogether' do
 	pod 'Firebase/Messaging'
    	pod 'Alamofire', '~> 4.7'
 	pod 'lottie-ios'
+	pod 'KeychainSwift', '~> 12.0'
+
 
 
 

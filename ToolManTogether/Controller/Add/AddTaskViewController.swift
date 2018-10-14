@@ -135,17 +135,18 @@ class AddTaskViewController: UIViewController {
             NotificationCenter.default.post(name: .addTask, object: nil)
             
             //        self.sendNotification(title: "工具人出任務", content: "一筆\(taskType)的新任務", data: "wefwef")
-            
+            self.cleanData()
+
             self.switchView()
             
             self.addTaskTableView.reloadData()
             let indexPath = IndexPath(row: 0, section: 0)
             self.addTaskTableView.scrollToRow(at: indexPath, at: .top, animated: false)
-            
-            self.cleanData()
         }
         
+        
         let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+        addAlert.addAction(cancelAction)
         addAlert.addAction(okAction)
         self.present(addAlert, animated: true, completion: nil)
     }

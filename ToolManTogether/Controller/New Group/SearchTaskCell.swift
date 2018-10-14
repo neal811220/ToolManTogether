@@ -14,7 +14,7 @@ class SearchTaskCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        searchTaskView.layer.cornerRadius = 22
+        searchTaskView.layer.cornerRadius = 15
         searchTaskView.layer.borderWidth = 1
         searchTaskView.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
         

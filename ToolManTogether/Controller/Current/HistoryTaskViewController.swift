@@ -34,9 +34,13 @@ class HistoryTaskViewController: UIViewController {
     var refreshController: UIRefreshControl!
     var scrollViewDefine: String!
     
+    var myActivityIndicator: UIActivityIndicatorView!
+    let fullScreenSize = UIScreen.main.bounds.size
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setIndicator()
         historyTableView.delegate = self
         historyTableView.dataSource = self
         refreshController = UIRefreshControl()
@@ -62,7 +66,6 @@ class HistoryTaskViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.hastask), name: hasTaskNotification, object: nil)
         
         setAniView()
-        
     }
     
     func setAniView() {
@@ -88,6 +91,14 @@ class HistoryTaskViewController: UIViewController {
 
     }
     
+    func setIndicator() {
+        myActivityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        myActivityIndicator.color = UIColor.gray
+        myActivityIndicator.backgroundColor = UIColor.white
+        myActivityIndicator.center = CGPoint(x: fullScreenSize.width * 0.5, y: fullScreenSize.height * 0.5)
+        self.historyTableView.addSubview(myActivityIndicator)
+    }
+    
     @objc func loadData() {
         
         refreshController.beginRefreshing()
@@ -107,7 +118,7 @@ class HistoryTaskViewController: UIViewController {
         userID: String,
         finder: String,
         success: @escaping (URL) -> Void) {
-        
+        myActivityIndicator.startAnimating()
         let storageRef = Storage.storage().reference()
         
         storageRef.child(finder).child(userID).downloadURL(completion: { (url, error) in
@@ -118,6 +129,7 @@ class HistoryTaskViewController: UIViewController {
             if let url = url {
                 print("url \(url)")
                 success(url)
+                self.myActivityIndicator.stopAnimating()
             }
         })
     }

@@ -32,7 +32,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9ri-qH-d2Z"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="Mnk-6w-ETY"/>
+                    <navigationItem key="navigationItem" title="Profile" id="Mnk-6w-ETY">
+                        <barButtonItem key="rightBarButtonItem" title="更多" id="xNy-ZL-zxY">
+                            <connections>
+                                <action selector="logout:" destination="ruf-4M-k0U" id="cHH-ri-Bdh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="profileTableView" destination="5Pp-b6-Jl1" id="p8T-Ft-J5A"/>
                     </connections>

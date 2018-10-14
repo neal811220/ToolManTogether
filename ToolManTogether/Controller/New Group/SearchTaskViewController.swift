@@ -29,9 +29,13 @@ class SearchTaskViewController: UIViewController {
     var selectTaskKey: [String] = []
     var reloadFromFirebase = false
     var taskOwnerInfo: [RequestUserInfo] = []
+    var myActivityIndicator: UIActivityIndicatorView!
+    let fullScreenSize = UIScreen.main.bounds.size
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setIndicator()
         
         let searchNib = UINib(nibName: "searchTaskCell", bundle: nil)
         self.searchTaskTableVIew.register(searchNib, forCellReuseIdentifier: "searchTask")
@@ -73,7 +77,16 @@ class SearchTaskViewController: UIViewController {
         self.bgLabel.isHidden = true
     }
     
+    func setIndicator() {
+        myActivityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        myActivityIndicator.color = UIColor.gray
+        myActivityIndicator.backgroundColor = UIColor.white
+        myActivityIndicator.center = CGPoint(x: fullScreenSize.width * 0.5, y: fullScreenSize.height * 0.5)
+        self.searchTaskTableVIew.addSubview(myActivityIndicator)
+    }
+    
     @objc func selectTaskAdd() {
+        myActivityIndicator.startAnimating()
         self.selectTask.removeAll()
         self.selectTaskKey.removeAll()
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -134,7 +147,7 @@ class SearchTaskViewController: UIViewController {
 
                 }
                 self.searchTaskTableVIew.reloadData()
-
+                self.myActivityIndicator.stopAnimating()
             }) { (error) in
                 print(error.localizedDescription)
         }
@@ -408,9 +421,11 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
 
     
     func updataTaskUserPhoto(
+        
         userID: String,
         success: @escaping (URL) -> Void) {
         
+        myActivityIndicator.startAnimating()
         let storageRef = Storage.storage().reference()
         
         storageRef.child("UserPhoto").child(userID).downloadURL(completion: { (url, error) in
@@ -421,6 +436,8 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             if let url = url {
                 print("url \(url)")
                 success(url)
+                self.myActivityIndicator.stopAnimating()
+
             }
         })
     }

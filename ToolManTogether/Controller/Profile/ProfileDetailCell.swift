@@ -66,7 +66,6 @@ class ProfileDetailCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegat
         phone = textField.text
     }
     
-
     
     func textViewDidChangeSelection(_ textView: UITextView) {
         profile = textView.text
@@ -91,8 +90,9 @@ class ProfileDetailCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegat
         btnDelegage?.doneBtnPressed(self.doneBtn,
                                     self.phoneTxtField,
                                     self.profileTxtView)
-        
-        self.phoneTxtField.text = phone
+        if phone != nil {
+            self.phoneTxtField.text = phone
+        }
         self.profileTxtView.text = profile
        
         UIView.animate(withDuration: 0.1) {

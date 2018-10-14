@@ -11,6 +11,7 @@ import FirebaseAuth
 import SDWebImage
 import FirebaseDatabase
 import FirebaseStorage
+import FBSDKLoginKit
 
 class ProfileViewController: UIViewController {
     
@@ -21,9 +22,18 @@ class ProfileViewController: UIViewController {
     var aboutUser: String!
     var userProfile: [ProfileManager] = []
     var citizenPhoto: UIImage!
+    var myActivityIndicator: UIActivityIndicatorView!
+    let fullScreenSize = UIScreen.main.bounds.size
+    let client = HTTPClient(configuration: .default)
+    let fbUserDefault: UserDefaults = UserDefaults.standard
+    let loginManager = FBSDKLoginManager()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setIndicator()
+        
         profileTableView.delegate = self
         profileTableView.dataSource = self
         
@@ -45,7 +55,16 @@ class ProfileViewController: UIViewController {
 
     }
     
+    func setIndicator() {
+        myActivityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        myActivityIndicator.color = UIColor.gray
+        myActivityIndicator.backgroundColor = UIColor.white
+        myActivityIndicator.center = CGPoint(x: fullScreenSize.width * 0.5, y: fullScreenSize.height * 0.5)
+        self.profileTableView.addSubview(myActivityIndicator)
+    }
+    
     func searchProfile() {
+        
         self.userProfile.removeAll()
         self.profileTableView.reloadData()
         
@@ -83,7 +102,6 @@ class ProfileViewController: UIViewController {
         success: @escaping (URL) -> Void) {
         
         let storageRef = Storage.storage().reference()
-        
         storageRef.child(finder).child(userID).downloadURL(completion: { (url, error) in
             
             if let error = error {
@@ -95,9 +113,73 @@ class ProfileViewController: UIViewController {
             }
         })
     }
+    
+    @IBAction func logout(_ sender: Any) {
+        
+            let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+            let reportAction = UIAlertAction(title: "登出", style: .destructive) { (void) in
+                
+                let reportController = UIAlertController(title: "確定登出？", message: "", preferredStyle: .alert)
+                
 
+                let okAction = UIAlertAction(title: "確定", style: .destructive, handler: { (void) in
+                    
+//                    self.client.fbLogOut(completionHandler: { (data, error) in
+//                        if data == nil {
+//                            self.showAlertWith(message: error.debugDescription)
+//                        } else {
+//                            self.fbUserDefault.removeObject(forKey: "token")
+//                            self.switchView()
+//                        }
+//                    })
+                    
+                    self.fbUserDefault.removeObject(forKey: "token")
+                    self.loginManager.logOut()
+                    self.switchView()
+
+                })
+                
+                let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+                reportController.addAction(cancelAction)
+                reportController.addAction(okAction)
+                self.present(reportController, animated: true, completion: nil)
+            }
+            
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            
+            personAlertController.addAction(reportAction)
+            personAlertController.addAction(cancelAction)
+            self.present(personAlertController, animated: true, completion: nil)
+        
+    }
+    
+    func switchView() {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "LoginView")
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.window?.rootViewController = viewController
+        appDelegate?.window?.becomeKey()
+    }
+    
+    
+    
+    func showAlertWith(title: String = "發生錯誤", message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    
+    
     
 }
+
+
+
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -154,11 +236,14 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.selectButton.isHidden = false
                 
                 if let userID = Auth.auth().currentUser?.uid {
+                    
+                    myActivityIndicator.startAnimating()
                     self.downloadTaskUserPhoto(userID: userID, finder: "GoodCitizen") { (url) in
                         if url != nil {
                             cell.imagePicker.isHidden = false
                             cell.bgView.isHidden = true
                             cell.imagePicker.sd_setImage(with: url, completed: nil)
+                            self.myActivityIndicator.stopAnimating()
 
                         } else {
                             cell.imagePicker.isHidden = true
@@ -187,7 +272,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
-    
 }
 
 extension ProfileViewController: ButtonDelegate {
@@ -198,7 +282,6 @@ extension ProfileViewController: ButtonDelegate {
         
         self.userPhone = userPhone
         self.aboutUser = aboutUser
-        
         
         if let userID = Auth.auth().currentUser?.uid {
             myRef.child("UserData").child(userID).updateChildValues([
@@ -281,7 +364,6 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
             } else {
                 print("Storage Success")
                 self.profileTableView.reloadData()
-
             }
         }
     }

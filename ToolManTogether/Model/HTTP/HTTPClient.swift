@@ -26,6 +26,8 @@ class HTTPClient {
     }
     
     typealias SendNotification = (Bool?, Error?) -> Void
+    typealias FbLogOutCompletionHandler = (Bool?, Error?) -> Void
+
     
     func sendNotification(fromToken: String, toToken: String, title: String, content: String, data: String, completion: @escaping SendNotification) {
         
@@ -55,15 +57,37 @@ class HTTPClient {
                                 return
                             }
                             
-                            guard let data = response.result.value else {
+                            guard response.result.value != nil else {
                                 completion(nil, TokenError.invaliDate)
                                 return
                             }
                             
                            completion(true, nil)
-                            
         }
-
     }
+    
+    
+    func fbLogOut(completionHandler completion: @escaping FbLogOutCompletionHandler) {
+        
+        guard let userManger = UserManager.fbUser.getUserToken() else {
+            return
+        }
+        
+        let headers = [ "Authorization": "Bearer \(userManger)" ]
+        
+        let fbLogOutURL: URL = URL(string: "http://schoolvoyage.ga/api/1.0/logout")!
+        
+        Alamofire.request(fbLogOutURL, method: .post, headers: headers).validate().responseData { (response) in
+            
+            guard response.result.isSuccess else {
+                let errorMessage = response.result.error
+                completion(nil, errorMessage)
+                return
+            }
+            
+            completion(true, nil)
+        }
+    }
+    
 
 }

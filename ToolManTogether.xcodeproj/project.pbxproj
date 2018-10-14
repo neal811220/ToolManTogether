@@ -50,8 +50,10 @@
 		8EA01DAE2160836300104A55 /* ServcedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA01DAD2160836300104A55 /* ServcedListViewController.swift */; };
 		8EA04DE82172558B00D12775 /* check_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DE72172558B00D12775 /* check_animation.json */; };
 		8EA04DEA2172565800D12775 /* loading_and_done!.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DE92172565800D12775 /* loading_and_done!.json */; };
-		8EA04DF02172DD8300D12775 /* motorcycle.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DEF2172DD8300D12775 /* motorcycle.json */; };
 		8EA04DF42172FC4500D12775 /* empty_status.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DF32172FC4500D12775 /* empty_status.json */; };
+		8EA04DF821730BF100D12775 /* loadingAlert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DF721730BF100D12775 /* loadingAlert.storyboard */; };
+		8EA04DFA21730C5100D12775 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA04DF921730C5100D12775 /* LoadingViewController.swift */; };
+		8EA04DFC21730D1F00D12775 /* material_wave_loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DFB21730D1F00D12775 /* material_wave_loading.json */; };
 		8EB0A21E2162609200FD81F1 /* FilterAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */; };
 		8EC7214D216B3EDA00BEB97D /* AddCustomLocationMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC7214B216B3EDA00BEB97D /* AddCustomLocationMapCell.swift */; };
 		8EC7214E216B3EDA00BEB97D /* AddCustomLocationMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC7214C216B3EDA00BEB97D /* AddCustomLocationMapCell.xib */; };
@@ -132,8 +134,10 @@
 		8EA01DAD2160836300104A55 /* ServcedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServcedListViewController.swift; sourceTree = "<group>"; };
 		8EA04DE72172558B00D12775 /* check_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = check_animation.json; sourceTree = "<group>"; };
 		8EA04DE92172565800D12775 /* loading_and_done!.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "loading_and_done!.json"; sourceTree = "<group>"; };
-		8EA04DEF2172DD8300D12775 /* motorcycle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = motorcycle.json; sourceTree = "<group>"; };
 		8EA04DF32172FC4500D12775 /* empty_status.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = empty_status.json; sourceTree = "<group>"; };
+		8EA04DF721730BF100D12775 /* loadingAlert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = loadingAlert.storyboard; sourceTree = "<group>"; };
+		8EA04DF921730C5100D12775 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		8EA04DFB21730D1F00D12775 /* material_wave_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = material_wave_loading.json; sourceTree = "<group>"; };
 		8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAnnotation.swift; sourceTree = "<group>"; };
 		8EC7214B216B3EDA00BEB97D /* AddCustomLocationMapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomLocationMapCell.swift; sourceTree = "<group>"; };
 		8EC7214C216B3EDA00BEB97D /* AddCustomLocationMapCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCustomLocationMapCell.xib; sourceTree = "<group>"; };
@@ -257,6 +261,7 @@
 				8EA01DAB2160831B00104A55 /* profileServced.storyboard */,
 				8EDA66302160B84D009FFB8D /* TaskAgree.storyboard */,
 				8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */,
+				8EA04DF721730BF100D12775 /* loadingAlert.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -316,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				8E93F769216B9A370059BAEE /* CustomAlertViewController.swift */,
+				8EA04DF921730C5100D12775 /* LoadingViewController.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -437,8 +443,8 @@
 		8EE2EFC02170B9F3005A9DA4 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				8EA04DFB21730D1F00D12775 /* material_wave_loading.json */,
 				8EA04DF32172FC4500D12775 /* empty_status.json */,
-				8EA04DEF2172DD8300D12775 /* motorcycle.json */,
 				8EA04DE92172565800D12775 /* loading_and_done!.json */,
 				8EA04DE72172558B00D12775 /* check_animation.json */,
 				8E167DD22171DFED00A701AE /* cloud.json */,
@@ -531,6 +537,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E097DD321536D22006B574E /* TypeCollectionViewCell.xib in Resources */,
+				8EA04DF821730BF100D12775 /* loadingAlert.storyboard in Resources */,
 				8ED727A92154D80000EE697F /* AddTaskTitleCell.xib in Resources */,
 				8EEC3311215C920400DE8C31 /* historyTask.storyboard in Resources */,
 				8EDB25702161137F00DBBF6D /* ScoreSendView.xib in Resources */,
@@ -554,13 +561,13 @@
 				8E28F7FB215B6AA6004954F0 /* TaskDetailInfoView.xib in Resources */,
 				8E19FC242169AA16009C01D2 /* cusomeAlert.storyboard in Resources */,
 				8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */,
+				8EA04DFC21730D1F00D12775 /* material_wave_loading.json in Resources */,
 				8ED7279F2154C22400EE697F /* addTask.storyboard in Resources */,
 				8EA04DEA2172565800D12775 /* loading_and_done!.json in Resources */,
 				8E8EC45A215CCAB800CCABE7 /* searchTaskCell.xib in Resources */,
 				8E58D780215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib in Resources */,
 				8EC9217C215F87FE00BEE92D /* ProfileCell.xib in Resources */,
 				8ECAB99C215E177A00649128 /* RequestCollectionViewCell.xib in Resources */,
-				8EA04DF02172DD8300D12775 /* motorcycle.json in Resources */,
 				8E5BB6E92151E88B0016C44A /* Assets.xcassets in Resources */,
 				8E5BB6E72151E8830016C44A /* Main.storyboard in Resources */,
 				8EC92178215F146C00BEE92D /* RequestToolsTableViewCell.xib in Resources */,
@@ -589,6 +596,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -605,6 +613,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -665,6 +674,7 @@
 				8E58D777215513DB008274F1 /* AddTaskContentCell.swift in Sources */,
 				8EB0A21E2162609200FD81F1 /* FilterAnnotation.swift in Sources */,
 				8E6C6A732152245E007259D3 /* FacebookManager.swift in Sources */,
+				8EA04DFA21730C5100D12775 /* LoadingViewController.swift in Sources */,
 				8ECAB99B215E177A00649128 /* RequestCollectionViewCell.swift in Sources */,
 				8EA01DAE2160836300104A55 /* ServcedListViewController.swift in Sources */,
 				8EA01DA52160554B00104A55 /* ProfileServcedListCell.swift in Sources */,
