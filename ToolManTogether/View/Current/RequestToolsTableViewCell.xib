@@ -30,22 +30,30 @@
                                 </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="19"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_sticker_placeholder02" translatesAutoresizingMaskIntoConstraints="NO" id="9M2-f0-rVD">
-                                <rect key="frame" x="8" y="57" width="60" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJv-ka-rjr">
+                                <rect key="frame" x="297" y="68" width="64" height="39"/>
+                                <color key="backgroundColor" red="0.95686274509803926" green="0.72156862745098038" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="5R3-3E-8v8"/>
-                                    <constraint firstAttribute="height" constant="60" id="Uet-CW-vMA"/>
+                                    <constraint firstAttribute="height" constant="39" id="6Cn-zA-CN6"/>
+                                    <constraint firstAttribute="width" constant="64" id="ymU-5N-8hf"/>
                                 </constraints>
-                            </imageView>
+                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
+                                <state key="normal" title="同意">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="agreeTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9Op-pW-FKO"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ns-EN-7PJ">
-                                <rect key="frame" x="76" y="20" width="143" height="27.5"/>
+                                <rect key="frame" x="76" y="20" width="143" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="143" id="LQZ-B4-jen"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -57,7 +65,7 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRa-BT-j0n">
                                 <rect key="frame" x="8" y="1" width="359" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Vua-rs-S2g"/>
                                 </constraints>
@@ -69,21 +77,6 @@
                                     <constraint firstAttribute="width" constant="15" id="rgP-fo-pRa"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJv-ka-rjr">
-                                <rect key="frame" x="297" y="68" width="64" height="39"/>
-                                <color key="backgroundColor" red="0.95686274509803926" green="0.72156862745098038" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="39" id="6Cn-zA-CN6"/>
-                                    <constraint firstAttribute="width" constant="64" id="ymU-5N-8hf"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="同意">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="agreeTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9Op-pW-FKO"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSH-sE-jnF">
                                 <rect key="frame" x="297" y="68" width="64" height="39"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -95,6 +88,13 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_sticker_placeholder02" translatesAutoresizingMaskIntoConstraints="NO" id="9M2-f0-rVD">
+                                <rect key="frame" x="8" y="39" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="5R3-3E-8v8"/>
+                                    <constraint firstAttribute="height" constant="60" id="Uet-CW-vMA"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -111,7 +111,7 @@
                             <constraint firstItem="3Ns-EN-7PJ" firstAttribute="leading" secondItem="gOW-DJ-SZu" secondAttribute="leading" id="Xm2-YC-9og"/>
                             <constraint firstItem="DJv-ka-rjr" firstAttribute="top" secondItem="SSN-nC-ELj" secondAttribute="bottom" constant="24" id="cbc-UJ-VQB"/>
                             <constraint firstItem="SSH-sE-jnF" firstAttribute="leading" secondItem="gOW-DJ-SZu" secondAttribute="trailing" constant="24" id="d1R-xy-km6"/>
-                            <constraint firstItem="9M2-f0-rVD" firstAttribute="centerY" secondItem="frp-d2-Ria" secondAttribute="centerY" id="eF8-Sv-6bU"/>
+                            <constraint firstItem="9M2-f0-rVD" firstAttribute="centerY" secondItem="frp-d2-Ria" secondAttribute="centerY" constant="-17.75" id="eF8-Sv-6bU"/>
                             <constraint firstAttribute="bottom" secondItem="gOW-DJ-SZu" secondAttribute="bottom" constant="13.5" id="msf-HQ-YZP"/>
                             <constraint firstAttribute="trailing" secondItem="CRa-BT-j0n" secondAttribute="trailing" constant="8" id="oaB-jG-lvw"/>
                             <constraint firstItem="0d7-yx-6n1" firstAttribute="top" secondItem="CRa-BT-j0n" secondAttribute="bottom" constant="21" id="p6Q-91-c5Z"/>

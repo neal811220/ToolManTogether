@@ -30,7 +30,6 @@ class ProfileViewController: UIViewController {
     let loginManager = FBSDKLoginManager()
     let keychain = KeychainSwift()
     var isGuest = false
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +56,7 @@ class ProfileViewController: UIViewController {
         searchProfile()
         
         guestMode()
+        
     }
     
     func guestMode() {
@@ -251,13 +251,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 if let userID = Auth.auth().currentUser?.uid {
                     
-                    myActivityIndicator.startAnimating()
                     self.downloadTaskUserPhoto(userID: userID, finder: "GoodCitizen") { (url) in
                         if url != nil {
                             cell.imagePicker.isHidden = false
                             cell.bgView.isHidden = true
                             cell.imagePicker.sd_setImage(with: url, completed: nil)
-                            self.myActivityIndicator.stopAnimating()
 
                         } else {
                             cell.imagePicker.isHidden = true

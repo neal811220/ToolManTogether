@@ -23,7 +23,6 @@ class SearchTaskViewController: UIViewController {
     @IBOutlet weak var aniView: UIView!
     @IBOutlet weak var bgLabel: UILabel!
     
-    
     var photoURL: [URL] = []
     var myRef: DatabaseReference!
     var selectTask: [UserTaskInfo] = []
@@ -33,6 +32,7 @@ class SearchTaskViewController: UIViewController {
     var myActivityIndicator: UIActivityIndicatorView!
     let fullScreenSize = UIScreen.main.bounds.size
     let keychain = KeychainSwift()
+    var photoUrl: [URL] = []
     
 
     override func viewDidLoad() {
@@ -270,9 +270,10 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             cell.searchTaskView.detailBtn.tag = indexPath.row
             cell.searchTaskView.reportBtn.tag = indexPath.row
             cell.searchTaskView.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            
+            cell.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
             
             let cellData = selectTask[indexPath.row]
+            
             cell.selectionStyle = .none
             cell.searchTaskView.taskTitleLabel.text = cellData.title
             cell.searchTaskView.userName.text = cellData.userName
@@ -287,9 +288,8 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.searchTaskView.sendButton.backgroundColor = .white
                 cell.searchTaskView.sendButton.isEnabled = false
                 cell.searchTaskView.sendButton.isHidden = false
-                cell.searchTaskView.sendButton.layer.borderWidth = 1
-                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1)
-                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1), for: .normal)
+//                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1)
+                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1), for: .normal)
                 
                 cell.searchTaskView.detailBtn.isHidden = true
 
@@ -298,7 +298,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.isSelected = true
                 cell.isEditing = true
                 cell.searchTaskView.sendButton.setTitle("對方已經同意", for: .normal)
-                cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.5294117647, green: 0.6352941176, blue: 0.8509803922, alpha: 1)
+                cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
                 cell.searchTaskView.sendButton.isEnabled = false
                 cell.searchTaskView.sendButton.isHidden = true
                 
@@ -314,9 +314,9 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.searchTaskView.sendButton.backgroundColor = .white
                 cell.searchTaskView.sendButton.isEnabled = true
                 cell.searchTaskView.sendButton.isHidden = false
-                cell.searchTaskView.sendButton.layer.borderWidth = 1
-                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
-                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1), for: .normal)
+//                cell.searchTaskView.sendButton.layer.borderWidth = 1
+//                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1), for: .normal)
                 
                 cell.searchTaskView.detailBtn.isHidden = true
 
@@ -324,15 +324,17 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             } else if cellData.ownAgree == "delete" {
                 cell.searchTaskView.sendButton.setTitle("對方已刪除任務", for: .normal)
                 cell.searchTaskView.sendButton.backgroundColor = .white
-                cell.searchTaskView.sendButton.layer.borderWidth = 1
-                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
-                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1), for: .normal)
+//                cell.searchTaskView.sendButton.layer.borderWidth = 1
+//                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1), for: .normal)
                 cell.searchTaskView.detailBtn.isHidden = true
                 cell.searchTaskView.sendButton.isEnabled = true
                 cell.searchTaskView.sendButton.isHidden = false
 
             }
             
+            cell.searchTaskView.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
+
             if let ownerID = cellData.ownerID {
                 updataTaskUserPhoto(userID: ownerID) { (url) in
                     if url == url {
@@ -458,6 +460,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             }
             if let url = url {
                 print("url \(url)")
+                self.photoUrl.append(url)
                 success(url)
                 self.myActivityIndicator.stopAnimating()
 

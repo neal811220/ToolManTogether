@@ -23,13 +23,15 @@ class ProfileCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        userPhoto.layer.cornerRadius = self.userPhoto.frame.width / 2
+        userPhoto.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        userPhoto.layer.borderWidth = 4
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-        userPhoto.layer.cornerRadius = self.userPhoto.frame.height / 2
     }
     
 }

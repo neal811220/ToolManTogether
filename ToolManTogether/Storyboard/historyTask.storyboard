@@ -25,27 +25,27 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kUc-tC-eMI">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
+                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="jbH-iM-MMj" userLabel="aniView">
+                                        <rect key="frame" x="97.5" y="211.5" width="180" height="180"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="180" id="4Zd-LU-x3W"/>
+                                            <constraint firstAttribute="height" constant="180" id="iqQ-rr-SEl"/>
+                                        </constraints>
+                                    </view>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="前往新增任務頁面，新增任務。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3j-PB-MJ6">
-                                        <rect key="frame" x="68.5" y="473" width="238" height="23.5"/>
+                                        <rect key="frame" x="68" y="417" width="238" height="23.5"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="jbH-iM-MMj" userLabel="aniView">
-                                        <rect key="frame" x="0.0" y="158" width="375" height="265"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="265" id="Bxm-NA-jv7"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="jbH-iM-MMj" secondAttribute="trailing" id="3Xb-E3-zHH"/>
                                     <constraint firstItem="K3j-PB-MJ6" firstAttribute="centerX" secondItem="kUc-tC-eMI" secondAttribute="centerX" id="BmC-aS-Pxf"/>
-                                    <constraint firstItem="K3j-PB-MJ6" firstAttribute="top" secondItem="jbH-iM-MMj" secondAttribute="bottom" constant="50" id="QFR-U7-dw6"/>
-                                    <constraint firstAttribute="bottom" secondItem="K3j-PB-MJ6" secondAttribute="bottom" constant="106.5" id="aPP-ZG-amg"/>
-                                    <constraint firstItem="jbH-iM-MMj" firstAttribute="leading" secondItem="kUc-tC-eMI" secondAttribute="leading" id="iGc-pI-uGx"/>
+                                    <constraint firstAttribute="bottom" secondItem="K3j-PB-MJ6" secondAttribute="bottom" constant="162.5" id="aPP-ZG-amg"/>
+                                    <constraint firstItem="jbH-iM-MMj" firstAttribute="centerX" secondItem="kUc-tC-eMI" secondAttribute="centerX" id="jRd-py-k3k"/>
+                                    <constraint firstItem="jbH-iM-MMj" firstAttribute="centerY" secondItem="kUc-tC-eMI" secondAttribute="centerY" id="qbg-t5-Pul"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -83,9 +83,9 @@
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.95686274510000002" green="0.94901960780000005" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>

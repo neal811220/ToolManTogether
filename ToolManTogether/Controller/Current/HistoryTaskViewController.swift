@@ -15,7 +15,6 @@ import FirebaseMessaging
 import Lottie
 import KeychainSwift
 
-
 class HistoryTaskViewController: UIViewController {
     
     @IBOutlet weak var historyTableView: UITableView!
@@ -295,7 +294,7 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "requestedCell", for: indexPath) as? RequestCell {
                 cell.scrollTaskDelegate = self
                                 
-                cell.toosNumTitleLabel.text = "\(toolsInfo.count)個申請"
+                cell.toosNumTitleLabel.text = " \(toolsInfo.count) 個申請"
                 cell.selectionStyle = .none
                 cell.scrollTaskBtnDelegate = self
 

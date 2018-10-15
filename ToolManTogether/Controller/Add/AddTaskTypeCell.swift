@@ -81,7 +81,7 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
             cell.typeButton.addTarget(self, action: #selector(typeButtonPressed(button:)), for: .touchUpInside)
             
             if cell.isSelected {
-                cell.typeButton.backgroundColor = #colorLiteral(red: 0.9843137255, green: 0.8392156863, blue: 0.1803921569, alpha: 1)
+                cell.typeButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
             } else {
                 cell.typeButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
             }
@@ -98,7 +98,7 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         print(selectType)
         typeTitleCompletion?(selectType)
         if let selectedCell: AddTaskTypeCollectionViewCell = (collectionView.cellForItem(at: indexPath)! as? AddTaskTypeCollectionViewCell) {
-            selectedCell.typeButton.backgroundColor = #colorLiteral(red: 0.9843137255, green: 0.8392156863, blue: 0.1803921569, alpha: 1)
+            selectedCell.typeButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
         }
     }
     

@@ -12,6 +12,8 @@ import FirebaseAuth
 import FirebaseStorage
 import SDWebImage
 import FirebaseDatabase
+import Lottie
+
 
 protocol ScrollTask: AnyObject{
     func didScrollTask(_ cell: String)
@@ -27,6 +29,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var taskNumTitleLabel: UILabel!
     @IBOutlet weak var toosNumTitleLabel: UILabel!
+    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var aniView: UIView!
     
     let layout = AnimatedCollectionViewLayout()
     let screenSize = UIScreen.main.bounds.size
@@ -38,7 +42,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     weak var scrollTaskBtnDelegate: btnPressed?
     var checkIndex = 0
     var scrollIndex = 0
-    var bgView: UIView?
+//    var bgView: UIView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -65,7 +69,10 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         let agreeToolNotification = Notification.Name("agreeToos")
         NotificationCenter.default.addObserver(self, selector: #selector(self.createTaskAdd), name: agreeToolNotification, object: nil)
         
+        
     }
+    
+
     
     func changeView(addTask:DataSnapshot) {
 
@@ -75,6 +82,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             NotificationCenter.default.post(name: .hasTask, object: nil)
         }
     }
+    
+    
     
     // 已發任務
     
@@ -127,7 +136,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             self.collectionView.reloadData()
             let searchAnnotation = self.addTask[self.scrollIndex].taskKey
             self.scrollTaskDelegate?.didScrollTask(searchAnnotation!)
-            self.taskNumTitleLabel.text = "第\(self.scrollIndex + 1)/\(self.addTask.count)筆任務"
+            self.taskNumTitleLabel.text = "第 \(self.scrollIndex + 1) / \(self.addTask.count) 筆任務"
 
         }
     }
@@ -200,7 +209,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             let searchAnnotation = addTask[scrollIndex].taskKey
             scrollTaskDelegate?.didScrollTask(searchAnnotation!)
             checkIndex = scrollIndex
-            self.taskNumTitleLabel.text = "第\(checkIndex + 1)/\(addTask.count)筆任務"
+            self.taskNumTitleLabel.text = "第 \(checkIndex + 1) / \(addTask.count) 筆任務"
 
         } else {
         }
@@ -253,7 +262,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 checkIndex = 1
             }
             
-            self.taskNumTitleLabel.text = "第\((checkIndex))/\(addTask.count)筆任務"
+            self.taskNumTitleLabel.text = "第 \((checkIndex)) / \(addTask.count) 筆任務"
             
             if addTask.count == 0 {
                 NotificationCenter.default.post(name: .noTask, object: nil)
@@ -286,7 +295,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             if checkIndex == 0 {
                 checkIndex = 1
             }
-            self.taskNumTitleLabel.text = "第\((checkIndex))/\(addTask.count)筆任務"
+            self.taskNumTitleLabel.text = "第 \((checkIndex)) / \(addTask.count) 筆任務"
             
             if addTask.count == 0 {
                 NotificationCenter.default.post(name: .noTask, object: nil)
@@ -318,13 +327,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             cell.requestCollectionView.typeLabel.text = cellData.type
             cell.requestCollectionView.userName.text = cellData.userName
             cell.requestCollectionView.reportBtn.isHidden = true
-            cell.requestCollectionView.contentView.backgroundColor = .clear
-            cell.requestCollectionView.taskTitleLabel.textColor = .white
-            cell.requestCollectionView.taskContentTxtView.backgroundColor = #colorLiteral(red: 0.2470588235, green: 0.2784313725, blue: 0.3333333333, alpha: 1)
-            cell.requestCollectionView.taskContentTxtView.textColor = .white
-            cell.requestCollectionView.priceLabel.textColor = .white
-            cell.requestCollectionView.typeLabel.textColor = .white
-            cell.requestCollectionView.taskTitleLabel.textColor = .white
+//            cell.requestCollectionView.contentView.backgroundColor = 
             
             
             if cellData.agree == false {

@@ -42,7 +42,7 @@ class TaskDetailInfoView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
-        sendButton.layer.cornerRadius = 8.0
+        sendButton.layer.cornerRadius = 15
         userPhoto.layer.cornerRadius = userPhoto.frame.width / 2
         
         donBtn.layer.cornerRadius = 8.0

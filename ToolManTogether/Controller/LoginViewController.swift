@@ -90,7 +90,7 @@ class LoginViewController: UIViewController {
     }
     
     func getUserInfo(token: String) {
-        FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, email, picture.type(large)"]).start(completionHandler: { (connection, result, error) in
+        FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, email, picture.width(500).height(500)"]).start(completionHandler: { (connection, result, error) in
             
             if error == nil {
                 if let info = result as? [String: Any] {
@@ -117,6 +117,7 @@ class LoginViewController: UIViewController {
                         "UserID": userID])
                 }
             }
+            
         })
     }
     

@@ -288,7 +288,7 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
-                cell.titleLabel.text = "任務標題"
+                cell.titleLabel.text = "標題"
                 cell.titleCompletion = { [weak self] (result) in
                     self?.titleTxt = result
                     
@@ -312,6 +312,9 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
                 cell.titleLabel.text = "價格"
+                cell.textField.placeholder = "輸入價格"
+                cell.typeLabel.isHidden = true
+                cell.downArrorImage.isHidden = true
                 cell.titleCompletion = { [weak self] (result) in
                     self?.priceTxt = result
                 }
@@ -324,6 +327,7 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 withIdentifier: "Content", for: indexPath) as? AddTaskContentCell {
                 cell.contentTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 cell.contentTextView.delegate = self
+
                 cell.backgroundColor = .red
                 return cell
             }
