@@ -19,39 +19,50 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="337.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsI-O9-Mcs">
+                        <rect key="frame" x="7" y="7" width="365" height="323.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pND-Gk-UWw">
-                        <rect key="frame" x="16" y="46" width="343" height="271.5"/>
+                        <rect key="frame" x="18" y="46" width="343" height="271.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="271.5" id="QsD-Wh-qiy"/>
                             <constraint firstAttribute="width" constant="343" id="juS-hu-FEz"/>
                         </constraints>
                     </mapView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="任務地點" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lym-Le-6Z4">
-                        <rect key="frame" x="16" y="11" width="68" height="24"/>
+                        <rect key="frame" x="18" y="11" width="87" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="68" id="dIr-zb-Bxw"/>
+                            <constraint firstAttribute="width" constant="87" id="SGw-Tc-Ves"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
+                        <color key="textColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="J7V-Gg-5wU">
-                        <rect key="frame" x="172.5" y="154" width="30" height="30"/>
+                        <rect key="frame" x="174.5" y="154" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="HWe-fB-WnF"/>
                             <constraint firstAttribute="width" constant="30" id="URJ-rm-TEV"/>
                         </constraints>
                     </imageView>
                 </subviews>
-                <color key="backgroundColor" red="0.20000000000000001" green="0.2274509804" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <color key="backgroundColor" red="0.95686274510000002" green="0.94901960780000005" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstItem="lym-Le-6Z4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="28K-Ep-WPa"/>
+                    <constraint firstItem="fsI-O9-Mcs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="7" id="1Q5-jt-ynw"/>
                     <constraint firstItem="J7V-Gg-5wU" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="4Vn-xp-x7N"/>
+                    <constraint firstItem="fsI-O9-Mcs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="8J1-fU-3ax"/>
                     <constraint firstAttribute="bottom" secondItem="pND-Gk-UWw" secondAttribute="bottom" constant="20" id="DFC-Nt-E7Z"/>
                     <constraint firstItem="J7V-Gg-5wU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="EM4-EN-pi2"/>
                     <constraint firstItem="pND-Gk-UWw" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="K0b-aC-ksE"/>
+                    <constraint firstItem="pND-Gk-UWw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="KBg-7K-x4Y"/>
                     <constraint firstItem="pND-Gk-UWw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="46" id="XSE-ee-lQ2"/>
+                    <constraint firstAttribute="bottom" secondItem="fsI-O9-Mcs" secondAttribute="bottom" constant="7" id="Yuo-64-07J"/>
+                    <constraint firstItem="pND-Gk-UWw" firstAttribute="top" secondItem="lym-Le-6Z4" secondAttribute="bottom" constant="11" id="ZWA-yY-b6G"/>
+                    <constraint firstAttribute="trailing" secondItem="pND-Gk-UWw" secondAttribute="trailing" constant="18" id="h7J-m9-mOI"/>
                     <constraint firstItem="lym-Le-6Z4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="hia-pa-Jj8"/>
+                    <constraint firstAttribute="trailing" secondItem="fsI-O9-Mcs" secondAttribute="trailing" constant="7" id="rzL-mG-PQY"/>
+                    <constraint firstItem="lym-Le-6Z4" firstAttribute="leading" secondItem="pND-Gk-UWw" secondAttribute="leading" id="vau-qm-5FJ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

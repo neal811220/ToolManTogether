@@ -196,7 +196,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         print(scrollIndex)
         
-        if scrollIndex != checkIndex && scrollIndex != 0 {
+        if scrollIndex != checkIndex {
             let searchAnnotation = addTask[scrollIndex].taskKey
             scrollTaskDelegate?.didScrollTask(searchAnnotation!)
             checkIndex = scrollIndex
@@ -309,6 +309,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "requestCollectionView", for: indexPath) as? RequestCollectionViewCell {
+            
             let cellData = addTask[indexPath.row]
             cell.taskBtnDelegate = self
             cell.requestCollectionView.taskTitleLabel.text = cellData.title

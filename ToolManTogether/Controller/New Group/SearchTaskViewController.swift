@@ -33,6 +33,7 @@ class SearchTaskViewController: UIViewController {
     var myActivityIndicator: UIActivityIndicatorView!
     let fullScreenSize = UIScreen.main.bounds.size
     let keychain = KeychainSwift()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,9 @@ class SearchTaskViewController: UIViewController {
         setAniView()
         
         guestMode()
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+
     }
     
     func guestMode() {
@@ -265,7 +269,8 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.searchTaskView.detailBtn.tag = indexPath.row
             cell.searchTaskView.reportBtn.tag = indexPath.row
-            cell.backgroundColor = #colorLiteral(red: 0.2, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
+            cell.searchTaskView.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            
             
             let cellData = selectTask[indexPath.row]
             cell.selectionStyle = .none
@@ -283,9 +288,9 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.searchTaskView.sendButton.isEnabled = false
                 cell.searchTaskView.sendButton.isHidden = false
                 cell.searchTaskView.sendButton.layer.borderWidth = 1
-                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
-                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1), for: .normal)
-
+                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1)
+                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1), for: .normal)
+                
                 cell.searchTaskView.detailBtn.isHidden = true
 
             // 對方同意
@@ -344,6 +349,10 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 300
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

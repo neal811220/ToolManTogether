@@ -262,8 +262,8 @@ class HomeViewController: UIViewController {
                             self.pullUpDetailView.sendButton.isEnabled = false
                             self.pullUpDetailView.sendButton.backgroundColor = .white
                             self.pullUpDetailView.sendButton.layer.borderWidth = 1
-                            self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
-                            self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1), for: .normal)
+                            self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1)
+                            self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1), for: .normal)
                             return
                         }
                     })
@@ -273,8 +273,8 @@ class HomeViewController: UIViewController {
                     self.pullUpDetailView.sendButton.isEnabled = false
                     self.pullUpDetailView.sendButton.backgroundColor = .white
                     self.pullUpDetailView.sendButton.layer.borderWidth = 1
-                    self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
-                    self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1), for: .normal)
+                    self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1)
+                    self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1), for: .normal)
                     return
                 }
                 
@@ -283,8 +283,8 @@ class HomeViewController: UIViewController {
                     self.pullUpDetailView.sendButton.isEnabled = false
                     self.pullUpDetailView.sendButton.backgroundColor = .white
                     self.pullUpDetailView.sendButton.layer.borderWidth = 1
-                    self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
-                    self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1), for: .normal)
+                    self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1)
+                    self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1), for: .normal)
 
                 } else {
                     self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)

@@ -67,8 +67,9 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addTaskTypeCollectionCell", for: indexPath) as? AddTaskTypeCollectionViewCell {
-            
+        
             
             cell.typeButton.isEnabled = false
             if typeTxtArray.count != 0 {
@@ -78,6 +79,12 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
             }
             
             cell.typeButton.addTarget(self, action: #selector(typeButtonPressed(button:)), for: .touchUpInside)
+            
+            if cell.isSelected {
+                cell.typeButton.backgroundColor = #colorLiteral(red: 0.9843137255, green: 0.8392156863, blue: 0.1803921569, alpha: 1)
+            } else {
+                cell.typeButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+            }
             
             return cell
         }
@@ -91,7 +98,7 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         print(selectType)
         typeTitleCompletion?(selectType)
         if let selectedCell: AddTaskTypeCollectionViewCell = (collectionView.cellForItem(at: indexPath)! as? AddTaskTypeCollectionViewCell) {
-            selectedCell.typeButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+            selectedCell.typeButton.backgroundColor = #colorLiteral(red: 0.9843137255, green: 0.8392156863, blue: 0.1803921569, alpha: 1)
         }
     }
     

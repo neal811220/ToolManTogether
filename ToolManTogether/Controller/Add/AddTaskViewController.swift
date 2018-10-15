@@ -67,12 +67,12 @@ class AddTaskViewController: UIViewController {
         
         addTaskBgView.layer.cornerRadius = 23
         
-        var topFrame = self.addTaskTableView.bounds
-        topFrame.origin.y = -topFrame.size.height
-        let topView = UIView(frame: topFrame)
-        topView.backgroundColor = #colorLiteral(red: 0.2, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
-    
-        self.addTaskTableView.addSubview(topView)
+//        var topFrame = self.addTaskTableView.bounds
+//        topFrame.origin.y = -topFrame.size.height
+//        let topView = UIView(frame: topFrame)
+//        topView.backgroundColor = #colorLiteral(red: 0.2, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
+//
+//        self.addTaskTableView.addSubview(topView)
 
     }
     
@@ -265,7 +265,7 @@ class AddTaskViewController: UIViewController {
                 }
                     print(userAddress)
                 self.alertAddress = userAddress
-//                    self.addressLabel.text = userAddress
+                self.addressLabel.text = userAddress
             }
         })
     }
@@ -275,7 +275,7 @@ class AddTaskViewController: UIViewController {
 extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 6
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -286,23 +286,19 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 0 {
             
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath) as? AddTaskTitleCell {
+            if let cell = tableView.dequeueReusableCell(
+                withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
+                cell.titleLabel.text = "任務標題"
+                cell.titleCompletion = { [weak self] (result) in
+                    self?.titleTxt = result
+                    
+                }
+                
                 return cell
             }
             
         } else if indexPath.section == 1 {
             
-            if let cell = tableView.dequeueReusableCell(
-                withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
-                cell.titleCompletion = { [weak self] (result) in
-                    self?.titleTxt = result
-                }
-    
-                return cell
-            }
-            
-        } else if indexPath.section == 2 {
-        
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "TypeTableVIewCell", for: indexPath) as? AddTaskTypeCell {
                 cell.typeTitleCompletion = { [weak self] (result) in
@@ -311,9 +307,8 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
             
-            
-        } else if indexPath.section == 3 {
-            
+        } else if indexPath.section == 2 {
+        
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
                 cell.titleLabel.text = "價格"
@@ -322,7 +317,8 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 return cell
             }
-        } else if indexPath.section == 4 {
+            
+        } else if indexPath.section == 3 {
             
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "Content", for: indexPath) as? AddTaskContentCell {
@@ -331,8 +327,8 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.backgroundColor = .red
                 return cell
             }
-        
-        } else if indexPath.section == 5 {
+
+        } else if indexPath.section == 4 {
             
             if let cell = tableView.dequeueReusableCell(withIdentifier: "customLocation") as? AddCustomLocationMapCell {
                 
@@ -344,6 +340,7 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 return cell
             }
+        
         }
         return UITableViewCell()
     }

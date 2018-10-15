@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home View Controller-->
+        <!--搜尋任務-->
         <scene sceneID="4aE-nf-hNh">
             <objects>
                 <viewController id="OCb-6x-2Uh" customClass="HomeViewController" customModule="ToolManTogether" customModuleProvider="target" sceneMemberID="viewController">
@@ -71,7 +71,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aqa-GX-Ewo"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Ui0-7c-puK"/>
+                    <navigationItem key="navigationItem" title="搜尋任務" id="Ui0-7c-puK"/>
                     <connections>
                         <outlet property="collectionViewConstraint" destination="qJs-rm-wdI" id="pkq-Jx-cf2"/>
                         <outlet property="locationButton" destination="nnQ-vJ-kcj" id="dgo-Xd-6k2"/>
@@ -94,6 +94,9 @@
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

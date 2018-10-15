@@ -23,10 +23,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="nGd-q0-P3H">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
-                                <color key="backgroundColor" red="0.20000000000000001" green="0.2274509804" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="7" y="0.0" width="361" height="79.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="79.5" id="Cbc-1b-vGn"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="72.5" id="gZn-dH-HdT"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FhD-F6-T6v">
                                     <size key="itemSize" width="50" height="50"/>
@@ -36,12 +36,12 @@
                                 </collectionViewFlowLayout>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.95686274510000002" green="0.94901960780000005" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="nGd-q0-P3H" firstAttribute="leading" secondItem="T8Y-aZ-IqP" secondAttribute="leading" id="01z-Q9-a2p"/>
-                            <constraint firstItem="nGd-q0-P3H" firstAttribute="top" secondItem="T8Y-aZ-IqP" secondAttribute="top" id="A1y-sh-WFi"/>
-                            <constraint firstAttribute="trailing" secondItem="nGd-q0-P3H" secondAttribute="trailing" id="MbW-tW-JrR"/>
-                            <constraint firstAttribute="bottom" secondItem="nGd-q0-P3H" secondAttribute="bottom" id="UIK-Xx-Rcc"/>
+                            <constraint firstAttribute="trailing" secondItem="nGd-q0-P3H" secondAttribute="trailing" constant="7" id="dX6-iY-67K"/>
+                            <constraint firstAttribute="bottom" secondItem="nGd-q0-P3H" secondAttribute="bottom" id="l8B-QS-Um3"/>
+                            <constraint firstItem="nGd-q0-P3H" firstAttribute="leading" secondItem="T8Y-aZ-IqP" secondAttribute="leading" constant="7" id="pq5-cn-BO9"/>
+                            <constraint firstItem="nGd-q0-P3H" firstAttribute="top" secondItem="T8Y-aZ-IqP" secondAttribute="top" id="xVM-O4-cqJ"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -56,7 +56,7 @@
             <connections>
                 <outlet property="collectionView" destination="nGd-q0-P3H" id="vlT-8C-ATj"/>
             </connections>
-            <point key="canvasLocation" x="53.600000000000001" y="45.42728635682159"/>
+            <point key="canvasLocation" x="53.600000000000001" y="44.977511244377816"/>
         </tableViewCell>
     </objects>
 </document>
