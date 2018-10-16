@@ -289,6 +289,7 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
                 cell.titleLabel.text = "標題"
+                cell.textField.placeholder = "簡單輸入標題"
                 cell.titleCompletion = { [weak self] (result) in
                     self?.titleTxt = result
                     
@@ -314,7 +315,6 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.titleLabel.text = "價格"
                 cell.textField.placeholder = "輸入價格"
                 cell.typeLabel.isHidden = true
-                cell.downArrorImage.isHidden = true
                 cell.titleCompletion = { [weak self] (result) in
                     self?.priceTxt = result
                 }

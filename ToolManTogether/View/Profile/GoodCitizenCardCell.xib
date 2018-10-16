@@ -108,9 +108,11 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="aniView" destination="fQP-kW-RL4" id="x6j-Rx-RWZ"/>
+                <outlet property="arrowImage" destination="2C0-KJ-jG3" id="4SI-Ph-mLL"/>
                 <outlet property="bgView" destination="5Yy-Wr-2eF" id="eUx-Wr-KrG"/>
                 <outlet property="imagePicker" destination="yLn-x6-5JX" id="Erg-fI-AXy"/>
                 <outlet property="selectButton" destination="DLP-bJ-R3g" id="qHx-a8-zmB"/>
+                <outlet property="titleLabel" destination="8Gm-WM-2RG" id="0ZS-Oe-zzY"/>
                 <outlet property="updateLabel" destination="sOs-KK-jSp" id="x8t-Q1-fxS"/>
             </connections>
             <point key="canvasLocation" x="55.200000000000003" y="104.34782608695653"/>

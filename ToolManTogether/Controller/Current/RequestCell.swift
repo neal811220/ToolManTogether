@@ -327,7 +327,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             cell.requestCollectionView.typeLabel.text = cellData.type
             cell.requestCollectionView.userName.text = cellData.userName
             cell.requestCollectionView.reportBtn.isHidden = true
-//            cell.requestCollectionView.contentView.backgroundColor = 
+            cell.requestCollectionView.contentView.layer.cornerRadius = 23
+            cell.requestCollectionView.sendButton.layer.cornerRadius = 18
             
             
             if cellData.agree == false {

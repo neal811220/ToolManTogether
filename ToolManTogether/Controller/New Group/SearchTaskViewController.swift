@@ -306,6 +306,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 if let ownerID = cellData.ownerID {
                     cell.searchTaskView.detailBtn.addTarget(self, action: #selector(detailBtnTapped(data:)), for: .touchUpInside)
+                    
                 }
                 
              // 對方拒絕
@@ -368,6 +369,8 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
         if let taskOwnerID = selectTaskOwner {
             self.searchTaskOwnerInfo(ownerID: taskOwnerID)
         }
+        
+        
     }
     
     @objc func showAlert(send: UIButton) {
@@ -472,12 +475,12 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
         print(indexPath.row)
     }
     
-    @objc func requestBtnPressed() {
-        
-        let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
-        
-        if let viewController = storyBoard.instantiateViewController(withIdentifier: "taskAgreeVC") as? TaskAgreeViewController {
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
-    }
+//    @objc func requestBtnPressed() {
+//
+//        let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
+//
+//        if let viewController = storyBoard.instantiateViewController(withIdentifier: "taskAgreeVC") as? TaskAgreeViewController {
+//            self.navigationController?.pushViewController(viewController, animated: true)
+//        }
+//    }
 }

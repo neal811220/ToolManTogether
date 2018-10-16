@@ -42,6 +42,12 @@ class TaskAgreeViewController: UIViewController {
         let goodCitizenNib = UINib(nibName: "GoodCitizenCardCell", bundle: nil)
         self.taskAgreeTableView.register(goodCitizenNib, forCellReuseIdentifier: "goodCitizen")
         
+        let agreeInfoNib = UINib(nibName: "TaskDetailCell", bundle: nil)
+        self.taskAgreeTableView.register(agreeInfoNib, forCellReuseIdentifier: "detailCell")
+        
+        let agreeDetailNib = UINib(nibName: "TaskContentCell", bundle: nil)
+        self.taskAgreeTableView.register(agreeDetailNib, forCellReuseIdentifier: "contentCell")
+        
     }
     
     func downloadUserPhoto(
@@ -85,7 +91,7 @@ class TaskAgreeViewController: UIViewController {
 extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -114,8 +120,22 @@ extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
         } else if indexPath.section == 2 {
+            
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as? TaskDetailCell {
+                return cell
+            }
+            
+        } else if indexPath.section == 3 {
+            
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "contentCell", for: indexPath) as? TaskContentCell {
+                return cell
+            }
+            
+        } else if indexPath.section == 4 {
+            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "goodCitizen", for: indexPath) as? GoodCitizenCardCell {
-                
+                cell.arrowImage.isHidden = true
+                cell.titleLabel.textColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
                 let cellData = userInfo[indexPath.row]
                 let userID = cellData.userID
                 self.downloadUserPhoto(userID: userID, finder: "GoodCitizen") { (url) in
@@ -123,7 +143,9 @@ extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 return cell
             }
+            
         }
+        
         return UITableViewCell()
     }
 

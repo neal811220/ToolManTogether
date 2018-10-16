@@ -24,8 +24,7 @@ class ProfileCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         userPhoto.layer.cornerRadius = self.userPhoto.frame.width / 2
-        userPhoto.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        userPhoto.layer.borderWidth = 4
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

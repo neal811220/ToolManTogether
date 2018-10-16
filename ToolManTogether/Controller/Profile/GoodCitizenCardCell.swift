@@ -22,6 +22,8 @@ class GoodCitizenCardCell: UITableViewCell, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var aniView: UIView!
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var updateLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var arrowImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

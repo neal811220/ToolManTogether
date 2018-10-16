@@ -23,7 +23,7 @@
                         <rect key="frame" x="7" y="14" width="361" height="94.5"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="簡單輸入標題" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6yp-kG-hh0">
-                                <rect key="frame" x="65" y="33" width="288" height="30"/>
+                                <rect key="frame" x="50" y="33" width="303" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -34,45 +34,27 @@
                                     <constraint firstAttribute="width" constant="34" id="hpU-D8-e9m"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
-                                <color key="textColor" red="0.21960784310000001" green="0.2784313725" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baseline_arrow_forward_ios_black_18dp" translatesAutoresizingMaskIntoConstraints="NO" id="2hb-KX-AJJ">
-                                <rect key="frame" x="46" y="40.5" width="15" height="15"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="15" id="a2q-BL-0fA"/>
-                                    <constraint firstAttribute="height" constant="15" id="zXs-K7-DJD"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="種類" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="dcC-c8-efa">
                                 <rect key="frame" x="8" y="71" width="34" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="DUi-WY-Qj4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
-                                <color key="textColor" red="0.21960784310000001" green="0.2784313725" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baseline_arrow_forward_ios_black_18dp" translatesAutoresizingMaskIntoConstraints="NO" id="GOn-vx-Ilu">
-                                <rect key="frame" x="46" y="75.5" width="15" height="15"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="15" id="PaS-pW-zGO"/>
-                                    <constraint firstAttribute="width" constant="15" id="sVU-15-7rD"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="dcC-c8-efa" firstAttribute="top" secondItem="4yq-x6-6Ep" secondAttribute="bottom" constant="11" id="1Jt-2d-fbM"/>
-                            <constraint firstItem="2hb-KX-AJJ" firstAttribute="centerY" secondItem="4yq-x6-6Ep" secondAttribute="centerY" id="9Oh-5r-B2C"/>
                             <constraint firstAttribute="bottom" secondItem="6yp-kG-hh0" secondAttribute="bottom" constant="31.5" id="9ft-IQ-5hG"/>
                             <constraint firstAttribute="trailing" secondItem="6yp-kG-hh0" secondAttribute="trailing" constant="8" id="BKq-Uv-lDw"/>
-                            <constraint firstItem="GOn-vx-Ilu" firstAttribute="leading" secondItem="dcC-c8-efa" secondAttribute="trailing" constant="4" id="D8A-FN-k8l"/>
                             <constraint firstItem="4yq-x6-6Ep" firstAttribute="top" secondItem="t87-d2-PKN" secondAttribute="top" constant="36" id="Spx-Nx-4ES"/>
-                            <constraint firstItem="6yp-kG-hh0" firstAttribute="leading" secondItem="t87-d2-PKN" secondAttribute="leading" constant="65" id="aCg-rp-PdU"/>
-                            <constraint firstItem="2hb-KX-AJJ" firstAttribute="leading" secondItem="4yq-x6-6Ep" secondAttribute="trailing" constant="4" id="cMA-Tq-Bt0"/>
+                            <constraint firstItem="6yp-kG-hh0" firstAttribute="leading" secondItem="t87-d2-PKN" secondAttribute="leading" constant="50" id="aCg-rp-PdU"/>
                             <constraint firstItem="dcC-c8-efa" firstAttribute="leading" secondItem="t87-d2-PKN" secondAttribute="leading" constant="8" id="cwx-r9-h4E"/>
-                            <constraint firstItem="GOn-vx-Ilu" firstAttribute="centerY" secondItem="dcC-c8-efa" secondAttribute="centerY" id="dAm-kf-Enw"/>
                             <constraint firstItem="4yq-x6-6Ep" firstAttribute="leading" secondItem="t87-d2-PKN" secondAttribute="leading" constant="8" id="wwu-rC-mxf"/>
                             <constraint firstItem="6yp-kG-hh0" firstAttribute="top" secondItem="t87-d2-PKN" secondAttribute="top" constant="33" id="wxP-u6-eUj"/>
                         </constraints>
@@ -88,7 +70,6 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="downArrorImage" destination="GOn-vx-Ilu" id="tcN-6a-C7h"/>
                 <outlet property="textField" destination="6yp-kG-hh0" id="FSF-6X-rl4"/>
                 <outlet property="titleLabel" destination="4yq-x6-6Ep" id="VlW-lJ-H6k"/>
                 <outlet property="typeLabel" destination="dcC-c8-efa" id="8Fm-tq-Diw"/>
@@ -96,7 +77,4 @@
             <point key="canvasLocation" x="188" y="158.77061469265368"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="baseline_arrow_forward_ios_black_18dp" width="18" height="18"/>
-    </resources>
 </document>
