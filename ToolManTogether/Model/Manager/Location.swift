@@ -27,6 +27,7 @@ struct UserTaskInfo {
     var agree: Bool?
     var requestKey: String?
     var requestTaskKey: String?
+    var address: String?
 }
 
 class TaskPin: NSObject, MKAnnotation {

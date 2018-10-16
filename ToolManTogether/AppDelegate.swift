@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        UINavigationBar.appearance().shadowImage = UIImage()
 //        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         
+        window?.tintColor = UIColor.init(red: 211.0/255.0, green: 90.0/255.0, blue: 102.0/255.0, alpha: 1.0)
+        
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self

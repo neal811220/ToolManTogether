@@ -61,6 +61,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="separatorView" destination="k4o-Bm-E40" id="pKC-qY-jtR"/>
                 <outlet property="userEmail" destination="0Bf-cb-dt0" id="rn1-tM-ggQ"/>
                 <outlet property="userName" destination="mox-7A-JJO" id="gfy-q5-Ijg"/>
                 <outlet property="userPhoto" destination="8zB-pU-G4S" id="4v4-cZ-awi"/>

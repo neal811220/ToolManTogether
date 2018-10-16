@@ -19,46 +19,59 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="214.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="ZfN-8f-5pl">
-                        <rect key="frame" x="58" y="11" width="301" height="128"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Txv-46-kfk">
+                        <rect key="frame" x="7" y="7" width="361" height="200.5"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="ZfN-8f-5pl">
+                                <rect key="frame" x="57" y="19" width="296" height="116"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="116" id="NC3-bp-bk2"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="19"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="關於" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7U-wa-wD8">
+                                <rect key="frame" x="8" y="65" width="34" height="24"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
+                                <color key="textColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLb-OM-SpT">
+                                <rect key="frame" x="125" y="153" width="110" height="40"/>
+                                <color key="backgroundColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="FaG-X9-JKw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                <state key="normal" title="  Call" image="telephone"/>
+                                <connections>
+                                    <action selector="callBtnTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vW1-eJ-NGA"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="128" id="Fiq-dM-as6"/>
+                            <constraint firstItem="ZfN-8f-5pl" firstAttribute="leading" secondItem="Txv-46-kfk" secondAttribute="leading" constant="57" id="0vW-Uh-C1P"/>
+                            <constraint firstAttribute="trailing" secondItem="NLb-OM-SpT" secondAttribute="trailing" constant="126" id="2eq-Qt-FCs"/>
+                            <constraint firstItem="n7U-wa-wD8" firstAttribute="top" secondItem="Txv-46-kfk" secondAttribute="top" constant="65" id="8sV-31-El5"/>
+                            <constraint firstItem="ZfN-8f-5pl" firstAttribute="top" secondItem="Txv-46-kfk" secondAttribute="top" constant="19" id="9BP-76-HIF"/>
+                            <constraint firstItem="n7U-wa-wD8" firstAttribute="leading" secondItem="Txv-46-kfk" secondAttribute="leading" constant="8" id="Ahe-Uf-XtM"/>
+                            <constraint firstAttribute="bottom" secondItem="ZfN-8f-5pl" secondAttribute="bottom" constant="65.5" id="JXK-lv-XJz"/>
+                            <constraint firstItem="NLb-OM-SpT" firstAttribute="leading" secondItem="Txv-46-kfk" secondAttribute="leading" constant="125" id="RfP-Zh-EtD"/>
+                            <constraint firstItem="NLb-OM-SpT" firstAttribute="top" secondItem="ZfN-8f-5pl" secondAttribute="bottom" constant="18" id="XwZ-Ha-Iif"/>
+                            <constraint firstAttribute="trailing" secondItem="ZfN-8f-5pl" secondAttribute="trailing" constant="8" id="igN-Go-JTr"/>
                         </constraints>
-                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="19"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
-                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLb-OM-SpT">
-                        <rect key="frame" x="129" y="157" width="110" height="40"/>
-                        <color key="backgroundColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="40" id="FaG-X9-JKw"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
-                        <state key="normal" title="  Call" image="telephone"/>
-                        <connections>
-                            <action selector="callBtnTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vW1-eJ-NGA"/>
-                        </connections>
-                    </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="關於" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7U-wa-wD8">
-                        <rect key="frame" x="16" y="65" width="34" height="24"/>
-                        <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
-                        <color key="textColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    </view>
                 </subviews>
+                <color key="backgroundColor" red="0.95686274510000002" green="0.94901960780000005" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstItem="ZfN-8f-5pl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="NWL-Ko-WvL"/>
-                    <constraint firstAttribute="bottom" secondItem="ZfN-8f-5pl" secondAttribute="bottom" constant="75.5" id="YGn-9E-e2i"/>
-                    <constraint firstItem="NLb-OM-SpT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="129" id="aMN-ez-aeB"/>
-                    <constraint firstItem="ZfN-8f-5pl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="58" id="cAY-u8-Gl7"/>
-                    <constraint firstAttribute="trailing" secondItem="NLb-OM-SpT" secondAttribute="trailing" constant="136" id="dq9-MG-6Et"/>
-                    <constraint firstAttribute="trailing" secondItem="ZfN-8f-5pl" secondAttribute="trailing" constant="16" id="rLE-Co-s7s"/>
-                    <constraint firstItem="NLb-OM-SpT" firstAttribute="top" secondItem="ZfN-8f-5pl" secondAttribute="bottom" constant="18" id="uM4-Yw-OoG"/>
-                    <constraint firstItem="n7U-wa-wD8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="65" id="xlO-Vb-OFR"/>
-                    <constraint firstItem="n7U-wa-wD8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ywf-lo-1b2"/>
+                    <constraint firstAttribute="trailing" secondItem="Txv-46-kfk" secondAttribute="trailing" constant="7" id="5Uo-xj-wgt"/>
+                    <constraint firstItem="Txv-46-kfk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="7" id="F86-eo-Te0"/>
+                    <constraint firstAttribute="bottom" secondItem="Txv-46-kfk" secondAttribute="bottom" constant="7" id="e5b-0K-uaJ"/>
+                    <constraint firstItem="Txv-46-kfk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="jtA-pa-8xz"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

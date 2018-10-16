@@ -12,8 +12,7 @@ class TaskDetailCell: UITableViewCell {
     
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var titleTxtfield: UITextField!
-    
+    @IBOutlet weak var taskTitleLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var taskAddress: UILabel!
     

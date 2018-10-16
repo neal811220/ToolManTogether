@@ -219,6 +219,7 @@ class HomeViewController: UIViewController {
                 guard let type = dictionary["Type"] as? String else { return }
                 guard let userName = dictionary["UserName"] as? String else { return }
                 guard let userID = dictionary["UserID"] as? String else { return }
+                let address = dictionary["address"] as? String
                 
                 guard let myLocation = self.locationManager.location else {
                     return
@@ -241,7 +242,7 @@ class HomeViewController: UIViewController {
                                                taskLat: taskCoordinate.latitude,
                                                taskLon: taskCoordinate.longitude,
                                                checkTask: "\(currentUserID)_\(taskCoordinate.latitude)_\(taskCoordinate.longitude)", distance: roundDistance, time: nil,
-                                               ownerID: userID, ownAgree: nil, taskKey: keyValue, agree: nil, requestKey: nil, requestTaskKey: nil)
+                                               ownerID: userID, ownAgree: nil, taskKey: keyValue, agree: nil, requestKey: nil, requestTaskKey: nil, address: address)
                 
                 self.updataTaskUserPhoto(userID: userID)
                 self.pullUpDetailView.taskTitleLabel.text = title
@@ -332,7 +333,8 @@ class HomeViewController: UIViewController {
                         "distance": selectData.distance,
                         "Time": Double(Date().millisecondsSince1970),
                         "ownerID": selectData.ownerID,
-                        "OwnerAgree": "waiting"])
+                        "OwnerAgree": "waiting",
+                        "address": selectData.address])
                     
                     self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoID!)
                     

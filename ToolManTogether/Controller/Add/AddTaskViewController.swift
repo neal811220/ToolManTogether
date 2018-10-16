@@ -138,7 +138,8 @@ class AddTaskViewController: UIViewController {
                 "lon": userCoordinate.longitude,
                 "searchAnnotation": "\(userCoordinate.latitude)_\(userCoordinate.longitude)",
                 "Time": Double(Date().millisecondsSince1970),
-                "agree": false])
+                "agree": false,
+                "address": self.alertAddress])
             
             NotificationCenter.default.post(name: .addTask, object: nil)
             
@@ -242,9 +243,15 @@ class AddTaskViewController: UIViewController {
             let array = NSArray(object: "zh-TW")
             
             UserDefaults.standard.set(array, forKey: "AppleLanguages")
-            
+            print(placemarks[0])
             if let address = placemarks?[0] {
                 var userAddress = ""
+                
+                if let country = address.country {
+                    if country != nil {
+                        userAddress.append(country!)
+                    }
+                }
                 
                 if let locality = address.locality {
                     if locality != nil {

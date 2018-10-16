@@ -1,8 +1,8 @@
 //
-//  TaskAgreeViewController.swift
+//  AgreeTaskViewController.swift
 //  ToolManTogether
 //
-//  Created by Spoke on 2018/9/30.
+//  Created by Spoke on 2018/10/16.
 //  Copyright © 2018年 Spoke. All rights reserved.
 //
 
@@ -12,43 +12,52 @@ import SDWebImage
 import FirebaseDatabase
 import FirebaseStorage
 
-class TaskAgreeViewController: UIViewController {
+
+class AgreeTaskViewController: UIViewController {
     
-    @IBOutlet weak var taskAgreeTableView: UITableView!
-    @IBOutlet weak var popUpScoreView: UIView!
-    @IBOutlet weak var popUpScoreHeight: NSLayoutConstraint!
+    @IBOutlet weak var agreeTaskTableView: UITableView!
     
+
     var userInfo: [RequestUserInfo]!
-    
+    var taskInfo: [UserTaskInfo]!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "詳細資訊"
-
-        taskAgreeTableView.delegate = self
-        taskAgreeTableView.dataSource = self
+        
+        agreeTaskTableView.delegate = self
+        agreeTaskTableView.dataSource = self
+        self.title = "任務資訊"
         
         let taskAgreenib = UINib(nibName: "ProfileCell", bundle: nil)
-        self.taskAgreeTableView.register(taskAgreenib, forCellReuseIdentifier: "profileTitle")
+        self.agreeTaskTableView.register(taskAgreenib, forCellReuseIdentifier: "profileTitle")
         
         let taskInfoNib = UINib(nibName: "TaskAgreeInfoCell", bundle: nil)
-        self.taskAgreeTableView.register(taskInfoNib, forCellReuseIdentifier: "taskInfoCell")
-        
-        let taskMapNib = UINib(nibName: "TaskAgreeMapCell", bundle: nil)
-        self.taskAgreeTableView.register(taskMapNib, forCellReuseIdentifier: "taskAgreeMapCell")
-        
-        let servcedNib = UINib(nibName: "ProfileServcedListCell", bundle: nil)
-        self.taskAgreeTableView.register(servcedNib, forCellReuseIdentifier: "servcedList")
+        self.agreeTaskTableView.register(taskInfoNib, forCellReuseIdentifier: "taskInfoCell")
         
         let goodCitizenNib = UINib(nibName: "GoodCitizenCardCell", bundle: nil)
-        self.taskAgreeTableView.register(goodCitizenNib, forCellReuseIdentifier: "goodCitizen")
+        self.agreeTaskTableView.register(goodCitizenNib, forCellReuseIdentifier: "goodCitizen")
         
         let agreeInfoNib = UINib(nibName: "TaskDetailCell", bundle: nil)
-        self.taskAgreeTableView.register(agreeInfoNib, forCellReuseIdentifier: "detailCell")
+        self.agreeTaskTableView.register(agreeInfoNib, forCellReuseIdentifier: "detailCell")
         
         let agreeDetailNib = UINib(nibName: "TaskContentCell", bundle: nil)
-        self.taskAgreeTableView.register(agreeDetailNib, forCellReuseIdentifier: "contentCell")
+        self.agreeTaskTableView.register(agreeDetailNib, forCellReuseIdentifier: "contentCell")
         
+
     }
+    
+    class func profileDetailDataForTask(_ data: [RequestUserInfo], _ taskInfo: [UserTaskInfo]) -> AgreeTaskViewController {
+        let storyBoard = UIStoryboard(name: "AgreeTask", bundle: nil)
+        
+        let viewController = storyBoard.instantiateViewController(withIdentifier: "AgreeTaskVC") as? AgreeTaskViewController
+        
+        if let viewController = viewController {
+            viewController.userInfo = data
+            viewController.taskInfo = taskInfo
+        }
+        return viewController!
+    }
+    
     
     func downloadUserPhoto(
         userID: String,
@@ -75,65 +84,70 @@ class TaskAgreeViewController: UIViewController {
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }
-    
-    class func profileDetailDataForTask(_ data: [RequestUserInfo]) -> TaskAgreeViewController {
-        let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
 
-        let viewController = storyBoard.instantiateViewController(withIdentifier: "taskAgreeVC") as? TaskAgreeViewController
 
-        if let viewController = viewController {
-            viewController.userInfo = data
-        }
-        return viewController!
-    }
-    
 }
-extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
+
+extension AgreeTaskViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userInfo.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if indexPath.section == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "profileTitle", for: indexPath) as? ProfileCell {
+                cell.selectionStyle = .none
+                
                 let cellData = userInfo[indexPath.row]
                 cell.userName.text = cellData.fbName
                 cell.userEmail.text = cellData.fbEmail
+                cell.separatorView.isHidden = true
                 
                 let userID = cellData.userID
                 self.downloadUserPhoto(userID: userID, finder: "UserPhoto") { (url) in
                     cell.userPhoto.sd_setImage(with: url, completed: nil)
                 }
-                
                 return cell
             }
         } else if indexPath.section == 1 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "taskInfoCell", for: indexPath) as? TaskAgreeInfoCell {
+                cell.selectionStyle = .none
+
                 let cellData = userInfo[indexPath.row]
                 cell.contentTxtView.text = cellData.aboutUser
                 cell.callBtnDelegate = self
                 return cell
             }
         } else if indexPath.section == 2 {
-            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as? TaskDetailCell {
+                cell.selectionStyle = .none
+
+                let cellData = taskInfo[indexPath.row]
+                cell.taskTitleLabel.text = cellData.title
+                cell.taskAddress.text = cellData.address
+                
                 return cell
             }
-            
         } else if indexPath.section == 3 {
-            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "contentCell", for: indexPath) as? TaskContentCell {
+                cell.selectionStyle = .none
+
+                let cellData = taskInfo[indexPath.row]
+                cell.contentTxtView.text = cellData.content
+                
                 return cell
             }
-            
         } else if indexPath.section == 4 {
-            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "goodCitizen", for: indexPath) as? GoodCitizenCardCell {
+                cell.selectionStyle = .none
+
+                cell.separatorView.isHidden = true
                 cell.arrowImage.isHidden = true
                 cell.titleLabel.textColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
                 let cellData = userInfo[indexPath.row]
@@ -143,16 +157,15 @@ extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 return cell
             }
-            
         }
         
         return UITableViewCell()
     }
-
+    
 }
 
-extension TaskAgreeViewController: CallBtnTapped {
-
+extension AgreeTaskViewController: CallBtnTapped {
+    
     func callBtnTapped(_ send: UIButton) {
         
         if let phone = userInfo.last?.userPhone {
@@ -169,23 +182,7 @@ extension TaskAgreeViewController: CallBtnTapped {
     }
     
     func messageBtnTapped(_ send: UIButton) {
-        
-        if let id = userInfo.last?.fbID {
-            if let url = URL(string: "fb-messenger://user-thread/\(id)") {
-                
-                // Attempt to open in Messenger App first
-                UIApplication.shared.open(url, options: [:], completionHandler: {
-                    (success) in
-                    
-                    if success == false {
-                        // Messenger is not installed. Open in browser instead.
-                        let url = URL(string: "https://m.me/\(id)")
-                        if UIApplication.shared.canOpenURL(url!) {
-                            UIApplication.shared.open(url!)
-                        }
-                    }
-                })
-            }
-        }
     }
+    
+    
 }

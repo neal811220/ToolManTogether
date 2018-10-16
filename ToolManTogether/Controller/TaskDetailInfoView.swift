@@ -34,6 +34,8 @@ class TaskDetailInfoView: UIView {
     
     @IBOutlet weak var reportBtn: UIButton!
     
+    var alreadyURL: URL?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()

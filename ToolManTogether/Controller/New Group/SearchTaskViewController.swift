@@ -33,6 +33,7 @@ class SearchTaskViewController: UIViewController {
     let fullScreenSize = UIScreen.main.bounds.size
     let keychain = KeychainSwift()
     var photoUrl: [URL] = []
+    var userPhoto: [String:URL] = [:]
     
 
     override func viewDidLoad() {
@@ -133,6 +134,7 @@ class SearchTaskViewController: UIViewController {
                     guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
                     let requestUserkey = dictionary["requestUserKey"] as? String
                     let requestTaskKey = dictionary["taskKey"] as? String
+                    let address = dictionary["address"] as? String
                     
                     self.selectTaskKey.append(keyValue)
                     
@@ -151,7 +153,7 @@ class SearchTaskViewController: UIViewController {
                                             ownAgree: ownerAgree,
                                             taskKey: keyValue,
                                             agree: nil, requestKey: requestUserkey,
-                                            requestTaskKey: requestTaskKey)
+                                            requestTaskKey: requestTaskKey, address: address)
                     
                     self.selectTask.append(task)
                     self.selectTask.sort(by: { $0.time! > $1.time!})
@@ -212,7 +214,7 @@ class SearchTaskViewController: UIViewController {
                                                         ownerID: taskOwner,
                                                         ownAgree: ownerAgree,
                                                         taskKey: keyValue,
-                                                        agree: nil, requestKey: requestUserkey, requestTaskKey: requestTaskKey)
+                                                        agree: nil, requestKey: requestUserkey, requestTaskKey: requestTaskKey, address: nil)
                                 
                                 self.selectTask.append(task)
                                 self.selectTask.sort(by: { $0.time! > $1.time!})
@@ -223,7 +225,7 @@ class SearchTaskViewController: UIViewController {
     }
     
     
-    func searchTaskOwnerInfo(ownerID: String) {
+    func searchTaskOwnerInfo(ownerID: String, taskInfo: UserTaskInfo, button: UIButton) {
         
             myRef.child("UserData").queryOrderedByKey()
                 .queryEqual(toValue: ownerID)
@@ -251,8 +253,14 @@ class SearchTaskViewController: UIViewController {
                                                             remoteToken: remoteToken)
                         let toolsInfo = extractedExpr
                         self.taskOwnerInfo.append(toolsInfo)
+                        
                     }
-                    let viewController = TaskAgreeViewController.profileDetailDataForTask(self.taskOwnerInfo)
+                    
+//                    let viewController = TaskAgreeViewController.profileDetailDataForTask(self.taskOwnerInfo)
+                    
+                    let viewController = AgreeTaskViewController.profileDetailDataForTask(self.taskOwnerInfo, [taskInfo])
+                    
+                    button.isEnabled = true
                     self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
@@ -309,6 +317,8 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                     
                 }
                 
+                
+                
              // 對方拒絕
             } else if cellData.ownAgree == "disAgree" {
                 cell.searchTaskView.sendButton.setTitle("對方已拒絕", for: .normal)
@@ -334,18 +344,29 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
 
             }
             
+            
+            
             cell.searchTaskView.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
 
             if let ownerID = cellData.ownerID {
-                updataTaskUserPhoto(userID: ownerID) { (url) in
-                    if url == url {
-                        cell.searchTaskView.userPhoto.sd_setImage(with: url, completed: nil)
+                
+                if let userURL =  self.userPhoto[String(ownerID)] {
+                    
+                cell.searchTaskView.userPhoto.sd_setImage(with: userURL, completed: nil)
+                    
+                } else {
+                    updataTaskUserPhoto(userID: ownerID) { (url) in
+                        if url == url {
+                            self.userPhoto["\(ownerID)"] = url
+                            cell.searchTaskView.userPhoto.sd_setImage(with: url, completed: nil)
+                        } else {
+                            cell.searchTaskView.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
+                        }
                     }
                 }
-            } else {
-                cell.searchTaskView.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
             }
             
+
             cell.searchTaskView.reportBtn.addTarget(self, action: #selector(showAlert(send:)), for: .touchUpInside)
 
             
@@ -365,11 +386,13 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc func detailBtnTapped(data: UIButton) {
         print("detail")
-        let selectTaskOwner = selectTask[data.tag].ownerID
-        if let taskOwnerID = selectTaskOwner {
-            self.searchTaskOwnerInfo(ownerID: taskOwnerID)
+        let selectTaskOwner = selectTask[data.tag]
+        if let taskOwnerID = selectTaskOwner.ownerID {
+            
+            self.searchTaskOwnerInfo(ownerID: taskOwnerID, taskInfo: selectTaskOwner, button: data)
         }
         
+        data.isEnabled = false
         
     }
     

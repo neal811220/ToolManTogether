@@ -20,7 +20,8 @@ class ProfileCell: UITableViewCell {
     @IBOutlet weak var starThree: UIButton!
     @IBOutlet weak var starFour: UIButton!
     @IBOutlet weak var starFive: UIButton!
-
+    @IBOutlet weak var separatorView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         userPhoto.layer.cornerRadius = self.userPhoto.frame.width / 2

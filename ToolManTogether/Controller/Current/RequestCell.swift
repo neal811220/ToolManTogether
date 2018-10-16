@@ -125,7 +125,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                                         taskLat: taskLat, taskLon: taskLon, checkTask: nil,
                                         distance: nil, time: time,
                                         ownerID: nil, ownAgree: nil,
-                                        taskKey: keyValue, agree: agree, requestKey: nil, requestTaskKey: nil)
+                                        taskKey: keyValue, agree: agree, requestKey: nil, requestTaskKey: nil, address: nil)
                 
                 self.addTask.append(task)
                 self.addTask.sort(by: { $0.time! > $1.time! })
@@ -180,7 +180,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                                             taskLat: taskLat, taskLon: taskLon, checkTask: nil,
                                             distance: nil, time: time,
                                             ownerID: nil, ownAgree: nil,
-                                            taskKey: keyValue, agree: agree, requestKey: nil, requestTaskKey: nil)
+                                            taskKey: keyValue, agree: agree, requestKey: nil, requestTaskKey: nil, address: nil)
                     self.addTask.append(task)
                     self.addTask.sort(by: { $0.time! > $1.time! })
                     

@@ -44,6 +44,8 @@
 		8E8BBD7B217559C800371ECB /* TaskDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E8BBD79217559C800371ECB /* TaskDetailCell.xib */; };
 		8E8BBD7E21755AC500371ECB /* TaskContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BBD7C21755AC500371ECB /* TaskContentCell.swift */; };
 		8E8BBD7F21755AC500371ECB /* TaskContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E8BBD7D21755AC500371ECB /* TaskContentCell.xib */; };
+		8E8BBD8121756DD700371ECB /* AgreeTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8BBD8021756DD700371ECB /* AgreeTaskViewController.swift */; };
+		8E8BBD8321756E0200371ECB /* AgreeTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E8BBD8221756E0200371ECB /* AgreeTask.storyboard */; };
 		8E8EC459215CCAB800CCABE7 /* SearchTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */; };
 		8E8EC45A215CCAB800CCABE7 /* searchTaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E8EC458215CCAB800CCABE7 /* searchTaskCell.xib */; };
 		8E93F76A216B9A370059BAEE /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E93F769216B9A370059BAEE /* CustomAlertViewController.swift */; };
@@ -132,6 +134,8 @@
 		8E8BBD79217559C800371ECB /* TaskDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskDetailCell.xib; sourceTree = "<group>"; };
 		8E8BBD7C21755AC500371ECB /* TaskContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskContentCell.swift; sourceTree = "<group>"; };
 		8E8BBD7D21755AC500371ECB /* TaskContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskContentCell.xib; sourceTree = "<group>"; };
+		8E8BBD8021756DD700371ECB /* AgreeTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreeTaskViewController.swift; sourceTree = "<group>"; };
+		8E8BBD8221756E0200371ECB /* AgreeTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AgreeTask.storyboard; sourceTree = "<group>"; };
 		8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTaskCell.swift; sourceTree = "<group>"; };
 		8E8EC458215CCAB800CCABE7 /* searchTaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = searchTaskCell.xib; sourceTree = "<group>"; };
 		8E93F769216B9A370059BAEE /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
@@ -273,6 +277,7 @@
 				8EDA66302160B84D009FFB8D /* TaskAgree.storyboard */,
 				8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */,
 				8EA04DF721730BF100D12775 /* loadingAlert.storyboard */,
+				8E8BBD8221756E0200371ECB /* AgreeTask.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -342,9 +347,9 @@
 		8E8BBD772175573600371ECB /* Agree */ = {
 			isa = PBXGroup;
 			children = (
-				8EDA66322160B889009FFB8D /* TaskAgreeViewController.swift */,
 				8E8BBD78217559C800371ECB /* TaskDetailCell.swift */,
 				8E8BBD7C21755AC500371ECB /* TaskContentCell.swift */,
+				8E8BBD8021756DD700371ECB /* AgreeTaskViewController.swift */,
 			);
 			path = Agree;
 			sourceTree = "<group>";
@@ -431,6 +436,7 @@
 				8EC92175215F146C00BEE92D /* RequestToolsTableViewCell.swift */,
 				8EDA66342160B8EF009FFB8D /* TaskAgreeInfoCell.swift */,
 				8EDB256D2161135400DBBF6D /* ScoreSendView.swift */,
+				8EDA66322160B889009FFB8D /* TaskAgreeViewController.swift */,
 			);
 			path = Current;
 			sourceTree = "<group>";
@@ -608,6 +614,7 @@
 				8E58D77C2155369B008274F1 /* AddTaskTypeCell.xib in Resources */,
 				8EA01DAA21606C3500104A55 /* GoodCitizenCardCell.xib in Resources */,
 				8EDA66312160B84D009FFB8D /* TaskAgree.storyboard in Resources */,
+				8E8BBD8321756E0200371ECB /* AgreeTask.storyboard in Resources */,
 				8E58D778215513DB008274F1 /* AddTaskContentCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -729,6 +736,7 @@
 				8EDA662E2160A0EF009FFB8D /* ServcedListCell.swift in Sources */,
 				8EC9217B215F87FE00BEE92D /* ProfileCell.swift in Sources */,
 				8E28F7F9215B6A6E004954F0 /* TaskDetailInfoView.swift in Sources */,
+				8E8BBD8121756DD700371ECB /* AgreeTaskViewController.swift in Sources */,
 				8ED727A42154D0CB00EE697F /* AddTaskInfoCell.swift in Sources */,
 				8E28DF58216618FB0077B259 /* Date.swift in Sources */,
 				8EC7214D216B3EDA00BEB97D /* AddCustomLocationMapCell.swift in Sources */,
