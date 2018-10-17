@@ -25,8 +25,8 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTp-5J-BIT" userLabel="noDataView">
                                 <rect key="frame" x="39" y="440" width="298" height="149"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尚未有人申請，請稍候或下拉更新查看" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Cl-pj-fih" userLabel="noDataLabel">
-                                        <rect key="frame" x="7" y="64" width="277.5" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尚未有人申請，請稍候或下拉更新查看。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Cl-pj-fih" userLabel="noDataLabel">
+                                        <rect key="frame" x="-1.5" y="64" width="294" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="BHu-pA-FSQ"/>
                                         </constraints>
@@ -54,16 +54,16 @@
                                         </constraints>
                                     </view>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="前往新增任務頁面，新增任務。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3j-PB-MJ6">
-                                        <rect key="frame" x="68.5" y="417" width="238" height="23.5"/>
+                                        <rect key="frame" x="68.5" y="429.5" width="238" height="23.5"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="K3j-PB-MJ6" firstAttribute="centerX" secondItem="kUc-tC-eMI" secondAttribute="centerX" id="BmC-aS-Pxf"/>
-                                    <constraint firstAttribute="bottom" secondItem="K3j-PB-MJ6" secondAttribute="bottom" constant="162.5" id="aPP-ZG-amg"/>
+                                    <constraint firstAttribute="bottom" secondItem="K3j-PB-MJ6" secondAttribute="bottom" constant="150" id="aPP-ZG-amg"/>
                                     <constraint firstItem="jbH-iM-MMj" firstAttribute="centerX" secondItem="kUc-tC-eMI" secondAttribute="centerX" id="jRd-py-k3k"/>
                                     <constraint firstItem="jbH-iM-MMj" firstAttribute="centerY" secondItem="kUc-tC-eMI" secondAttribute="centerY" id="qbg-t5-Pul"/>
                                 </constraints>

@@ -62,9 +62,9 @@
 		8EA04DFA21730C5100D12775 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA04DF921730C5100D12775 /* LoadingViewController.swift */; };
 		8EA04DFC21730D1F00D12775 /* material_wave_loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DFB21730D1F00D12775 /* material_wave_loading.json */; };
 		8EB0A21E2162609200FD81F1 /* FilterAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */; };
-		8EB6A74A2175EA28008C9CEF /* animation-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EB6A7492175EA28008C9CEF /* animation-download.json */; };
 		8EB6A74C21761907008C9CEF /* NotificationAgreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */; };
 		8EB6A74E2176191B008C9CEF /* NotificationAgree.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */; };
+		8EB6A7502176D57E008C9CEF /* animation-done-new.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EB6A74F2176D57D008C9CEF /* animation-done-new.json */; };
 		8EC7214D216B3EDA00BEB97D /* AddCustomLocationMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC7214B216B3EDA00BEB97D /* AddCustomLocationMapCell.swift */; };
 		8EC7214E216B3EDA00BEB97D /* AddCustomLocationMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC7214C216B3EDA00BEB97D /* AddCustomLocationMapCell.xib */; };
 		8EC92177215F146C00BEE92D /* RequestToolsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC92175215F146C00BEE92D /* RequestToolsTableViewCell.swift */; };
@@ -156,9 +156,9 @@
 		8EA04DF921730C5100D12775 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		8EA04DFB21730D1F00D12775 /* material_wave_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = material_wave_loading.json; sourceTree = "<group>"; };
 		8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAnnotation.swift; sourceTree = "<group>"; };
-		8EB6A7492175EA28008C9CEF /* animation-download.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "animation-download.json"; sourceTree = "<group>"; };
 		8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAgreeViewController.swift; sourceTree = "<group>"; };
 		8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NotificationAgree.storyboard; sourceTree = "<group>"; };
+		8EB6A74F2176D57D008C9CEF /* animation-done-new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "animation-done-new.json"; sourceTree = "<group>"; };
 		8EC7214B216B3EDA00BEB97D /* AddCustomLocationMapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomLocationMapCell.swift; sourceTree = "<group>"; };
 		8EC7214C216B3EDA00BEB97D /* AddCustomLocationMapCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCustomLocationMapCell.xib; sourceTree = "<group>"; };
 		8EC92175215F146C00BEE92D /* RequestToolsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestToolsTableViewCell.swift; sourceTree = "<group>"; };
@@ -487,7 +487,7 @@
 		8EE2EFC02170B9F3005A9DA4 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				8EB6A7492175EA28008C9CEF /* animation-download.json */,
+				8EB6A74F2176D57D008C9CEF /* animation-done-new.json */,
 				8E148D5F217473BD0050DDB2 /* maps.json */,
 				8EA04DFB21730D1F00D12775 /* material_wave_loading.json */,
 				8EA04DF32172FC4500D12775 /* empty_status.json */,
@@ -595,7 +595,6 @@
 				8EDA66372160B8EF009FFB8D /* TaskAgreeInfoCell.xib in Resources */,
 				8E148D60217473C00050DDB2 /* maps.json in Resources */,
 				8EB6A74E2176191B008C9CEF /* NotificationAgree.storyboard in Resources */,
-				8EB6A74A2175EA28008C9CEF /* animation-download.json in Resources */,
 				8EC7214E216B3EDA00BEB97D /* AddCustomLocationMapCell.xib in Resources */,
 				8EEC330D215BF32A00DE8C31 /* searchTask.storyboard in Resources */,
 				8ED727A52154D0CB00EE697F /* AddTaskInfoCell.xib in Resources */,
@@ -607,6 +606,7 @@
 				8E7575CC215FE9FA0021A403 /* ProfileDetailCell.xib in Resources */,
 				8E5BB6EC2151E88B0016C44A /* LaunchScreen.storyboard in Resources */,
 				8EE2EFC82170D19C005A9DA4 /* servishero_loading.json in Resources */,
+				8EB6A7502176D57E008C9CEF /* animation-done-new.json in Resources */,
 				8EA04DE82172558B00D12775 /* check_animation.json in Resources */,
 				8ECAB998215E14CD00649128 /* RequestCell.xib in Resources */,
 				8E28F7FB215B6AA6004954F0 /* TaskDetailInfoView.xib in Resources */,

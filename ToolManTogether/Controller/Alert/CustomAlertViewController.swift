@@ -21,7 +21,7 @@ class CustomAlertViewController: UIViewController {
         self.view.isOpaque = false
         self.view.backgroundColor = .clear
         
-         let animationView = LOTAnimationView(name: "animation-download")
+         let animationView = LOTAnimationView(name: "animation-done-new")
             animationView.frame = aniView.frame
             animationView.center = aniView.center
             animationView.contentMode = .scaleAspectFill

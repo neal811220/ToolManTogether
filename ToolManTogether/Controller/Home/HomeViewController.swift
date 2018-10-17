@@ -79,9 +79,9 @@ class HomeViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationButton.layer.cornerRadius = self.locationButton.frame.width / 2
         
-        locationButton.layer.shadowColor = UIColor.darkGray.cgColor
+        locationButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         locationButton.layer.shadowRadius = 3
-        locationButton.layer.shadowOpacity = 0.5
+        locationButton.layer.shadowOpacity = 1
         locationButton.layer.shadowOffset = CGSize(width: 0, height: 1)
         mapView.showsUserLocation = true
         mapView.tintColor = #colorLiteral(red: 0.3450980392, green: 0.768627451, blue: 0.6156862745, alpha: 1)
