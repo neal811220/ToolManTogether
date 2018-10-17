@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -62,15 +62,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>This App requires using your camera</string>
+	<string>We need to upload photos using your camera or photo collection</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This App requires your location to calculated position</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This App requires your location to calculated position</string>
+	<string>We need to open your location to locate the location of your chosen mission or how far away from the mission</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This App requires your location to calculated position</string>
+	<string>We need to open your location to locate the location of your chosen mission or how far away from the mission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This App requires using your photolibery</string>
+	<string>We need to upload photos using your camera or photo collection</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
