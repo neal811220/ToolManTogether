@@ -28,7 +28,7 @@
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Yy-Wr-2eF" userLabel="bgView">
                         <rect key="frame" x="0.0" y="54" width="375" height="350"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQP-kW-RL4" userLabel="aniView">
+                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="fQP-kW-RL4" userLabel="aniView">
                                 <rect key="frame" x="5" y="-59.5" width="365" height="265"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -44,11 +44,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fQP-kW-RL4" firstAttribute="leading" secondItem="5Yy-Wr-2eF" secondAttribute="leading" constant="5" id="9JM-cc-tsb"/>
                             <constraint firstItem="sOs-KK-jSp" firstAttribute="centerX" secondItem="5Yy-Wr-2eF" secondAttribute="centerX" id="ExE-kM-5pO"/>
+                            <constraint firstItem="fQP-kW-RL4" firstAttribute="leading" secondItem="5Yy-Wr-2eF" secondAttribute="leading" constant="5" id="LbQ-g6-TU2"/>
                             <constraint firstAttribute="bottom" secondItem="sOs-KK-jSp" secondAttribute="bottom" constant="106.5" id="Rhy-nf-KOl"/>
-                            <constraint firstAttribute="trailing" secondItem="fQP-kW-RL4" secondAttribute="trailing" constant="5" id="TDv-pv-TCg"/>
                             <constraint firstItem="sOs-KK-jSp" firstAttribute="top" secondItem="fQP-kW-RL4" secondAttribute="bottom" constant="10" id="VH8-ZT-2B6"/>
+                            <constraint firstAttribute="trailing" secondItem="fQP-kW-RL4" secondAttribute="trailing" constant="5" id="wK7-hA-enU"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="良民證" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Gm-WM-2RG">

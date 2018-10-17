@@ -26,7 +26,8 @@ class GoodCitizenCardCell: UITableViewCell, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var arrowImage: UIImageView!
     @IBOutlet weak var separatorView: UIView!
     
-    
+    let animationView = LOTAnimationView(name: "cloud")
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectButton.isHidden = true
@@ -47,15 +48,16 @@ class GoodCitizenCardCell: UITableViewCell, UIImagePickerControllerDelegate, UIN
     }
     
     func setAniView() {
-        let animationView = LOTAnimationView(name: "cloud")
         animationView.frame = aniView.frame
         animationView.center = aniView.center
-        animationView.contentMode = .scaleAspectFill
-        animationView.loopAnimation = true
-        
-        bgView.addSubview(animationView)
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopAnimation = false
+    }
+    
+    func playAniView() {
         
         animationView.play()
+        bgView.addSubview(animationView)
     }
     
     

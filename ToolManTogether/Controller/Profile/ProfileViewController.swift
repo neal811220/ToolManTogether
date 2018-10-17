@@ -31,10 +31,12 @@ class ProfileViewController: UIViewController {
     let keychain = KeychainSwift()
     var isGuest = false
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        guestMode()
-//    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guestMode()
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,13 +62,12 @@ class ProfileViewController: UIViewController {
         
         searchProfile()
         
-        guestMode()
-        
     }
     
     func guestMode() {
         if keychain.get("token") == nil {
-            let guestData = ProfileManager(fbEmail: "Guest@001.com", fbID: nil, fbName: "訪客", aboutUser: "我是一個訪客。", userPhone: "0800-000-123")
+            let guestData = ProfileManager(fbEmail: "Guest@001.com", fbID: nil, fbName: "訪客", aboutUser: "我是一個訪客。", userPhone: "請輸入電話號碼")
+            self.userProfile.removeAll()
             self.userProfile.append(guestData)
             self.profileTableView.reloadData()
             isGuest = true
@@ -87,6 +88,8 @@ class ProfileViewController: UIViewController {
         
         self.userProfile.removeAll()
         self.profileTableView.reloadData()
+        
+        guard keychain.get("token") != nil else { return }
         
         guard let userID = Auth.auth().currentUser?.uid else { return }
 
@@ -200,11 +203,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isGuest == true {
             return userProfile.count
-        } else {
-            return userProfile.count
-        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -218,13 +217,16 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                     cell.userName.text = cellData.fbName
                     cell.userEmail.text = cellData.fbEmail
                 
-                if let userID = Auth.auth().currentUser?.uid {
-                    self.downloadTaskUserPhoto(userID: userID, finder: "UserPhoto") { (url) in
-                        cell.userPhoto.sd_setImage(with: url, completed: nil)
+                if keychain.get("token") != nil {
+                    if let userID = Auth.auth().currentUser?.uid {
+                        self.downloadTaskUserPhoto(userID: userID, finder: "UserPhoto") { (url) in
+                            cell.userPhoto.sd_setImage(with: url, completed: nil)
+                        }
+                    } else {
+                        cell.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
                     }
                 } else {
                     cell.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
-                    
                 }
                 
                 return cell
@@ -256,23 +258,30 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 cell.selectButton.isHidden = false
                 
-                if let userID = Auth.auth().currentUser?.uid {
+                    if keychain.get("token") != nil {
                     
-                    self.downloadTaskUserPhoto(userID: userID, finder: "GoodCitizen") { (url) in
-                        if url != nil {
-                            cell.imagePicker.isHidden = false
-                            cell.bgView.isHidden = true
-                            cell.imagePicker.sd_setImage(with: url, completed: nil)
-
-                        } else {
-                            cell.imagePicker.isHidden = true
-                            cell.bgView.isHidden = false
+                        if let userID = Auth.auth().currentUser?.uid {
+                            self.downloadTaskUserPhoto(userID: userID, finder: "GoodCitizen") { (url) in
+                                if url != nil {
+                                    cell.imagePicker.isHidden = false
+                                    cell.bgView.isHidden = true
+                                    cell.imagePicker.sd_setImage(with: url, completed: nil)
+                                    
+                                } else {
+                                    cell.imagePicker.isHidden = true
+                                    cell.bgView.isHidden = false
+                                    cell.setAniView()
+                                    cell.playAniView()
+                                }
+                            }
                         }
-                    }
+  
                 } else {
                     cell.selectButton.isHidden = true
                     cell.imagePicker.isHidden = true
                     cell.bgView.isHidden = false
+                    cell.setAniView()
+                    cell.playAniView()
                 }
                 
                 return cell

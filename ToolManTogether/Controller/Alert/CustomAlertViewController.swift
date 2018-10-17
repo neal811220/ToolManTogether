@@ -15,24 +15,25 @@ class CustomAlertViewController: UIViewController {
     
     @IBOutlet weak var aniView: UIView!
     
+    let animationView = LOTAnimationView(name: "animation-done-new")
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.isOpaque = false
         self.view.backgroundColor = .clear
         
-         let animationView = LOTAnimationView(name: "animation-done-new")
-            animationView.frame = aniView.frame
-            animationView.center = aniView.center
-            animationView.contentMode = .scaleAspectFill
-            
-            bgView.addSubview(animationView)
-            
-            animationView.play()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        animationView.frame = aniView.frame
+        animationView.center = aniView.center
+        animationView.contentMode = .scaleAspectFill
+        
+        bgView.addSubview(animationView)
+        
+        animationView.play()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             self.dismiss(animated: true)

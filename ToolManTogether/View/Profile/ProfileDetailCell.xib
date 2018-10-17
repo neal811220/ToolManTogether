@@ -23,10 +23,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="257.5"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0912345678" textAlignment="justified" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bvc-0D-x7M">
-                                <rect key="frame" x="74" y="19" width="109" height="31"/>
+                                <rect key="frame" x="74" y="19" width="148" height="31"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="109" id="aif-Ue-ILM"/>
+                                    <constraint firstAttribute="width" constant="148" id="aif-Ue-ILM"/>
                                     <constraint firstAttribute="height" constant="31" id="fTc-xG-QhI"/>
                                 </constraints>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
