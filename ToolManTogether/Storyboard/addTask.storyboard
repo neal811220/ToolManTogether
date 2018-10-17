@@ -21,8 +21,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h9l-Wc-YPl">
                                 <rect key="frame" x="0.0" y="570" width="375" height="97"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZd-Gy-eXj">
-                                        <rect key="frame" x="8" y="3" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZd-Gy-eXj">
+                                        <rect key="frame" x="8" y="3" width="359" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="szJ-Km-IC5"/>
                                         </constraints>
@@ -35,6 +35,7 @@
                                 <constraints>
                                     <constraint firstItem="lZd-Gy-eXj" firstAttribute="leading" secondItem="h9l-Wc-YPl" secondAttribute="leading" constant="8" id="HbU-B6-UOr"/>
                                     <constraint firstItem="lZd-Gy-eXj" firstAttribute="top" secondItem="h9l-Wc-YPl" secondAttribute="top" constant="3" id="SFJ-mB-bFc"/>
+                                    <constraint firstItem="lZd-Gy-eXj" firstAttribute="centerX" secondItem="h9l-Wc-YPl" secondAttribute="centerX" id="yOT-Ch-cug"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JEF-Qj-nmF">

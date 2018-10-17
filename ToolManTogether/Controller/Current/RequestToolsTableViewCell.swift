@@ -31,7 +31,7 @@ class RequestToolsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         userPhoto.layer.cornerRadius = userPhoto.frame.width / 2
-        agreeButton.layer.cornerRadius = 14
+        agreeButton.layer.cornerRadius = 10
         agreeButton.layer.shadowColor = UIColor.darkGray.cgColor
         agreeButton.layer.shadowRadius = 3
         agreeButton.layer.shadowOpacity = 0.5

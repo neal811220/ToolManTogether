@@ -513,6 +513,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         return UICollectionReusableView()
     }
+
     
     @objc func headerCellTapped() {
         mapView.removeAnnotations(allAnnotationArray)

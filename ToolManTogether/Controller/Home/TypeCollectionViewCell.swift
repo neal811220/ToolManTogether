@@ -13,6 +13,8 @@ class TypeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var typeView: UIView!
     @IBOutlet weak var typeLabel: UILabel!
     
+    @IBOutlet weak var underLineView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         typeView.layer.cornerRadius = typeView.frame.width / 2
