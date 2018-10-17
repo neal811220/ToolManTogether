@@ -46,14 +46,14 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baseline_arrow_forward_ios_black_18dp" translatesAutoresizingMaskIntoConstraints="NO" id="WIw-XS-yE8">
-                                <rect key="frame" x="44" y="33.5" width="15" height="15"/>
+                                <rect key="frame" x="44" y="35.5" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="E3Z-dl-Jzt"/>
                                     <constraint firstAttribute="height" constant="15" id="EBT-af-p2g"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="關於" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7U-wa-wD8">
-                                <rect key="frame" x="8" y="29" width="34" height="24"/>
+                                <rect key="frame" x="8" y="31" width="34" height="24"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -62,7 +62,7 @@
                         <constraints>
                             <constraint firstItem="ZfN-8f-5pl" firstAttribute="leading" secondItem="Txv-46-kfk" secondAttribute="leading" constant="65" id="0vW-Uh-C1P"/>
                             <constraint firstAttribute="trailing" secondItem="NLb-OM-SpT" secondAttribute="trailing" constant="126" id="2eq-Qt-FCs"/>
-                            <constraint firstItem="n7U-wa-wD8" firstAttribute="top" secondItem="Txv-46-kfk" secondAttribute="top" constant="29" id="8sV-31-El5"/>
+                            <constraint firstItem="n7U-wa-wD8" firstAttribute="top" secondItem="Txv-46-kfk" secondAttribute="top" constant="31" id="8sV-31-El5"/>
                             <constraint firstItem="ZfN-8f-5pl" firstAttribute="top" secondItem="Txv-46-kfk" secondAttribute="top" constant="19" id="9BP-76-HIF"/>
                             <constraint firstItem="n7U-wa-wD8" firstAttribute="leading" secondItem="Txv-46-kfk" secondAttribute="leading" constant="8" id="Ahe-Uf-XtM"/>
                             <constraint firstAttribute="bottom" secondItem="ZfN-8f-5pl" secondAttribute="bottom" constant="65.5" id="JXK-lv-XJz"/>

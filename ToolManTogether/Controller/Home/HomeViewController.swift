@@ -260,7 +260,7 @@ class HomeViewController: UIViewController {
                 self.pullUpDetailView.userName.text = userName
                 self.pullUpDetailView.typeLabel.text = type
                 self.pullUpDetailView.distanceLabel.text = "\(roundDistance)km"
-                
+                self.pullUpDetailView.reportBtn.addTarget(self, action: #selector(self.showReportAlert), for: .touchUpInside)
                 guard let selectData = self.selectTask else { return }
 
                 self.myRef.child("RequestTask")
@@ -309,6 +309,28 @@ class HomeViewController: UIViewController {
         }
         
         self.mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    func showAlert() {
+        let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let reportAction = UIAlertAction(title: "檢舉", style: .destructive) { (void) in
+            
+            let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
+            
+            let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+            reportController.addAction(cancelAction)
+            reportController.addAction(okAction)
+            self.present(reportController, animated: true, completion: nil)
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        personAlertController.addAction(reportAction)
+        personAlertController.addAction(cancelAction)
+        self.present(personAlertController, animated: true, completion: nil)
     }
     
     @objc func requestBtnSend() {
@@ -425,6 +447,28 @@ class HomeViewController: UIViewController {
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func showReportAlert() {
+        let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let reportAction = UIAlertAction(title: "檢舉", style: .destructive) { (void) in
+            
+            let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
+            
+            let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+            reportController.addAction(cancelAction)
+            reportController.addAction(okAction)
+            self.present(reportController, animated: true, completion: nil)
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        personAlertController.addAction(reportAction)
+        personAlertController.addAction(cancelAction)
+        self.present(personAlertController, animated: true, completion: nil)
     }
     
 }

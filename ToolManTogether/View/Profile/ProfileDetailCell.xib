@@ -54,7 +54,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="料理界小廚神                                            偽美食部落客                                   急需洗碗工" translatesAutoresizingMaskIntoConstraints="NO" id="B7t-7E-HB2">
-                                <rect key="frame" x="74" y="105" width="293" height="133"/>
+                                <rect key="frame" x="74" y="102" width="293" height="136"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="133" id="yzp-0l-1H1"/>
@@ -140,7 +140,7 @@
                             <constraint firstAttribute="trailing" secondItem="LYI-ic-Ox5" secondAttribute="trailing" constant="8" id="PKt-v1-3Dd"/>
                             <constraint firstItem="Bvc-0D-x7M" firstAttribute="leading" secondItem="2n1-NL-GkV" secondAttribute="trailing" constant="6" id="cE5-c9-2dZ"/>
                             <constraint firstItem="B7t-7E-HB2" firstAttribute="leading" secondItem="o7F-j6-u2u" secondAttribute="leading" constant="74" id="fdF-UJ-IEh"/>
-                            <constraint firstItem="B7t-7E-HB2" firstAttribute="top" secondItem="o7F-j6-u2u" secondAttribute="top" constant="105" id="fr6-hR-kmh"/>
+                            <constraint firstItem="B7t-7E-HB2" firstAttribute="top" secondItem="o7F-j6-u2u" secondAttribute="top" constant="102" id="fr6-hR-kmh"/>
                             <constraint firstItem="nhc-k3-hv2" firstAttribute="leading" secondItem="o7F-j6-u2u" secondAttribute="leading" constant="16" id="pCS-SJ-kBz"/>
                             <constraint firstItem="2dA-Kn-pbP" firstAttribute="top" secondItem="o7F-j6-u2u" secondAttribute="top" constant="16" id="s7H-cv-HCv"/>
                             <constraint firstItem="MoW-fj-jLz" firstAttribute="leading" secondItem="2dA-Kn-pbP" secondAttribute="trailing" constant="2" id="xOY-3h-dip"/>
