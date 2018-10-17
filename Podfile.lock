@@ -7,6 +7,9 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
+  - Crashlytics (3.10.9):
+    - Fabric (~> 1.7.13)
+  - Fabric (1.7.13)
   - FBSDKCoreKit (4.37.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.37.0):
@@ -105,6 +108,8 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - AnimatedCollectionViewLayout
+  - Crashlytics
+  - Fabric
   - FBSDKLoginKit
   - Firebase/Auth
   - Firebase/Core
@@ -122,6 +127,8 @@ SPEC REPOS:
     - Alamofire
     - AnimatedCollectionViewLayout
     - Bolts
+    - Crashlytics
+    - Fabric
     - FBSDKCoreKit
     - FBSDKLoginKit
     - Firebase
@@ -149,6 +156,8 @@ SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   AnimatedCollectionViewLayout: f0295119f94d8492fc6ac39e2ced64a471b12699
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  Crashlytics: 55e24fc23989680285a21cb1146578d9d18e432c
+  Fabric: 25d0963b691fc97be566392243ff0ecef5a68338
   FBSDKCoreKit: fe5f3474499a81963e11e3f3a5c753d0a95ca2b4
   FBSDKLoginKit: 2f7249686d1e30ce8a5ef5400eedf50b3e3df332
   Firebase: 6691d47562a780c26281ce8464518faafc90c610
@@ -172,6 +181,6 @@ SPEC CHECKSUMS:
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: 60b741d5747a785b0b40ab67ba7f48cff6041ec4
+PODFILE CHECKSUM: 32e8354926014326bb04a5e2694b67e3e5c42a34
 
 COCOAPODS: 1.5.3

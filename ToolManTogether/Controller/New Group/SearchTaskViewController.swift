@@ -34,10 +34,15 @@ class SearchTaskViewController: UIViewController {
     let keychain = KeychainSwift()
     var photoUrl: [URL] = []
     var userPhoto: [String:URL] = [:]
+    let animationView = LOTAnimationView(name: "servishero_loading")
+
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        UIApplication.shared.applicationIconBadgeNumber = 0
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        animationView.removeFromSuperview()
+        guestMode()
+        setAniView()
     }
     
 
@@ -58,9 +63,7 @@ class SearchTaskViewController: UIViewController {
         let notificationName = Notification.Name("sendRequest")
         NotificationCenter.default.addObserver(self, selector: #selector(self.selectTaskAdd), name: notificationName, object: nil)
         
-        setAniView()
-        
-        guestMode()
+
         
         UIApplication.shared.applicationIconBadgeNumber = 0
 
@@ -73,14 +76,11 @@ class SearchTaskViewController: UIViewController {
     }
     
     func setAniView() {
-        let animationView = LOTAnimationView(name: "servishero_loading")
         animationView.frame = aniView.frame
         animationView.center = aniView.center
         animationView.contentMode = .scaleAspectFill
-        animationView.loopAnimation = true
-        
+        animationView.loopAnimation = false
         bgView.addSubview(animationView)
-        
         animationView.play()
     }
     
@@ -88,6 +88,7 @@ class SearchTaskViewController: UIViewController {
         self.bgView.isHidden = false
         self.aniView.isHidden = false
         self.bgLabel.isHidden = false
+        
     }
     
     func returnView() {

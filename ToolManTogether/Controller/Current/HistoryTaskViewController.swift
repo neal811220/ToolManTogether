@@ -45,6 +45,14 @@ class HistoryTaskViewController: UIViewController {
     let keychain = KeychainSwift()
     var agreeAlready = false
     
+    let animationView = LOTAnimationView(name: "servishero_loading")
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        animationView.removeFromSuperview()
+        guestMode()
+        setAniView()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,10 +82,9 @@ class HistoryTaskViewController: UIViewController {
         let hasTaskNotification = Notification.Name("hasTask")
         NotificationCenter.default.addObserver(self, selector: #selector(self.hastask), name: hasTaskNotification, object: nil)
         
-        setAniView()
         
-        guestMode()
     }
+    
     
     func guestMode() {
         if keychain.get("token") == nil {
@@ -87,11 +94,12 @@ class HistoryTaskViewController: UIViewController {
     }
     
     func setAniView() {
-        let animationView = LOTAnimationView(name: "servishero_loading")
+
         animationView.frame = aniView.frame
         animationView.center = aniView.center
-        animationView.contentMode = .scaleAspectFill
-        animationView.loopAnimation = true
+        
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopAnimation = false
 
         bgView.addSubview(animationView)
         

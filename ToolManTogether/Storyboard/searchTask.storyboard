@@ -26,8 +26,11 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZk-Ee-S0m" userLabel="bgView">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尚未成為工具人，前往首頁搜尋任務。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n84-ci-qLV">
-                                        <rect key="frame" x="40" y="429.5" width="295" height="42"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尚未成為工具人，前往首頁搜尋任務。" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n84-ci-qLV">
+                                        <rect key="frame" x="10" y="429.5" width="355" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="HiL-5d-B3J"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -44,11 +47,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="82R-1P-g0s" firstAttribute="centerY" secondItem="PZk-Ee-S0m" secondAttribute="centerY" id="6c0-NQ-vFL"/>
-                                    <constraint firstAttribute="trailing" secondItem="n84-ci-qLV" secondAttribute="trailing" constant="40" id="GaE-vP-Wxg"/>
+                                    <constraint firstAttribute="trailing" secondItem="n84-ci-qLV" secondAttribute="trailing" constant="10" id="GaE-vP-Wxg"/>
+                                    <constraint firstAttribute="trailing" secondItem="82R-1P-g0s" secondAttribute="trailing" constant="97.5" id="Hda-Q6-29j"/>
                                     <constraint firstItem="n84-ci-qLV" firstAttribute="top" secondItem="82R-1P-g0s" secondAttribute="bottom" constant="38" id="J7T-jK-oW4"/>
-                                    <constraint firstAttribute="bottom" secondItem="n84-ci-qLV" secondAttribute="bottom" constant="131.5" id="rlP-5C-Bmm"/>
-                                    <constraint firstItem="82R-1P-g0s" firstAttribute="centerX" secondItem="PZk-Ee-S0m" secondAttribute="centerX" id="viq-e0-vQl"/>
-                                    <constraint firstItem="n84-ci-qLV" firstAttribute="leading" secondItem="PZk-Ee-S0m" secondAttribute="leading" constant="40" id="yYn-uG-ohW"/>
+                                    <constraint firstItem="82R-1P-g0s" firstAttribute="leading" secondItem="PZk-Ee-S0m" secondAttribute="leading" constant="97.5" id="hyu-fw-rdj"/>
+                                    <constraint firstItem="n84-ci-qLV" firstAttribute="leading" secondItem="PZk-Ee-S0m" secondAttribute="leading" constant="10" id="yYn-uG-ohW"/>
                                 </constraints>
                             </view>
                         </subviews>

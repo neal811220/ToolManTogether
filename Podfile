@@ -21,6 +21,9 @@ target 'ToolManTogether' do
 	pod 'lottie-ios'
 	pod 'KeychainSwift', '~> 12.0'
 
+	pod 'Fabric'
+	pod 'Crashlytics'
+
 
 
 end

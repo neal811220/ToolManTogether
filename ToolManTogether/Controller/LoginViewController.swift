@@ -18,6 +18,10 @@ import KeychainSwift
 
 class LoginViewController: UIViewController {
     
+    deinit {
+        print("Ya")
+    }
+    
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var fbButton: UIButton!
     @IBOutlet weak var guestButton: UIButton!
@@ -36,22 +40,28 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func connectFB(_ sender: Any) {
-        manager.facebookLogin(fromController: self, success: { [weak self] token in
-            
+        manager.facebookLogin(fromController: self, success: { token in
+            self.keychain.set(token, forKey: "token")
             print("Successed \(token)")
-            self?.getUserInfo(token: token)
-            self?.switchView()
+//            self?.getUserInfo(token: token)
+//            self?.switchView()
 
             let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
 
             Auth.auth().signInAndRetrieveData(with: credential, completion:
-                { (result, error) in
+                {(result, error) in
                 if error == nil {
                     print("Firebase Success")
+                    self.getUserInfo(token: token)
+                    self.switchView()
+
                 } else {
                     print(error)
                 }
+
             })
+            
+
         }) { (error) in
             print(error)
         }
@@ -106,7 +116,6 @@ class LoginViewController: UIViewController {
                     self.uploadImagePic(url: URL(string: photoURL!)!)
                     
 //                    self.fbUserDefault.set(token, forKey: "token")
-                    self.keychain.set(token, forKey: "token")
                     
                     guard let userID = Auth.auth().currentUser?.uid else { return }
                     
@@ -115,7 +124,11 @@ class LoginViewController: UIViewController {
                         "FBName": fbName,
                         "FBEmail": fbEmail,
                         "UserID": userID])
+                    
+//                    self.switchView()
                 }
+            } else {
+                print(error)
             }
             
         })

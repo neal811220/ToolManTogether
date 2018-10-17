@@ -14,6 +14,9 @@ import IQKeyboardManagerSwift
 import UserNotifications
 import KeychainSwift
 
+import Fabric
+import Crashlytics
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
@@ -32,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         window?.tintColor = UIColor.init(red: 242.0/255.0, green: 183.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         
-        
+        Fabric.with([Crashlytics.self])
         
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)

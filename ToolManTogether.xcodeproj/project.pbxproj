@@ -529,6 +529,7 @@
 				8E5BB6DC2151E8830016C44A /* Resources */,
 				8E6C6A6F21521CBC007259D3 /* ShellScript */,
 				8A65A78ACDE9DB2E603D04A4 /* [CP] Embed Pods Frameworks */,
+				8EB6A7512176DB52008C9CEF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -690,6 +691,24 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
+		8EB6A7512176DB52008C9CEF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" f86af8c53b28f63c355189a8cf9a5d7a129cd94e 0613b8b112fb0647a84a6ebd8d61e747a6005a9c8935a457c9a84ed1e6351092\n";
+		};
 		D9D2D1590691D9F3F8BD862B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -817,7 +836,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
