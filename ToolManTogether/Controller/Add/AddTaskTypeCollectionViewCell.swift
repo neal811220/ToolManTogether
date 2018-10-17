@@ -22,7 +22,7 @@ class AddTaskTypeCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        typeButton.layer.cornerRadius = 18
+        typeButton.layer.cornerRadius = 10
         typeButton.layoutIfNeeded()
         
     }

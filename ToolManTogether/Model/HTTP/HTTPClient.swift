@@ -40,7 +40,6 @@ class HTTPClient {
             "body": content,
             "title": title,
             "sound": "default",
-            "data": data,
             "category": "INVITATION",
             "badge": 1 ]] as [String : Any]
     

@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--新增-->
+        <!--新增任務-->
         <scene sceneID="azG-ZV-KPa">
             <objects>
                 <viewController id="OPy-Sr-3Kq" customClass="AddTaskViewController" customModule="ToolManTogether" customModuleProvider="target" sceneMemberID="viewController">
@@ -48,7 +48,7 @@
                                         <rect key="frame" x="8" y="9" width="265" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
-                                        <state key="normal" title="Add Now">
+                                        <state key="normal" title="送出任務申請">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -78,7 +78,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="G06-HE-9t2"/>
                     </view>
-                    <navigationItem key="navigationItem" title="新增" id="APP-fg-PwT"/>
+                    <navigationItem key="navigationItem" title="新增任務" id="APP-fg-PwT"/>
                     <connections>
                         <outlet property="addTaskBgView" destination="vQG-6V-Bdn" id="GcX-o2-oM7"/>
                         <outlet property="addTaskButton" destination="aHO-p0-AxC" id="BpJ-KK-rcg"/>

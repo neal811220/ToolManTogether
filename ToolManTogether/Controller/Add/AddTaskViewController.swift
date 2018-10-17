@@ -65,7 +65,7 @@ class AddTaskViewController: UIViewController {
         
         myRef = Database.database().reference()
         
-        addTaskBgView.layer.cornerRadius = 23
+        addTaskBgView.layer.cornerRadius = 10
         
 //        var topFrame = self.addTaskTableView.bounds
 //        topFrame.origin.y = -topFrame.size.height
@@ -125,7 +125,7 @@ class AddTaskViewController: UIViewController {
         }
         
         let addAlert = UIAlertController(title: "確定新增？", message: "地址為：\(alertAddress!)", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "確定", style: .default) { (void) in
+        let okAction = UIAlertAction(title: "確定", style: .destructive) { (void) in
             
             self.myRef.child("Task").child(autoID!).setValue([
                 "Title": title,
@@ -169,7 +169,7 @@ class AddTaskViewController: UIViewController {
     
     func showGuestAlert() {
         let alert = UIAlertController(title: "無法申請任務，需要登入才能發任務！", message: "您可以選擇取消，並繼續以訪客模式瀏覽。或是選擇登入，解開全部功能。", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "登入", style: .default) { (void) in
+        let okAction = UIAlertAction(title: "登入", style: .destructive) { (void) in
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "LoginView")
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -213,7 +213,7 @@ class AddTaskViewController: UIViewController {
         let alertVC = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
         tabController?.show(alertVC, sender: nil)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
             tabController?.selectedIndex = 3
         }
     }
@@ -296,7 +296,7 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
                 cell.titleLabel.text = "標題"
-                cell.textField.placeholder = "簡單輸入標題"
+                cell.textField.placeholder = "請輸入任務需求"
                 cell.titleCompletion = { [weak self] (result) in
                     self?.titleTxt = result
                     
@@ -320,7 +320,9 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
                 cell.titleLabel.text = "價格"
-                cell.textField.placeholder = "輸入價格"
+                cell.textField.placeholder = "請輸入價格"
+                cell.downArrorImage.isHidden = true
+                
                 cell.typeLabel.isHidden = true
                 cell.titleCompletion = { [weak self] (result) in
                     self?.priceTxt = result
@@ -332,7 +334,7 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "Content", for: indexPath) as? AddTaskContentCell {
-                cell.contentTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+//                cell.contentTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 cell.contentTextView.delegate = self
 
                 cell.backgroundColor = .red

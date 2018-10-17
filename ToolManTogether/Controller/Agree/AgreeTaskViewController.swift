@@ -148,8 +148,8 @@ extension AgreeTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.selectionStyle = .none
 
                 cell.separatorView.isHidden = true
-                cell.arrowImage.isHidden = true
-                cell.titleLabel.textColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
+//                cell.arrowImage.isHidden = true
+//                cell.titleLabel.textColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
                 let cellData = userInfo[indexPath.row]
                 let userID = cellData.userID
                 self.downloadUserPhoto(userID: userID, finder: "GoodCitizen") { (url) in

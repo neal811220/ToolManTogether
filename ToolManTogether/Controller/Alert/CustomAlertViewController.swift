@@ -21,7 +21,7 @@ class CustomAlertViewController: UIViewController {
         self.view.isOpaque = false
         self.view.backgroundColor = .clear
         
-         let animationView = LOTAnimationView(name: "check_animation")
+         let animationView = LOTAnimationView(name: "animation-download")
             animationView.frame = aniView.frame
             animationView.center = aniView.center
             animationView.contentMode = .scaleAspectFill
@@ -34,7 +34,7 @@ class CustomAlertViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             self.dismiss(animated: true)
         }
     }

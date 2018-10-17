@@ -37,11 +37,12 @@
                             </collectionView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnQ-vJ-kcj">
                                 <rect key="frame" x="310" y="547" width="60" height="60"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="ph2-T4-f9P"/>
                                     <constraint firstAttribute="width" constant="60" id="tU1-Q5-vpG"/>
                                 </constraints>
-                                <state key="normal" image="locationButton"/>
+                                <state key="normal" image="gps-fixed-indicator"/>
                                 <connections>
                                     <action selector="centerMapBtnWasPressed:" destination="OCb-6x-2Uh" eventType="touchUpInside" id="6hy-4l-wUZ"/>
                                 </connections>
@@ -109,6 +110,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="locationButton" width="67" height="67"/>
+        <image name="gps-fixed-indicator" width="64" height="64"/>
     </resources>
 </document>

@@ -75,15 +75,20 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
             if typeTxtArray.count != 0 {
 
                 cell.typeButton.setTitle(typeTxtArray[indexPath.row], for: .normal)
-                cell.typeButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+                cell.typeButton.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
+                cell.typeButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
             }
             
             cell.typeButton.addTarget(self, action: #selector(typeButtonPressed(button:)), for: .touchUpInside)
             
             if cell.isSelected {
                 cell.typeButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
+                cell.typeButton.layer.borderWidth = 0
+                cell.typeButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+
             } else {
-                cell.typeButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+                cell.typeButton.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
+                cell.typeButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
             }
             
             return cell
@@ -99,13 +104,17 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         typeTitleCompletion?(selectType)
         if let selectedCell: AddTaskTypeCollectionViewCell = (collectionView.cellForItem(at: indexPath)! as? AddTaskTypeCollectionViewCell) {
             selectedCell.typeButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
+            selectedCell.typeButton.layer.borderWidth = 0
+            selectedCell.typeButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let selectedCell: AddTaskTypeCollectionViewCell = (collectionView.cellForItem(at: indexPath) as? AddTaskTypeCollectionViewCell) {
             
-            selectedCell.typeButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+            selectedCell.typeButton.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
+            selectedCell.typeButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         }
     }
 

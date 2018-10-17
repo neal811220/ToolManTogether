@@ -31,6 +31,11 @@ class ProfileViewController: UIViewController {
     let keychain = KeychainSwift()
     var isGuest = false
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        guestMode()
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,6 +70,8 @@ class ProfileViewController: UIViewController {
             self.userProfile.append(guestData)
             self.profileTableView.reloadData()
             isGuest = true
+        } else {
+            isGuest = false
         }
     }
     
@@ -180,7 +187,7 @@ class ProfileViewController: UIViewController {
     func showAlertWith(title: String = "發生錯誤", message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
+        let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }
@@ -189,12 +196,12 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isGuest == true {
-            return 3
+            return userProfile.count
         } else {
             return userProfile.count
         }

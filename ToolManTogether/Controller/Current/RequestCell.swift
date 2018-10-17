@@ -328,12 +328,14 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             cell.requestCollectionView.userName.text = cellData.userName
             cell.requestCollectionView.reportBtn.isHidden = true
             cell.requestCollectionView.contentView.layer.cornerRadius = 23
-            cell.requestCollectionView.sendButton.layer.cornerRadius = 18
+            cell.requestCollectionView.sendButton.layer.cornerRadius = 10
+            cell.requestCollectionView.separatorView.isHidden = true
+            cell.requestCollectionView.downView.isHidden = true
             
             
             if cellData.agree == false {
                 cell.requestCollectionView.sendButton.setTitle("取消任務", for: .normal)
-                cell.requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+                cell.requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
                 cell.requestCollectionView.donBtn.isHidden = true
                 cell.requestCollectionView.sendButton.isHidden = false
                 cell.requestCollectionView.sendButton.addTarget(self, action: #selector(deleteScrollTask), for: .touchUpInside)
@@ -348,7 +350,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 
             } else {
                 cell.requestCollectionView.sendButton.setTitle("取消任務", for: .normal)
-                cell.requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+                cell.requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
                 cell.requestCollectionView.donBtn.isHidden = true
                 cell.requestCollectionView.sendButton.isHidden = false
 

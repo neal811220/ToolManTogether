@@ -62,6 +62,9 @@
 		8EA04DFA21730C5100D12775 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA04DF921730C5100D12775 /* LoadingViewController.swift */; };
 		8EA04DFC21730D1F00D12775 /* material_wave_loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DFB21730D1F00D12775 /* material_wave_loading.json */; };
 		8EB0A21E2162609200FD81F1 /* FilterAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */; };
+		8EB6A74A2175EA28008C9CEF /* animation-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EB6A7492175EA28008C9CEF /* animation-download.json */; };
+		8EB6A74C21761907008C9CEF /* NotificationAgreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */; };
+		8EB6A74E2176191B008C9CEF /* NotificationAgree.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */; };
 		8EC7214D216B3EDA00BEB97D /* AddCustomLocationMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC7214B216B3EDA00BEB97D /* AddCustomLocationMapCell.swift */; };
 		8EC7214E216B3EDA00BEB97D /* AddCustomLocationMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC7214C216B3EDA00BEB97D /* AddCustomLocationMapCell.xib */; };
 		8EC92177215F146C00BEE92D /* RequestToolsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC92175215F146C00BEE92D /* RequestToolsTableViewCell.swift */; };
@@ -153,6 +156,9 @@
 		8EA04DF921730C5100D12775 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		8EA04DFB21730D1F00D12775 /* material_wave_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = material_wave_loading.json; sourceTree = "<group>"; };
 		8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAnnotation.swift; sourceTree = "<group>"; };
+		8EB6A7492175EA28008C9CEF /* animation-download.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "animation-download.json"; sourceTree = "<group>"; };
+		8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAgreeViewController.swift; sourceTree = "<group>"; };
+		8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NotificationAgree.storyboard; sourceTree = "<group>"; };
 		8EC7214B216B3EDA00BEB97D /* AddCustomLocationMapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomLocationMapCell.swift; sourceTree = "<group>"; };
 		8EC7214C216B3EDA00BEB97D /* AddCustomLocationMapCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCustomLocationMapCell.xib; sourceTree = "<group>"; };
 		8EC92175215F146C00BEE92D /* RequestToolsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestToolsTableViewCell.swift; sourceTree = "<group>"; };
@@ -278,6 +284,7 @@
 				8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */,
 				8EA04DF721730BF100D12775 /* loadingAlert.storyboard */,
 				8E8BBD8221756E0200371ECB /* AgreeTask.storyboard */,
+				8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -350,6 +357,7 @@
 				8E8BBD78217559C800371ECB /* TaskDetailCell.swift */,
 				8E8BBD7C21755AC500371ECB /* TaskContentCell.swift */,
 				8E8BBD8021756DD700371ECB /* AgreeTaskViewController.swift */,
+				8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */,
 			);
 			path = Agree;
 			sourceTree = "<group>";
@@ -479,6 +487,7 @@
 		8EE2EFC02170B9F3005A9DA4 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				8EB6A7492175EA28008C9CEF /* animation-download.json */,
 				8E148D5F217473BD0050DDB2 /* maps.json */,
 				8EA04DFB21730D1F00D12775 /* material_wave_loading.json */,
 				8EA04DF32172FC4500D12775 /* empty_status.json */,
@@ -585,6 +594,8 @@
 				8E167DD32171DFED00A701AE /* cloud.json in Resources */,
 				8EDA66372160B8EF009FFB8D /* TaskAgreeInfoCell.xib in Resources */,
 				8E148D60217473C00050DDB2 /* maps.json in Resources */,
+				8EB6A74E2176191B008C9CEF /* NotificationAgree.storyboard in Resources */,
+				8EB6A74A2175EA28008C9CEF /* animation-download.json in Resources */,
 				8EC7214E216B3EDA00BEB97D /* AddCustomLocationMapCell.xib in Resources */,
 				8EEC330D215BF32A00DE8C31 /* searchTask.storyboard in Resources */,
 				8ED727A52154D0CB00EE697F /* AddTaskInfoCell.xib in Resources */,
@@ -740,6 +751,7 @@
 				8ED727A42154D0CB00EE697F /* AddTaskInfoCell.swift in Sources */,
 				8E28DF58216618FB0077B259 /* Date.swift in Sources */,
 				8EC7214D216B3EDA00BEB97D /* AddCustomLocationMapCell.swift in Sources */,
+				8EB6A74C21761907008C9CEF /* NotificationAgreeViewController.swift in Sources */,
 				8EDB256E2161135400DBBF6D /* ScoreSendView.swift in Sources */,
 				8E7575CB215FE9FA0021A403 /* ProfileDetailCell.swift in Sources */,
 				8E5BB6E22151E8830016C44A /* AppDelegate.swift in Sources */,

@@ -77,6 +77,12 @@ class HomeViewController: UIViewController {
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationButton.layer.cornerRadius = self.locationButton.frame.width / 2
+        
+        locationButton.layer.shadowColor = UIColor.darkGray.cgColor
+        locationButton.layer.shadowRadius = 3
+        locationButton.layer.shadowOpacity = 0.5
+        locationButton.layer.shadowOffset = CGSize(width: 0, height: 1)
         mapView.showsUserLocation = true
         mapView.tintColor = #colorLiteral(red: 0.3450980392, green: 0.768627451, blue: 0.6156862745, alpha: 1)
 
@@ -85,7 +91,9 @@ class HomeViewController: UIViewController {
     }
     
     func guestMode() {
-        if keychain.get("token") == nil {
+        if let value = keychain.get("token") {
+            isGuest = false
+        } else {
             isGuest = true
         }
     }
@@ -193,6 +201,7 @@ class HomeViewController: UIViewController {
     
     // 縮回去時 加上取消
     func addTap(taskCoordinate: CLLocationCoordinate2D) {
+        guestMode()
         let mapTap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
         mapView.addGestureRecognizer(mapTap)
         let coordinateRegion = MKCoordinateRegion(
@@ -348,7 +357,7 @@ class HomeViewController: UIViewController {
                     
                     self.animateViewDown()
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                         tabController?.selectedIndex = 1
                     }
                 

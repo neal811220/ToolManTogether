@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        UINavigationBar.appearance().shadowImage = UIImage()
 //        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         
-        window?.tintColor = UIColor.init(red: 211.0/255.0, green: 90.0/255.0, blue: 102.0/255.0, alpha: 1.0)
+        window?.tintColor = UIColor.init(red: 242.0/255.0, green: 183.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
@@ -118,13 +118,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
 //        let testVC2 = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
 //        window?.rootViewController?.show(testVC2, sender: nil)
-//        print(userInfo)
+        print(userInfo)
+        
+        
+//        AppDelegate.shared?.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//        AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
+//        let tabBarVC = AppDelegate.shared?.window?.rootViewController as? TabBarViewController
+//        tabBarVC?.selectedIndex = 1
+//        UIApplication.shared.applicationIconBadgeNumber = 0
+        
+        guard let data = userInfo as? NSDictionary else { return }
+        
+        print(data)
+        
+        for value in data.allValues {
+            print(value)
+            guard let dictionary = value as? [String: Any] else { return }
+            print(dictionary)
+            
+        }
+
         
         AppDelegate.shared?.window?.rootViewController?.dismiss(animated: true, completion: nil)
         AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
+        let storyboard = UIStoryboard(name: "NotificationAgree", bundle: nil)
+        let alertVC = storyboard.instantiateViewController(withIdentifier: "NotificationAgree")
         let tabBarVC = AppDelegate.shared?.window?.rootViewController as? TabBarViewController
-        tabBarVC?.selectedIndex = 1
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        let testVC = NotificationAgreeViewController.profileDetailDataForTask("test")
+        tabBarVC?.present(testVC, animated: true, completion: nil)
+//        tabBarVC?.selectedIndex = 1
+//        UIApplication.shared.applicationIconBadgeNumber = 0
+
 
     }
     

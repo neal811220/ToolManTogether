@@ -22,6 +22,11 @@ class HistoryTaskViewController: UIViewController {
     @IBOutlet weak var bgLabel: UILabel!
     @IBOutlet weak var aniView: UIView!
     
+    @IBOutlet weak var noDataView: UIView!
+    
+    @IBOutlet weak var noDataLabel: UILabel!
+    
+    
     var myRef: DatabaseReference!
     var requestTools: [RequestUser] = []
     var toolsInfo: [RequestUserInfo] = []
@@ -38,6 +43,8 @@ class HistoryTaskViewController: UIViewController {
     let fullScreenSize = UIScreen.main.bounds.size
     
     let keychain = KeychainSwift()
+    var agreeAlready = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,7 +152,7 @@ class HistoryTaskViewController: UIViewController {
         })
     }
     
-    func searchToos() {
+    func searchTools() {
         
         self.toolsInfo.removeAll()
         self.historyTableView.reloadData()
@@ -156,7 +163,10 @@ class HistoryTaskViewController: UIViewController {
                 .queryEqual(toValue: data.userID)
                 .observeSingleEvent(of: .value) { (snapshot) in
                     
-                    self.toolsInfo.removeAll()
+                    if self.agreeAlready == true {
+                        self.toolsInfo.removeAll()
+                    }
+                    
                     guard let data = snapshot.value as? NSDictionary else { return }
                     for value in data.allValues {
                         
@@ -179,8 +189,8 @@ class HistoryTaskViewController: UIViewController {
                         let toolsInfo = extractedExpr
                         
                         self.toolsInfo.append(toolsInfo)
-                        self.historyTableView.reloadData()
                     }
+                    self.historyTableView.reloadData()
             }
         }
     }
@@ -209,7 +219,7 @@ class HistoryTaskViewController: UIViewController {
                 self.myRef.child("RequestTask").child(requestTaskKey).updateChildValues([
                     "OwnerAgree": "agree"])
                 self.myRef.child("Task").child(taskOwnerKey).updateChildValues(["agree": true])
-                self.myRef.child("Task").child(taskOwnerKey).child("RequestUser").child(taskRequestUserKey).updateChildValues(["agree": true])
+            self.myRef.child("Task").child(taskOwnerKey).child("RequestUser").child(taskRequestUserKey).updateChildValues(["agree": true])
                 
                 self.myRef.child("Task").child(taskOwnerKey).child("searchAnnotation").removeValue()
                 
@@ -221,7 +231,7 @@ class HistoryTaskViewController: UIViewController {
                 self.didScrollTask(self.scrollViewDefine)
                 
                 if let toolsToken = self.agreeToolsInfo?.remoteToken {
-                    self.sendNotification(content: "任務已被\(currentUser)同意，趕快來查看", toToken: toolsToken, data: "wefwef")
+                    self.sendNotification(title: "工具人出任務", content: "任務已被\(currentUser)同意，趕快來查看", toToken: toolsToken, data: "\(taskOwnerKey)")
                 }
                 
             } else {
@@ -231,7 +241,7 @@ class HistoryTaskViewController: UIViewController {
                 
                 for disAgreeRemoteToken in self.toolsInfo {
                     if disAgreeRemoteToken.remoteToken != self.agreeToolsInfo!.remoteToken {
-                        self.sendNotification(content: "任務已被\(currentUser)拒絕！", toToken: disAgreeRemoteToken.remoteToken!, data: "\(selectToosData.requestKey)")
+                        self.sendNotification(title: "\(selectToosData.requestKey)", content: "任務已被\(currentUser)拒絕！", toToken: disAgreeRemoteToken.remoteToken!, data: "\(taskOwnerKey)")
                     }
                 }
             }
@@ -293,10 +303,10 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
         if indexPath.section == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "requestedCell", for: indexPath) as? RequestCell {
                 cell.scrollTaskDelegate = self
-                                
-                cell.toosNumTitleLabel.text = " \(toolsInfo.count) 個申請"
+                    cell.toosNumTitleLabel.text = " , \(toolsInfo.count) 個申請"
                 cell.selectionStyle = .none
                 cell.scrollTaskBtnDelegate = self
+                
 
 
                 return cell
@@ -307,7 +317,15 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
                 
                 
                 let cellData = toolsInfo[indexPath.row]
-                let requestData = requestTools[indexPath.row]
+                
+                var numData = 0
+                if agreeAlready == true {
+                    numData = 0
+                } else {
+                    numData = indexPath.row
+                }
+                
+                let requestData = requestTools[numData]
                 
                 cell.userNameLabel.text = cellData.fbName
                 cell.userContentTxtView.text = cellData.aboutUser
@@ -386,7 +404,15 @@ extension HistoryTaskViewController: ScrollTask {
                 for value in data.allValues {
                     
                     guard let dictionary = value as? [String: Any] else { return }
-                    guard let requestUser = dictionary["RequestUser"] as? NSDictionary else { return }
+                    guard let requestUser = dictionary["RequestUser"] as? NSDictionary else {
+                        self.noDataView.isHidden = false
+                        self.noDataLabel.isHidden = false
+                        self.noDataView.becomeFirstResponder()
+                    return
+                    }
+                    self.noDataView.isHidden = true
+                    self.noDataLabel.isHidden = true
+
                     
                     for requestUserData in requestUser {
                         
@@ -406,17 +432,19 @@ extension HistoryTaskViewController: ScrollTask {
                            self.requestTools.removeAll()
                             self.toolsInfo.removeAll()
                             self.requestTools.append(requestData)
-//                            self.searchToos()
+//                            self.searchTools()
+                            self.agreeAlready = true
+                            break
 //                            return
                         } else {
                             self.requestTools.append(requestData)
+                            self.agreeAlready = false
 //                            self.searchToos()
                         }
-
                     }
-                    self.searchToos()
-
                 }
+                
+                self.searchTools()
         }
     }
 }

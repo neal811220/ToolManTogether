@@ -35,6 +35,11 @@ class SearchTaskViewController: UIViewController {
     var photoUrl: [URL] = []
     var userPhoto: [String:URL] = [:]
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +73,7 @@ class SearchTaskViewController: UIViewController {
     }
     
     func setAniView() {
-        let animationView = LOTAnimationView(name: "empty_status")
+        let animationView = LOTAnimationView(name: "servishero_loading")
         animationView.frame = aniView.frame
         animationView.center = aniView.center
         animationView.contentMode = .scaleAspectFill
@@ -278,7 +283,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             cell.searchTaskView.detailBtn.tag = indexPath.row
             cell.searchTaskView.reportBtn.tag = indexPath.row
             cell.searchTaskView.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            cell.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
             
             let cellData = selectTask[indexPath.row]
             
@@ -327,8 +331,8 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.searchTaskView.sendButton.isHidden = false
 //                cell.searchTaskView.sendButton.layer.borderWidth = 1
 //                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
-                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1), for: .normal)
-                
+                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+                cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                 cell.searchTaskView.detailBtn.isHidden = true
 
              // 對方刪除
@@ -337,7 +341,8 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.searchTaskView.sendButton.backgroundColor = .white
 //                cell.searchTaskView.sendButton.layer.borderWidth = 1
 //                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
-                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1), for: .normal)
+                cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+                cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                 cell.searchTaskView.detailBtn.isHidden = true
                 cell.searchTaskView.sendButton.isEnabled = true
                 cell.searchTaskView.sendButton.isHidden = false

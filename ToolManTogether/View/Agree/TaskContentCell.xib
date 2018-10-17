@@ -22,35 +22,43 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cwW-uu-TTb">
                         <rect key="frame" x="7" y="7" width="361" height="141.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="內容" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eim-Jv-iQw">
-                                <rect key="frame" x="8" y="58" width="34" height="24"/>
-                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
-                                <color key="textColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView multipleTouchEnabled="YES" contentMode="bottomLeft" translatesAutoresizingMaskIntoConstraints="NO" id="N1A-4T-PhG">
-                                <rect key="frame" x="56" y="10" width="294" height="121"/>
+                            <textView multipleTouchEnabled="YES" contentMode="bottomLeft" editable="NO" text="erg" translatesAutoresizingMaskIntoConstraints="NO" id="N1A-4T-PhG">
+                                <rect key="frame" x="61" y="10" width="289" height="121"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="121" id="YXu-Ta-mck"/>
                                 </constraints>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="內容" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eim-Jv-iQw">
+                                <rect key="frame" x="8" y="19" width="34" height="24"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baseline_arrow_forward_ios_black_18dp" translatesAutoresizingMaskIntoConstraints="NO" id="Yxh-Bp-3Nq">
+                                <rect key="frame" x="44" y="23.5" width="15" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="SSk-nA-pfP"/>
+                                    <constraint firstAttribute="height" constant="15" id="qhf-re-47F"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="N1A-4T-PhG" secondAttribute="bottom" constant="10.5" id="24v-GJ-Spp"/>
-                            <constraint firstItem="eim-Jv-iQw" firstAttribute="top" secondItem="cwW-uu-TTb" secondAttribute="top" constant="58" id="8WA-Dp-Z4Z"/>
+                            <constraint firstItem="eim-Jv-iQw" firstAttribute="top" secondItem="cwW-uu-TTb" secondAttribute="top" constant="19" id="8WA-Dp-Z4Z"/>
                             <constraint firstItem="N1A-4T-PhG" firstAttribute="top" secondItem="cwW-uu-TTb" secondAttribute="top" constant="10" id="LK1-Lh-EWl"/>
                             <constraint firstAttribute="trailing" secondItem="N1A-4T-PhG" secondAttribute="trailing" constant="11" id="OTk-uR-yFp"/>
-                            <constraint firstItem="N1A-4T-PhG" firstAttribute="leading" secondItem="cwW-uu-TTb" secondAttribute="leading" constant="56" id="Zjo-TY-Tae"/>
+                            <constraint firstItem="Yxh-Bp-3Nq" firstAttribute="centerY" secondItem="eim-Jv-iQw" secondAttribute="centerY" id="Tx9-Z1-1cK"/>
+                            <constraint firstItem="N1A-4T-PhG" firstAttribute="leading" secondItem="cwW-uu-TTb" secondAttribute="leading" constant="61" id="Zjo-TY-Tae"/>
                             <constraint firstItem="eim-Jv-iQw" firstAttribute="leading" secondItem="cwW-uu-TTb" secondAttribute="leading" constant="8" id="bIt-MQ-XGZ"/>
+                            <constraint firstItem="Yxh-Bp-3Nq" firstAttribute="leading" secondItem="eim-Jv-iQw" secondAttribute="trailing" constant="2" id="s3C-1V-i63"/>
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" red="0.95686274510000002" green="0.94901960780000005" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="cwW-uu-TTb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="7" id="4Yr-vC-9Rp"/>
                     <constraint firstItem="cwW-uu-TTb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="BUx-zJ-x0u"/>
@@ -66,4 +74,7 @@
             <point key="canvasLocation" x="55.200000000000003" y="86.35682158920541"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="baseline_arrow_forward_ios_black_18dp" width="18" height="18"/>
+    </resources>
 </document>
