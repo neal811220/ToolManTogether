@@ -18,8 +18,10 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     var typeColorArray: [String] = []
     var typeTitleCompletion: ((_ data: String) -> Void)?
     var typeBtnPressed = false
-    var checkType = "科技維修"
+    var checkType: String!
     var checkBool = false
+    var checkIndex: Int!
+    
     
 
     override func awakeFromNib() {
@@ -81,12 +83,15 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
             
             cell.typeButton.addTarget(self, action: #selector(typeButtonPressed(button:)), for: .touchUpInside)
             
-            if cell.isSelected {
+            if cell.typeButton.titleLabel!.text! == checkType {
+                print(cell.typeButton.titleLabel!.text!)
                 cell.typeButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
                 cell.typeButton.layer.borderWidth = 0
                 cell.typeButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
 
             } else {
+                print(cell.typeButton.titleLabel!.text!)
+
                 cell.typeButton.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
                 cell.typeButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
             }
@@ -96,17 +101,35 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         return UICollectionViewCell()
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print(indexPath.row)
+        print(checkIndex)
+        if let selectedCell: AddTaskTypeCollectionViewCell = cell as? AddTaskTypeCollectionViewCell {
+            
+            if indexPath.row == checkIndex {
+                selectedCell.typeButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
+                selectedCell.typeButton.layer.borderWidth = 0
+                selectedCell.typeButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+            } else {
+                selectedCell.typeButton.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
+                selectedCell.typeButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+            }
+        }
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let selectType = typeTxtArray[indexPath.row]
+        checkType = selectType
+        checkIndex = indexPath.row
         print(selectType)
         typeTitleCompletion?(selectType)
         if let selectedCell: AddTaskTypeCollectionViewCell = (collectionView.cellForItem(at: indexPath)! as? AddTaskTypeCollectionViewCell) {
+
             selectedCell.typeButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
             selectedCell.typeButton.layer.borderWidth = 0
             selectedCell.typeButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-
         }
     }
     
@@ -135,7 +158,7 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 16)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

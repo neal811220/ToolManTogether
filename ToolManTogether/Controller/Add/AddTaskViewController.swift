@@ -53,6 +53,9 @@ class AddTaskViewController: UIViewController {
         let titleNib = UINib(nibName: "AddTaskTitleCell", bundle: nil)
         self.addTaskTableView.register(titleNib, forCellReuseIdentifier: "title")
         
+        let priceNib = UINib(nibName: "AddPriceCell", bundle: nil)
+        self.addTaskTableView.register(priceNib, forCellReuseIdentifier: "addPrice")
+        
         let contentNib = UINib(nibName: "AddTaskContentCell", bundle: nil)
         self.addTaskTableView.register(contentNib, forCellReuseIdentifier: "Content")
         
@@ -317,13 +320,20 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
         } else if indexPath.section == 2 {
         
-            if let cell = tableView.dequeueReusableCell(
-                withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
-                cell.titleLabel.text = "價格"
-                cell.textField.placeholder = "請輸入價格"
-                cell.downArrorImage.isHidden = true
-                
-                cell.typeLabel.isHidden = true
+//            if let cell = tableView.dequeueReusableCell(
+//                withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
+//                cell.titleLabel.text = "價格"
+//                cell.textField.placeholder = "請輸入價格"
+//                cell.downArrorImage.isHidden = true
+//
+//                cell.typeLabel.isHidden = true
+//                cell.titleCompletion = { [weak self] (result) in
+//                    self?.priceTxt = result
+//                }
+//                return cell
+//            }
+            
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "addPrice", for: indexPath) as? AddPriceCell {
                 cell.titleCompletion = { [weak self] (result) in
                     self?.priceTxt = result
                 }
@@ -357,6 +367,8 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return UITableViewCell()
     }
+    
+    
 }
 
 extension AddTaskViewController: UITextViewDelegate {

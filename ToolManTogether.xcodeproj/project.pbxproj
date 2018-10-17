@@ -61,6 +61,8 @@
 		8EA04DF821730BF100D12775 /* loadingAlert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DF721730BF100D12775 /* loadingAlert.storyboard */; };
 		8EA04DFA21730C5100D12775 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA04DF921730C5100D12775 /* LoadingViewController.swift */; };
 		8EA04DFC21730D1F00D12775 /* material_wave_loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DFB21730D1F00D12775 /* material_wave_loading.json */; };
+		8EA9C29321772CEC007F57D3 /* AddPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9C29121772CEC007F57D3 /* AddPriceCell.swift */; };
+		8EA9C29421772CEC007F57D3 /* AddPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA9C29221772CEC007F57D3 /* AddPriceCell.xib */; };
 		8EB0A21E2162609200FD81F1 /* FilterAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */; };
 		8EB6A74C21761907008C9CEF /* NotificationAgreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */; };
 		8EB6A74E2176191B008C9CEF /* NotificationAgree.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */; };
@@ -155,6 +157,8 @@
 		8EA04DF721730BF100D12775 /* loadingAlert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = loadingAlert.storyboard; sourceTree = "<group>"; };
 		8EA04DF921730C5100D12775 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		8EA04DFB21730D1F00D12775 /* material_wave_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = material_wave_loading.json; sourceTree = "<group>"; };
+		8EA9C29121772CEC007F57D3 /* AddPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPriceCell.swift; sourceTree = "<group>"; };
+		8EA9C29221772CEC007F57D3 /* AddPriceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPriceCell.xib; sourceTree = "<group>"; };
 		8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAnnotation.swift; sourceTree = "<group>"; };
 		8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAgreeViewController.swift; sourceTree = "<group>"; };
 		8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NotificationAgree.storyboard; sourceTree = "<group>"; };
@@ -417,6 +421,7 @@
 				8ED727A02154C8FE00EE697F /* AddTaskViewController.swift */,
 				8ED727A22154D0CB00EE697F /* AddTaskInfoCell.swift */,
 				8ED727A62154D80000EE697F /* AddTaskTitleCell.swift */,
+				8EA9C29121772CEC007F57D3 /* AddPriceCell.swift */,
 				8E58D775215513DB008274F1 /* AddTaskContentCell.swift */,
 				8E58D7792155369B008274F1 /* AddTaskTypeCell.swift */,
 				8E58D77D215537D6008274F1 /* AddTaskTypeCollectionViewCell.swift */,
@@ -480,6 +485,7 @@
 				8E58D77A2155369B008274F1 /* AddTaskTypeCell.xib */,
 				8E58D77E215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib */,
 				8EC7214C216B3EDA00BEB97D /* AddCustomLocationMapCell.xib */,
+				8EA9C29221772CEC007F57D3 /* AddPriceCell.xib */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -588,6 +594,7 @@
 				8ED727A92154D80000EE697F /* AddTaskTitleCell.xib in Resources */,
 				8EEC3311215C920400DE8C31 /* historyTask.storyboard in Resources */,
 				8EDB25702161137F00DBBF6D /* ScoreSendView.xib in Resources */,
+				8EA9C29421772CEC007F57D3 /* AddPriceCell.xib in Resources */,
 				8EDA662F2160A0EF009FFB8D /* ServcedListCell.xib in Resources */,
 				8EEC3315215C928100DE8C31 /* profile.storyboard in Resources */,
 				8EA01DA62160554B00104A55 /* ProfileServcedListCell.xib in Resources */,
@@ -767,6 +774,7 @@
 				8EC9217B215F87FE00BEE92D /* ProfileCell.swift in Sources */,
 				8E28F7F9215B6A6E004954F0 /* TaskDetailInfoView.swift in Sources */,
 				8E8BBD8121756DD700371ECB /* AgreeTaskViewController.swift in Sources */,
+				8EA9C29321772CEC007F57D3 /* AddPriceCell.swift in Sources */,
 				8ED727A42154D0CB00EE697F /* AddTaskInfoCell.swift in Sources */,
 				8E28DF58216618FB0077B259 /* Date.swift in Sources */,
 				8EC7214D216B3EDA00BEB97D /* AddCustomLocationMapCell.swift in Sources */,

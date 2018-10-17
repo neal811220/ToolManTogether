@@ -54,13 +54,13 @@ class ProfileDetailCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegat
         cancelBtn.titleLabel?.isHidden = true
         
         editBtn.layer.borderWidth = 1
-        editBtn.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
+        editBtn.layer.borderColor = #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)
 
         
-        doneBtn.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
+        doneBtn.layer.borderColor = #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)
         doneBtn.layer.borderWidth = 1
         
-        cancelBtn.layer.borderColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
+        cancelBtn.layer.borderColor = #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)
         cancelBtn.layer.borderWidth = 1
 
             
