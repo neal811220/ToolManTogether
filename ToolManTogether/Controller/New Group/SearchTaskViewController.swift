@@ -37,12 +37,13 @@ class SearchTaskViewController: UIViewController {
     let animationView = LOTAnimationView(name: "servishero_loading")
 
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animationView.removeFromSuperview()
         guestMode()
         setAniView()
+        searchTaskTableVIew.showsVerticalScrollIndicator = false
+
     }
     
 

@@ -45,6 +45,7 @@ class ProfileViewController: UIViewController {
         
         profileTableView.delegate = self
         profileTableView.dataSource = self
+        profileTableView.showsVerticalScrollIndicator = false
         
         let titleNib = UINib(nibName: "ProfileCell", bundle: nil)
         self.profileTableView.register(titleNib, forCellReuseIdentifier: "profileTitle")

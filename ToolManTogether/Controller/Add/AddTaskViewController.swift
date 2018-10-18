@@ -46,6 +46,8 @@ class AddTaskViewController: UIViewController {
         super.viewDidLoad()
         addTaskTableView.delegate = self
         addTaskTableView.dataSource = self
+        addTaskTableView.showsVerticalScrollIndicator = false
+
         
         let infoNib = UINib(nibName: "AddTaskInfoCell", bundle: nil)
         self.addTaskTableView.register(infoNib, forCellReuseIdentifier: "titleAndContent")

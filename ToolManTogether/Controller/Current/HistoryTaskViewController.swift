@@ -60,6 +60,8 @@ class HistoryTaskViewController: UIViewController {
         setIndicator()
         historyTableView.delegate = self
         historyTableView.dataSource = self
+        historyTableView.showsVerticalScrollIndicator = false
+
         refreshController = UIRefreshControl()
         refreshController.attributedTitle = NSAttributedString(string: "資料讀取中...")
 
