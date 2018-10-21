@@ -16,7 +16,10 @@
 		8E097DD321536D22006B574E /* TypeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */; };
 		8E148D60217473C00050DDB2 /* maps.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E148D5F217473BD0050DDB2 /* maps.json */; };
 		8E167DD32171DFED00A701AE /* cloud.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E167DD22171DFED00A701AE /* cloud.json */; };
+		8E18E6F52179D46800294ED6 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18E6F42179D46800294ED6 /* ChatLogController.swift */; };
+		8E18E719217C2B7500294ED6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18E718217C2B7500294ED6 /* Message.swift */; };
 		8E19FC242169AA16009C01D2 /* cusomeAlert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */; };
+		8E2482F6217C8D8F00BF6347 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2482F5217C8D8F00BF6347 /* ChatMessageCell.swift */; };
 		8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E25D317215249D800CD23F9 /* GoogleService-Info.plist */; };
 		8E28DF5621652DDF0077B259 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28DF5521652DDF0077B259 /* ProfileManager.swift */; };
 		8E28DF58216618FB0077B259 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28DF57216618FA0077B259 /* Date.swift */; };
@@ -109,7 +112,10 @@
 		8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypeCollectionViewCell.xib; sourceTree = "<group>"; };
 		8E148D5F217473BD0050DDB2 /* maps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = maps.json; sourceTree = "<group>"; };
 		8E167DD22171DFED00A701AE /* cloud.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cloud.json; sourceTree = "<group>"; };
+		8E18E6F42179D46800294ED6 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
+		8E18E718217C2B7500294ED6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = cusomeAlert.storyboard; sourceTree = "<group>"; };
+		8E2482F5217C8D8F00BF6347 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		8E25D317215249D800CD23F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8E28DF5521652DDF0077B259 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		8E28DF57216618FA0077B259 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -214,6 +220,7 @@
 		8E097DD421536D55006B574E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8E18E6F02179CC4C00294ED6 /* Message */,
 				8E8BBD762175545000371ECB /* Agree */,
 				8EB0A2112161B46600FD81F1 /* Profile */,
 				8EB0A2102161B41E00FD81F1 /* Current */,
@@ -226,12 +233,29 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8E18E6F02179CC4C00294ED6 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		8E18E6F12179D06600294ED6 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				8E18E6F42179D46800294ED6 /* ChatLogController.swift */,
+				8E2482F5217C8D8F00BF6347 /* ChatMessageCell.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 		8E36B7512159E4B10073E7A6 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				8E36B7522159E4C50073E7A6 /* Location.swift */,
 				8E097DCC21534BDF006B574E /* UserManager.swift */,
 				8E28DF5521652DDF0077B259 /* ProfileManager.swift */,
+				8E18E718217C2B7500294ED6 /* Message.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -296,6 +320,7 @@
 		8E5BB6F62151EC820016C44A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8E18E6F12179D06600294ED6 /* Message */,
 				8E8BBD772175573600371ECB /* Agree */,
 				8EA04DF521730B3500D12775 /* Alert */,
 				8EB0A2172161B9F700FD81F1 /* Profile */,
@@ -741,6 +766,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E18E6F52179D46800294ED6 /* ChatLogController.swift in Sources */,
 				8E6C6A6E2151F6DC007259D3 /* UIStoryboard.swift in Sources */,
 				8EEC330F215C885D00DE8C31 /* SearchTaskViewController.swift in Sources */,
 				8EEC3317215CA24300DE8C31 /* ProfileViewController.swift in Sources */,
@@ -757,8 +783,10 @@
 				8EA01DAE2160836300104A55 /* ServcedListViewController.swift in Sources */,
 				8EA01DA52160554B00104A55 /* ProfileServcedListCell.swift in Sources */,
 				8E097DC721534179006B574E /* TabBarViewController.swift in Sources */,
+				8E18E719217C2B7500294ED6 /* Message.swift in Sources */,
 				8E8EC459215CCAB800CCABE7 /* SearchTaskCell.swift in Sources */,
 				8EA01DA921606C3500104A55 /* GoodCitizenCardCell.swift in Sources */,
+				8E2482F6217C8D8F00BF6347 /* ChatMessageCell.swift in Sources */,
 				8E097DD221536D22006B574E /* TypeCollectionViewCell.swift in Sources */,
 				8E097DCB21534579006B574E /* HomeViewController.swift in Sources */,
 				8EDA66332160B889009FFB8D /* TaskAgreeViewController.swift in Sources */,

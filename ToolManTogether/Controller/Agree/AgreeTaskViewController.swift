@@ -182,6 +182,10 @@ extension AgreeTaskViewController: CallBtnTapped {
     }
     
     func messageBtnTapped(_ send: UIButton) {
+        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+        chatLogController.taskInfo = taskInfo.last
+        chatLogController.userInfo = userInfo.last
+        self.navigationController?.show(chatLogController, sender: nil)
     }
     
     
