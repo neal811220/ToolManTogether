@@ -49,6 +49,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         observeMessage()
         setupKeyboardObservers()
         
+        
     }
     
     func setupKeyboardObservers() {
@@ -69,7 +70,14 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
         
-        containerViewBottomAnchor?.constant = -keyboardFrame!.height + 270
+        containerViewShowKeyboardBottomContraint = containerView.bottomAnchor.constraint(
+            equalTo: view.bottomAnchor,
+            constant: -keyboardFrame!.height
+        )
+        
+        containerViewBottomAnchor?.isActive = false
+        
+        containerViewShowKeyboardBottomContraint?.isActive = true
         
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
@@ -81,7 +89,9 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
 
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
         
-        containerViewBottomAnchor?.constant = -49
+        containerViewShowKeyboardBottomContraint?.isActive = false
+        
+        containerViewBottomAnchor?.isActive = true
         
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
@@ -172,9 +182,12 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     var containerViewBottomAnchor: NSLayoutConstraint?
     
+    var containerViewShowKeyboardBottomContraint: NSLayoutConstraint?
+    
+    let containerView = UIView()
+    
     func setupInputComponents() {
         
-        let containerView = UIView()
         containerView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -182,7 +195,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         //x,y,w,h
         containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         
-        containerViewBottomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+//        containerViewBottomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        containerViewBottomAnchor = containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         containerViewBottomAnchor?.isActive = true
         
         containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
@@ -285,7 +299,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     @objc func handleSend() {
         print(inputTextField.text)
-        
+        inputTextField.resignFirstResponder()
         let autoID = myRef.childByAutoId().key
         let message = inputTextField.text!
         let fromId = Auth.auth().currentUser?.uid
@@ -306,9 +320,4 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         return true
     }
     
-    
-    
-
-   
-
 }
