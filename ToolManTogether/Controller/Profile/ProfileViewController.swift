@@ -396,7 +396,8 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
                 return
             } else {
                 print("Storage Success")
-                self.profileTableView.reloadData()
+//                self.profileTableView.reloadData()
+                self.searchProfile()
             }
         }
     }

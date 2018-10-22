@@ -363,7 +363,7 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let viewController = TaskAgreeViewController.profileDetailDataForTask(toolsInfo)
+        let viewController = TaskAgreeViewController.profileDetailDataForTask([toolsInfo[indexPath.row]])
             self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
