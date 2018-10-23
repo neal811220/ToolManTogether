@@ -12,4 +12,8 @@ struct Message {
     var fromId: String?
     var text: String?
     var timestamp: Double?
+    var imageUrl: String?
+    
+    var imageHeight: Double?
+    var imageWidth: Double?
 }

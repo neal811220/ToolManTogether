@@ -137,6 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UIApplication.shared.applicationIconBadgeNumber = 0
         
         
+        
         // 推播 show view
 //        guard let data = userInfo as? NSDictionary else { return }
 //        print(data)
