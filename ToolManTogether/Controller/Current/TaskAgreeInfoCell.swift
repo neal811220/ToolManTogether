@@ -24,6 +24,7 @@ class TaskAgreeInfoCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         callBtn.layer.cornerRadius = 10
+        messageBtn.layer.cornerRadius = 10
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

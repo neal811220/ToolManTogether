@@ -53,8 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         application.registerForRemoteNotifications()
  
-        
-        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         FBSDKSettings.setAppID("236162267244807")
@@ -64,16 +62,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         IQKeyboardManager.shared.enableAutoToolbar = false
 
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-        
-        IQKeyboardManager.shared.disabledDistanceHandlingClasses = [ChatLogController.self]
-        
-
-        
+                
         guard UserManager.fbUser.getUserToken() == nil else {
             
             switchToMainStoryBoard()
-            
-
             
             InstanceID.instanceID().instanceID { (result, error) in
                 if let error = error {

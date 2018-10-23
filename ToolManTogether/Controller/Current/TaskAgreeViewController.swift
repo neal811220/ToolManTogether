@@ -156,22 +156,26 @@ extension TaskAgreeViewController: CallBtnTapped {
     
     func messageBtnTapped(_ send: UIButton) {
         
-        if let id = userInfo.last?.fbID {
-            if let url = URL(string: "fb-messenger://user-thread/\(id)") {
-                
-                // Attempt to open in Messenger App first
-                UIApplication.shared.open(url, options: [:], completionHandler: {
-                    (success) in
-                    
-                    if success == false {
-                        // Messenger is not installed. Open in browser instead.
-                        let url = URL(string: "https://m.me/\(id)")
-                        if UIApplication.shared.canOpenURL(url!) {
-                            UIApplication.shared.open(url!)
-                        }
-                    }
-                })
-            }
-        }
+//        if let id = userInfo.last?.fbID {
+//            if let url = URL(string: "fb-messenger://user-thread/\(id)") {
+//
+//                // Attempt to open in Messenger App first
+//                UIApplication.shared.open(url, options: [:], completionHandler: {
+//                    (success) in
+//
+//                    if success == false {
+//                        // Messenger is not installed. Open in browser instead.
+//                        let url = URL(string: "https://m.me/\(id)")
+//                        if UIApplication.shared.canOpenURL(url!) {
+//                            UIApplication.shared.open(url!)
+//                        }
+//                    }
+//                })
+//            }
+//        }
+        
+        
+        
+        
     }
 }
