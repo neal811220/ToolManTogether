@@ -19,6 +19,8 @@ class TaskAgreeViewController: UIViewController {
     @IBOutlet weak var popUpScoreHeight: NSLayoutConstraint!
     
     var userInfo: [RequestUserInfo]!
+    var taskInfo: [UserTaskInfo]!
+    var taskKey: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,18 +78,19 @@ class TaskAgreeViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    class func profileDetailDataForTask(_ data: [RequestUserInfo]) -> TaskAgreeViewController {
+    class func profileDetailDataForTask(_ data: [RequestUserInfo], _ taskInfo: [UserTaskInfo]) -> TaskAgreeViewController {
         let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
 
         let viewController = storyBoard.instantiateViewController(withIdentifier: "taskAgreeVC") as? TaskAgreeViewController
 
         if let viewController = viewController {
             viewController.userInfo = data
+            viewController.taskInfo = taskInfo
         }
         return viewController!
     }
-    
 }
+
 extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -174,8 +177,13 @@ extension TaskAgreeViewController: CallBtnTapped {
 //            }
 //        }
         
-        
-        
-        
+        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+        chatLogController.taskInfo = taskInfo.last
+        chatLogController.userInfo = userInfo.last
+        chatLogController.fromTaskOwner = true
+//        self.navigationController?.show(chatLogController, sender: nil)
+//        self.show(chatLogController, sender: nil)
+        self.tabBarController?.show(chatLogController, sender: nil)
     }
+    
 }

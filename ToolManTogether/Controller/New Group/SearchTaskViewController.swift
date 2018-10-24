@@ -70,6 +70,15 @@ class SearchTaskViewController: UIViewController {
 
     }
     
+    
+    @IBAction func messageListTapped(_ sender: Any) {
+        
+        let storyboard = UIStoryboard(name: "ControllerMessage", bundle: nil)
+        if let controllerMessageVC = storyboard.instantiateViewController(withIdentifier: "controllerMessage") as? MessageController {
+            self.show(controllerMessageVC, sender: nil)
+        }
+    }
+    
     func guestMode() {
         if keychain.get("token") == nil {
             changeView()
@@ -231,7 +240,6 @@ class SearchTaskViewController: UIViewController {
             )}
     }
     
-    
     func searchTaskOwnerInfo(ownerID: String, taskInfo: UserTaskInfo, button: UIButton) {
         
             myRef.child("UserData").queryOrderedByKey()
@@ -323,8 +331,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                     
                 }
                 
-                
-                
              // 對方拒絕
             } else if cellData.ownAgree == "disAgree" {
                 cell.searchTaskView.sendButton.setTitle("對方已拒絕", for: .normal)
@@ -351,8 +357,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
 
             }
             
-            
-            
             cell.searchTaskView.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
 
             if let ownerID = cellData.ownerID {
@@ -373,7 +377,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-
             cell.searchTaskView.reportBtn.addTarget(self, action: #selector(showAlert(send:)), for: .touchUpInside)
 
             
@@ -389,7 +392,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         print(indexPath.row)
     }
-    
     
     @objc func detailBtnTapped(data: UIButton) {
         print("detail")
@@ -445,7 +447,12 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                                 
                                print(taskKey)
                                print(userKey)
+                                
+                                let userId = Auth.auth().currentUser?.uid
                             self.myRef.child("Task").child(taskKey).child("RequestUser").child(userKey).removeValue()
+                                
+                                self.myRef.child("userAllTask").child(userId!).child(taskKey).removeValue()
+                                
                             }
                             
                             self.searchTaskTableVIew.performBatchUpdates({
@@ -513,4 +520,5 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
 //            self.navigationController?.pushViewController(viewController, animated: true)
 //        }
 //    }
+    
 }

@@ -14,15 +14,13 @@ import SDWebImage
 import FirebaseDatabase
 import Lottie
 
-
 protocol ScrollTask: AnyObject{
-    func didScrollTask(_ cell: String)
+    func didScrollTask(_ cell: UserTaskInfo)
 }
 
 protocol btnPressed: AnyObject {
     func btnPressed(_ send: TaskDetailInfoView)
 }
-
 
 class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
 
@@ -134,8 +132,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             }
             
             self.collectionView.reloadData()
-            let searchAnnotation = self.addTask[self.scrollIndex].taskKey
-            self.scrollTaskDelegate?.didScrollTask(searchAnnotation!)
+            let searchAnnotation = self.addTask[self.scrollIndex]
+            self.scrollTaskDelegate?.didScrollTask(searchAnnotation)
             self.taskNumTitleLabel.text = "第 \(self.scrollIndex + 1) / \(self.addTask.count) 筆任務"
 
         }
@@ -187,8 +185,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 }
                 
                 self.collectionView.reloadData()
-                let searchAnnotation = self.addTask[self.checkIndex].taskKey
-                self.scrollTaskDelegate?.didScrollTask(searchAnnotation!)
+                let searchAnnotation = self.addTask[self.checkIndex]
+                self.scrollTaskDelegate?.didScrollTask(searchAnnotation)
             }
         }
     }
@@ -206,8 +204,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         print(scrollIndex)
         
         if scrollIndex != checkIndex {
-            let searchAnnotation = addTask[scrollIndex].taskKey
-            scrollTaskDelegate?.didScrollTask(searchAnnotation!)
+            let searchAnnotation = addTask[scrollIndex]
+            scrollTaskDelegate?.didScrollTask(searchAnnotation)
             checkIndex = scrollIndex
             self.taskNumTitleLabel.text = "第 \(checkIndex + 1) / \(addTask.count) 筆任務"
 
@@ -244,9 +242,11 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         }
         
         guard addTask.count != scrollIndex else { return }
-        
+        let userId = Auth.auth().currentUser?.uid
         guard let ownerTaskKey = addTask[scrollIndex].taskKey else { return }
+        
         myRef.child("Task").child(ownerTaskKey).removeValue()
+        myRef.child("userAllTask").child(userId!).child(ownerTaskKey).removeValue()
         self.addTask.remove(at: scrollIndex)
         
         let index = IndexPath(row: scrollIndex, section: 0)
@@ -283,9 +283,11 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         }
         
         guard addTask.count != scrollIndex else { return }
-        
+        let userId = Auth.auth().currentUser?.uid
         guard let taskKey = addTask[scrollIndex].taskKey else { return }
+        
         myRef.child("Task").child(taskKey).removeValue()
+        myRef.child("userAllTask").child(userId!).child(taskKey).removeValue()
         self.addTask.remove(at: scrollIndex)
 
         let index = IndexPath(row: scrollIndex, section: 0)

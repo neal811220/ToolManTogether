@@ -336,6 +336,7 @@ class HomeViewController: UIViewController {
     @objc func requestBtnSend() {
         
         let autoID = myRef.childByAutoId().key
+        let userID = Auth.auth().currentUser?.uid
 
         guard let selectData = selectTask else { return }
         guard let selectDataKey = selectTaskKey else { return }
@@ -366,6 +367,11 @@ class HomeViewController: UIViewController {
                         "ownerID": selectData.ownerID,
                         "OwnerAgree": "waiting",
                         "address": selectData.address])
+                    
+                    self.myRef.child("userAllTask").child(userID!).child(selectDataKey).updateChildValues([
+                        "taskKey": selectDataKey,
+                        "taskTitle": selectData.title
+                        ])
                     
                     self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoID!)
                     

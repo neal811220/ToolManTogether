@@ -26,7 +26,6 @@ class HistoryTaskViewController: UIViewController {
     
     @IBOutlet weak var noDataLabel: UILabel!
     
-    
     var myRef: DatabaseReference!
     var requestTools: [RequestUser] = []
     var toolsInfo: [RequestUserInfo] = []
@@ -37,7 +36,7 @@ class HistoryTaskViewController: UIViewController {
     var client = HTTPClient(configuration: .default)
     
     var refreshController: UIRefreshControl!
-    var scrollViewDefine: String!
+    var scrollViewDefine: UserTaskInfo!
     
     var myActivityIndicator: UIActivityIndicatorView!
     let fullScreenSize = UIScreen.main.bounds.size
@@ -140,7 +139,6 @@ class HistoryTaskViewController: UIViewController {
             self.refreshController.endRefreshing()
         }
     }
-    
     
     func downloadUserPhoto(
         userID: String,
@@ -363,7 +361,7 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let viewController = TaskAgreeViewController.profileDetailDataForTask([toolsInfo[indexPath.row]])
+        let viewController = TaskAgreeViewController.profileDetailDataForTask([toolsInfo[indexPath.row]], [scrollViewDefine])
             self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -396,7 +394,7 @@ extension HistoryTaskViewController: TableViewCellDelegate {
 
 extension HistoryTaskViewController: ScrollTask {
     
-    func didScrollTask(_ cell: String) {
+    func didScrollTask(_ cell: UserTaskInfo) {
         
         self.requestTools.removeAll()
         self.toolsInfo.removeAll()
@@ -406,7 +404,7 @@ extension HistoryTaskViewController: ScrollTask {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
         myRef.child("Task").queryOrderedByKey()
-            .queryEqual(toValue: cell)
+            .queryEqual(toValue: cell.taskKey)
             .observeSingleEvent(of: .value) { (snapshot) in
             
                 guard let data = snapshot.value as? NSDictionary else { return }
@@ -464,10 +462,10 @@ extension HistoryTaskViewController: btnPressed {
     func btnPressed(_ send: TaskDetailInfoView) {
         
         print(requestTools)
-        for requestTask in requestTools {
-                self.myRef.child("RequestTask").child(requestTask.requestTaskID).updateChildValues([
-                    "OwnerAgree": "delete"])
-        }
+//        for requestTask in requestTools {
+//                self.myRef.child("RequestTask").child(requestTask.requestTaskID).updateChildValues([
+//                    "OwnerAgree": "delete"])
+//        }
     }
 }
 

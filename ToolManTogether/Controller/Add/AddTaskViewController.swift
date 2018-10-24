@@ -146,6 +146,10 @@ class AddTaskViewController: UIViewController {
                 "agree": false,
                 "address": self.alertAddress])
             
+            self.myRef.child("userAllTask").child(userID).child(autoID!).updateChildValues([
+                "taskKey": autoID!,
+                "taskTitle": title])
+            
             NotificationCenter.default.post(name: .addTask, object: nil)
             
             //        self.sendNotification(title: "工具人出任務", content: "一筆\(taskType)的新任務", data: "wefwef")

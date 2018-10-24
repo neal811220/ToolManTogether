@@ -22,11 +22,13 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         return textField
     }()
     
-
     var myRef: DatabaseReference!
+    var fromTaskOwner = false
     var taskInfo: UserTaskInfo?
     var messageData: [Message] = []
     var messageImage: UIImageView?
+    var taskKey: String!
+    var tabBarFrame: CGRect?
     var userInfo: RequestUserInfo? {
         didSet {
             setupNavBar(titleName: userInfo?.fbName, userId: userInfo?.userID)
@@ -57,6 +59,9 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         myRef = Database.database().reference()
         
         observeMessage()
+        IQKeyboardManager.shared.enable = false
+        
+        tabBarFrame = self.tabBarController?.tabBar.frame
     }
     
     func setupKeyboardObservers() {
@@ -66,12 +71,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
-        IQKeyboardManager.shared.enable = true
     }
     
     @objc func handleKeyboardDidShow(_ notification: Notification) {
@@ -86,14 +85,13 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
         
         view.bringSubviewToFront(containerView)
-        
+
         containerView.frame = CGRect(
             x: 0,
-            y: view.frame.size.height - keyboardFrame!.size.height - containerView.frame.size.height,
+            y: tabBarFrame!.origin.y - keyboardFrame!.size.height + self.view.safeAreaInsets.bottom - 49,
             width: view.frame.size.width,
             height: containerView.frame.height
         )
-        
     }
     
     @objc func handleKeyboardWillHide(_ notification: Notification) {
@@ -102,7 +100,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         containerView.frame = CGRect(
             x: frame.origin.x,
-            y: collectionView.frame.maxY - containerView.frame.size.height - collectionView.contentInset.bottom + 10,
+            y: tabBarFrame!.origin.y - 49,
             width: frame.size.width,
             height: frame.size.height
         )
@@ -190,8 +188,14 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     func observeMessage() {
-        guard let taskKey = taskInfo?.requestTaskKey else { return }
-        myRef.child("Message").child(taskKey).observe(.childAdded) { (snapshot) in
+        
+        if fromTaskOwner == false {
+            taskKey = taskInfo?.requestTaskKey
+        } else {
+            taskKey = taskInfo?.taskKey
+        }
+        
+        myRef.child("Message").child(taskKey).observe(.childAdded) { [weak self] (snapshot) in
             if let dictionary = snapshot.value as? [String: Any] {
                 
                 let fromId = dictionary["fromId"] as? String
@@ -202,6 +206,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                 let imageWidth = dictionary["imageWidth"] as? Double
                 
                 let message = Message(fromId: fromId, text: text, timestamp: timestamp, imageUrl: imageUrl, imageHeight: imageHeight, imageWidth: imageWidth)
+                
+                guard let `self` = self else { return }
                 
                 self.messageData.append(message)
                 self.inputTextField.text = nil
@@ -230,10 +236,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         view.addSubview(containerView)
         
+        let tabBar = self.tabBarController!.tabBar.frame
         containerView.frame = CGRect(
             x: 0,
-            y: collectionView.frame.maxY - collectionView.contentInset.bottom - 49 - self.view.safeAreaInsets.bottom,
-            
+            y: tabBar.origin.y - 49,
             width: UIScreen.main.bounds.size.width,
             height: 49
         )
@@ -246,7 +252,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         uploadImageView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(uploadImageView)
         //x,y,w,h
-        uploadImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 3).isActive = true
+        uploadImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
         uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         uploadImageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
         uploadImageView.heightAnchor.constraint(equalToConstant: 24).isActive = true
@@ -360,8 +366,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         //need x,y,width,height anchors
         profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         let nameLabel = UILabel()
         nameLabel.text = userName
@@ -400,19 +406,23 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     @objc func handleSend() {
         print(inputTextField.text)
-        inputTextField.resignFirstResponder()
+//        inputTextField.resignFirstResponder()
         let autoID = myRef.childByAutoId().key
         let message = inputTextField.text!
         let fromId = Auth.auth().currentUser?.uid
         let timestamp = Double(Date().millisecondsSince1970)
         
-        if let taskKey = taskInfo?.requestTaskKey {
-            myRef.child("Message").child(taskKey).child(autoID!).updateChildValues([
-                "message": message,
-                "fromId": fromId,
-                "timestamp": timestamp
-                ])
+        if fromTaskOwner == false {
+            taskKey = taskInfo?.requestTaskKey
+        } else {
+            taskKey = taskInfo?.taskKey
         }
+        
+        myRef.child("Message").child(taskKey).child(autoID!).updateChildValues([
+            "message": message,
+            "fromId": fromId,
+            "timestamp": timestamp
+            ])
     }
     
     private func sendMessageWithImageUrl(imageUrl: String, image: UIImage) {
@@ -432,10 +442,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         }
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        handleSend()
-        return true
-    }
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        handleSend()
+//        return true
+//    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         

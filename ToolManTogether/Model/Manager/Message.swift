@@ -17,3 +17,7 @@ struct Message {
     var imageHeight: Double?
     var imageWidth: Double?
 }
+
+struct MessageTaskKey {
+    var taskKey: String
+}
