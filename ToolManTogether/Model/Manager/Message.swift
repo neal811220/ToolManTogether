@@ -12,12 +12,19 @@ struct Message {
     var fromId: String?
     var text: String?
     var timestamp: Double?
-    var imageUrl: String?
+    var taskTitle: String?
+    var taskOwnerName: String?
+    var taskOwnerId: String?
+    var taskKey: String?
+    var taskType: String?
     
+    var imageUrl: String?
     var imageHeight: Double?
     var imageWidth: Double?
 }
 
 struct MessageTaskKey {
     var taskKey: String
+    var taskTitle: String
+    var taskOwnerName: String
 }

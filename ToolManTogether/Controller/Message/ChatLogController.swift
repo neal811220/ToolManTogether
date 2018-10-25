@@ -12,7 +12,9 @@ import FirebaseDatabase
 import FirebaseStorage
 import IQKeyboardManagerSwift
 
-class ChatLogController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ChatLogController: UICollectionViewController,
+    UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate,
+    UINavigationControllerDelegate {
     
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
@@ -28,12 +30,16 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     var messageData: [Message] = []
     var messageImage: UIImageView?
     var taskKey: String!
+    var taskOwnerId: String!
     var tabBarFrame: CGRect?
+    var toId: String!
+    
     var userInfo: RequestUserInfo? {
         didSet {
             setupNavBar(titleName: userInfo?.fbName, userId: userInfo?.userID)
         }
     }
+    
     
     let cellId = "cellId"
     
@@ -41,6 +47,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         super.viewWillAppear(animated)
         setupKeyboardObservers()
         IQKeyboardManager.shared.enable = false
+        
     }
     
     override func viewDidLoad() {
@@ -53,15 +60,15 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         containerView.backgroundColor = UIColor.red
         view.bringSubviewToFront(containerView)
-        
+        tabBarFrame = self.tabBarController?.tabBar.frame
+
         setupInputComponents()
         
         myRef = Database.database().reference()
         
         observeMessage()
         IQKeyboardManager.shared.enable = false
-        
-        tabBarFrame = self.tabBarController?.tabBar.frame
+                
     }
     
     func setupKeyboardObservers() {
@@ -117,7 +124,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
             
             let cellData = messageData[indexPath.row]
             cell.textView.text = cellData.text
-            
             if let text = cellData.text {
                 cell.bubbleWidthAnchor?.constant = estimateFrameForText(text: text).width + 32
                 cell.textView.isHidden = false
@@ -126,6 +132,12 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                 cell.textView.isHidden = true
             }
             
+            if let fromId = cellData.fromId {
+                downloadUserPhoto(userID: fromId, finder: "UserPhoto") { (url) in
+                    cell.profileImageView.sd_setImage(with: url, completed: nil)
+                }
+            }
+
             setupCell(cell: cell, message: cellData)
             
             return cell
@@ -162,8 +174,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
             cell.bubbleViewRightAnchor?.isActive = false
             cell.bubbleViewLeftAnchor?.isActive = true
         }
+        
+        
     }
 
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         var height: CGFloat = 80
@@ -204,17 +219,22 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                 let imageUrl = dictionary["imageUrl"] as? String
                 let imageHeight = dictionary["imageHeight"] as? Double
                 let imageWidth = dictionary["imageWidth"] as? Double
+
+                let message = Message(fromId: fromId, text: text,
+                                      timestamp: timestamp, taskTitle: nil,
+                                      taskOwnerName: nil, taskOwnerId: nil,
+                                      taskKey: nil, taskType: nil,
+                                      imageUrl: imageUrl,imageHeight: imageHeight,
+                                      imageWidth: imageWidth)
                 
-                let message = Message(fromId: fromId, text: text, timestamp: timestamp, imageUrl: imageUrl, imageHeight: imageHeight, imageWidth: imageWidth)
+                guard let stroungSelf = self else { return }
                 
-                guard let `self` = self else { return }
+                stroungSelf.messageData.append(message)
+                stroungSelf.inputTextField.text = nil
+                stroungSelf.collectionView.reloadData()
                 
-                self.messageData.append(message)
-                self.inputTextField.text = nil
-                self.collectionView.reloadData()
-                
-                let indexPath = IndexPath(row: self.messageData.count - 1, section: 0)
-                self.collectionView.scrollToItem(at: indexPath,
+                let indexPath = IndexPath(row: stroungSelf.messageData.count - 1, section: 0)
+                stroungSelf.collectionView.scrollToItem(at: indexPath,
                                                  at: UICollectionView.ScrollPosition.bottom,
                                                  animated: true)
             }
@@ -236,10 +256,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         view.addSubview(containerView)
         
-        let tabBar = self.tabBarController!.tabBar.frame
+//        let tabBar = self.tabBarController!.tabBar.frame
         containerView.frame = CGRect(
             x: 0,
-            y: tabBar.origin.y - 49,
+            y: tabBarFrame!.origin.y - 49,
             width: UIScreen.main.bounds.size.width,
             height: 49
         )
@@ -356,7 +376,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         containerView.addSubview(profileImageView)
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .scaleAspectFill
-        profileImageView.layer.cornerRadius = 20
+        profileImageView.layer.cornerRadius = 12
         profileImageView.clipsToBounds = true
         containerView.addSubview(profileImageView)
         downloadUserPhoto(userID: photoId, finder: "UserPhoto") { (url) in
@@ -366,8 +386,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         //need x,y,width,height anchors
         profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         let nameLabel = UILabel()
         nameLabel.text = userName
@@ -407,22 +427,33 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     @objc func handleSend() {
         print(inputTextField.text)
 //        inputTextField.resignFirstResponder()
+        sendButton.isHidden = true
         let autoID = myRef.childByAutoId().key
         let message = inputTextField.text!
         let fromId = Auth.auth().currentUser?.uid
-        let timestamp = Double(Date().millisecondsSince1970)
+        let timestamp = Double(Date().timeIntervalSince1970)
+        guard let taskTitle = taskInfo?.title else { return }
+        guard let taskOwnerName = taskInfo?.userName else { return }
+        guard let taskType = taskInfo?.type else { return }
         
         if fromTaskOwner == false {
             taskKey = taskInfo?.requestTaskKey
+            taskOwnerId = taskInfo?.ownerID
+            
         } else {
             taskKey = taskInfo?.taskKey
+            taskOwnerId = taskInfo?.userID
         }
         
         myRef.child("Message").child(taskKey).child(autoID!).updateChildValues([
             "message": message,
             "fromId": fromId,
-            "timestamp": timestamp
-            ])
+            "timestamp": timestamp,
+            "taskTitle": taskTitle,
+            "taskOwnerName": taskOwnerName,
+            "taskOwnerId": taskOwnerId,
+            "taskKey": taskKey,
+            "taskType": taskType])
     }
     
     private func sendMessageWithImageUrl(imageUrl: String, image: UIImage) {
@@ -431,36 +462,37 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         let message = inputTextField.text!
         let fromId = Auth.auth().currentUser?.uid
         let timestamp = Double(Date().millisecondsSince1970)
+        guard let taskTitle = taskInfo?.title else { return }
+        guard let taskOwnerName = taskInfo?.userName else { return }
+        guard let taskType = taskInfo?.type else { return }
+
+        if fromTaskOwner == false {
+            taskKey = taskInfo?.requestTaskKey
+            taskOwnerId = taskInfo?.ownerID
+        } else {
+            taskKey = taskInfo?.taskKey
+            taskOwnerId = taskInfo?.userID
+        }
         
-        if let taskKey = taskInfo?.requestTaskKey {
+//        if let taskKey = taskInfo?.requestTaskKey {
             myRef.child("Message").child(taskKey).child(autoID!).updateChildValues([
                 "imageUrl": imageUrl,
                 "fromId": fromId,
                 "timestamp": timestamp,
                 "imageWidth": image.size.width,
-                "imageHeight": image.size.height])
-        }
+                "imageHeight": image.size.height,
+                "taskTitle": taskTitle,
+                "taskOwnerName": taskOwnerName,
+                "taskOwnerId": taskOwnerId,
+                "taskKey": taskKey,
+                "taskType": taskType])
+//        }
     }
     
 //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 //        handleSend()
 //        return true
 //    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        let inputStr = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-
-        if let checkStr = inputStr.characters.last {
-            
-            if checkStr != " " {
-                sendButton.isHidden = false
-            } else {
-                sendButton.isHidden = true
-            }
-        }
-        return true
-    }
     
     var startingFrame: CGRect?
     var blackBackgroundView: UIView?
@@ -520,5 +552,25 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                 self.startingImageView?.isHidden = false
             }
         }
+    }
+}
+
+extension ChatLogController: UITextFieldDelegate, UITextViewDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let inputStr = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        
+        if let checkStr = inputStr.characters.last {
+            
+            if checkStr != " ", !inputStr.isEmpty{
+                sendButton.isHidden = false
+            } else {
+                sendButton.isHidden = true
+            }
+        } else {
+            sendButton.isHidden = true
+        }
+        return true
     }
 }

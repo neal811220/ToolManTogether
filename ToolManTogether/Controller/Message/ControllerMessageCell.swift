@@ -10,21 +10,21 @@ import UIKit
 
 class ControllerMessageCell: UITableViewCell {
     
-    @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var taskNameLabel: UILabel!
-    @IBOutlet weak var taskOwnerNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var taskType: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        dateLabel.textColor = UIColor.darkGray
+        taskType.layer.cornerRadius = 10
+        taskType.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
 }

@@ -181,9 +181,9 @@ extension TaskAgreeViewController: CallBtnTapped {
         chatLogController.taskInfo = taskInfo.last
         chatLogController.userInfo = userInfo.last
         chatLogController.fromTaskOwner = true
-//        self.navigationController?.show(chatLogController, sender: nil)
+        self.navigationController?.show(chatLogController, sender: nil)
 //        self.show(chatLogController, sender: nil)
-        self.tabBarController?.show(chatLogController, sender: nil)
+//        self.tabBarController?.show(chatLogController, sender: nil)
     }
     
 }

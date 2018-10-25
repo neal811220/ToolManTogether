@@ -209,6 +209,7 @@ class HistoryTaskViewController: UIViewController {
             client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content, data: data) { (bool, error) in
                 print(bool)
                 print(error)
+                
             }
         }
     }

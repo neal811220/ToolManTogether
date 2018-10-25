@@ -69,7 +69,7 @@
                         <viewLayoutGuide key="safeArea" id="egE-oO-ASO"/>
                     </view>
                     <navigationItem key="navigationItem" title="已接任務清單" id="Z0s-R2-DFD">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="sendMessage" id="ZkF-Ae-C3M">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="paper-plane" id="ZkF-Ae-C3M">
                             <connections>
                                 <action selector="messageListTapped:" destination="aJ6-3c-Pmp" id="Ql5-qM-bOR"/>
                             </connections>
@@ -111,6 +111,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="sendMessage" width="16" height="16"/>
+        <image name="paper-plane" width="32" height="32"/>
     </resources>
 </document>

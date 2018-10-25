@@ -370,8 +370,9 @@ class HomeViewController: UIViewController {
                     
                     self.myRef.child("userAllTask").child(userID!).child(selectDataKey).updateChildValues([
                         "taskKey": selectDataKey,
-                        "taskTitle": selectData.title
-                        ])
+                        "taskTitle": selectData.title,
+                        "taskOwnerName": selectData.userName,
+                        "taskOwnerId": selectData.ownerID])
                     
                     self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoID!)
                     

@@ -10,7 +10,7 @@ import UIKit
 
 class ChatMessageCell: UICollectionViewCell {
     
-    var chatLogController: ChatLogController?
+    weak var chatLogController: ChatLogController?
     
     let textView: UITextView = {
         let txtVC = UITextView()

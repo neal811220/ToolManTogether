@@ -148,7 +148,9 @@ class AddTaskViewController: UIViewController {
             
             self.myRef.child("userAllTask").child(userID).child(autoID!).updateChildValues([
                 "taskKey": autoID!,
-                "taskTitle": title])
+                "taskTitle": title,
+                "taskOwnerName": userName,
+                "taskownerId": userID])
             
             NotificationCenter.default.post(name: .addTask, object: nil)
             
