@@ -239,7 +239,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.btnDelegage = self
                 let cellData = userProfile[indexPath.row]
                 if cellData.aboutUser == nil, cellData.userPhone == nil {
-                    cell.phoneTxtField.text = " 新增電話"
+                    cell.phoneTxtField.placeholder = " 新增電話"
                     cell.profileTxtView.text = "新增關於我"
                 } else {
                     cell.phoneTxtField.text = cellData.userPhone
@@ -400,5 +400,12 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
                 self.searchProfile()
             }
         }
+    }
+}
+
+extension ProfileViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = ""
     }
 }

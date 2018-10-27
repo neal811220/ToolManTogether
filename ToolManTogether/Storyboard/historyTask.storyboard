@@ -85,7 +85,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XvR-U4-PAm"/>
                     </view>
-                    <navigationItem key="navigationItem" title="任務配對" id="CDg-XJ-luI"/>
+                    <navigationItem key="navigationItem" title="任務配對" id="CDg-XJ-luI">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="paper-plane" id="fpA-p2-NGO">
+                            <connections>
+                                <action selector="messageListTapped:" destination="zuG-Oh-31N" id="qhk-1s-BtP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="aniView" destination="jbH-iM-MMj" id="Knl-gU-tgB"/>
                         <outlet property="bgLabel" destination="K3j-PB-MJ6" id="fjJ-Uj-ZIu"/>
@@ -123,4 +129,7 @@
             <point key="canvasLocation" x="126" y="62"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="paper-plane" width="25" height="25"/>
+    </resources>
 </document>

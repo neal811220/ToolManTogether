@@ -46,9 +46,6 @@ class ProfileDetailCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegat
 
         profileTxtView.isEditable = false
         phoneTxtField.isEnabled = false
-        doneBtn.layer.cornerRadius = 10
-        cancelBtn.layer.cornerRadius = 10
-        
 
         doneBtn.titleLabel?.isHidden = true
         cancelBtn.titleLabel?.isHidden = true
@@ -56,14 +53,12 @@ class ProfileDetailCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegat
         editBtn.layer.borderWidth = 1
         editBtn.layer.borderColor = #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)
 
-        
         doneBtn.layer.borderColor = #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)
         doneBtn.layer.borderWidth = 1
         
         cancelBtn.layer.borderColor = #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)
         cancelBtn.layer.borderWidth = 1
 
-            
         profileTxtView.delegate = self
         phoneTxtField.delegate = self
     

@@ -23,10 +23,13 @@ class MessageController: UIViewController {
     var messagesDictionary = [String: Message]()
     var taskInfo: [UserTaskInfo] = []
     var taskOwnerInfo: [RequestUserInfo] = []
-    
+    var requestUserInfo: [RequestUser] = []
+    var toUserId: String!
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         messageListTableView.allowsSelection = true
+        getUserAkkTaskKey()
     }
     
     override func viewDidLoad() {
@@ -89,24 +92,23 @@ class MessageController: UIViewController {
                         let taskOwnerId = dictionary["taskOwnerId"] as? String
                         let taskKey = dictionary["taskKey"] as? String
                         let taskType = dictionary["taskType"] as? String
-                        
+                        let seen = dictionary["\(userId!)_see"] as? String
                         
                         let message = Message(fromId: fromId, text: text,
                                               timestamp: timestamp, taskTitle: taskTitle,
                                               taskOwnerName: taskOwnerName,
                                               taskOwnerId: taskOwnerId, taskKey: taskKey,
-                                              taskType: taskType, imageUrl: imageUrl,imageHeight: nil,
+                                              taskType: taskType, seen: seen,
+                                              imageUrl: imageUrl,imageHeight: nil,
                                               imageWidth: nil)
                         
                         guard let stroungSelf = self else { return }
-                        
-                        //                        if message.fromId != userId {
                         
                         stroungSelf.messagesDictionary[data.taskKey] = message
                         
                         stroungSelf.userAllMessage = Array(stroungSelf.messagesDictionary.values)
                         
-                        self?.userAllMessage.sorted(by: { (message1, message2) -> Bool in
+                        self?.userAllMessage.sort(by: { (message1, message2) -> Bool in
                             return Int(message1.timestamp!) > Int(message2.timestamp!)
                         })
                         
@@ -144,14 +146,33 @@ extension MessageController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "controllerMessage", for: indexPath) as? ControllerMessageCell {
-            let cellData = userAllMessage[indexPath.row]
+            
             cell.selectionStyle = .none
+
+            let cellData = userAllMessage[indexPath.row]
             let userId = Auth.auth().currentUser?.uid
             
-            cell.taskNameLabel.text = cellData.taskTitle
+            if cellData.seen == nil {
+                cell.messageLabel.font = UIFont(name: "PingFangTC-Semibold", size: 15)
+                cell.taskNameLabel.font = UIFont(name: "PingFangTC-Semibold", size: 18)
+                cell.dateLabel.font = UIFont(name: "PingFangTC-Semibold", size: 14)
+                cell.messageLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                cell.dateLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+
+
+            } else {
+                cell.messageLabel.font = UIFont(name: "PingFangTC-Regular", size: 15)
+                cell.taskNameLabel.font = UIFont(name: "PingFangTC-Regular", size: 18)
+                cell.dateLabel.font = UIFont(name: "PingFangTC-Regular", size: 14)
+                cell.messageLabel.textColor = UIColor.darkGray
+                cell.dateLabel.textColor = UIColor.darkGray
+            }
             
+            cell.taskNameLabel.text = cellData.taskTitle
+            cell.taskType.text = cellData.taskType
+
             if cellData.text == nil && cellData.imageUrl != nil {
-                cell.messageLabel.text = "對方傳送圖片..."
+                cell.messageLabel.text = "收到圖片..."
             } else {
                 cell.messageLabel.text = cellData.text
             }
@@ -163,11 +184,6 @@ extension MessageController: UITableViewDelegate, UITableViewDataSource {
                 dateFormater.dateFormat = "hh:mm a"
                 cell.dateLabel.text = dateFormater.string(from: timestampDate)
             }
-            
-            // downloadUserPhoto(userID: cellData.fromId!, finder: "UserPhoto") { (url) in
-            //                    cell.userPhoto.sd_setImage(with: url, completed: nil)
-            //                }
-            cell.taskType.text = cellData.taskType
             
             return cell
         }
@@ -182,6 +198,8 @@ extension MessageController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func getUserTaskInfo(cellData: Message) {
+        
+        let myId = Auth.auth().currentUser?.uid
         
         myRef.child("Task").queryOrderedByKey().queryEqual(toValue: cellData.taskKey!).observeSingleEvent(of: .value) { (snapshot) in
             
@@ -199,6 +217,29 @@ extension MessageController: UITableViewDelegate, UITableViewDataSource {
                 guard let type = dictionary["Type"] as? String else { return }
                 guard let userName = dictionary["UserName"] as? String else { return }
                 guard let userID = dictionary["UserID"] as? String else { return }
+                guard let requestUser = dictionary["RequestUser"] as? NSDictionary else { return }
+
+                for requestUserData in requestUser {
+                    
+                    guard let keyValue = requestUserData.key as? String else { return }
+                    print(requestUserData.value)
+                    
+                    guard let requestDictionary = requestUserData.value as? [String: Any] else { return }
+                    print(requestDictionary)
+                    
+                    guard let distance = requestDictionary["distance"] as? Double else { return }
+                    guard let userID = requestDictionary["userID"] as? String else { return }
+                    guard let agree = requestDictionary["agree"] as? Bool else { return }
+                    guard let requestTaskID = requestDictionary["RequestTaskID"] as? String else { return }
+                    guard let taskOwnerID = requestDictionary["taskKey"] as? String else { return }
+                    
+                    let requestData = RequestUser(agree: agree, distance: distance, userID: userID, requestTaskID: requestTaskID, taskOwnerID: taskOwnerID, requestKey: keyValue)
+
+                    if agree == true {
+                        self.requestUserInfo.append(requestData)
+                    }
+                    
+                }
                 
                 let taskLat = dictionary["lat"] as? Double
                 let taskLon = dictionary["lon"] as? Double
@@ -248,6 +289,14 @@ extension MessageController: UITableViewDelegate, UITableViewDataSource {
                 let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
                 chatLogController.taskInfo = self.taskInfo.last
                 chatLogController.userInfo = self.taskOwnerInfo.last
+                
+                
+                if self.requestUserInfo.last?.userID != myId! {
+                    chatLogController.findRequestUserRemoteToken = self.requestUserInfo.last?.userID
+                } else {
+                    chatLogController.findRequestUserRemoteToken = self.taskInfo.last?.userID
+                }
+                
                 chatLogController.fromTaskOwner = true
                 self.navigationController?.show(chatLogController, sender: nil)
         }

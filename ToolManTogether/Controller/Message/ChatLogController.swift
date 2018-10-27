@@ -11,9 +11,10 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 import IQKeyboardManagerSwift
+import FirebaseMessaging
 
 class ChatLogController: UICollectionViewController,
-    UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate,
+    UICollectionViewDelegateFlowLayout,UIImagePickerControllerDelegate,
     UINavigationControllerDelegate {
     
     lazy var inputTextField: UITextField = {
@@ -33,21 +34,24 @@ class ChatLogController: UICollectionViewController,
     var taskOwnerId: String!
     var tabBarFrame: CGRect?
     var toId: String!
+    var messageProfileImage: UIImageView!
+    var client = HTTPClient(configuration: .default)
+    var findRequestUserRemoteToken: String!
+    
     
     var userInfo: RequestUserInfo? {
         didSet {
-            setupNavBar(titleName: userInfo?.fbName, userId: userInfo?.userID)
+//            setupNavBar(titleName: userInfo?.fbName, userId: userInfo?.userID)
+            self.title = taskInfo?.title
         }
     }
-    
-    
+
     let cellId = "cellId"
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupKeyboardObservers()
         IQKeyboardManager.shared.enable = false
-        
     }
     
     override func viewDidLoad() {
@@ -68,7 +72,17 @@ class ChatLogController: UICollectionViewController,
         
         observeMessage()
         IQKeyboardManager.shared.enable = false
-                
+
+    }
+    
+    func sendNotification(title: String = "", content: String, toToken: String, data: String) {
+        
+        if let token = Messaging.messaging().fcmToken {
+            client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content, data: data) { (bool, error) in
+                print(bool)
+                print(error)
+            }
+        }
     }
     
     func setupKeyboardObservers() {
@@ -121,20 +135,23 @@ class ChatLogController: UICollectionViewController,
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? ChatMessageCell {
             
             cell.chatLogController = self
-            
+            let userId = Auth.auth().currentUser?.uid
             let cellData = messageData[indexPath.row]
             cell.textView.text = cellData.text
             if let text = cellData.text {
-                cell.bubbleWidthAnchor?.constant = estimateFrameForText(text: text).width + 32
+                cell.bubbleWidthAnchor?.constant = estimateFrameForText(text: text).width + 27
                 cell.textView.isHidden = false
             } else if cellData.imageUrl != nil {
                 cell.bubbleWidthAnchor?.constant = 200
                 cell.textView.isHidden = true
             }
             
-            if let fromId = cellData.fromId {
+            if let fromId = cellData.fromId, fromId != userId! {
+                
                 downloadUserPhoto(userID: fromId, finder: "UserPhoto") { (url) in
                     cell.profileImageView.sd_setImage(with: url, completed: nil)
+                    
+                    self.messageProfileImage = cell.profileImageView
                 }
             }
 
@@ -148,7 +165,7 @@ class ChatLogController: UICollectionViewController,
     private func setupCell(cell: ChatMessageCell, message: Message) {
         
         if let profileImage = messageImage {
-            cell.profileImageView.image = profileImage.image
+            cell.profileImageView.image = self.messageProfileImage.image
         }
         
         if let messageImageUrl = message.imageUrl {
@@ -185,7 +202,7 @@ class ChatLogController: UICollectionViewController,
         
         let message = messageData[indexPath.item]
         if let text = message.text {
-            height = estimateFrameForText(text: text).height + 20
+            height = estimateFrameForText(text: text).height + 18
         } else if let imageWidth = message.imageWidth, let imageHeight = message.imageHeight {
             
             height = CGFloat(imageHeight / imageWidth * 200)
@@ -211,8 +228,11 @@ class ChatLogController: UICollectionViewController,
         }
         
         myRef.child("Message").child(taskKey).observe(.childAdded) { [weak self] (snapshot) in
+            
             if let dictionary = snapshot.value as? [String: Any] {
-                
+                print(dictionary)
+                let messageTaskKey = self?.taskKey
+                let messageDetailKey = snapshot.key
                 let fromId = dictionary["fromId"] as? String
                 let text = dictionary["message"] as? String
                 let timestamp = dictionary["timestamp"] as? Double
@@ -223,7 +243,7 @@ class ChatLogController: UICollectionViewController,
                 let message = Message(fromId: fromId, text: text,
                                       timestamp: timestamp, taskTitle: nil,
                                       taskOwnerName: nil, taskOwnerId: nil,
-                                      taskKey: nil, taskType: nil,
+                                      taskKey: nil, taskType: nil, seen: nil,
                                       imageUrl: imageUrl,imageHeight: imageHeight,
                                       imageWidth: imageWidth)
                 
@@ -237,8 +257,19 @@ class ChatLogController: UICollectionViewController,
                 stroungSelf.collectionView.scrollToItem(at: indexPath,
                                                  at: UICollectionView.ScrollPosition.bottom,
                                                  animated: true)
+                
+                self?.handleSeenMessageFor(messageKey: messageTaskKey!, detailKey: messageDetailKey)
             }
         }
+    }
+    
+    func handleSeenMessageFor(messageKey: String, detailKey: String) {
+        
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+
+        myRef.child("Message").child(messageKey).child(detailKey).updateChildValues([
+            "\(userId)_see": "\(userId)_see"
+            ])
     }
     
     var containerViewBottomAnchor: NSLayoutConstraint?
@@ -425,7 +456,6 @@ class ChatLogController: UICollectionViewController,
     }
     
     @objc func handleSend() {
-        print(inputTextField.text)
 //        inputTextField.resignFirstResponder()
         sendButton.isHidden = true
         let autoID = myRef.childByAutoId().key
@@ -435,6 +465,8 @@ class ChatLogController: UICollectionViewController,
         guard let taskTitle = taskInfo?.title else { return }
         guard let taskOwnerName = taskInfo?.userName else { return }
         guard let taskType = taskInfo?.type else { return }
+        guard let toUserId = userInfo?.remoteToken else { return }
+        guard let fromUserName = Auth.auth().currentUser?.displayName else { return }
         
         if fromTaskOwner == false {
             taskKey = taskInfo?.requestTaskKey
@@ -453,7 +485,34 @@ class ChatLogController: UICollectionViewController,
             "taskOwnerName": taskOwnerName,
             "taskOwnerId": taskOwnerId,
             "taskKey": taskKey,
-            "taskType": taskType])
+            "taskType": taskType,
+            "toRemoteId": toUserId])
+        
+        getUserRemoteToken(userId: findRequestUserRemoteToken, fromName: fromUserName, message: message)
+
+    }
+    
+    func getUserRemoteToken(userId: String, fromName: String, message: String) {
+        
+        let userName = Auth.auth().currentUser?.displayName
+        
+        myRef.child("UserData").queryOrderedByKey()
+            .queryEqual(toValue: userId)
+            .observeSingleEvent(of: .value) { (snapshot) in
+                
+                guard let data = snapshot.value as? NSDictionary else { return }
+                for value in data.allValues {
+                    
+                    guard let dictionary = value as? [String: Any] else { return }
+                    
+                    let remoteToken = dictionary["RemoteToken"] as? String
+                    
+                    if let fbName = userName, let remoteToken = remoteToken {
+                        
+                        self.sendNotification(title: "新訊息", content: "\(fbName): \(message)", toToken: remoteToken, data: "123")
+                    }
+                }
+        }
     }
     
     private func sendMessageWithImageUrl(imageUrl: String, image: UIImage) {
@@ -465,6 +524,7 @@ class ChatLogController: UICollectionViewController,
         guard let taskTitle = taskInfo?.title else { return }
         guard let taskOwnerName = taskInfo?.userName else { return }
         guard let taskType = taskInfo?.type else { return }
+        guard let fromUserName = Auth.auth().currentUser?.displayName else { return }
 
         if fromTaskOwner == false {
             taskKey = taskInfo?.requestTaskKey
@@ -474,7 +534,6 @@ class ChatLogController: UICollectionViewController,
             taskOwnerId = taskInfo?.userID
         }
         
-//        if let taskKey = taskInfo?.requestTaskKey {
             myRef.child("Message").child(taskKey).child(autoID!).updateChildValues([
                 "imageUrl": imageUrl,
                 "fromId": fromId,
@@ -486,13 +545,9 @@ class ChatLogController: UICollectionViewController,
                 "taskOwnerId": taskOwnerId,
                 "taskKey": taskKey,
                 "taskType": taskType])
-//        }
+        
+            getUserRemoteToken(userId: findRequestUserRemoteToken, fromName: fromUserName, message: "發送圖片給您...")
     }
-    
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        handleSend()
-//        return true
-//    }
     
     var startingFrame: CGRect?
     var blackBackgroundView: UIView?

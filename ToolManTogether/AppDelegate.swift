@@ -18,7 +18,7 @@ import Fabric
 import Crashlytics
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
     var window: UIWindow?
     
@@ -28,10 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Override point for customization after application launch.
 //        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         switchToLoginStoryBoard()
-        FirebaseApp.configure()
         
-//        UINavigationBar.appearance().shadowImage = UIImage()
-//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        let keychain = KeychainSwift()
         
         window?.tintColor = UIColor.init(red: 242.0/255.0, green: 183.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         
@@ -52,6 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         application.registerForRemoteNotifications()
+        
+        FirebaseApp.configure()
+
  
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
@@ -72,6 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     print("Error fetching remote instange ID: \(error)")
                 } else if let result = result {
                     print("Remote instance ID token: \(result.token)")
+                    keychain.set(result.token, forKey: "remoteToken")
                 }
             }
             
@@ -80,6 +82,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         return true
     }
+    
+    func tokenRefreshNotification(notification: NSNotification) {
+        //  print("refresh token call")
+        guard let contents = InstanceID.instanceID().token()
+            else {
+                return
+        }
+        // let refreshedToken = FIRInstanceID.instanceID().token()!
+        print("InstanceID token: \(contents)")
+        
+        // UserDefaults.standardUserDefaults().set(contents, forKey: "deviceToken");
+        // Connect to FCM since connection may have failed when attempted before having a token.
+        
+        connectToFcm()
+        
+    }
+    
+    func connectToFcm() {
+        // Won't connect since there is no token
+        guard InstanceID.instanceID().token() != nil else {
+            return
+        }
+        
+        // Disconnect previous FCM connection if it exists.
+        Messaging.messaging().disconnect()
+        
+        Messaging.messaging().connect { (error) in
+            if error != nil {
+                print("Unable to connect with FCM. \(error?.localizedDescription ?? "")")
+            } else {
+                print("Connected to FCM.")
+            }
+        }
+    }
+
     
     func switchToLoginStoryBoard() {
         guard Thread.current.isMainThread else {

@@ -14,7 +14,6 @@ import FirebaseDatabase
 import Lottie
 import KeychainSwift
 
-
 class SearchTaskViewController: UIViewController {
     
     @IBOutlet weak var searchTaskTableVIew: UITableView!
@@ -64,12 +63,9 @@ class SearchTaskViewController: UIViewController {
         let notificationName = Notification.Name("sendRequest")
         NotificationCenter.default.addObserver(self, selector: #selector(self.selectTaskAdd), name: notificationName, object: nil)
         
-
-        
         UIApplication.shared.applicationIconBadgeNumber = 0
 
     }
-    
     
     @IBAction func messageListTapped(_ sender: Any) {
         

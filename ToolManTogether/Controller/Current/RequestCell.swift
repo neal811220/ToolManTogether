@@ -70,8 +70,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
     }
     
-
-    
     func changeView(addTask:DataSnapshot) {
 
         if addTask.hasChildren() == false {
@@ -80,9 +78,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             NotificationCenter.default.post(name: .hasTask, object: nil)
         }
     }
-    
-    
-    
+
     // 已發任務
     
     @objc func createTaskAdd () {

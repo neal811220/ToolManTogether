@@ -17,6 +17,7 @@ struct Message {
     var taskOwnerId: String?
     var taskKey: String?
     var taskType: String?
+    var seen: String?
     
     var imageUrl: String?
     var imageHeight: Double?

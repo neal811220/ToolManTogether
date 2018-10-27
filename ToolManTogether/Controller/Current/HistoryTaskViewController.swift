@@ -83,9 +83,7 @@ class HistoryTaskViewController: UIViewController {
         let hasTaskNotification = Notification.Name("hasTask")
         NotificationCenter.default.addObserver(self, selector: #selector(self.hastask), name: hasTaskNotification, object: nil)
         
-        
     }
-    
     
     func guestMode() {
         if keychain.get("token") == nil {
@@ -124,6 +122,14 @@ class HistoryTaskViewController: UIViewController {
         myActivityIndicator.backgroundColor = UIColor.white
         myActivityIndicator.center = CGPoint(x: fullScreenSize.width * 0.5, y: fullScreenSize.height * 0.5)
         self.historyTableView.addSubview(myActivityIndicator)
+    }
+    
+    
+    @IBAction func messageListTapped(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "ControllerMessage", bundle: nil)
+        if let controllerMessageVC = storyboard.instantiateViewController(withIdentifier: "controllerMessage") as? MessageController {
+            self.show(controllerMessageVC, sender: nil)
+        }
     }
     
     @objc func loadData() {
@@ -213,6 +219,8 @@ class HistoryTaskViewController: UIViewController {
             }
         }
     }
+    
+
 
     func confirm() {
         
@@ -289,6 +297,11 @@ class HistoryTaskViewController: UIViewController {
         self.present(personAlertController, animated: true, completion: nil)
     }
     
+    @objc func cellTextViewTapped() {
+        print("testy")
+    }
+    
+    
 }
 
 extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate {
@@ -338,7 +351,11 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
                 
                 cell.userNameLabel.text = cellData.fbName
                 cell.userContentTxtView.text = cellData.aboutUser
-                cell.distanceLabel.text = "\(requestData.distance)"
+                cell.userContentTxtView.isUserInteractionEnabled = true
+                cell.userContentTxtView.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(cellTextViewTapped)))
+                
+                
+                cell.distanceLabel.text = "\(requestData.distance)km"
                 
                 if requestData.agree == true {
                     cell.agreeButton.isHidden = true
@@ -359,6 +376,8 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
         
         return UITableViewCell()
     }
+    
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

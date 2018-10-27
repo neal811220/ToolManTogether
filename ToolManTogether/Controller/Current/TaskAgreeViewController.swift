@@ -118,6 +118,16 @@ extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
         } else if indexPath.section == 1 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "taskInfoCell", for: indexPath) as? TaskAgreeInfoCell {
                 let cellData = userInfo[indexPath.row]
+                let taskData = taskInfo[indexPath.row]
+                
+                if taskData.agree != true {
+                    cell.callBtn.isHidden = true
+                    cell.messageBtn.isHidden = true
+                } else {
+                    cell.callBtn.isHidden = false
+                    cell.messageBtn.isHidden = false
+                }
+                
                 cell.contentTxtView.text = cellData.aboutUser
                 cell.callBtnDelegate = self
                 return cell
@@ -181,6 +191,7 @@ extension TaskAgreeViewController: CallBtnTapped {
         chatLogController.taskInfo = taskInfo.last
         chatLogController.userInfo = userInfo.last
         chatLogController.fromTaskOwner = true
+        chatLogController.findRequestUserRemoteToken = userInfo.last?.userID
         self.navigationController?.show(chatLogController, sender: nil)
 //        self.show(chatLogController, sender: nil)
 //        self.tabBarController?.show(chatLogController, sender: nil)

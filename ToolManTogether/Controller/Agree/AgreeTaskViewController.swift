@@ -161,7 +161,6 @@ extension AgreeTaskViewController: UITableViewDelegate, UITableViewDataSource {
         
         return UITableViewCell()
     }
-    
 }
 
 extension AgreeTaskViewController: CallBtnTapped {
@@ -185,8 +184,7 @@ extension AgreeTaskViewController: CallBtnTapped {
         let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
         chatLogController.taskInfo = taskInfo.last
         chatLogController.userInfo = userInfo.last
+        chatLogController.findRequestUserRemoteToken = userInfo.last?.userID
         self.navigationController?.show(chatLogController, sender: nil)
     }
-    
-    
 }
