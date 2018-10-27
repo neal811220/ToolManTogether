@@ -146,8 +146,8 @@ class ProfileDetailCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegat
         self.profileTxtView.backgroundColor = #colorLiteral(red: 0.952378909, green: 0.952378909, blue: 0.952378909, alpha: 1)
         self.phoneTxtField.backgroundColor = #colorLiteral(red: 0.952378909, green: 0.952378909, blue: 0.952378909, alpha: 1)
         editBtn.isHidden = true
-        doneBtn.setTitle("Done", for: .normal)
-        cancelBtn.setTitle("Cancel", for: .normal)
+        doneBtn.setTitle("確定", for: .normal)
+        cancelBtn.setTitle("取消", for: .normal)
 //        setBorder()
         btnDelegage?.editBtnPressed(self.cancelBtn)
         

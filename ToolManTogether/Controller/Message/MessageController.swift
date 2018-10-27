@@ -172,7 +172,7 @@ extension MessageController: UITableViewDelegate, UITableViewDataSource {
             cell.taskType.text = cellData.taskType
 
             if cellData.text == nil && cellData.imageUrl != nil {
-                cell.messageLabel.text = "收到圖片..."
+                cell.messageLabel.text = "收到圖片"
             } else {
                 cell.messageLabel.text = cellData.text
             }

@@ -75,10 +75,14 @@ class ChatLogController: UICollectionViewController,
 
     }
     
-    func sendNotification(title: String = "", content: String, toToken: String, data: String) {
+    func sendNotification(title: String = "", content: String, toToken: String, taskInfoKey: String, fromUserId: String, type: String) {
         
         if let token = Messaging.messaging().fcmToken {
-            client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content, data: data) { (bool, error) in
+            client.sendNotification(
+                fromToken: token, toToken: toToken,
+                title: title, content: content,
+                taskInfoKey: taskInfoKey, fromUserId: fromUserId, type: type) { (bool, error) in
+                
                 print(bool)
                 print(error)
             }
@@ -195,7 +199,6 @@ class ChatLogController: UICollectionViewController,
         
     }
 
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         var height: CGFloat = 80
@@ -250,7 +253,7 @@ class ChatLogController: UICollectionViewController,
                 guard let stroungSelf = self else { return }
                 
                 stroungSelf.messageData.append(message)
-                stroungSelf.inputTextField.text = nil
+//                stroungSelf.inputTextField.text = nil
                 stroungSelf.collectionView.reloadData()
                 
                 let indexPath = IndexPath(row: stroungSelf.messageData.count - 1, section: 0)
@@ -489,12 +492,15 @@ class ChatLogController: UICollectionViewController,
             "toRemoteId": toUserId])
         
         getUserRemoteToken(userId: findRequestUserRemoteToken, fromName: fromUserName, message: message)
+        
+        self.inputTextField.text = nil
 
     }
     
     func getUserRemoteToken(userId: String, fromName: String, message: String) {
         
         let userName = Auth.auth().currentUser?.displayName
+        let fromId = Auth.auth().currentUser?.uid
         
         myRef.child("UserData").queryOrderedByKey()
             .queryEqual(toValue: userId)
@@ -509,7 +515,12 @@ class ChatLogController: UICollectionViewController,
                     
                     if let fbName = userName, let remoteToken = remoteToken {
                         
-                        self.sendNotification(title: "新訊息", content: "\(fbName): \(message)", toToken: remoteToken, data: "123")
+                        self.sendNotification(
+                            title: "新訊息",
+                            content: "\(fbName): \(message)",
+                            toToken: remoteToken,
+                            taskInfoKey: self.taskKey,
+                            fromUserId: fromId!, type: "message")
                     }
                 }
         }
@@ -618,7 +629,7 @@ extension ChatLogController: UITextFieldDelegate, UITextViewDelegate {
         
         if let checkStr = inputStr.characters.last {
             
-            if checkStr != " ", !inputStr.isEmpty{
+            if checkStr != " ", checkStr != "\n"{
                 sendButton.isHidden = false
             } else {
                 sendButton.isHidden = true

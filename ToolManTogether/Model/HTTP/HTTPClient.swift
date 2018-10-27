@@ -29,7 +29,10 @@ class HTTPClient {
     typealias FbLogOutCompletionHandler = (Bool?, Error?) -> Void
 
     
-    func sendNotification(fromToken: String, toToken: String, title: String, content: String, data: String, completion: @escaping SendNotification) {
+    func sendNotification(fromToken: String, toToken: String,
+                          title: String, content: String,
+                          taskInfoKey: String?, fromUserId: String?, type: String?,
+                          completion: @escaping SendNotification) {
         
         let notificationURL: URL = URL(string: "https://fcm.googleapis.com/fcm/send")!
         
@@ -41,9 +44,11 @@ class HTTPClient {
             "title": title,
             "sound": "default",
             "category": "INVITATION",
-            "badge": 1 ]] as [String : Any]
+            "badge": 1 ],
+                          "data" : ["taskInfoKey": taskInfoKey,
+                                    "fromUserId": fromUserId,
+                                    "type": type]] as [String : Any]
     
-        
         Alamofire.request(notificationURL, method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default,

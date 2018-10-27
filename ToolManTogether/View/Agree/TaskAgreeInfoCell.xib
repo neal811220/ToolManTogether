@@ -46,7 +46,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLb-OM-SpT">
-                                <rect key="frame" x="87" y="152" width="85" height="40"/>
+                                <rect key="frame" x="90.5" y="152" width="85" height="40"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="W38-kq-bzV"/>
@@ -59,7 +59,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tSz-9z-rPc">
-                                <rect key="frame" x="188" y="152" width="85" height="40"/>
+                                <rect key="frame" x="191.5" y="152" width="85" height="40"/>
                                 <color key="backgroundColor" red="0.52941176469999995" green="0.63529411759999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="qQY-kc-5hK"/>
@@ -78,14 +78,14 @@
                             <constraint firstItem="n7U-wa-wD8" firstAttribute="top" secondItem="Txv-46-kfk" secondAttribute="top" constant="31" id="8sV-31-El5"/>
                             <constraint firstItem="ZfN-8f-5pl" firstAttribute="top" secondItem="Txv-46-kfk" secondAttribute="top" constant="19" id="9BP-76-HIF"/>
                             <constraint firstItem="n7U-wa-wD8" firstAttribute="leading" secondItem="Txv-46-kfk" secondAttribute="leading" constant="8" id="Ahe-Uf-XtM"/>
-                            <constraint firstAttribute="trailing" secondItem="tSz-9z-rPc" secondAttribute="trailing" constant="88" id="IUm-4W-jh1"/>
                             <constraint firstItem="NLb-OM-SpT" firstAttribute="top" secondItem="ZfN-8f-5pl" secondAttribute="bottom" constant="17" id="JI6-D9-ZzW"/>
                             <constraint firstAttribute="bottom" secondItem="ZfN-8f-5pl" secondAttribute="bottom" constant="65.5" id="JXK-lv-XJz"/>
                             <constraint firstItem="WIw-XS-yE8" firstAttribute="centerY" secondItem="n7U-wa-wD8" secondAttribute="centerY" id="hUq-KW-Noe"/>
                             <constraint firstAttribute="trailing" secondItem="ZfN-8f-5pl" secondAttribute="trailing" constant="8" id="igN-Go-JTr"/>
                             <constraint firstAttribute="bottom" secondItem="tSz-9z-rPc" secondAttribute="bottom" constant="8.5" id="naY-Oj-Sfq"/>
-                            <constraint firstItem="NLb-OM-SpT" firstAttribute="leading" secondItem="Txv-46-kfk" secondAttribute="leading" constant="87" id="sh2-Zb-QDf"/>
+                            <constraint firstItem="NLb-OM-SpT" firstAttribute="trailing" secondItem="Txv-46-kfk" secondAttribute="centerX" constant="-5" id="qs1-ep-FMX"/>
                             <constraint firstAttribute="bottom" secondItem="NLb-OM-SpT" secondAttribute="bottom" constant="8.5" id="v0g-TQ-6ku"/>
+                            <constraint firstItem="tSz-9z-rPc" firstAttribute="leading" secondItem="NLb-OM-SpT" secondAttribute="trailing" constant="16" id="vgq-ja-KuW"/>
                             <constraint firstItem="WIw-XS-yE8" firstAttribute="leading" secondItem="n7U-wa-wD8" secondAttribute="trailing" constant="2" id="xYv-5g-wgb"/>
                         </constraints>
                     </view>

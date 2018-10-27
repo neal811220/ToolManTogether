@@ -86,7 +86,7 @@ class AddTaskViewController: UIViewController {
     func sendNotification(title: String = "", content: String, data: String) {
         
         if let token = Messaging.messaging().fcmToken {
-            client.sendNotification(fromToken: token, toToken: "/topics/AllTask", title: title, content: content, data: data) { (bool, error) in
+            client.sendNotification(fromToken: token, toToken: "/topics/AllTask", title: title, content: content, taskInfoKey: nil, fromUserId: nil, type: nil) { (bool, error) in
                 print(bool)
                 print(error)
             }

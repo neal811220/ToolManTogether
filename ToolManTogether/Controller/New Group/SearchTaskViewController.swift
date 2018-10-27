@@ -211,6 +211,8 @@ class SearchTaskViewController: UIViewController {
                                 guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
                                 let requestUserkey = dictionary["requestUserKey"] as? String
                                 let requestTaskKey = dictionary["taskKey"] as? String
+                                let address = dictionary["address"] as? String
+
 
                                 let task = UserTaskInfo(userID: userID,
                                                         userName: userName,
@@ -226,7 +228,7 @@ class SearchTaskViewController: UIViewController {
                                                         ownerID: taskOwner,
                                                         ownAgree: ownerAgree,
                                                         taskKey: keyValue,
-                                                        agree: nil, requestKey: requestUserkey, requestTaskKey: requestTaskKey, address: nil)
+                                                        agree: nil, requestKey: requestUserkey, requestTaskKey: requestTaskKey, address: address)
                                 
                                 self.selectTask.append(task)
                                 self.selectTask.sort(by: { $0.time! > $1.time!})

@@ -21,7 +21,10 @@ import Crashlytics
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
     var window: UIWindow?
-    
+    var myRef: DatabaseReference!
+    var taskOwnerInfo: [RequestUserInfo] = []
+    var taskInfo: [UserTaskInfo] = []
+
     static let shared = UIApplication.shared.delegate as? AppDelegate
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -53,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         FirebaseApp.configure()
 
- 
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         FBSDKSettings.setAppID("236162267244807")
@@ -63,7 +65,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         IQKeyboardManager.shared.enableAutoToolbar = false
 
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-                
+        
+        myRef = Database.database().reference()
+
         guard UserManager.fbUser.getUserToken() == nil else {
             
             switchToMainStoryBoard()
@@ -82,42 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         return true
     }
-    
-    func tokenRefreshNotification(notification: NSNotification) {
-        //  print("refresh token call")
-        guard let contents = InstanceID.instanceID().token()
-            else {
-                return
-        }
-        // let refreshedToken = FIRInstanceID.instanceID().token()!
-        print("InstanceID token: \(contents)")
-        
-        // UserDefaults.standardUserDefaults().set(contents, forKey: "deviceToken");
-        // Connect to FCM since connection may have failed when attempted before having a token.
-        
-        connectToFcm()
-        
-    }
-    
-    func connectToFcm() {
-        // Won't connect since there is no token
-        guard InstanceID.instanceID().token() != nil else {
-            return
-        }
-        
-        // Disconnect previous FCM connection if it exists.
-        Messaging.messaging().disconnect()
-        
-        Messaging.messaging().connect { (error) in
-            if error != nil {
-                print("Unable to connect with FCM. \(error?.localizedDescription ?? "")")
-            } else {
-                print("Connected to FCM.")
-            }
-        }
-    }
 
-    
     func switchToLoginStoryBoard() {
         guard Thread.current.isMainThread else {
             DispatchQueue.main.async { [weak self] in
@@ -141,7 +110,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
     }
     
-    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         // If you are receiving a notification message while your app is in the background,
         // this callback will not be fired till the user taps on the notification launching the application.
@@ -150,7 +118,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
 
-        
         // Print full message.
 //        let testVC = window?.rootViewController as? UITabBarController
 //        let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
@@ -158,23 +125,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        window?.rootViewController?.show(testVC2, sender: nil)
         print(userInfo)
         
+        guard let data = userInfo as? NSDictionary else { return }
+        print(data)
         
-        AppDelegate.shared?.window?.rootViewController?.dismiss(animated: true, completion: nil)
-        AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
-        let tabBarVC = AppDelegate.shared?.window?.rootViewController as? TabBarViewController
-        tabBarVC?.selectedIndex = 1
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        if let value = data["type"] as? String {
+            switch value {
+                
+            case "message":
+                
+                let fromUserId = data["fromUserId"] as? String
+                let taskInfoKey = data["taskInfoKey"] as? String
+                getMessageNeedData(fromUserId: fromUserId, taskInfoKey: taskInfoKey)
+                
+            case "mission":
+                print("mission waiting doing")
+    
+            default:
+                return
+            }
+        }
         
-        
-        
+//        AppDelegate.shared?.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//        AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
+//        let tabBarVC = AppDelegate.shared?.window?.rootViewController as? TabBarViewController
+//        tabBarVC?.selectedIndex = 1
+//        UIApplication.shared.applicationIconBadgeNumber = 0
+    
         // 推播 show view
-//        guard let data = userInfo as? NSDictionary else { return }
-//        print(data)
-//        for value in data.allValues {
-//            print(value)
-//            guard let dictionary = value as? [String: Any] else { return }
-//            print(dictionary)
-//        }
+
 //
 //        AppDelegate.shared?.window?.rootViewController?.dismiss(animated: true, completion: nil)
 //        AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
@@ -186,21 +164,99 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        tabBarVC?.selectedIndex = 1
 //        UIApplication.shared.applicationIconBadgeNumber = 0
 
-
     }
     
+    func getMessageNeedData(fromUserId: String?, taskInfoKey: String?) {
+        
+        let myTabBar = self.window?.rootViewController as? UITabBarController
+        
+        let navViewController = myTabBar?.selectedViewController as? UINavigationController
+        
+        navViewController?.popViewController(animated: false)
+        
+        let myId = Auth.auth().currentUser?.uid
+        
+        myRef.child("Task").queryOrderedByKey().queryEqual(toValue: taskInfoKey!).observeSingleEvent(of: .value) { (snapshot) in
+            
+            guard let data = snapshot.value as? NSDictionary else { return }
+            
+            for value in data {
+                
+                guard let keyValue = value.key as? String else { return }
+                guard let dictionary = value.value as? [String: Any] else { return }
+                print(dictionary)
+                
+                guard let title = dictionary["Title"] as? String else { return }
+                guard let content = dictionary["Content"] as? String else { return }
+                guard let price = dictionary["Price"] as? String else { return }
+                guard let type = dictionary["Type"] as? String else { return }
+                guard let userName = dictionary["UserName"] as? String else { return }
+                guard let userID = dictionary["UserID"] as? String else { return }
+                guard let requestUser = dictionary["RequestUser"] as? NSDictionary else { return }
+    
+                let taskLat = dictionary["lat"] as? Double
+                let taskLon = dictionary["lon"] as? Double
+                guard let agree = dictionary["agree"] as? Bool else { return }
+                let time = dictionary["Time"] as? Int
+                
+                let task = UserTaskInfo(userID: userID,
+                                        userName: userName,
+                                        title: title,
+                                        content: content,
+                                        type: type, price: price,
+                                        taskLat: taskLat, taskLon: taskLon, checkTask: nil,
+                                        distance: nil, time: time,
+                                        ownerID: nil, ownAgree: nil,
+                                        taskKey: keyValue, agree: agree, requestKey: nil,
+                                        requestTaskKey: nil, address: nil)
+                self.taskInfo.append(task)
+                
+            }
+        }
+            
+            myRef.child("UserData").queryOrderedByKey()
+                .queryEqual(toValue: fromUserId!)
+                .observeSingleEvent(of: .value) { (snapshot) in
+                    
+                    guard let data = snapshot.value as? NSDictionary else { return }
+                    for value in data.allValues {
+                        
+                        guard let dictionary = value as? [String: Any] else { return }
+                        print(dictionary)
+                        let aboutUser = dictionary["AboutUser"] as? String
+                        let fbEmail = dictionary["FBEmail"] as? String
+                        let fbID = dictionary["FBID"] as? String
+                        let fbName = dictionary["FBName"] as? String
+                        let userPhone = dictionary["UserPhone"] as? String
+                        guard let userID = dictionary["UserID"] as? String else { return }
+                        let remoteToken = dictionary["RemoteToken"] as? String
+                        
+                        let extractedExpr = RequestUserInfo(aboutUser: aboutUser,
+                                                            fbEmail: fbEmail,
+                                                            fbID: fbID,
+                                                            fbName: fbName,
+                                                            userPhone: userPhone, userID: userID,
+                                                            remoteToken: remoteToken)
+                        self.taskOwnerInfo.append(extractedExpr)
+                    }
+                    
+                    UIApplication.shared.applicationIconBadgeNumber = 0
 
+                    let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+                    chatLogController.taskInfo = self.taskInfo.last
+                    chatLogController.userInfo = self.taskOwnerInfo.last
+                    chatLogController.findRequestUserRemoteToken = self.taskOwnerInfo.last?.userID
+                    chatLogController.fromTaskOwner = true
+                    navViewController?.pushViewController(chatLogController, animated: false)
+        }
+    }
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-        print("TestAgain")
-        print(notification)
-
-        completionHandler([.alert, .badge, .sound])
     }
     
-
     func applicationWillResignActive(_ application: UIApplication) {
         FBSDKAppEvents.activateApp()
 
@@ -235,6 +291,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     }
 
-
 }
-

@@ -209,10 +209,10 @@ class HistoryTaskViewController: UIViewController {
         }
     }
     
-    func sendNotification(title: String = "", content: String, toToken: String, data: String) {
+    func sendNotification(title: String = "", content: String, toToken: String, data: String, type: String) {
         
         if let token = Messaging.messaging().fcmToken {
-            client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content, data: data) { (bool, error) in
+            client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content, taskInfoKey: nil, fromUserId: nil, type: type) { (bool, error) in
                 print(bool)
                 print(error)
                 
@@ -220,8 +220,6 @@ class HistoryTaskViewController: UIViewController {
         }
     }
     
-
-
     func confirm() {
         
         let requestTaskKey = self.selectToosData.requestTaskID
@@ -248,7 +246,7 @@ class HistoryTaskViewController: UIViewController {
                 self.didScrollTask(self.scrollViewDefine)
                 
                 if let toolsToken = self.agreeToolsInfo?.remoteToken {
-                    self.sendNotification(title: "工具人出任務", content: "任務已被\(currentUser)同意，趕快來查看", toToken: toolsToken, data: "\(taskOwnerKey)")
+                    self.sendNotification(title: "工具人出任務", content: "任務已被\(currentUser)同意，趕快來查看", toToken: toolsToken, data: "\(taskOwnerKey)", type: "mission")
                 }
                 
             } else {
@@ -258,7 +256,7 @@ class HistoryTaskViewController: UIViewController {
                 
                 for disAgreeRemoteToken in self.toolsInfo {
                     if disAgreeRemoteToken.remoteToken != self.agreeToolsInfo!.remoteToken {
-                        self.sendNotification(title: "工具人出任務", content: "任務已被\(currentUser)拒絕！", toToken: disAgreeRemoteToken.remoteToken!, data: "\(taskOwnerKey)")
+                        self.sendNotification(title: "工具人出任務", content: "任務已被\(currentUser)拒絕！", toToken: disAgreeRemoteToken.remoteToken!, data: "\(taskOwnerKey)", type: "mission")
                     }
                 }
             }
@@ -376,8 +374,6 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
         
         return UITableViewCell()
     }
-    
-
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
