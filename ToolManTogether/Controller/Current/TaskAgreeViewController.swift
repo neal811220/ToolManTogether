@@ -19,6 +19,8 @@ class TaskAgreeViewController: UIViewController {
     @IBOutlet weak var popUpScoreHeight: NSLayoutConstraint!
     
     var userInfo: [RequestUserInfo]!
+    var taskInfo: [UserTaskInfo]!
+    var taskKey: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,18 +78,19 @@ class TaskAgreeViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    class func profileDetailDataForTask(_ data: [RequestUserInfo]) -> TaskAgreeViewController {
+    class func profileDetailDataForTask(_ data: [RequestUserInfo], _ taskInfo: [UserTaskInfo]) -> TaskAgreeViewController {
         let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
 
         let viewController = storyBoard.instantiateViewController(withIdentifier: "taskAgreeVC") as? TaskAgreeViewController
 
         if let viewController = viewController {
             viewController.userInfo = data
+            viewController.taskInfo = taskInfo
         }
         return viewController!
     }
-    
 }
+
 extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -115,6 +118,16 @@ extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
         } else if indexPath.section == 1 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "taskInfoCell", for: indexPath) as? TaskAgreeInfoCell {
                 let cellData = userInfo[indexPath.row]
+                let taskData = taskInfo[indexPath.row]
+                
+                if taskData.agree != true {
+                    cell.callBtn.isHidden = true
+                    cell.messageBtn.isHidden = true
+                } else {
+                    cell.callBtn.isHidden = false
+                    cell.messageBtn.isHidden = false
+                }
+                
                 cell.contentTxtView.text = cellData.aboutUser
                 cell.callBtnDelegate = self
                 return cell
@@ -156,22 +169,32 @@ extension TaskAgreeViewController: CallBtnTapped {
     
     func messageBtnTapped(_ send: UIButton) {
         
-        if let id = userInfo.last?.fbID {
-            if let url = URL(string: "fb-messenger://user-thread/\(id)") {
-                
-                // Attempt to open in Messenger App first
-                UIApplication.shared.open(url, options: [:], completionHandler: {
-                    (success) in
-                    
-                    if success == false {
-                        // Messenger is not installed. Open in browser instead.
-                        let url = URL(string: "https://m.me/\(id)")
-                        if UIApplication.shared.canOpenURL(url!) {
-                            UIApplication.shared.open(url!)
-                        }
-                    }
-                })
-            }
-        }
+//        if let id = userInfo.last?.fbID {
+//            if let url = URL(string: "fb-messenger://user-thread/\(id)") {
+//
+//                // Attempt to open in Messenger App first
+//                UIApplication.shared.open(url, options: [:], completionHandler: {
+//                    (success) in
+//
+//                    if success == false {
+//                        // Messenger is not installed. Open in browser instead.
+//                        let url = URL(string: "https://m.me/\(id)")
+//                        if UIApplication.shared.canOpenURL(url!) {
+//                            UIApplication.shared.open(url!)
+//                        }
+//                    }
+//                })
+//            }
+//        }
+        
+        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+        chatLogController.taskInfo = taskInfo.last
+        chatLogController.userInfo = userInfo.last
+        chatLogController.fromTaskOwner = true
+        chatLogController.findRequestUserRemoteToken = userInfo.last?.userID
+        self.navigationController?.show(chatLogController, sender: nil)
+//        self.show(chatLogController, sender: nil)
+//        self.tabBarController?.show(chatLogController, sender: nil)
     }
+    
 }

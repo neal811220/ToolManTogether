@@ -14,9 +14,15 @@
 		8E097DCD21534BDF006B574E /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DCC21534BDF006B574E /* UserManager.swift */; };
 		8E097DD221536D22006B574E /* TypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */; };
 		8E097DD321536D22006B574E /* TypeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */; };
+		8E0B3D642180266D00A26826 /* ControllerMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0B3D622180266D00A26826 /* ControllerMessageCell.swift */; };
+		8E0B3D652180266D00A26826 /* controllerMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E0B3D632180266D00A26826 /* controllerMessage.xib */; };
+		8E0B3D672180354600A26826 /* ControllerMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E0B3D662180354600A26826 /* ControllerMessage.storyboard */; };
 		8E148D60217473C00050DDB2 /* maps.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E148D5F217473BD0050DDB2 /* maps.json */; };
 		8E167DD32171DFED00A701AE /* cloud.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E167DD22171DFED00A701AE /* cloud.json */; };
+		8E18E6F52179D46800294ED6 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18E6F42179D46800294ED6 /* ChatLogController.swift */; };
+		8E18E719217C2B7500294ED6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18E718217C2B7500294ED6 /* Message.swift */; };
 		8E19FC242169AA16009C01D2 /* cusomeAlert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */; };
+		8E2482F6217C8D8F00BF6347 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2482F5217C8D8F00BF6347 /* ChatMessageCell.swift */; };
 		8E25D318215249D900CD23F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E25D317215249D800CD23F9 /* GoogleService-Info.plist */; };
 		8E28DF5621652DDF0077B259 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28DF5521652DDF0077B259 /* ProfileManager.swift */; };
 		8E28DF58216618FB0077B259 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28DF57216618FA0077B259 /* Date.swift */; };
@@ -92,6 +98,7 @@
 		8EDB256E2161135400DBBF6D /* ScoreSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB256D2161135400DBBF6D /* ScoreSendView.swift */; };
 		8EDB25702161137F00DBBF6D /* ScoreSendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EDB256F2161137F00DBBF6D /* ScoreSendView.xib */; };
 		8EE2EFC82170D19C005A9DA4 /* servishero_loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE2EFC72170D19C005A9DA4 /* servishero_loading.json */; };
+		8EE6C78B21801EAE00C30D62 /* MessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE6C78921801EAE00C30D62 /* MessageController.swift */; };
 		8EEC330D215BF32A00DE8C31 /* searchTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EEC330C215BF32A00DE8C31 /* searchTask.storyboard */; };
 		8EEC330F215C885D00DE8C31 /* SearchTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEC330E215C885D00DE8C31 /* SearchTaskViewController.swift */; };
 		8EEC3311215C920400DE8C31 /* historyTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EEC3310215C920400DE8C31 /* historyTask.storyboard */; };
@@ -107,9 +114,15 @@
 		8E097DCC21534BDF006B574E /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypeCollectionViewCell.xib; sourceTree = "<group>"; };
+		8E0B3D622180266D00A26826 /* ControllerMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerMessageCell.swift; sourceTree = "<group>"; };
+		8E0B3D632180266D00A26826 /* controllerMessage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = controllerMessage.xib; sourceTree = "<group>"; };
+		8E0B3D662180354600A26826 /* ControllerMessage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ControllerMessage.storyboard; sourceTree = "<group>"; };
 		8E148D5F217473BD0050DDB2 /* maps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = maps.json; sourceTree = "<group>"; };
 		8E167DD22171DFED00A701AE /* cloud.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cloud.json; sourceTree = "<group>"; };
+		8E18E6F42179D46800294ED6 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
+		8E18E718217C2B7500294ED6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = cusomeAlert.storyboard; sourceTree = "<group>"; };
+		8E2482F5217C8D8F00BF6347 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		8E25D317215249D800CD23F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8E28DF5521652DDF0077B259 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		8E28DF57216618FA0077B259 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -188,6 +201,7 @@
 		8EDB256D2161135400DBBF6D /* ScoreSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSendView.swift; sourceTree = "<group>"; };
 		8EDB256F2161137F00DBBF6D /* ScoreSendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreSendView.xib; sourceTree = "<group>"; };
 		8EE2EFC72170D19C005A9DA4 /* servishero_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = servishero_loading.json; sourceTree = "<group>"; };
+		8EE6C78921801EAE00C30D62 /* MessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageController.swift; sourceTree = "<group>"; };
 		8EEC330C215BF32A00DE8C31 /* searchTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = searchTask.storyboard; sourceTree = "<group>"; };
 		8EEC330E215C885D00DE8C31 /* SearchTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTaskViewController.swift; sourceTree = "<group>"; };
 		8EEC3310215C920400DE8C31 /* historyTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = historyTask.storyboard; sourceTree = "<group>"; };
@@ -214,6 +228,7 @@
 		8E097DD421536D55006B574E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8E18E6F02179CC4C00294ED6 /* Message */,
 				8E8BBD762175545000371ECB /* Agree */,
 				8EB0A2112161B46600FD81F1 /* Profile */,
 				8EB0A2102161B41E00FD81F1 /* Current */,
@@ -226,12 +241,32 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8E18E6F02179CC4C00294ED6 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				8E0B3D632180266D00A26826 /* controllerMessage.xib */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		8E18E6F12179D06600294ED6 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				8E18E6F42179D46800294ED6 /* ChatLogController.swift */,
+				8E2482F5217C8D8F00BF6347 /* ChatMessageCell.swift */,
+				8EE6C78921801EAE00C30D62 /* MessageController.swift */,
+				8E0B3D622180266D00A26826 /* ControllerMessageCell.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 		8E36B7512159E4B10073E7A6 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				8E36B7522159E4C50073E7A6 /* Location.swift */,
 				8E097DCC21534BDF006B574E /* UserManager.swift */,
 				8E28DF5521652DDF0077B259 /* ProfileManager.swift */,
+				8E18E718217C2B7500294ED6 /* Message.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -289,6 +324,7 @@
 				8EA04DF721730BF100D12775 /* loadingAlert.storyboard */,
 				8E8BBD8221756E0200371ECB /* AgreeTask.storyboard */,
 				8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */,
+				8E0B3D662180354600A26826 /* ControllerMessage.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -296,6 +332,7 @@
 		8E5BB6F62151EC820016C44A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8E18E6F12179D06600294ED6 /* Message */,
 				8E8BBD772175573600371ECB /* Agree */,
 				8EA04DF521730B3500D12775 /* Alert */,
 				8EB0A2172161B9F700FD81F1 /* Profile */,
@@ -592,6 +629,7 @@
 				8E097DD321536D22006B574E /* TypeCollectionViewCell.xib in Resources */,
 				8EA04DF821730BF100D12775 /* loadingAlert.storyboard in Resources */,
 				8ED727A92154D80000EE697F /* AddTaskTitleCell.xib in Resources */,
+				8E0B3D652180266D00A26826 /* controllerMessage.xib in Resources */,
 				8EEC3311215C920400DE8C31 /* historyTask.storyboard in Resources */,
 				8EDB25702161137F00DBBF6D /* ScoreSendView.xib in Resources */,
 				8EA9C29421772CEC007F57D3 /* AddPriceCell.xib in Resources */,
@@ -616,6 +654,7 @@
 				8EE2EFC82170D19C005A9DA4 /* servishero_loading.json in Resources */,
 				8EB6A7502176D57E008C9CEF /* animation-done-new.json in Resources */,
 				8EA04DE82172558B00D12775 /* check_animation.json in Resources */,
+				8E0B3D672180354600A26826 /* ControllerMessage.storyboard in Resources */,
 				8ECAB998215E14CD00649128 /* RequestCell.xib in Resources */,
 				8E28F7FB215B6AA6004954F0 /* TaskDetailInfoView.xib in Resources */,
 				8E19FC242169AA16009C01D2 /* cusomeAlert.storyboard in Resources */,
@@ -741,6 +780,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E18E6F52179D46800294ED6 /* ChatLogController.swift in Sources */,
 				8E6C6A6E2151F6DC007259D3 /* UIStoryboard.swift in Sources */,
 				8EEC330F215C885D00DE8C31 /* SearchTaskViewController.swift in Sources */,
 				8EEC3317215CA24300DE8C31 /* ProfileViewController.swift in Sources */,
@@ -757,8 +797,11 @@
 				8EA01DAE2160836300104A55 /* ServcedListViewController.swift in Sources */,
 				8EA01DA52160554B00104A55 /* ProfileServcedListCell.swift in Sources */,
 				8E097DC721534179006B574E /* TabBarViewController.swift in Sources */,
+				8E0B3D642180266D00A26826 /* ControllerMessageCell.swift in Sources */,
+				8E18E719217C2B7500294ED6 /* Message.swift in Sources */,
 				8E8EC459215CCAB800CCABE7 /* SearchTaskCell.swift in Sources */,
 				8EA01DA921606C3500104A55 /* GoodCitizenCardCell.swift in Sources */,
+				8E2482F6217C8D8F00BF6347 /* ChatMessageCell.swift in Sources */,
 				8E097DD221536D22006B574E /* TypeCollectionViewCell.swift in Sources */,
 				8E097DCB21534579006B574E /* HomeViewController.swift in Sources */,
 				8EDA66332160B889009FFB8D /* TaskAgreeViewController.swift in Sources */,
@@ -781,6 +824,7 @@
 				8EB6A74C21761907008C9CEF /* NotificationAgreeViewController.swift in Sources */,
 				8EDB256E2161135400DBBF6D /* ScoreSendView.swift in Sources */,
 				8E7575CB215FE9FA0021A403 /* ProfileDetailCell.swift in Sources */,
+				8EE6C78B21801EAE00C30D62 /* MessageController.swift in Sources */,
 				8E5BB6E22151E8830016C44A /* AppDelegate.swift in Sources */,
 				8E8BBD7A217559C800371ECB /* TaskDetailCell.swift in Sources */,
 				8EEC3313215C924A00DE8C31 /* HistoryTaskViewController.swift in Sources */,

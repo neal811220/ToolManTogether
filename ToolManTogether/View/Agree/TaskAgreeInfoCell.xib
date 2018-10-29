@@ -33,19 +33,6 @@
                                 <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLb-OM-SpT">
-                                <rect key="frame" x="125.5" y="153" width="110" height="40"/>
-                                <color key="backgroundColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="110" id="1kS-yf-BwZ"/>
-                                    <constraint firstAttribute="height" constant="40" id="FaG-X9-JKw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
-                                <state key="normal" title="  Call" image="telephone"/>
-                                <connections>
-                                    <action selector="callBtnTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vW1-eJ-NGA"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baseline_arrow_forward_ios_black_18dp" translatesAutoresizingMaskIntoConstraints="NO" id="WIw-XS-yE8">
                                 <rect key="frame" x="44" y="35.5" width="15" height="15"/>
                                 <constraints>
@@ -58,18 +45,47 @@
                                 <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLb-OM-SpT">
+                                <rect key="frame" x="90.5" y="152" width="85" height="40"/>
+                                <color key="backgroundColor" red="0.94901960780000005" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="85" id="W38-kq-bzV"/>
+                                    <constraint firstAttribute="height" constant="40" id="b0A-be-qTQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="15"/>
+                                <state key="normal" title="打電話"/>
+                                <connections>
+                                    <action selector="callBtnTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vW1-eJ-NGA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tSz-9z-rPc">
+                                <rect key="frame" x="191.5" y="152" width="85" height="40"/>
+                                <color key="backgroundColor" red="0.52941176469999995" green="0.63529411759999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="85" id="qQY-kc-5hK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="15"/>
+                                <state key="normal" title="傳訊息"/>
+                                <connections>
+                                    <action selector="messageBtnTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="GyQ-hj-BuF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="tSz-9z-rPc" firstAttribute="top" secondItem="ZfN-8f-5pl" secondAttribute="bottom" constant="17" id="0g1-56-ock"/>
                             <constraint firstItem="ZfN-8f-5pl" firstAttribute="leading" secondItem="Txv-46-kfk" secondAttribute="leading" constant="65" id="0vW-Uh-C1P"/>
                             <constraint firstItem="n7U-wa-wD8" firstAttribute="top" secondItem="Txv-46-kfk" secondAttribute="top" constant="31" id="8sV-31-El5"/>
                             <constraint firstItem="ZfN-8f-5pl" firstAttribute="top" secondItem="Txv-46-kfk" secondAttribute="top" constant="19" id="9BP-76-HIF"/>
                             <constraint firstItem="n7U-wa-wD8" firstAttribute="leading" secondItem="Txv-46-kfk" secondAttribute="leading" constant="8" id="Ahe-Uf-XtM"/>
+                            <constraint firstItem="NLb-OM-SpT" firstAttribute="top" secondItem="ZfN-8f-5pl" secondAttribute="bottom" constant="17" id="JI6-D9-ZzW"/>
                             <constraint firstAttribute="bottom" secondItem="ZfN-8f-5pl" secondAttribute="bottom" constant="65.5" id="JXK-lv-XJz"/>
-                            <constraint firstItem="NLb-OM-SpT" firstAttribute="centerX" secondItem="Txv-46-kfk" secondAttribute="centerX" id="Pwe-Wh-Xxm"/>
-                            <constraint firstItem="NLb-OM-SpT" firstAttribute="top" secondItem="ZfN-8f-5pl" secondAttribute="bottom" constant="18" id="XwZ-Ha-Iif"/>
                             <constraint firstItem="WIw-XS-yE8" firstAttribute="centerY" secondItem="n7U-wa-wD8" secondAttribute="centerY" id="hUq-KW-Noe"/>
                             <constraint firstAttribute="trailing" secondItem="ZfN-8f-5pl" secondAttribute="trailing" constant="8" id="igN-Go-JTr"/>
+                            <constraint firstAttribute="bottom" secondItem="tSz-9z-rPc" secondAttribute="bottom" constant="8.5" id="naY-Oj-Sfq"/>
+                            <constraint firstItem="NLb-OM-SpT" firstAttribute="trailing" secondItem="Txv-46-kfk" secondAttribute="centerX" constant="-5" id="qs1-ep-FMX"/>
+                            <constraint firstAttribute="bottom" secondItem="NLb-OM-SpT" secondAttribute="bottom" constant="8.5" id="v0g-TQ-6ku"/>
+                            <constraint firstItem="tSz-9z-rPc" firstAttribute="leading" secondItem="NLb-OM-SpT" secondAttribute="trailing" constant="16" id="vgq-ja-KuW"/>
                             <constraint firstItem="WIw-XS-yE8" firstAttribute="leading" secondItem="n7U-wa-wD8" secondAttribute="trailing" constant="2" id="xYv-5g-wgb"/>
                         </constraints>
                     </view>
@@ -86,12 +102,12 @@
             <connections>
                 <outlet property="callBtn" destination="NLb-OM-SpT" id="kZi-jb-Cs2"/>
                 <outlet property="contentTxtView" destination="ZfN-8f-5pl" id="rEG-yW-2Zg"/>
+                <outlet property="messageBtn" destination="tSz-9z-rPc" id="ehm-vE-xJg"/>
             </connections>
             <point key="canvasLocation" x="138.40000000000001" y="161.46926536731635"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="baseline_arrow_forward_ios_black_18dp" width="18" height="18"/>
-        <image name="telephone" width="16" height="16"/>
     </resources>
 </document>

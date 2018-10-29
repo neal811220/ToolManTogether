@@ -14,7 +14,6 @@ import FirebaseDatabase
 import Lottie
 import KeychainSwift
 
-
 class SearchTaskViewController: UIViewController {
     
     @IBOutlet weak var searchTaskTableVIew: UITableView!
@@ -35,6 +34,7 @@ class SearchTaskViewController: UIViewController {
     var photoUrl: [URL] = []
     var userPhoto: [String:URL] = [:]
     let animationView = LOTAnimationView(name: "servishero_loading")
+    var selectTaskOwner: UserTaskInfo!
 
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,10 +64,16 @@ class SearchTaskViewController: UIViewController {
         let notificationName = Notification.Name("sendRequest")
         NotificationCenter.default.addObserver(self, selector: #selector(self.selectTaskAdd), name: notificationName, object: nil)
         
-
-        
         UIApplication.shared.applicationIconBadgeNumber = 0
 
+    }
+    
+    @IBAction func messageListTapped(_ sender: Any) {
+        
+        let storyboard = UIStoryboard(name: "ControllerMessage", bundle: nil)
+        if let controllerMessageVC = storyboard.instantiateViewController(withIdentifier: "controllerMessage") as? MessageController {
+            self.show(controllerMessageVC, sender: nil)
+        }
     }
     
     func guestMode() {
@@ -206,6 +212,8 @@ class SearchTaskViewController: UIViewController {
                                 guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
                                 let requestUserkey = dictionary["requestUserKey"] as? String
                                 let requestTaskKey = dictionary["taskKey"] as? String
+                                let address = dictionary["address"] as? String
+
 
                                 let task = UserTaskInfo(userID: userID,
                                                         userName: userName,
@@ -221,7 +229,7 @@ class SearchTaskViewController: UIViewController {
                                                         ownerID: taskOwner,
                                                         ownAgree: ownerAgree,
                                                         taskKey: keyValue,
-                                                        agree: nil, requestKey: requestUserkey, requestTaskKey: requestTaskKey, address: nil)
+                                                        agree: nil, requestKey: requestUserkey, requestTaskKey: requestTaskKey, address: address)
                                 
                                 self.selectTask.append(task)
                                 self.selectTask.sort(by: { $0.time! > $1.time!})
@@ -230,7 +238,6 @@ class SearchTaskViewController: UIViewController {
                         }
             )}
     }
-    
     
     func searchTaskOwnerInfo(ownerID: String, taskInfo: UserTaskInfo, button: UIButton) {
         
@@ -323,8 +330,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                     
                 }
                 
-                
-                
              // 對方拒絕
             } else if cellData.ownAgree == "disAgree" {
                 cell.searchTaskView.sendButton.setTitle("對方已拒絕", for: .normal)
@@ -351,8 +356,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
 
             }
             
-            
-            
             cell.searchTaskView.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
 
             if let ownerID = cellData.ownerID {
@@ -373,7 +376,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-
             cell.searchTaskView.reportBtn.addTarget(self, action: #selector(showAlert(send:)), for: .touchUpInside)
 
             
@@ -390,10 +392,9 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
         print(indexPath.row)
     }
     
-    
     @objc func detailBtnTapped(data: UIButton) {
         print("detail")
-        let selectTaskOwner = selectTask[data.tag]
+        selectTaskOwner = selectTask[data.tag]
         if let taskOwnerID = selectTaskOwner.ownerID {
             
             self.searchTaskOwnerInfo(ownerID: taskOwnerID, taskInfo: selectTaskOwner, button: data)
@@ -439,13 +440,20 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                             
                             self.myRef.child("RequestTask").child(keyValue).removeValue()
                             let index = IndexPath(row: send.tag, section: 0)
-                            self.selectTask.remove(at: send.tag)
                             
                             if let userKey = userKey, let taskKey = taskKey {
                                 
                                print(taskKey)
                                print(userKey)
+                                
+                                let userId = Auth.auth().currentUser?.uid
                             self.myRef.child("Task").child(taskKey).child("RequestUser").child(userKey).removeValue()
+                                
+                                self.myRef.child("userAllTask").child(userId!).child(taskKey).removeValue()
+                                
+                                self.delectMessageData(taskKey: taskKey, taskInfo: self.selectTask[send.tag])
+                                self.selectTask.remove(at: send.tag)
+
                             }
                             
                             self.searchTaskTableVIew.performBatchUpdates({
@@ -476,6 +484,21 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
         personAlertController.addAction(deltetAction)
         personAlertController.addAction(cancelAction)
         self.present(personAlertController, animated: true, completion: nil)
+    }
+    
+    func delectMessageData(taskKey: String, taskInfo: UserTaskInfo) {
+        
+        let autoID = myRef.childByAutoId().key
+        let timestamp = Double(Date().millisecondsSince1970)
+        
+        myRef.child("Message").child(taskKey).child(autoID!).updateChildValues([
+            "message": "對方已離開任務聊天室",
+            "fromId": autoID!,
+            "timestamp": timestamp,
+            "taskTitle": taskInfo.title,
+            "taskOwnerId": taskInfo.ownerID,
+            "taskKey": taskKey,
+            "taskType": taskInfo.type])
     }
     
     func updataTaskUserPhoto(
@@ -513,4 +536,5 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
 //            self.navigationController?.pushViewController(viewController, animated: true)
 //        }
 //    }
+    
 }

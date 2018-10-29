@@ -35,6 +35,7 @@ class AddTaskViewController: UIViewController {
     var alertAddress: String!
     var client = HTTPClient(configuration: .default)
     let keychain = KeychainSwift()
+    var badge = 1
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -83,10 +84,10 @@ class AddTaskViewController: UIViewController {
     
     
 
-    func sendNotification(title: String = "", content: String, data: String) {
+    func sendNotification(title: String = "", content: String, data: String, badge: Int) {
         
         if let token = Messaging.messaging().fcmToken {
-            client.sendNotification(fromToken: token, toToken: "/topics/AllTask", title: title, content: content, data: data) { (bool, error) in
+            client.sendNotification(fromToken: token, toToken: "/topics/AllTask", title: title, content: content, taskInfoKey: nil, fromUserId: nil, type: nil, badge: badge) { (bool, error) in
                 print(bool)
                 print(error)
             }
@@ -145,6 +146,12 @@ class AddTaskViewController: UIViewController {
                 "Time": Double(Date().millisecondsSince1970),
                 "agree": false,
                 "address": self.alertAddress])
+            
+            self.myRef.child("userAllTask").child(userID).child(autoID!).updateChildValues([
+                "taskKey": autoID!,
+                "taskTitle": title,
+                "taskOwnerName": userName,
+                "taskownerId": userID])
             
             NotificationCenter.default.post(name: .addTask, object: nil)
             

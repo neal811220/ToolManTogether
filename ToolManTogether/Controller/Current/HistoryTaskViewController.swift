@@ -26,7 +26,6 @@ class HistoryTaskViewController: UIViewController {
     
     @IBOutlet weak var noDataLabel: UILabel!
     
-    
     var myRef: DatabaseReference!
     var requestTools: [RequestUser] = []
     var toolsInfo: [RequestUserInfo] = []
@@ -37,13 +36,14 @@ class HistoryTaskViewController: UIViewController {
     var client = HTTPClient(configuration: .default)
     
     var refreshController: UIRefreshControl!
-    var scrollViewDefine: String!
+    var scrollViewDefine: UserTaskInfo!
     
     var myActivityIndicator: UIActivityIndicatorView!
     let fullScreenSize = UIScreen.main.bounds.size
     
     let keychain = KeychainSwift()
     var agreeAlready = false
+    var badge = 1
     
     let animationView = LOTAnimationView(name: "servishero_loading")
     
@@ -84,9 +84,7 @@ class HistoryTaskViewController: UIViewController {
         let hasTaskNotification = Notification.Name("hasTask")
         NotificationCenter.default.addObserver(self, selector: #selector(self.hastask), name: hasTaskNotification, object: nil)
         
-        
     }
-    
     
     func guestMode() {
         if keychain.get("token") == nil {
@@ -127,6 +125,14 @@ class HistoryTaskViewController: UIViewController {
         self.historyTableView.addSubview(myActivityIndicator)
     }
     
+    
+    @IBAction func messageListTapped(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "ControllerMessage", bundle: nil)
+        if let controllerMessageVC = storyboard.instantiateViewController(withIdentifier: "controllerMessage") as? MessageController {
+            self.show(controllerMessageVC, sender: nil)
+        }
+    }
+    
     @objc func loadData() {
         
         refreshController.beginRefreshing()
@@ -140,7 +146,6 @@ class HistoryTaskViewController: UIViewController {
             self.refreshController.endRefreshing()
         }
     }
-    
     
     func downloadUserPhoto(
         userID: String,
@@ -205,21 +210,27 @@ class HistoryTaskViewController: UIViewController {
         }
     }
     
-    func sendNotification(title: String = "", content: String, toToken: String, data: String) {
+    func sendNotification(title: String = "", content: String, toToken: String, type: String, taskInfoKey: String, fromUserId: String, badge: Int) {
         
         if let token = Messaging.messaging().fcmToken {
-            client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content, data: data) { (bool, error) in
-                print(bool)
-                print(error)
+            client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content, taskInfoKey: taskInfoKey, fromUserId: fromUserId, type: type, badge: badge) { (bool, error) in
+                
+                if error != nil {
+                    print("推播發送失敗: \(error.debugDescription)")
+                } else {
+                    print("推播發送成功")
+                    self.badge += 1
+                }
             }
         }
     }
-
+    
     func confirm() {
         
         let requestTaskKey = self.selectToosData.requestTaskID
         let taskOwnerKey = self.selectToosData.taskOwnerID
         let taskRequestUserKey = self.selectToosData.requestKey
+        guard let requestUserId = Auth.auth().currentUser?.uid else { return }
         guard let currentUser = Auth.auth().currentUser?.displayName else { return }
         
         
@@ -241,7 +252,12 @@ class HistoryTaskViewController: UIViewController {
                 self.didScrollTask(self.scrollViewDefine)
                 
                 if let toolsToken = self.agreeToolsInfo?.remoteToken {
-                    self.sendNotification(title: "工具人出任務", content: "任務已被\(currentUser)同意，趕快來查看", toToken: toolsToken, data: "\(taskOwnerKey)")
+                    self.sendNotification(title: "工具人出任務",
+                                          content: "任務已被\(currentUser)同意，趕快來查看",
+                                          toToken: toolsToken,
+                                          type: "missionAgree",
+                                          taskInfoKey: requestTaskKey,
+                                          fromUserId: requestUserId, badge: badge)
                 }
                 
             } else {
@@ -251,7 +267,11 @@ class HistoryTaskViewController: UIViewController {
                 
                 for disAgreeRemoteToken in self.toolsInfo {
                     if disAgreeRemoteToken.remoteToken != self.agreeToolsInfo!.remoteToken {
-                        self.sendNotification(title: "工具人出任務", content: "任務已被\(currentUser)拒絕！", toToken: disAgreeRemoteToken.remoteToken!, data: "\(taskOwnerKey)")
+                        self.sendNotification(title: "工具人出任務",
+                                              content: "任務已被\(currentUser)拒絕！",
+                                              toToken: disAgreeRemoteToken.remoteToken!,
+                                              type: "missionDisAgree",
+                                              taskInfoKey: requestTaskKey, fromUserId: requestUserId, badge: badge)
                     }
                 }
             }
@@ -289,6 +309,11 @@ class HistoryTaskViewController: UIViewController {
         personAlertController.addAction(cancelAction)
         self.present(personAlertController, animated: true, completion: nil)
     }
+    
+    @objc func cellTextViewTapped() {
+        print("testy")
+    }
+    
     
 }
 
@@ -339,7 +364,11 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
                 
                 cell.userNameLabel.text = cellData.fbName
                 cell.userContentTxtView.text = cellData.aboutUser
-                cell.distanceLabel.text = "\(requestData.distance)"
+                cell.userContentTxtView.isUserInteractionEnabled = true
+                cell.userContentTxtView.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(cellTextViewTapped)))
+                
+                
+                cell.distanceLabel.text = "\(requestData.distance)km"
                 
                 if requestData.agree == true {
                     cell.agreeButton.isHidden = true
@@ -363,7 +392,7 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let viewController = TaskAgreeViewController.profileDetailDataForTask(toolsInfo)
+        let viewController = TaskAgreeViewController.profileDetailDataForTask([toolsInfo[indexPath.row]], [scrollViewDefine])
             self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -373,7 +402,7 @@ extension HistoryTaskViewController: TableViewCellDelegate {
     func tableViewCellDidTapAgreeBtn(_ cell: RequestToolsTableViewCell) {
         
             let alert = UIAlertController(title: "確認新增？", message: "將新增對方為工具人", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "確認", style: .default) { (void) in
+            let okAction = UIAlertAction(title: "確認", style: .destructive) { (void) in
                 self.confirm()
             }
             let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
@@ -396,7 +425,7 @@ extension HistoryTaskViewController: TableViewCellDelegate {
 
 extension HistoryTaskViewController: ScrollTask {
     
-    func didScrollTask(_ cell: String) {
+    func didScrollTask(_ cell: UserTaskInfo) {
         
         self.requestTools.removeAll()
         self.toolsInfo.removeAll()
@@ -406,7 +435,7 @@ extension HistoryTaskViewController: ScrollTask {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
         myRef.child("Task").queryOrderedByKey()
-            .queryEqual(toValue: cell)
+            .queryEqual(toValue: cell.taskKey)
             .observeSingleEvent(of: .value) { (snapshot) in
             
                 guard let data = snapshot.value as? NSDictionary else { return }
@@ -464,10 +493,10 @@ extension HistoryTaskViewController: btnPressed {
     func btnPressed(_ send: TaskDetailInfoView) {
         
         print(requestTools)
-        for requestTask in requestTools {
-                self.myRef.child("RequestTask").child(requestTask.requestTaskID).updateChildValues([
-                    "OwnerAgree": "delete"])
-        }
+//        for requestTask in requestTools {
+//                self.myRef.child("RequestTask").child(requestTask.requestTaskID).updateChildValues([
+//                    "OwnerAgree": "delete"])
+//        }
     }
 }
 

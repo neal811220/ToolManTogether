@@ -68,7 +68,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="egE-oO-ASO"/>
                     </view>
-                    <navigationItem key="navigationItem" title="已接任務清單" id="Z0s-R2-DFD"/>
+                    <navigationItem key="navigationItem" title="已接任務清單" id="Z0s-R2-DFD">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="paper-plane" id="ZkF-Ae-C3M">
+                            <connections>
+                                <action selector="messageListTapped:" destination="aJ6-3c-Pmp" id="Ql5-qM-bOR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="aniView" destination="82R-1P-g0s" id="RLx-zf-lg0"/>
                         <outlet property="bgLabel" destination="n84-ci-qLV" id="r1s-JV-jlx"/>
@@ -104,4 +110,7 @@
             <point key="canvasLocation" x="96.799999999999997" y="128.18590704647679"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="paper-plane" width="32" height="32"/>
+    </resources>
 </document>

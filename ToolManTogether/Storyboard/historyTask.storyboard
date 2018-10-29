@@ -23,10 +23,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTp-5J-BIT" userLabel="noDataView">
-                                <rect key="frame" x="39" y="440" width="298" height="149"/>
+                                <rect key="frame" x="39" y="517" width="298" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尚未有人申請，請稍候或下拉更新查看。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Cl-pj-fih" userLabel="noDataLabel">
-                                        <rect key="frame" x="-1.5" y="64" width="294" height="21"/>
+                                        <rect key="frame" x="-1.5" y="39.5" width="294" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="BHu-pA-FSQ"/>
                                         </constraints>
@@ -38,7 +38,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="5Cl-pj-fih" firstAttribute="centerY" secondItem="cTp-5J-BIT" secondAttribute="centerY" id="6Kl-zI-RSB"/>
-                                    <constraint firstAttribute="height" constant="149" id="e4E-CP-iK3"/>
+                                    <constraint firstAttribute="height" constant="100" id="e4E-CP-iK3"/>
                                     <constraint firstItem="5Cl-pj-fih" firstAttribute="centerX" secondItem="cTp-5J-BIT" secondAttribute="centerX" constant="-3.5" id="msC-KL-dUU"/>
                                 </constraints>
                             </view>
@@ -75,7 +75,7 @@
                             <constraint firstItem="cTp-5J-BIT" firstAttribute="leading" secondItem="XvR-U4-PAm" secondAttribute="leading" constant="39" id="RQU-zL-1P0"/>
                             <constraint firstItem="kUc-tC-eMI" firstAttribute="trailing" secondItem="XvR-U4-PAm" secondAttribute="trailing" id="WKS-QR-4Ov"/>
                             <constraint firstItem="SNR-Zy-RDH" firstAttribute="top" secondItem="XvR-U4-PAm" secondAttribute="top" id="XMH-2D-6Cu"/>
-                            <constraint firstItem="XvR-U4-PAm" firstAttribute="bottom" secondItem="cTp-5J-BIT" secondAttribute="bottom" constant="78" id="YZs-US-E6f"/>
+                            <constraint firstItem="XvR-U4-PAm" firstAttribute="bottom" secondItem="cTp-5J-BIT" secondAttribute="bottom" constant="50" id="YZs-US-E6f"/>
                             <constraint firstItem="SNR-Zy-RDH" firstAttribute="leading" secondItem="XvR-U4-PAm" secondAttribute="leading" id="Z4m-T8-nOF"/>
                             <constraint firstItem="XvR-U4-PAm" firstAttribute="bottom" secondItem="SNR-Zy-RDH" secondAttribute="bottom" id="air-cj-bp8"/>
                             <constraint firstItem="XvR-U4-PAm" firstAttribute="trailing" secondItem="SNR-Zy-RDH" secondAttribute="trailing" id="eIN-9d-z4U"/>
@@ -85,7 +85,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XvR-U4-PAm"/>
                     </view>
-                    <navigationItem key="navigationItem" title="任務配對" id="CDg-XJ-luI"/>
+                    <navigationItem key="navigationItem" title="任務配對" id="CDg-XJ-luI">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="paper-plane" id="fpA-p2-NGO">
+                            <connections>
+                                <action selector="messageListTapped:" destination="zuG-Oh-31N" id="qhk-1s-BtP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="aniView" destination="jbH-iM-MMj" id="Knl-gU-tgB"/>
                         <outlet property="bgLabel" destination="K3j-PB-MJ6" id="fjJ-Uj-ZIu"/>
@@ -123,4 +129,7 @@
             <point key="canvasLocation" x="126" y="62"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="paper-plane" width="25" height="25"/>
+    </resources>
 </document>
