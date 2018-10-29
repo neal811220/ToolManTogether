@@ -43,6 +43,7 @@ class HistoryTaskViewController: UIViewController {
     
     let keychain = KeychainSwift()
     var agreeAlready = false
+    var badge = 1
     
     let animationView = LOTAnimationView(name: "servishero_loading")
     
@@ -209,13 +210,17 @@ class HistoryTaskViewController: UIViewController {
         }
     }
     
-    func sendNotification(title: String = "", content: String, toToken: String, data: String, type: String) {
+    func sendNotification(title: String = "", content: String, toToken: String, type: String, taskInfoKey: String, fromUserId: String, badge: Int) {
         
         if let token = Messaging.messaging().fcmToken {
-            client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content, taskInfoKey: nil, fromUserId: nil, type: type) { (bool, error) in
-                print(bool)
-                print(error)
+            client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content, taskInfoKey: taskInfoKey, fromUserId: fromUserId, type: type, badge: badge) { (bool, error) in
                 
+                if error != nil {
+                    print("推播發送失敗: \(error.debugDescription)")
+                } else {
+                    print("推播發送成功")
+                    self.badge += 1
+                }
             }
         }
     }
@@ -225,6 +230,7 @@ class HistoryTaskViewController: UIViewController {
         let requestTaskKey = self.selectToosData.requestTaskID
         let taskOwnerKey = self.selectToosData.taskOwnerID
         let taskRequestUserKey = self.selectToosData.requestKey
+        guard let requestUserId = Auth.auth().currentUser?.uid else { return }
         guard let currentUser = Auth.auth().currentUser?.displayName else { return }
         
         
@@ -246,7 +252,12 @@ class HistoryTaskViewController: UIViewController {
                 self.didScrollTask(self.scrollViewDefine)
                 
                 if let toolsToken = self.agreeToolsInfo?.remoteToken {
-                    self.sendNotification(title: "工具人出任務", content: "任務已被\(currentUser)同意，趕快來查看", toToken: toolsToken, data: "\(taskOwnerKey)", type: "mission")
+                    self.sendNotification(title: "工具人出任務",
+                                          content: "任務已被\(currentUser)同意，趕快來查看",
+                                          toToken: toolsToken,
+                                          type: "missionAgree",
+                                          taskInfoKey: requestTaskKey,
+                                          fromUserId: requestUserId, badge: badge)
                 }
                 
             } else {
@@ -256,7 +267,11 @@ class HistoryTaskViewController: UIViewController {
                 
                 for disAgreeRemoteToken in self.toolsInfo {
                     if disAgreeRemoteToken.remoteToken != self.agreeToolsInfo!.remoteToken {
-                        self.sendNotification(title: "工具人出任務", content: "任務已被\(currentUser)拒絕！", toToken: disAgreeRemoteToken.remoteToken!, data: "\(taskOwnerKey)", type: "mission")
+                        self.sendNotification(title: "工具人出任務",
+                                              content: "任務已被\(currentUser)拒絕！",
+                                              toToken: disAgreeRemoteToken.remoteToken!,
+                                              type: "missionDisAgree",
+                                              taskInfoKey: requestTaskKey, fromUserId: requestUserId, badge: badge)
                     }
                 }
             }
@@ -387,7 +402,7 @@ extension HistoryTaskViewController: TableViewCellDelegate {
     func tableViewCellDidTapAgreeBtn(_ cell: RequestToolsTableViewCell) {
         
             let alert = UIAlertController(title: "確認新增？", message: "將新增對方為工具人", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "確認", style: .default) { (void) in
+            let okAction = UIAlertAction(title: "確認", style: .destructive) { (void) in
                 self.confirm()
             }
             let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)

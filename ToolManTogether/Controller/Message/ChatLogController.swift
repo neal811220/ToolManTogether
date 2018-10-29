@@ -37,12 +37,16 @@ class ChatLogController: UICollectionViewController,
     var messageProfileImage: UIImageView!
     var client = HTTPClient(configuration: .default)
     var findRequestUserRemoteToken: String!
+    var checUserkLeave = false
+    var badge = 1
     
     
     var userInfo: RequestUserInfo? {
         didSet {
 //            setupNavBar(titleName: userInfo?.fbName, userId: userInfo?.userID)
             self.title = taskInfo?.title
+//
+            self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "btn_more"), style: .done, target: self, action: #selector(handleRightButton)), animated: true)
         }
     }
 
@@ -71,17 +75,63 @@ class ChatLogController: UICollectionViewController,
         myRef = Database.database().reference()
         
         observeMessage()
+        handleBadge()
+        
         IQKeyboardManager.shared.enable = false
-
     }
     
-    func sendNotification(title: String = "", content: String, toToken: String, taskInfoKey: String, fromUserId: String, type: String) {
+    @objc func handleRightButton() {
+        
+        let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let reportAction = UIAlertAction(title: "檢舉", style: .destructive) { (void) in
+            
+            let reportController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+            let contentAction = UIAlertAction(title: "內容不適當", style: .destructive) { (void) in
+                let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理", preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
+                
+                let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+                reportController.addAction(cancelAction)
+                reportController.addAction(okAction)
+                self.present(reportController, animated: true, completion: nil)
+            }
+            
+            let adAction = UIAlertAction(title: "這是垃圾訊息", style: .destructive) { (void) in
+                let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理", preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
+                
+                let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+                reportController.addAction(cancelAction)
+                reportController.addAction(okAction)
+                self.present(reportController, animated: true, completion: nil)
+            }
+            
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            
+            reportController.addAction(contentAction)
+            reportController.addAction(adAction)
+            reportController.addAction(cancelAction)
+            self.present(reportController, animated: true, completion: nil)
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        personAlertController.addAction(reportAction)
+        personAlertController.addAction(cancelAction)
+        self.present(personAlertController, animated: true, completion: nil)
+    }
+    
+    func sendNotification(title: String = "", content: String, toToken: String, taskInfoKey: String, fromUserId: String, type: String, badge: Int) {
         
         if let token = Messaging.messaging().fcmToken {
             client.sendNotification(
                 fromToken: token, toToken: toToken,
                 title: title, content: content,
-                taskInfoKey: taskInfoKey, fromUserId: fromUserId, type: type) { (bool, error) in
+                taskInfoKey: taskInfoKey, fromUserId: fromUserId, type: type, badge: badge) { (bool, error) in
                 
                 print(bool)
                 print(error)
@@ -233,7 +283,6 @@ class ChatLogController: UICollectionViewController,
         myRef.child("Message").child(taskKey).observe(.childAdded) { [weak self] (snapshot) in
             
             if let dictionary = snapshot.value as? [String: Any] {
-                print(dictionary)
                 let messageTaskKey = self?.taskKey
                 let messageDetailKey = snapshot.key
                 let fromId = dictionary["fromId"] as? String
@@ -253,7 +302,6 @@ class ChatLogController: UICollectionViewController,
                 guard let stroungSelf = self else { return }
                 
                 stroungSelf.messageData.append(message)
-//                stroungSelf.inputTextField.text = nil
                 stroungSelf.collectionView.reloadData()
                 
                 let indexPath = IndexPath(row: stroungSelf.messageData.count - 1, section: 0)
@@ -262,6 +310,16 @@ class ChatLogController: UICollectionViewController,
                                                  animated: true)
                 
                 self?.handleSeenMessageFor(messageKey: messageTaskKey!, detailKey: messageDetailKey)
+                
+                if message.text == "對方已關閉任務聊天室" || message.text == "對方已離開任務聊天室" {
+                    stroungSelf.inputTextField.text = "無法傳送訊息"
+                    stroungSelf.inputTextField.textColor = UIColor.lightGray
+                    stroungSelf.inputTextField.isEnabled = false
+                    stroungSelf.uploadImageView.isHidden = true
+                    stroungSelf.sendButton.isHidden = true
+                }
+                
+//                stroungSelf.handleBadge(messageKey: messageDetailKey)
             }
         }
     }
@@ -275,12 +333,40 @@ class ChatLogController: UICollectionViewController,
             ])
     }
     
+
+    func sendBadgeToFirebase(value: Int) {
+        
+        guard let checkBadgeId = self.findRequestUserRemoteToken else { return }
+
+        myRef.child("Badge").child(checkBadgeId).updateChildValues([
+            "messageBadge": value
+            ])
+    }
+    
+    func handleBadge() {
+
+        let userId = Auth.auth().currentUser?.uid
+        
+        guard let checkBadgeId = self.findRequestUserRemoteToken else { return }
+        
+        myRef.child("Badge").child(checkBadgeId).observe(.childChanged) { [weak self] (snapshot) in
+            
+            print(snapshot)
+            
+            if let value = snapshot.value as? Int {
+                self?.badge = value
+                
+            }
+        }
+    }
+    
     var containerViewBottomAnchor: NSLayoutConstraint?
     
     var containerViewShowKeyboardBottomContraint: NSLayoutConstraint?
     
     let containerView = UIView()
     let sendButton = UIButton(type: .system)
+    let uploadImageView = UIImageView()
 
     func setupInputComponents() {
         
@@ -300,7 +386,6 @@ class ChatLogController: UICollectionViewController,
         
         view.bringSubviewToFront(containerView)
         
-        let uploadImageView = UIImageView()
         uploadImageView.isUserInteractionEnabled = true
         uploadImageView.image = UIImage(named: "picture")
         uploadImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -437,6 +522,18 @@ class ChatLogController: UICollectionViewController,
         containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
         
         self.navigationItem.titleView = titleView
+        
+        let rightButton = UIButton()
+        rightButton.setImage(UIImage(named: "btn_more"), for: .normal)
+        rightButton.translatesAutoresizingMaskIntoConstraints = false
+        
+//        containerView.addSubview(rightButton)
+//        //need x,y,width,height anchors
+//        rightButton.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
+//        rightButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
+//        rightButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+//        rightButton.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
+        
     }
     
     func downloadUserPhoto(
@@ -515,12 +612,24 @@ class ChatLogController: UICollectionViewController,
                     
                     if let fbName = userName, let remoteToken = remoteToken {
                         
-                        self.sendNotification(
-                            title: "新訊息",
-                            content: "\(fbName): \(message)",
-                            toToken: remoteToken,
-                            taskInfoKey: self.taskKey,
-                            fromUserId: fromId!, type: "message")
+                        for checkLeave in self.messageData {
+                            if checkLeave.text == "對方已關閉任務聊天室" {
+                                self.checUserkLeave = true
+                                break
+                            } else {
+                               self.checUserkLeave = false
+                            }
+                        }
+                        if self.checUserkLeave == false {
+                            self.sendNotification(
+                                title: "新訊息",
+                                content: "\(fbName): \(message)",
+                                toToken: remoteToken,
+                                taskInfoKey: self.taskKey,
+                                fromUserId: fromId!, type: "message", badge: self.badge)
+                            self.badge += 1
+                            self.sendBadgeToFirebase(value: self.badge)
+                        }
                     }
                 }
         }
@@ -557,7 +666,7 @@ class ChatLogController: UICollectionViewController,
                 "taskKey": taskKey,
                 "taskType": taskType])
         
-            getUserRemoteToken(userId: findRequestUserRemoteToken, fromName: fromUserName, message: "發送圖片給您...")
+            getUserRemoteToken(userId: findRequestUserRemoteToken, fromName: fromUserName, message: "傳送圖片")
     }
     
     var startingFrame: CGRect?
@@ -569,13 +678,15 @@ class ChatLogController: UICollectionViewController,
         
         self.startingImageView = startingImageView
         self.startingImageView?.isHidden = true
-        
+        self.view.endEditing(true)
         startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil)
         
         let zoomingImageView = UIImageView(frame: startingFrame!)
         zoomingImageView.backgroundColor = UIColor.red
         zoomingImageView.image = startingImageView.image
         zoomingImageView.isUserInteractionEnabled = true
+        
+        
         zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomout)))
         
         if let keyWindow = UIApplication.shared.keyWindow {
@@ -629,7 +740,7 @@ extension ChatLogController: UITextFieldDelegate, UITextViewDelegate {
         
         if let checkStr = inputStr.characters.last {
             
-            if checkStr != " ", checkStr != "\n"{
+            if textField.text!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty != true {
                 sendButton.isHidden = false
             } else {
                 sendButton.isHidden = true

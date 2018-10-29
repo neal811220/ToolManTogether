@@ -34,6 +34,7 @@ class SearchTaskViewController: UIViewController {
     var photoUrl: [URL] = []
     var userPhoto: [String:URL] = [:]
     let animationView = LOTAnimationView(name: "servishero_loading")
+    var selectTaskOwner: UserTaskInfo!
 
     
     override func viewDidAppear(_ animated: Bool) {
@@ -393,7 +394,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc func detailBtnTapped(data: UIButton) {
         print("detail")
-        let selectTaskOwner = selectTask[data.tag]
+        selectTaskOwner = selectTask[data.tag]
         if let taskOwnerID = selectTaskOwner.ownerID {
             
             self.searchTaskOwnerInfo(ownerID: taskOwnerID, taskInfo: selectTaskOwner, button: data)
@@ -439,7 +440,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                             
                             self.myRef.child("RequestTask").child(keyValue).removeValue()
                             let index = IndexPath(row: send.tag, section: 0)
-                            self.selectTask.remove(at: send.tag)
                             
                             if let userKey = userKey, let taskKey = taskKey {
                                 
@@ -451,6 +451,9 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                                 
                                 self.myRef.child("userAllTask").child(userId!).child(taskKey).removeValue()
                                 
+                                self.delectMessageData(taskKey: taskKey, taskInfo: self.selectTask[send.tag])
+                                self.selectTask.remove(at: send.tag)
+
                             }
                             
                             self.searchTaskTableVIew.performBatchUpdates({
@@ -481,6 +484,21 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
         personAlertController.addAction(deltetAction)
         personAlertController.addAction(cancelAction)
         self.present(personAlertController, animated: true, completion: nil)
+    }
+    
+    func delectMessageData(taskKey: String, taskInfo: UserTaskInfo) {
+        
+        let autoID = myRef.childByAutoId().key
+        let timestamp = Double(Date().millisecondsSince1970)
+        
+        myRef.child("Message").child(taskKey).child(autoID!).updateChildValues([
+            "message": "對方已離開任務聊天室",
+            "fromId": autoID!,
+            "timestamp": timestamp,
+            "taskTitle": taskInfo.title,
+            "taskOwnerId": taskInfo.ownerID,
+            "taskKey": taskKey,
+            "taskType": taskInfo.type])
     }
     
     func updataTaskUserPhoto(

@@ -281,9 +281,11 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         guard addTask.count != scrollIndex else { return }
         let userId = Auth.auth().currentUser?.uid
         guard let taskKey = addTask[scrollIndex].taskKey else { return }
+        let taskInfo = addTask[scrollIndex]
         
         myRef.child("Task").child(taskKey).removeValue()
         myRef.child("userAllTask").child(userId!).child(taskKey).removeValue()
+        delectMessageData(taskKey: taskKey, taskInfo: taskInfo)
         self.addTask.remove(at: scrollIndex)
 
         let index = IndexPath(row: scrollIndex, section: 0)
@@ -305,6 +307,21 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         print("刪除完成")
     }
     
+    
+    func delectMessageData(taskKey: String, taskInfo: UserTaskInfo) {
+        
+        let autoID = myRef.childByAutoId().key
+        let timestamp = Double(Date().millisecondsSince1970)
+
+        myRef.child("Message").child(taskKey).child(autoID!).updateChildValues([
+            "message": "對方已關閉任務聊天室",
+            "fromId": autoID!,
+            "timestamp": timestamp,
+            "taskTitle": taskInfo.title,
+            "taskOwnerId": taskInfo.ownerID,
+            "taskKey": taskKey,
+            "taskType": taskInfo.type])
+    }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

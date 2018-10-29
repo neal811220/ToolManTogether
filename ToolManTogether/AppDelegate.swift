@@ -86,6 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         return true
     }
+    
 
     func switchToLoginStoryBoard() {
         guard Thread.current.isMainThread else {
@@ -124,9 +125,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        let testVC2 = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
 //        window?.rootViewController?.show(testVC2, sender: nil)
         print(userInfo)
-        
+        var badgeValue = 0
         guard let data = userInfo as? NSDictionary else { return }
-        print(data)
+        
+        if let dictionary = data["aps"] as? [String: Any] {
+            guard let badge = dictionary["badge"] as? Int else { return }
+            badgeValue = badge
+            print(badge)
+        }
         
         if let value = data["type"] as? String {
             switch value {
@@ -135,38 +141,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 
                 let fromUserId = data["fromUserId"] as? String
                 let taskInfoKey = data["taskInfoKey"] as? String
-                getMessageNeedData(fromUserId: fromUserId, taskInfoKey: taskInfoKey)
                 
-            case "mission":
-                print("mission waiting doing")
+                getMessageNeedData(fromUserId: fromUserId, taskInfoKey: taskInfoKey, getBadgeValue: badgeValue)
+                
+            case "missionAgree":
+                
+                let ownerID = data["fromUserId"] as? String
+                let taskInfo = data["taskInfoKey"] as? String
+                getAgreeTaskInfoNeedData(ownerID: ownerID, taskInfo: taskInfo)
+                
+            case "missionDisAgree":
+                
+                AppDelegate.shared?.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
+                let tabBarVC = AppDelegate.shared?.window?.rootViewController as? TabBarViewController
+                tabBarVC?.selectedIndex = 1
     
             default:
                 return
             }
         }
-        
-//        AppDelegate.shared?.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//        AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
-//        let tabBarVC = AppDelegate.shared?.window?.rootViewController as? TabBarViewController
-//        tabBarVC?.selectedIndex = 1
-//        UIApplication.shared.applicationIconBadgeNumber = 0
-    
-        // 推播 show view
-
-//
-//        AppDelegate.shared?.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//        AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
-//        let storyboard = UIStoryboard(name: "NotificationAgree", bundle: nil)
-//        let alertVC = storyboard.instantiateViewController(withIdentifier: "NotificationAgree")
-//        let tabBarVC = AppDelegate.shared?.window?.rootViewController as? TabBarViewController
-//        let testVC = NotificationAgreeViewController.profileDetailDataForTask("test")
-//        tabBarVC?.present(testVC, animated: true, completion: nil)
-//        tabBarVC?.selectedIndex = 1
-//        UIApplication.shared.applicationIconBadgeNumber = 0
-
     }
     
-    func getMessageNeedData(fromUserId: String?, taskInfoKey: String?) {
+    func getAgreeTaskInfoNeedData(ownerID: String?, taskInfo: String?) {
         
         let myTabBar = self.window?.rootViewController as? UITabBarController
         
@@ -176,6 +173,102 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let myId = Auth.auth().currentUser?.uid
         
+        myRef.child("RequestTask")
+            .queryOrderedByKey().queryEqual(toValue: taskInfo)
+            .observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            guard let data = snapshot.value as? NSDictionary else { return }
+            
+            for value in data {
+                
+                guard let keyValue = value.key as? String else { return }
+                guard let dictionary = value.value as? [String: Any] else { return }
+                guard let title = dictionary["Title"] as? String else { return }
+                guard let content = dictionary["Content"] as? String else { return }
+                guard let price = dictionary["Price"] as? String else { return }
+                guard let type = dictionary["Type"] as? String else { return }
+                guard let userName = dictionary["UserName"] as? String else { return }
+                guard let userID = dictionary["UserID"] as? String else { return }
+                guard let taskLat = dictionary["Lat"] as? Double else { return }
+                guard let taskLon = dictionary["Lon"] as? Double else { return }
+                guard let checkTask = dictionary["checkTask"] as? String else { return }
+                guard let distance = dictionary["distance"] as? Double else { return }
+                guard let taskOwner = dictionary["ownerID"] as? String else { return }
+                let time = dictionary["Time"] as? Int
+                guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
+                let requestUserkey = dictionary["requestUserKey"] as? String
+                let requestTaskKey = dictionary["taskKey"] as? String
+                let address = dictionary["address"] as? String
+                
+                let task = UserTaskInfo(userID: userID,
+                                        userName: userName,
+                                        title: title,
+                                        content: content,
+                                        type: type,
+                                        price: price,
+                                        taskLat: taskLat,
+                                        taskLon: taskLon,
+                                        checkTask: checkTask,
+                                        distance: distance,
+                                        time: time,
+                                        ownerID: taskOwner,
+                                        ownAgree: ownerAgree,
+                                        taskKey: keyValue,
+                                        agree: nil, requestKey: requestUserkey,
+                                        requestTaskKey: requestTaskKey, address: address)
+                self.taskInfo.append(task)
+                
+            }
+        })
+        
+        myRef.child("UserData").queryOrderedByKey()
+            .queryEqual(toValue: ownerID)
+            .observeSingleEvent(of: .value) { (snapshot) in
+                
+                guard let data = snapshot.value as? NSDictionary else { return }
+                for value in data.allValues {
+                    
+                    guard let dictionary = value as? [String: Any] else { return }
+                    print(dictionary)
+                    let aboutUser = dictionary["AboutUser"] as? String
+                    let fbEmail = dictionary["FBEmail"] as? String
+                    let fbID = dictionary["FBID"] as? String
+                    let fbName = dictionary["FBName"] as? String
+                    let userPhone = dictionary["UserPhone"] as? String
+                    guard let userID = dictionary["UserID"] as? String else { return }
+                    let remoteToken = dictionary["RemoteToken"] as? String
+                    
+                    let extractedExpr = RequestUserInfo(aboutUser: aboutUser,
+                                                        fbEmail: fbEmail,
+                                                        fbID: fbID,
+                                                        fbName: fbName,
+                                                        userPhone: userPhone, userID: userID,
+                                                        remoteToken: remoteToken)
+                    self.taskOwnerInfo.append(extractedExpr)
+                }
+                
+                let viewController = AgreeTaskViewController.profileDetailDataForTask(self.taskOwnerInfo, self.taskInfo)
+                
+                navViewController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
+    func getMessageNeedData(fromUserId: String?, taskInfoKey: String?, getBadgeValue: Int) {
+        
+        let myTabBar = self.window?.rootViewController as? UITabBarController
+        
+        let navViewController = myTabBar?.selectedViewController as? UINavigationController
+        
+        navViewController?.popViewController(animated: false)
+        
+        let myId = Auth.auth().currentUser?.uid
+        
+        myRef.child("Badge").child(myId!).updateChildValues([
+            "messageBadge": getBadgeValue - 1
+            ])
+        
+        UIApplication.shared.applicationIconBadgeNumber = getBadgeValue - 1
+
         myRef.child("Task").queryOrderedByKey().queryEqual(toValue: taskInfoKey!).observeSingleEvent(of: .value) { (snapshot) in
             
             guard let data = snapshot.value as? NSDictionary else { return }
@@ -192,7 +285,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 guard let type = dictionary["Type"] as? String else { return }
                 guard let userName = dictionary["UserName"] as? String else { return }
                 guard let userID = dictionary["UserID"] as? String else { return }
-                guard let requestUser = dictionary["RequestUser"] as? NSDictionary else { return }
     
                 let taskLat = dictionary["lat"] as? Double
                 let taskLon = dictionary["lon"] as? Double
@@ -240,8 +332,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         self.taskOwnerInfo.append(extractedExpr)
                     }
                     
-                    UIApplication.shared.applicationIconBadgeNumber = 0
-
                     let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
                     chatLogController.taskInfo = self.taskInfo.last
                     chatLogController.userInfo = self.taskOwnerInfo.last

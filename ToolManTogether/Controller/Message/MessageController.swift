@@ -44,6 +44,30 @@ class MessageController: UIViewController {
         getUserAkkTaskKey()
         
         self.title = "任務聊天室"
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        resetBadgeCount()
+        
+//        messageListTableView.allowsMultipleSelectionDuringEditing = true
+        
+    }
+    
+    
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+//
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        guard let taskKey = userAllMessage[indexPath.row].taskKey else { return }
+//        myRef.child("Message").child(taskKey).removeValue()
+//        tableView.reloadData()
+//    }
+
+    func resetBadgeCount() {
+        let myId = Auth.auth().currentUser?.uid
+        myRef.child("Badge").child(myId!).updateChildValues([
+            "messageBadge": 1
+            ])
     }
     
     func getUserAkkTaskKey() {
@@ -77,12 +101,13 @@ class MessageController: UIViewController {
         let userId = Auth.auth().currentUser?.uid
         
         for data in userAllTaskKey {
-            print(data)
             myRef.child("Message")
                 .child(data.taskKey)
                 .observe(.childAdded) { [weak self] (snapshot) in
                     if let dictionary = snapshot.value as? [String: Any] {
                         //                        let taskKey = snapshot.key as? String
+                        print(dictionary)
+                        
                         let fromId = dictionary["fromId"] as? String
                         let text = dictionary["message"] as? String
                         let timestamp = dictionary["timestamp"] as? Double
@@ -193,17 +218,33 @@ extension MessageController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let cellData = userAllMessage[indexPath.row]
-        getUserTaskInfo(cellData: cellData)
-        tableView.allowsSelection = false
+        
+        let allow = checkUserLeave(allData: userAllMessage, cellData: cellData)
+        
+        tableView.cellForRow(at: indexPath)!.isSelected = allow
+
     }
     
+    func checkUserLeave(allData : [Message], cellData: Message) -> Bool {
+        
+            if cellData.text == "對方已關閉任務聊天室" || cellData.text == "對方已離開任務聊天室" {
+                return false
+            } else {
+                getUserTaskInfo(cellData: cellData)
+                return true
+            }
+        return false
+    }
+
     func getUserTaskInfo(cellData: Message) {
         
         let myId = Auth.auth().currentUser?.uid
         
         myRef.child("Task").queryOrderedByKey().queryEqual(toValue: cellData.taskKey!).observeSingleEvent(of: .value) { (snapshot) in
             
-            guard let data = snapshot.value as? NSDictionary else { return }
+            guard let data = snapshot.value as? NSDictionary else {
+                return
+            }
             
             for value in data {
                 
@@ -238,7 +279,6 @@ extension MessageController: UITableViewDelegate, UITableViewDataSource {
                     if agree == true {
                         self.requestUserInfo.append(requestData)
                     }
-                    
                 }
                 
                 let taskLat = dictionary["lat"] as? Double
