@@ -125,8 +125,7 @@ class LoginViewController: UIViewController {
                         "FBID": fbID,
                         "FBName": fbName,
                         "FBEmail": fbEmail,
-                        "UserID": userID,
-                        "RemoteToken": userRemoteToken!])
+                        "UserID": userID])
                     
                     self.switchView()
                 }
@@ -160,11 +159,11 @@ class LoginViewController: UIViewController {
     
     
     func switchView() {
-        DispatchQueue.main.async {
+       
             AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
             
             guard let userID = Auth.auth().currentUser?.uid else { return }
-            
+             DispatchQueue.main.async {
             InstanceID.instanceID().instanceID { (result, error) in
                 if let error = error {
                     print("Error fetching remote instange ID: \(error)")

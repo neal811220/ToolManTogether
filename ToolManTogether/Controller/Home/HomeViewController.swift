@@ -45,6 +45,7 @@ class HomeViewController: UIViewController {
     var allAnnotationArray: [MKAnnotation] = []
     let keychain = KeychainSwift()
     var isGuest = false
+    var allAnnotations: [MKAnnotation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -179,6 +180,9 @@ class HomeViewController: UIViewController {
         annotation.title = type
         
         mapView.addAnnotation(annotation)
+        
+        allAnnotations = mapView.annotations
+        
     }
     
     func removeMapTaskPoint(taskLat: Double, taskLon: Double) {
@@ -189,6 +193,7 @@ class HomeViewController: UIViewController {
         for eachAnnotaion in allAnnotation {
             if eachAnnotaion.coordinate == taskCoordinate {
                 self.mapView.removeAnnotation(eachAnnotaion)
+                allAnnotations = mapView.annotations
             }
         }
     }
@@ -239,8 +244,6 @@ class HomeViewController: UIViewController {
                 let roundDistance = round(distance * 100) / 100
                 
                 self.selectTaskKey = keyValue
-                
-
                 
                 self.selectTask = UserTaskInfo(userID: currentUserID,
                                                userName: userName,
@@ -644,6 +647,20 @@ extension HomeViewController: MKMapViewDelegate {
         
         animateViewUp()
         addSwipe()
+    }
+    
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        print(mapView.region.span)
+        if mapView.region.span.latitudeDelta > 0.06 {
+
+            self.mapView.removeAnnotations(allAnnotations)
+            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+            self.navigationItem.title = "請將地圖放大一點🙏"
+        } else {
+            self.mapView.addAnnotations(allAnnotations)
+            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9568627451, green: 0.9490196078, blue: 0.9568627451, alpha: 1)
+           self.navigationItem.title = "搜尋任務"
+        }
     }
     
     func centerMapOnUserLocation() {

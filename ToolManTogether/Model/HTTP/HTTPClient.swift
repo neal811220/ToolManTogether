@@ -44,7 +44,8 @@ class HTTPClient {
             "title": title,
             "sound": "default",
             "category": "INVITATION",
-            "badge": badge ],
+            "badge": badge,
+            "content_available": true],
                           "data" : ["taskInfoKey": taskInfoKey,
                                     "fromUserId": fromUserId,
                                     "type": type]] as [String : Any]

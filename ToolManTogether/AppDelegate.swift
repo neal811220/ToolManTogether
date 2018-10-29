@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let keychain = KeychainSwift()
         
+        let notification = launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? NSDictionary
+        
         window?.tintColor = UIColor.init(red: 242.0/255.0, green: 183.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         
         Fabric.with([Crashlytics.self])
@@ -46,6 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
                 completionHandler: {_, _ in })
+            
+//
         } else {
             let settings: UIUserNotificationSettings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -53,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         application.registerForRemoteNotifications()
+        
         
         FirebaseApp.configure()
 
@@ -67,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
         myRef = Database.database().reference()
+        
 
         guard UserManager.fbUser.getUserToken() == nil else {
             
@@ -76,8 +82,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 if let error = error {
                     print("Error fetching remote instange ID: \(error)")
                 } else if let result = result {
+                    
                     print("Remote instance ID token: \(result.token)")
-                    keychain.set(result.token, forKey: "remoteToken")
+                    
+                    if let myId = Auth.auth().currentUser?.uid {
+                        self.myRef.child("UserData").child(myId).updateChildValues([
+                            "RemoteToken": result.token ])
+                    }
                 }
             }
             
@@ -87,7 +98,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         return true
     }
     
-
     func switchToLoginStoryBoard() {
         guard Thread.current.isMainThread else {
             DispatchQueue.main.async { [weak self] in
@@ -119,11 +129,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
 
-        // Print full message.
-//        let testVC = window?.rootViewController as? UITabBarController
-//        let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
-//        let testVC2 = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
-//        window?.rootViewController?.show(testVC2, sender: nil)
         print(userInfo)
         var badgeValue = 0
         guard let data = userInfo as? NSDictionary else { return }
@@ -344,7 +349,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -367,6 +371,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationDidEnterBackground(_ application: UIApplication) {
      
+
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
