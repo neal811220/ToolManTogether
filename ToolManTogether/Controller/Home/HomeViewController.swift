@@ -666,7 +666,7 @@ extension HomeViewController: MKMapViewDelegate {
     
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         print(mapView.region.span)
-        if mapView.region.span.latitudeDelta > 2.06 {
+        if mapView.region.span.latitudeDelta > 0.06 {
 
             self.mapView.removeAnnotations(allAnnotations)
             self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
