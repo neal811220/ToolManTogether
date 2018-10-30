@@ -69,6 +69,7 @@
 		8EA04DFC21730D1F00D12775 /* material_wave_loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EA04DFB21730D1F00D12775 /* material_wave_loading.json */; };
 		8EA9C29321772CEC007F57D3 /* AddPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9C29121772CEC007F57D3 /* AddPriceCell.swift */; };
 		8EA9C29421772CEC007F57D3 /* AddPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA9C29221772CEC007F57D3 /* AddPriceCell.xib */; };
+		8EAC57572187F12600C1A03F /* CheckInternetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC57562187F12500C1A03F /* CheckInternetManager.swift */; };
 		8EB0A21E2162609200FD81F1 /* FilterAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */; };
 		8EB6A74C21761907008C9CEF /* NotificationAgreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */; };
 		8EB6A74E2176191B008C9CEF /* NotificationAgree.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */; };
@@ -172,6 +173,7 @@
 		8EA04DFB21730D1F00D12775 /* material_wave_loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = material_wave_loading.json; sourceTree = "<group>"; };
 		8EA9C29121772CEC007F57D3 /* AddPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPriceCell.swift; sourceTree = "<group>"; };
 		8EA9C29221772CEC007F57D3 /* AddPriceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPriceCell.xib; sourceTree = "<group>"; };
+		8EAC57562187F12500C1A03F /* CheckInternetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternetManager.swift; sourceTree = "<group>"; };
 		8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAnnotation.swift; sourceTree = "<group>"; };
 		8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAgreeViewController.swift; sourceTree = "<group>"; };
 		8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NotificationAgree.storyboard; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 		8E6C6A7021522410007259D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8EAC57552187F0F100C1A03F /* CheckInternet */,
 				8E36B7512159E4B10073E7A6 /* Manager */,
 				8E6C6A74215232A2007259D3 /* HTTP */,
 				8E6C6A7121522418007259D3 /* Facebook */,
@@ -410,6 +413,14 @@
 				8EA04DF921730C5100D12775 /* LoadingViewController.swift */,
 			);
 			path = Alert;
+			sourceTree = "<group>";
+		};
+		8EAC57552187F0F100C1A03F /* CheckInternet */ = {
+			isa = PBXGroup;
+			children = (
+				8EAC57562187F12500C1A03F /* CheckInternetManager.swift */,
+			);
+			path = CheckInternet;
 			sourceTree = "<group>";
 		};
 		8EB0A20F2161B3F500FD81F1 /* Already */ = {
@@ -807,6 +818,7 @@
 				8EDA66332160B889009FFB8D /* TaskAgreeViewController.swift in Sources */,
 				8E93F76A216B9A370059BAEE /* CustomAlertViewController.swift in Sources */,
 				8ED727A82154D80000EE697F /* AddTaskTitleCell.swift in Sources */,
+				8EAC57572187F12600C1A03F /* CheckInternetManager.swift in Sources */,
 				8EC92177215F146C00BEE92D /* RequestToolsTableViewCell.swift in Sources */,
 				8E8BBD7E21755AC500371ECB /* TaskContentCell.swift in Sources */,
 				8ECAB997215E14CD00649128 /* RequestCell.swift in Sources */,

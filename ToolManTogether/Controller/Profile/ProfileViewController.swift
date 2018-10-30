@@ -32,6 +32,11 @@ class ProfileViewController: UIViewController {
     var isGuest = false
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkInternet()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guestMode()
@@ -62,7 +67,16 @@ class ProfileViewController: UIViewController {
         myRef = Database.database().reference()
         
         searchProfile()
+    }
+    
+    func checkInternet() {
         
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        }else{
+            print("Internet Connection not Available!")
+            self.showAlert(title: "網路連線有問題", content: "網路行為異常，請確認您的網路連線狀態或稍後再試。")
+        }
     }
     
     func guestMode() {
@@ -185,9 +199,14 @@ class ProfileViewController: UIViewController {
         appDelegate?.window?.rootViewController = viewController
         appDelegate?.window?.becomeKey()
     }
-    
-    
-    
+
+    func showAlert(title: String = "", content: String) {
+        let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+
     func showAlertWith(title: String = "發生錯誤", message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         

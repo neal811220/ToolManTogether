@@ -37,16 +37,19 @@ class SearchTaskViewController: UIViewController {
     var selectTaskOwner: UserTaskInfo!
 
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkInternet()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animationView.removeFromSuperview()
         guestMode()
         setAniView()
         searchTaskTableVIew.showsVerticalScrollIndicator = false
-
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,6 +76,17 @@ class SearchTaskViewController: UIViewController {
         let storyboard = UIStoryboard(name: "ControllerMessage", bundle: nil)
         if let controllerMessageVC = storyboard.instantiateViewController(withIdentifier: "controllerMessage") as? MessageController {
             self.show(controllerMessageVC, sender: nil)
+        }
+    }
+    
+    func checkInternet() {
+        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        }else{
+            print("Internet Connection not Available!")
+            
+            self.showAlert(title: "網路連線有問題", content: "網路行為異常，請確認您的網路連線狀態或稍後再試。")
         }
     }
     
@@ -110,6 +124,13 @@ class SearchTaskViewController: UIViewController {
         myActivityIndicator.backgroundColor = UIColor.white
         myActivityIndicator.center = CGPoint(x: fullScreenSize.width * 0.5, y: fullScreenSize.height * 0.5)
         self.searchTaskTableVIew.addSubview(myActivityIndicator)
+    }
+    
+    func showAlert(title: String = "", content: String) {
+        let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func selectTaskAdd() {

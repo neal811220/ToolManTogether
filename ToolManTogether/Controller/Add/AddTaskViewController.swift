@@ -41,6 +41,7 @@ class AddTaskViewController: UIViewController {
         super.viewWillAppear(animated)
         addTaskTableView.rowHeight = 100
         addTaskTableView.rowHeight = UITableView.automaticDimension
+        checkInternet()
     }
     
     override func viewDidLoad() {
@@ -82,8 +83,16 @@ class AddTaskViewController: UIViewController {
 
     }
     
+    func checkInternet() {
+        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        }else{
+            print("Internet Connection not Available!")
+            showAlert(title: "網路連線有問題", content: "網路行為異常，請確認您的網路連線狀態或稍後再試。")
+        }
+    }
     
-
     func sendNotification(title: String = "", content: String, data: String, badge: Int) {
         
         if let token = Messaging.messaging().fcmToken {

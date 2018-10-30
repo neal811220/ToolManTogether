@@ -47,6 +47,11 @@ class HistoryTaskViewController: UIViewController {
     
     let animationView = LOTAnimationView(name: "servishero_loading")
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkInternet()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animationView.removeFromSuperview()
@@ -84,6 +89,16 @@ class HistoryTaskViewController: UIViewController {
         let hasTaskNotification = Notification.Name("hasTask")
         NotificationCenter.default.addObserver(self, selector: #selector(self.hastask), name: hasTaskNotification, object: nil)
         
+    }
+    
+    func checkInternet() {
+        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        }else{
+            print("Internet Connection not Available!")
+            self.showAlert(title: "網路連線有問題", content: "網路行為異常，請確認您的網路連線狀態或稍後再試。")
+        }
     }
     
     func guestMode() {
@@ -125,6 +140,12 @@ class HistoryTaskViewController: UIViewController {
         self.historyTableView.addSubview(myActivityIndicator)
     }
     
+    func showAlert(title: String = "", content: String) {
+        let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
     
     @IBAction func messageListTapped(_ sender: Any) {
         let storyboard = UIStoryboard(name: "ControllerMessage", bundle: nil)
@@ -288,7 +309,7 @@ class HistoryTaskViewController: UIViewController {
         self.historyTableView.reloadData()
     }
     
-    @objc func showAlert() {
+    @objc func handleShowAlert() {
         let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let reportAction = UIAlertAction(title: "檢舉", style: .destructive) { (void) in
@@ -373,7 +394,7 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
                 if requestData.agree == true {
                     cell.agreeButton.isHidden = true
                     cell.moreBtn.isHidden = false
-                    cell.moreBtn.addTarget(self, action: #selector(self.showAlert), for: .touchUpInside)
+                    cell.moreBtn.addTarget(self, action: #selector(self.handleShowAlert), for: .touchUpInside)
                 } else {
                     cell.agreeButton.isHidden = false
                     cell.moreBtn.isHidden = true
