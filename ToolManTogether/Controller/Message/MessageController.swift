@@ -227,7 +227,7 @@ extension MessageController: UITableViewDelegate, UITableViewDataSource {
     
     func checkUserLeave(allData : [Message], cellData: Message) -> Bool {
         
-            if cellData.text == "對方已關閉任務聊天室" || cellData.text == "對方已離開任務聊天室" {
+        if cellData.text == "對方已關閉任務聊天室" || cellData.text == "對方已離開任務聊天室" || cellData.text == "已封鎖任務聊天室" {
                 return false
             } else {
                 getUserTaskInfo(cellData: cellData)

@@ -24,17 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var myRef: DatabaseReference!
     var taskOwnerInfo: [RequestUserInfo] = []
     var taskInfo: [UserTaskInfo] = []
-
+    var badgeValue = 0
+    
     static let shared = UIApplication.shared.delegate as? AppDelegate
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-//        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+
         switchToLoginStoryBoard()
-        
-        let keychain = KeychainSwift()
-        
-        let notification = launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? NSDictionary
         
         window?.tintColor = UIColor.init(red: 242.0/255.0, green: 183.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         
@@ -49,7 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 options: authOptions,
                 completionHandler: {_, _ in })
             
-//
         } else {
             let settings: UIUserNotificationSettings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -57,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         application.registerForRemoteNotifications()
-        
         
         FirebaseApp.configure()
 
@@ -73,10 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         myRef = Database.database().reference()
         
-
         guard UserManager.fbUser.getUserToken() == nil else {
-            
-            switchToMainStoryBoard()
             
             InstanceID.instanceID().instanceID { (result, error) in
                 if let error = error {
@@ -92,9 +83,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
             }
             
+            if let notification = launchOptions?[.remoteNotification] {
+                
+                print("notification: \(notification)")
+
+                if let data = notification as? NSDictionary {
+                    handleNotification(data: data, background: false)
+                }
+            }
+            
+            switchToMainStoryBoard()
+            
             return true
         }
-        
         return true
     }
     
@@ -130,8 +131,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Print message ID.
 
         print(userInfo)
-        var badgeValue = 0
         guard let data = userInfo as? NSDictionary else { return }
+        
+        handleNotification(data: data, background: true)
+        
+    }
+    
+    func handleNotification(data: NSDictionary, background: Bool) {
         
         if let dictionary = data["aps"] as? [String: Any] {
             guard let badge = dictionary["badge"] as? Int else { return }
@@ -144,16 +150,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 
             case "message":
                 
+                
+                
                 let fromUserId = data["fromUserId"] as? String
                 let taskInfoKey = data["taskInfoKey"] as? String
                 
-                getMessageNeedData(fromUserId: fromUserId, taskInfoKey: taskInfoKey, getBadgeValue: badgeValue)
+                getMessageNeedData(fromUserId: fromUserId, taskInfoKey: taskInfoKey, getBadgeValue: badgeValue, background: background)
                 
             case "missionAgree":
                 
                 let ownerID = data["fromUserId"] as? String
                 let taskInfo = data["taskInfoKey"] as? String
-                getAgreeTaskInfoNeedData(ownerID: ownerID, taskInfo: taskInfo)
+                getAgreeTaskInfoNeedData(ownerID: ownerID, taskInfo: taskInfo, background: background)
                 
             case "missionDisAgree":
                 
@@ -161,20 +169,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
                 let tabBarVC = AppDelegate.shared?.window?.rootViewController as? TabBarViewController
                 tabBarVC?.selectedIndex = 1
-    
+                
             default:
                 return
             }
         }
     }
     
-    func getAgreeTaskInfoNeedData(ownerID: String?, taskInfo: String?) {
-        
-        let myTabBar = self.window?.rootViewController as? UITabBarController
-        
-        let navViewController = myTabBar?.selectedViewController as? UINavigationController
-        
-        navViewController?.popViewController(animated: false)
+    func getAgreeTaskInfoNeedData(ownerID: String?, taskInfo: String?, background: Bool) {
         
         let myId = Auth.auth().currentUser?.uid
         
@@ -224,47 +226,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 self.taskInfo.append(task)
                 
             }
-        })
-        
-        myRef.child("UserData").queryOrderedByKey()
-            .queryEqual(toValue: ownerID)
-            .observeSingleEvent(of: .value) { (snapshot) in
-                
-                guard let data = snapshot.value as? NSDictionary else { return }
-                for value in data.allValues {
-                    
-                    guard let dictionary = value as? [String: Any] else { return }
-                    print(dictionary)
-                    let aboutUser = dictionary["AboutUser"] as? String
-                    let fbEmail = dictionary["FBEmail"] as? String
-                    let fbID = dictionary["FBID"] as? String
-                    let fbName = dictionary["FBName"] as? String
-                    let userPhone = dictionary["UserPhone"] as? String
-                    guard let userID = dictionary["UserID"] as? String else { return }
-                    let remoteToken = dictionary["RemoteToken"] as? String
-                    
-                    let extractedExpr = RequestUserInfo(aboutUser: aboutUser,
-                                                        fbEmail: fbEmail,
-                                                        fbID: fbID,
-                                                        fbName: fbName,
-                                                        userPhone: userPhone, userID: userID,
-                                                        remoteToken: remoteToken)
-                    self.taskOwnerInfo.append(extractedExpr)
-                }
-                
-                let viewController = AgreeTaskViewController.profileDetailDataForTask(self.taskOwnerInfo, self.taskInfo)
-                
-                navViewController?.pushViewController(viewController, animated: true)
+                self.myRef.child("UserData").queryOrderedByKey()
+                    .queryEqual(toValue: ownerID)
+                    .observeSingleEvent(of: .value) { (snapshot) in
+                        
+                        guard let data = snapshot.value as? NSDictionary else { return }
+                        for value in data.allValues {
+                            
+                            guard let dictionary = value as? [String: Any] else { return }
+                            print(dictionary)
+                            let aboutUser = dictionary["AboutUser"] as? String
+                            let fbEmail = dictionary["FBEmail"] as? String
+                            let fbID = dictionary["FBID"] as? String
+                            let fbName = dictionary["FBName"] as? String
+                            let userPhone = dictionary["UserPhone"] as? String
+                            guard let userID = dictionary["UserID"] as? String else { return }
+                            let remoteToken = dictionary["RemoteToken"] as? String
+                            
+                            let extractedExpr = RequestUserInfo(aboutUser: aboutUser,
+                                                                fbEmail: fbEmail,
+                                                                fbID: fbID,
+                                                                fbName: fbName,
+                                                                userPhone: userPhone, userID: userID,
+                                                                remoteToken: remoteToken)
+                            self.taskOwnerInfo.append(extractedExpr)
+                        }
+                        
+                        let myTabBar = self.window?.rootViewController as? UITabBarController
+                        myTabBar?.selectedIndex = 1
+                        
+                        if background == true {
+                            
+                            let navViewController = myTabBar?.selectedViewController as? UINavigationController
+                            
+                            navViewController?.popViewController(animated: false)
+                            
+                            let viewController = AgreeTaskViewController.profileDetailDataForTask(self.taskOwnerInfo, self.taskInfo)
+                            
+                            navViewController?.pushViewController(viewController, animated: true)
+                            
+                        } else {
+                            
+                            if let navViewController = myTabBar?.selectedViewController as? UINavigationController {
+                                
+                                let viewController = AgreeTaskViewController.profileDetailDataForTask(self.taskOwnerInfo, self.taskInfo)
+                                
+                                navViewController.pushViewController(viewController, animated: false)
+                            }
+                        }
         }
-    }
+        }
+    )}
     
-    func getMessageNeedData(fromUserId: String?, taskInfoKey: String?, getBadgeValue: Int) {
-        
-        let myTabBar = self.window?.rootViewController as? UITabBarController
-        
-        let navViewController = myTabBar?.selectedViewController as? UINavigationController
-        
-        navViewController?.popViewController(animated: false)
+    func getMessageNeedData(fromUserId: String?, taskInfoKey: String?, getBadgeValue: Int, background: Bool) {
         
         let myId = Auth.auth().currentUser?.uid
         
@@ -309,9 +323,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 self.taskInfo.append(task)
                 
             }
-        }
             
-            myRef.child("UserData").queryOrderedByKey()
+            self.myRef.child("UserData").queryOrderedByKey()
                 .queryEqual(toValue: fromUserId!)
                 .observeSingleEvent(of: .value) { (snapshot) in
                     
@@ -342,13 +355,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     chatLogController.userInfo = self.taskOwnerInfo.last
                     chatLogController.findRequestUserRemoteToken = self.taskOwnerInfo.last?.userID
                     chatLogController.fromTaskOwner = true
-                    navViewController?.pushViewController(chatLogController, animated: false)
+                    
+                    let myTabBar = self.window?.rootViewController as? UITabBarController
+                    myTabBar?.selectedIndex = 1
+                    
+                    if background == true {
+                        
+                        let navViewController = myTabBar?.selectedViewController as? UINavigationController
+                        navViewController?.popViewController(animated: false)
+                        navViewController?.pushViewController(chatLogController, animated: false)
+                        
+                    } else {
+                        
+                        if let navViewController = myTabBar?.selectedViewController as? UINavigationController {
+                            
+                            navViewController.pushViewController(chatLogController, animated: false)
+                        }
+                    }
+            }
         }
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+                                withCompletionHandler completionHandler: @escaping  (UNNotificationPresentationOptions) -> Void) {
+        return
+        
+    }
+    
+    func userNotificationCenter(center: UNUserNotificationCenter, didReceiveNotificationResponse response: UNNotificationResponse, withCompletionHandler completionHandler: () -> Void) {
+
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

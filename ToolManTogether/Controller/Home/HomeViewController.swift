@@ -651,10 +651,10 @@ extension HomeViewController: MKMapViewDelegate {
     
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         print(mapView.region.span)
-        if mapView.region.span.latitudeDelta > 0.06 {
+        if mapView.region.span.latitudeDelta > 2.06 {
 
             self.mapView.removeAnnotations(allAnnotations)
-            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
+            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
             self.navigationItem.title = "請將地圖放大一點🙏"
         } else {
             self.mapView.addAnnotations(allAnnotations)

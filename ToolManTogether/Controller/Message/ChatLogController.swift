@@ -82,6 +82,10 @@ class ChatLogController: UICollectionViewController,
     
     @objc func handleRightButton() {
         
+        let userId = Auth.auth().currentUser?.uid
+        let timestamp = Double(Date().millisecondsSince1970)
+        let autoID = myRef.childByAutoId().key
+        
         let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let reportAction = UIAlertAction(title: "檢舉", style: .destructive) { (void) in
@@ -89,7 +93,7 @@ class ChatLogController: UICollectionViewController,
             let reportController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             let contentAction = UIAlertAction(title: "內容不適當", style: .destructive) { (void) in
-                let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理", preferredStyle: .alert)
+                let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理。", preferredStyle: .alert)
                 
                 let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
                 
@@ -100,7 +104,7 @@ class ChatLogController: UICollectionViewController,
             }
             
             let adAction = UIAlertAction(title: "這是垃圾訊息", style: .destructive) { (void) in
-                let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理", preferredStyle: .alert)
+                let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理。", preferredStyle: .alert)
                 
                 let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
                 
@@ -118,9 +122,36 @@ class ChatLogController: UICollectionViewController,
             self.present(reportController, animated: true, completion: nil)
         }
         
+        let hideAcrion = UIAlertAction(title: "封鎖並刪除聊天室", style: .destructive) { (void) in
+            
+                let reportController = UIAlertController(title: "確定封鎖？", message: "將會封鎖此任務聊天室，無法再進行對話", preferredStyle: .alert)
+                
+            let okAction = UIAlertAction(title: "確定", style: .destructive) { (void) in
+                
+//                self.myRef.child("userAllTask").child(userId!).child(self.taskKey).removeValue()
+                self.myRef.child("Message").child(self.taskKey).child(autoID!).updateChildValues([
+                    "message": "已封鎖任務聊天室",
+                    "fromId": userId!,
+                    "timestamp": timestamp,
+                    "taskTitle": self.taskInfo!.title,
+                    "taskOwnerId": self.taskInfo!.ownerID,
+                    "taskKey": self.taskKey,
+                    "taskType": self.taskInfo!.type ])
+                self.navigationController?.popViewController(animated: true)
+                
+            }
+                
+                let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+                reportController.addAction(cancelAction)
+                reportController.addAction(okAction)
+                self.present(reportController, animated: true, completion: nil)
+            
+        }
+        
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
         personAlertController.addAction(reportAction)
+        personAlertController.addAction(hideAcrion)
         personAlertController.addAction(cancelAction)
         self.present(personAlertController, animated: true, completion: nil)
     }
@@ -311,7 +342,7 @@ class ChatLogController: UICollectionViewController,
                 
                 self?.handleSeenMessageFor(messageKey: messageTaskKey!, detailKey: messageDetailKey)
                 
-                if message.text == "對方已關閉任務聊天室" || message.text == "對方已離開任務聊天室" {
+                if message.text == "對方已關閉任務聊天室" || message.text == "對方已離開任務聊天室" || message.text == "已封鎖任務聊天室" {
                     stroungSelf.inputTextField.text = "無法傳送訊息"
                     stroungSelf.inputTextField.textColor = UIColor.lightGray
                     stroungSelf.inputTextField.isEnabled = false
