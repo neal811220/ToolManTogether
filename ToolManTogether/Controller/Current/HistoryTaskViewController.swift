@@ -36,7 +36,7 @@ class HistoryTaskViewController: UIViewController {
     var client = HTTPClient(configuration: .default)
     
     var refreshController: UIRefreshControl!
-    var scrollViewDefine: UserTaskInfo!
+    var scrollViewDefine: UserTask!
     
     var myActivityIndicator: UIActivityIndicatorView!
     let fullScreenSize = UIScreen.main.bounds.size
@@ -446,7 +446,7 @@ extension HistoryTaskViewController: TableViewCellDelegate {
 
 extension HistoryTaskViewController: ScrollTask {
     
-    func didScrollTask(_ cell: UserTaskInfo) {
+    func didScrollTask(_ cell: UserTask) {
         
         self.requestTools.removeAll()
         self.toolsInfo.removeAll()

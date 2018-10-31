@@ -24,8 +24,12 @@ class SearchTaskViewController: UIViewController {
     
     var photoURL: [URL] = []
     var myRef: DatabaseReference!
-    var selectTask: [UserTaskInfo] = []
+//    var selectTask: [UserTaskInfo] = []
     var selectTaskKey: [String] = []
+    
+    let decoder = JSONDecoder()
+    var selectTask = [UserTask]()
+    
     var reloadFromFirebase = false
     var taskOwnerInfo: [RequestUserInfo] = []
     var myActivityIndicator: UIActivityIndicatorView!
@@ -34,7 +38,7 @@ class SearchTaskViewController: UIViewController {
     var photoUrl: [URL] = []
     var userPhoto: [String:URL] = [:]
     let animationView = LOTAnimationView(name: "servishero_loading")
-    var selectTaskOwner: UserTaskInfo!
+    var selectTaskOwner: UserTask!
 
     
     override func viewWillAppear(_ animated: Bool) {
@@ -152,45 +156,59 @@ class SearchTaskViewController: UIViewController {
                 
                 for value in data {
                     guard let keyValue = value.key as? String else { return }
-                    guard let dictionary = value.value as? [String: Any] else { return }
-                    guard let title = dictionary["Title"] as? String else { return }
-                    guard let content = dictionary["Content"] as? String else { return }
-                    guard let price = dictionary["Price"] as? String else { return }
-                    guard let type = dictionary["Type"] as? String else { return }
-                    guard let userName = dictionary["UserName"] as? String else { return }
-                    guard let userID = dictionary["UserID"] as? String else { return }
-                    guard let taskLat = dictionary["Lat"] as? Double else { return }
-                    guard let taskLon = dictionary["Lon"] as? Double else { return }
-                    guard let checkTask = dictionary["checkTask"] as? String else { return }
-                    guard let distance = dictionary["distance"] as? Double else { return }
-                    guard let taskOwner = dictionary["ownerID"] as? String else { return }
-                    let time = dictionary["Time"] as? Int
-                    guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
-                    let requestUserkey = dictionary["requestUserKey"] as? String
-                    let requestTaskKey = dictionary["taskKey"] as? String
-                    let address = dictionary["address"] as? String
+                    let dictionary = value.value
+//                    guard let title = dictionary["Title"] as? String else { return }
+//                    guard let content = dictionary["Content"] as? String else { return }
+//                    guard let price = dictionary["Price"] as? String else { return }
+//                    guard let type = dictionary["Type"] as? String else { return }
+//                    guard let userName = dictionary["UserName"] as? String else { return }
+//                    guard let userID = dictionary["UserID"] as? String else { return }
+//                    guard let taskLat = dictionary["Lat"] as? Double else { return }
+//                    guard let taskLon = dictionary["Lon"] as? Double else { return }
+//                    guard let checkTask = dictionary["checkTask"] as? String else { return }
+//                    guard let distance = dictionary["distance"] as? Double else { return }
+//                    guard let taskOwner = dictionary["ownerID"] as? String else { return }
+//                    let time = dictionary["Time"] as? Int
+//                    guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
+//                    let requestUserkey = dictionary["requestUserKey"] as? String
+//                    let requestTaskKey = dictionary["taskKey"] as? String
+//                    let address = dictionary["address"] as? String
                     
-                    self.selectTaskKey.append(keyValue)
+                    guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: dictionary) else {
+                        return
+                    }
                     
-                    let task = UserTaskInfo(userID: userID,
-                                            userName: userName,
-                                            title: title,
-                                            content: content,
-                                            type: type,
-                                            price: price,
-                                            taskLat: taskLat,
-                                            taskLon: taskLon,
-                                            checkTask: checkTask,
-                                            distance: distance,
-                                            time: time,
-                                            ownerID: taskOwner,
-                                            ownAgree: ownerAgree,
-                                            taskKey: keyValue,
-                                            agree: nil, requestKey: requestUserkey,
-                                            requestTaskKey: requestTaskKey, address: address)
+                    do {
+                        let taskData = try self.decoder.decode(UserTaskInfo.self, from: taskInfoJSONData)
+                        self.selectTask.append(UserTask.init(taskKey: keyValue, checkTask: nil, distance: nil, userID: nil, userTaskInfo: taskData))
+                        
+                    } catch {
+                        print(error)
+                    }
                     
-                    self.selectTask.append(task)
-                    self.selectTask.sort(by: { $0.time! > $1.time!})
+//                    self.selectTask.append()
+                    
+//                    self.selectTaskKey.append(keyValue)
+                    
+//                    let task = UserTaskInfo(userID: userID,
+//                                            userName: userName,
+//                                            title: title,
+//                                            content: content,
+//                                            type: type,
+//                                            price: price,
+//                                            taskLat: taskLat,
+//                                            taskLon: taskLon,
+//                                            checkTask: checkTask,
+//                                            distance: distance,
+//                                            time: time,
+//                                            ownerID: taskOwner,
+//                                            ownAgree: ownerAgree,
+//                                            taskKey: keyValue,
+//                                            agree: nil, requestKey: requestUserkey,
+//                                            requestTaskKey: requestTaskKey, address: address)
+                    
+//                    self.selectTask.append(task)
+                    self.selectTask.sort(by: { $0.userTaskInfo.time! > $1.userTaskInfo.time! })
                     
                     self.selectTaskChange(requestTaskKey: keyValue)
 
@@ -217,50 +235,61 @@ class SearchTaskViewController: UIViewController {
                             guard let data = snapshot.value as? NSDictionary else { return }
                             for value in data {
                                 guard let keyValue = value.key as? String else { return }
-                                guard let dictionary = value.value as? [String: Any] else { return }
-                                guard let title = dictionary["Title"] as? String else { return }
-                                guard let content = dictionary["Content"] as? String else { return }
-                                guard let price = dictionary["Price"] as? String else { return }
-                                guard let type = dictionary["Type"] as? String else { return }
-                                guard let userName = dictionary["UserName"] as? String else { return }
-                                guard let userID = dictionary["UserID"] as? String else { return }
-                                guard let taskLat = dictionary["Lat"] as? Double else { return }
-                                guard let taskLon = dictionary["Lon"] as? Double else { return }
-                                guard let checkTask = dictionary["checkTask"] as? String else { return }
-                                guard let distance = dictionary["distance"] as? Double else { return }
-                                guard let taskOwner = dictionary["ownerID"] as? String else { return }
-                                let time = dictionary["Time"] as? Int
-                                guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
-                                let requestUserkey = dictionary["requestUserKey"] as? String
-                                let requestTaskKey = dictionary["taskKey"] as? String
-                                let address = dictionary["address"] as? String
+                                let dictionary = value.value
+//                                guard let title = dictionary["Title"] as? String else { return }
+//                                guard let content = dictionary["Content"] as? String else { return }
+//                                guard let price = dictionary["Price"] as? String else { return }
+//                                guard let type = dictionary["Type"] as? String else { return }
+//                                guard let userName = dictionary["UserName"] as? String else { return }
+//                                guard let userID = dictionary["UserID"] as? String else { return }
+//                                guard let taskLat = dictionary["Lat"] as? Double else { return }
+//                                guard let taskLon = dictionary["Lon"] as? Double else { return }
+//                                guard let checkTask = dictionary["checkTask"] as? String else { return }
+//                                guard let distance = dictionary["distance"] as? Double else { return }
+//                                guard let taskOwner = dictionary["ownerID"] as? String else { return }
+//                                let time = dictionary["Time"] as? Int
+//                                guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
+//                                let requestUserkey = dictionary["requestUserKey"] as? String
+//                                let requestTaskKey = dictionary["taskKey"] as? String
+//                                let address = dictionary["address"] as? String
 
-
-                                let task = UserTaskInfo(userID: userID,
-                                                        userName: userName,
-                                                        title: title,
-                                                        content: content,
-                                                        type: type,
-                                                        price: price,
-                                                        taskLat: taskLat,
-                                                        taskLon: taskLon,
-                                                        checkTask: checkTask,
-                                                        distance: distance,
-                                                        time: time,
-                                                        ownerID: taskOwner,
-                                                        ownAgree: ownerAgree,
-                                                        taskKey: keyValue,
-                                                        agree: nil, requestKey: requestUserkey, requestTaskKey: requestTaskKey, address: address)
+                                guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: dictionary) else {
+                                    return
+                                }
                                 
-                                self.selectTask.append(task)
-                                self.selectTask.sort(by: { $0.time! > $1.time!})
+                                do {
+                                    let taskData = try self.decoder.decode(UserTaskInfo.self, from: taskInfoJSONData)
+                                    self.selectTask.append(UserTask.init(taskKey: keyValue, checkTask: nil, distance: nil, userID: nil, userTaskInfo: taskData))
+                                    
+                                } catch {
+                                    print(error)
+                                }
+
+//                                let task = UserTaskInfo(userID: userID,
+//                                                        userName: userName,
+//                                                        title: title,
+//                                                        content: content,
+//                                                        type: type,
+//                                                        price: price,
+//                                                        taskLat: taskLat,
+//                                                        taskLon: taskLon,
+//                                                        checkTask: checkTask,
+//                                                        distance: distance,
+//                                                        time: time,
+//                                                        ownerID: taskOwner,
+//                                                        ownAgree: ownerAgree,
+//                                                        taskKey: keyValue,
+//                                                        agree: nil, requestKey: requestUserkey, requestTaskKey: requestTaskKey, address: address)
+                                
+//                                self.selectTask.append(task)
+                                self.selectTask.sort(by: { $0.userTaskInfo.time! > $1.userTaskInfo.time! })
                             }
                             self.searchTaskTableVIew.reloadData()
                         }
             )}
     }
     
-    func searchTaskOwnerInfo(ownerID: String, taskInfo: UserTaskInfo, button: UIButton) {
+    func searchTaskOwnerInfo(ownerID: String, taskInfo: UserTask, button: UIButton) {
         
             myRef.child("UserData").queryOrderedByKey()
                 .queryEqual(toValue: ownerID)
@@ -270,24 +299,37 @@ class SearchTaskViewController: UIViewController {
                     guard let data = snapshot.value as? NSDictionary else { return }
                     for value in data.allValues {
                         
-                        guard let dictionary = value as? [String: Any] else { return }
-                        print(dictionary)
-                        let aboutUser = dictionary["AboutUser"] as? String
-                        let fbEmail = dictionary["FBEmail"] as? String
-                        let fbID = dictionary["FBID"] as? String
-                        let fbName = dictionary["FBName"] as? String
-                        let userPhone = dictionary["UserPhone"] as? String
-                        guard let userID = dictionary["UserID"] as? String else { return }
-                        let remoteToken = dictionary["RemoteToken"] as? String
+//                        guard let dictionary = value as? [String: Any] else { return }
+//                        print(dictionary)
+//                        let aboutUser = dictionary["AboutUser"] as? String
+//                        let fbEmail = dictionary["FBEmail"] as? String
+//                        let fbID = dictionary["FBID"] as? String
+//                        let fbName = dictionary["FBName"] as? String
+//                        let userPhone = dictionary["UserPhone"] as? String
+//                        guard let userID = dictionary["UserID"] as? String else { return }
+//                        let remoteToken = dictionary["RemoteToken"] as? String
+//
+//                        let extractedExpr = RequestUserInfo(aboutUser: aboutUser,
+//                                                            fbEmail: fbEmail,
+//                                                            fbID: fbID,
+//                                                            fbName: fbName,
+//                                                            userPhone: userPhone, userID: userID,
+//                                                            remoteToken: remoteToken)
                         
-                        let extractedExpr = RequestUserInfo(aboutUser: aboutUser,
-                                                            fbEmail: fbEmail,
-                                                            fbID: fbID,
-                                                            fbName: fbName,
-                                                            userPhone: userPhone, userID: userID,
-                                                            remoteToken: remoteToken)
-                        let toolsInfo = extractedExpr
-                        self.taskOwnerInfo.append(toolsInfo)
+                        guard let taskOwnerJSONData = try? JSONSerialization.data(withJSONObject: value) else {
+                            return
+                        }
+                        
+                        do {
+                            let taskData = try self.decoder.decode( RequestUserInfo.self, from: taskOwnerJSONData)
+                            self.taskOwnerInfo.append(taskData)
+                            
+                        } catch {
+                            print(error)
+                        }
+                        
+//                        let toolsInfo = extractedExpr
+//                        self.taskOwnerInfo.append(toolsInfo)
                         
                     }
                     
@@ -314,7 +356,8 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             cell.searchTaskView.reportBtn.tag = indexPath.row
             cell.searchTaskView.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             
-            let cellData = selectTask[indexPath.row]
+            let cellData = selectTask[indexPath.row].userTaskInfo
+            let distance = selectTask[indexPath.row].distance
             
             cell.selectionStyle = .none
             cell.searchTaskView.taskTitleLabel.text = cellData.title
@@ -416,7 +459,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
     @objc func detailBtnTapped(data: UIButton) {
         print("detail")
         selectTaskOwner = selectTask[data.tag]
-        if let taskOwnerID = selectTaskOwner.ownerID {
+        if let taskOwnerID = selectTaskOwner.userTaskInfo.ownerID {
             
             self.searchTaskOwnerInfo(ownerID: taskOwnerID, taskInfo: selectTaskOwner, button: data)
         }
@@ -429,8 +472,8 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
         
         let requestTask = selectTask[send.tag].checkTask
         
-        let taskKey = selectTask[send.tag].requestTaskKey
-        let userKey = selectTask[send.tag].requestKey
+        let taskKey = selectTask[send.tag].userTaskInfo.requestTaskKey
+        let userKey = selectTask[send.tag].userTaskInfo.requestKey
 
         let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -472,7 +515,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                                 
                                 self.myRef.child("userAllTask").child(userId!).child(taskKey).removeValue()
                                 
-                                self.delectMessageData(taskKey: taskKey, taskInfo: self.selectTask[send.tag])
+                                self.delectMessageData(taskKey: taskKey, taskInfo: self.selectTask[send.tag].userTaskInfo)
                                 self.selectTask.remove(at: send.tag)
 
                             }

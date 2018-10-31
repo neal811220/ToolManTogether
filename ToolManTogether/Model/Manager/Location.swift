@@ -9,25 +9,74 @@
 import Foundation
 import MapKit
 
-struct UserTaskInfo {
-    var userID: String
-    var userName: String
-    var title: String
-    var content: String
-    var type: String
-    var price: String
-    var taskLat: Double?
-    var taskLon: Double?
-    var checkTask: String?
-    var distance: Double?
-    var time: Int?
-    var ownerID: String?
-    var ownAgree: String?
-    var taskKey: String?
-    var agree: Bool?
-    var requestKey: String?
-    var requestTaskKey: String?
-    var address: String?
+//struct UserTaskInfo {
+//    var userID: String
+//    var userName: String
+//    var title: String
+//    var content: String
+//    var type: String
+//    var price: String
+//    var taskLat: Double?
+//    var taskLon: Double?
+//    var checkTask: String?
+//    var distance: Double?
+//    var time: Int?
+//    var ownerID: String?
+//    var ownAgree: String?
+//    var taskKey: String?
+//    var agree: Bool?
+//    var requestKey: String?
+//    var requestTaskKey: String?
+//    var address: String?
+//}
+
+struct UserTask {
+    let taskKey: String
+    let checkTask: String?
+    let distance: Double?
+    let userID: String?
+    var userTaskInfo: UserTaskInfo
+}
+
+struct UserTaskInfo: Codable {
+    let userID: String
+    let userName: String
+    let title: String
+    let content: String
+    let type: String
+    let price: String
+    let taskLat: Double?
+    let taskLon: Double?
+//    let checkTask: String?
+    let distance: Double?
+    let time: Int?
+    let ownerID: String?
+    let ownAgree: String?
+//    let taskKey: String?
+    let agree: Bool?
+    let requestKey: String?
+    let requestTaskKey: String?
+    let address: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case userID = "UserID"
+        case userName = "UserName"
+        case title = "Title"
+        case content = "Content"
+        case type = "Type"
+        case price = "Price"
+        case taskLat = "Lat"
+        case taskLon = "Lon"
+//        case checkTask
+        case distance = "distance"
+        case time = "Time"
+        case ownerID = "ownerID"
+        case ownAgree = "OwnerAgree"
+        case agree
+        case requestKey = "requestUserKey"
+        case requestTaskKey = "taskKey"
+        case address = "address"
+    }
 }
 
 class TaskPin: NSObject, MKAnnotation {

@@ -18,7 +18,7 @@ struct Message {
     var taskKey: String?
     var taskType: String?
     var seen: String?
-    
+
     var imageUrl: String?
     var imageHeight: Double?
     var imageWidth: Double?
@@ -29,3 +29,38 @@ struct MessageTaskKey {
     var taskTitle: String
     var taskOwnerName: String
 }
+
+//struct MessageInfo: Codable {
+//
+//    let fromId: String?
+//    let text: String?
+//    let timestamp: Double?
+//    let taskTitle: String?
+//    let taskOwnerName: String?
+//    let taskOwnerId: String?
+//    let taskKey: String?
+//    let taskType: String?
+////    let seen: String?
+//
+//    let imageUrl: String?
+//    let imageHeight: Double?
+//    let imageWidth: Double?
+//
+//    enum CodingKeys: String, CodingKey {
+//
+//        case fromId
+//        case text = "message"
+//        case timestamp
+//        case taskTitle
+//        case taskOwnerName
+//        case taskOwnerId
+//        case taskKey
+//        case taskType
+//        case imageUrl
+//        case imageHeight
+//        case imageWidth
+//
+//    }
+//}
+
+

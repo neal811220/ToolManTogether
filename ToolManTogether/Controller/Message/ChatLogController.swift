@@ -27,7 +27,7 @@ class ChatLogController: UICollectionViewController,
     
     var myRef: DatabaseReference!
     var fromTaskOwner = false
-    var taskInfo: UserTaskInfo?
+    var taskInfo: UserTask?
     var messageData: [Message] = []
     var messageImage: UIImageView?
     var taskKey: String!
@@ -44,7 +44,7 @@ class ChatLogController: UICollectionViewController,
     var userInfo: RequestUserInfo? {
         didSet {
 //            setupNavBar(titleName: userInfo?.fbName, userId: userInfo?.userID)
-            self.title = taskInfo?.title
+            self.title = taskInfo?.userTaskInfo.title
 //
             self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "btn_more"), style: .done, target: self, action: #selector(handleRightButton)), animated: true)
         }
@@ -133,10 +133,10 @@ class ChatLogController: UICollectionViewController,
                     "message": "已封鎖任務聊天室",
                     "fromId": userId!,
                     "timestamp": timestamp,
-                    "taskTitle": self.taskInfo!.title,
-                    "taskOwnerId": self.taskInfo!.ownerID,
+                    "taskTitle": self.taskInfo!.userTaskInfo.title,
+                    "taskOwnerId": self.taskInfo!.userTaskInfo.ownerID,
                     "taskKey": self.taskKey,
-                    "taskType": self.taskInfo!.type ])
+                    "taskType": self.taskInfo!.userTaskInfo.type ])
                 self.navigationController?.popViewController(animated: true)
                 
             }
@@ -306,7 +306,7 @@ class ChatLogController: UICollectionViewController,
     func observeMessage() {
         
         if fromTaskOwner == false {
-            taskKey = taskInfo?.requestTaskKey
+            taskKey = taskInfo?.userTaskInfo.requestTaskKey
         } else {
             taskKey = taskInfo?.taskKey
         }
@@ -593,19 +593,19 @@ class ChatLogController: UICollectionViewController,
         let message = inputTextField.text!
         let fromId = Auth.auth().currentUser?.uid
         let timestamp = Double(Date().timeIntervalSince1970)
-        guard let taskTitle = taskInfo?.title else { return }
-        guard let taskOwnerName = taskInfo?.userName else { return }
-        guard let taskType = taskInfo?.type else { return }
+        guard let taskTitle = taskInfo?.userTaskInfo.title else { return }
+        guard let taskOwnerName = taskInfo?.userTaskInfo.userName else { return }
+        guard let taskType = taskInfo?.userTaskInfo.type else { return }
         guard let toUserId = userInfo?.remoteToken else { return }
         guard let fromUserName = Auth.auth().currentUser?.displayName else { return }
         
         if fromTaskOwner == false {
-            taskKey = taskInfo?.requestTaskKey
-            taskOwnerId = taskInfo?.ownerID
+            taskKey = taskInfo?.userTaskInfo.requestTaskKey
+            taskOwnerId = taskInfo?.userTaskInfo.ownerID
             
         } else {
             taskKey = taskInfo?.taskKey
-            taskOwnerId = taskInfo?.userID
+            taskOwnerId = taskInfo!.userID
         }
         
         myRef.child("Message").child(taskKey).child(autoID!).updateChildValues([
@@ -672,17 +672,17 @@ class ChatLogController: UICollectionViewController,
         let message = inputTextField.text!
         let fromId = Auth.auth().currentUser?.uid
         let timestamp = Double(Date().millisecondsSince1970)
-        guard let taskTitle = taskInfo?.title else { return }
-        guard let taskOwnerName = taskInfo?.userName else { return }
-        guard let taskType = taskInfo?.type else { return }
+        guard let taskTitle = taskInfo?.userTaskInfo.title else { return }
+        guard let taskOwnerName = taskInfo?.userTaskInfo.userName else { return }
+        guard let taskType = taskInfo?.userTaskInfo.type else { return }
         guard let fromUserName = Auth.auth().currentUser?.displayName else { return }
 
         if fromTaskOwner == false {
-            taskKey = taskInfo?.requestTaskKey
-            taskOwnerId = taskInfo?.ownerID
+            taskKey = taskInfo?.userTaskInfo.requestTaskKey
+            taskOwnerId = taskInfo?.userTaskInfo.ownerID
         } else {
             taskKey = taskInfo?.taskKey
-            taskOwnerId = taskInfo?.userID
+            taskOwnerId = taskInfo!.userID
         }
         
             myRef.child("Message").child(taskKey).child(autoID!).updateChildValues([

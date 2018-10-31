@@ -19,7 +19,7 @@ class TaskAgreeViewController: UIViewController {
     @IBOutlet weak var popUpScoreHeight: NSLayoutConstraint!
     
     var userInfo: [RequestUserInfo]!
-    var taskInfo: [UserTaskInfo]!
+    var taskInfo: [UserTask]!
     var taskKey: String!
     
     override func viewDidLoad() {
@@ -78,7 +78,7 @@ class TaskAgreeViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    class func profileDetailDataForTask(_ data: [RequestUserInfo], _ taskInfo: [UserTaskInfo]) -> TaskAgreeViewController {
+    class func profileDetailDataForTask(_ data: [RequestUserInfo], _ taskInfo: [UserTask]) -> TaskAgreeViewController {
         let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
 
         let viewController = storyBoard.instantiateViewController(withIdentifier: "taskAgreeVC") as? TaskAgreeViewController
@@ -120,7 +120,7 @@ extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
                 let cellData = userInfo[indexPath.row]
                 let taskData = taskInfo[indexPath.row]
                 
-                if taskData.agree != true {
+                if taskData.userTaskInfo.agree != true {
                     cell.callBtn.isHidden = true
                     cell.messageBtn.isHidden = true
                 } else {

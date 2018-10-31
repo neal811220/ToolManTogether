@@ -21,10 +21,11 @@ class MessageController: UIViewController {
     var userAllTaskKey: [MessageTaskKey] = []
     var userAllMessage: [Message] = []
     var messagesDictionary = [String: Message]()
-    var taskInfo: [UserTaskInfo] = []
+    var taskInfo: [UserTask] = []
     var taskOwnerInfo: [RequestUserInfo] = []
     var requestUserInfo: [RequestUser] = []
     var toUserId: String!
+    let decoder = JSONDecoder()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -249,54 +250,75 @@ extension MessageController: UITableViewDelegate, UITableViewDataSource {
             for value in data {
                 
                 guard let keyValue = value.key as? String else { return }
-                guard let dictionary = value.value as? [String: Any] else { return }
-                print(dictionary)
-                
-                guard let title = dictionary["Title"] as? String else { return }
-                guard let content = dictionary["Content"] as? String else { return }
-                guard let price = dictionary["Price"] as? String else { return }
-                guard let type = dictionary["Type"] as? String else { return }
-                guard let userName = dictionary["UserName"] as? String else { return }
-                guard let userID = dictionary["UserID"] as? String else { return }
-                guard let requestUser = dictionary["RequestUser"] as? NSDictionary else { return }
+                guard let requestDictionary = value.value as? [String: Any] else { return }
+                guard let requestUser = requestDictionary["RequestUser"] as? NSDictionary else { return }
+                let dictionary = value.value
+//                print(dictionary)
+//
+//                guard let title = dictionary["Title"] as? String else { return }
+//                guard let content = dictionary["Content"] as? String else { return }
+//                guard let price = dictionary["Price"] as? String else { return }
+//                guard let type = dictionary["Type"] as? String else { return }
+//                guard let userName = dictionary["UserName"] as? String else { return }
+//                guard let userID = dictionary["UserID"] as? String else { return }
 
                 for requestUserData in requestUser {
                     
                     guard let keyValue = requestUserData.key as? String else { return }
                     print(requestUserData.value)
                     
-                    guard let requestDictionary = requestUserData.value as? [String: Any] else { return }
-                    print(requestDictionary)
+                    let requestDictionary = requestUserData.value
+//                    print(requestDictionary)
+//
+//                    guard let distance = requestDictionary["distance"] as? Double else { return }
+//                    guard let userID = requestDictionary["userID"] as? String else { return }
+//                    guard let agree = requestDictionary["agree"] as? Bool else { return }
+//                    guard let requestTaskID = requestDictionary["RequestTaskID"] as? String else { return }
+//                    guard let taskOwnerID = requestDictionary["taskKey"] as? String else { return }
+//
+//                    let requestData = RequestUser(agree: agree, distance: distance, userID: userID, requestTaskID: requestTaskID, taskOwnerID: taskOwnerID, requestKey: keyValue)
                     
-                    guard let distance = requestDictionary["distance"] as? Double else { return }
-                    guard let userID = requestDictionary["userID"] as? String else { return }
-                    guard let agree = requestDictionary["agree"] as? Bool else { return }
-                    guard let requestTaskID = requestDictionary["RequestTaskID"] as? String else { return }
-                    guard let taskOwnerID = requestDictionary["taskKey"] as? String else { return }
+                    guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: requestDictionary) else {
+                        return
+                    }
                     
-                    let requestData = RequestUser(agree: agree, distance: distance, userID: userID, requestTaskID: requestTaskID, taskOwnerID: taskOwnerID, requestKey: keyValue)
-
-                    if agree == true {
-                        self.requestUserInfo.append(requestData)
+                    do {
+                        let requestUserData = try self.decoder.decode(RequestUser.self, from: taskInfoJSONData)
+                        if requestUserData.agree == true {
+                            self.requestUserInfo.append(requestUserData)
+                        }
+                    } catch {
+                        print(error)
                     }
                 }
                 
-                let taskLat = dictionary["lat"] as? Double
-                let taskLon = dictionary["lon"] as? Double
-                guard let agree = dictionary["agree"] as? Bool else { return }
-                let time = dictionary["Time"] as? Int
+//                let taskLat = dictionary["lat"] as? Double
+//                let taskLon = dictionary["lon"] as? Double
+//                guard let agree = dictionary["agree"] as? Bool else { return }
+//                let time = dictionary["Time"] as? Int
                 
-                let task = UserTaskInfo(userID: userID,
-                                        userName: userName,
-                                        title: title,
-                                        content: content,
-                                        type: type, price: price,
-                                        taskLat: taskLat, taskLon: taskLon, checkTask: nil,
-                                        distance: nil, time: time,
-                                        ownerID: nil, ownAgree: nil,
-                                        taskKey: keyValue, agree: agree, requestKey: nil,
-                                        requestTaskKey: nil, address: nil)
-                self.taskInfo.append(task)
+//                let task = UserTaskInfo(userID: userID,
+//                                        userName: userName,
+//                                        title: title,
+//                                        content: content,
+//                                        type: type, price: price,
+//                                        taskLat: taskLat, taskLon: taskLon, checkTask: nil,
+//                                        distance: nil, time: time,
+//                                        ownerID: nil, ownAgree: nil,
+//                                        taskKey: keyValue, agree: agree, requestKey: nil,
+//                                        requestTaskKey: nil, address: nil)
+//                self.taskInfo.append(task)
+                
+                guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: dictionary) else {
+                    return
+                }
+                
+                do {
+                    let taskData = try self.decoder.decode(UserTaskInfo.self, from: taskInfoJSONData)
+                    self.taskInfo.append(UserTask.init(taskKey: keyValue, checkTask: nil, distance: nil, userID: nil, userTaskInfo: taskData))
+                } catch {
+                    print(error)
+                }
             }
         }
         
@@ -329,7 +351,6 @@ extension MessageController: UITableViewDelegate, UITableViewDataSource {
                 let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
                 chatLogController.taskInfo = self.taskInfo.last
                 chatLogController.userInfo = self.taskOwnerInfo.last
-                
                 
                 if self.requestUserInfo.last?.userID != myId! {
                     chatLogController.findRequestUserRemoteToken = self.requestUserInfo.last?.userID

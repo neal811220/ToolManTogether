@@ -15,7 +15,7 @@ import FirebaseDatabase
 import Lottie
 
 protocol ScrollTask: AnyObject{
-    func didScrollTask(_ cell: UserTaskInfo)
+    func didScrollTask(_ cell: UserTask)
 }
 
 protocol btnPressed: AnyObject {
@@ -33,7 +33,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     let layout = AnimatedCollectionViewLayout()
     let screenSize = UIScreen.main.bounds.size
     var myRef: DatabaseReference!
-    var addTask: [UserTaskInfo] = []
+    var addTask: [UserTask] = []
     var addTaskKey: [String] = []
     private var indexOfCellBeforeDragging = 0
     weak var scrollTaskDelegate: ScrollTask?
@@ -41,6 +41,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     var checkIndex = 0
     var scrollIndex = 0
 //    var bgView: UIView?
+    let decoder = JSONDecoder()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -88,7 +89,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         myRef.child("Task").queryOrdered(byChild: "UserID").queryEqual(toValue: userID).observeSingleEvent(of: .value) { (snapshot) in
             
-            print(snapshot)
             self.changeView(addTask: snapshot)
             
             guard let data = snapshot.value as? NSDictionary else { return }
@@ -96,33 +96,44 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             for value in data {
                 
                 guard let keyValue = value.key as? String else { return }
-                guard let dictionary = value.value as? [String: Any] else { return }
-                print(dictionary)
+                let dictionary = value.value
+//                print(dictionary)
+//
+//                guard let title = dictionary["Title"] as? String else { return }
+//                guard let content = dictionary["Content"] as? String else { return }
+//                guard let price = dictionary["Price"] as? String else { return }
+//                guard let type = dictionary["Type"] as? String else { return }
+//                guard let userName = dictionary["UserName"] as? String else { return }
+//                guard let userID = dictionary["UserID"] as? String else { return }
+//
+//                let taskLat = dictionary["lat"] as? Double
+//                let taskLon = dictionary["lon"] as? Double
+//                guard let agree = dictionary["agree"] as? Bool else { return }
+//                let time = dictionary["Time"] as? Int
+//
+//                let task = UserTaskInfo(userID: userID,
+//                                        userName: userName,
+//                                        title: title,
+//                                        content: content,
+//                                        type: type, price: price,
+//                                        taskLat: taskLat, taskLon: taskLon, checkTask: nil,
+//                                        distance: nil, time: time,
+//                                        ownerID: nil, ownAgree: nil,
+//                                        taskKey: keyValue, agree: agree, requestKey: nil, requestTaskKey: nil, address: nil)
                 
-                guard let title = dictionary["Title"] as? String else { return }
-                guard let content = dictionary["Content"] as? String else { return }
-                guard let price = dictionary["Price"] as? String else { return }
-                guard let type = dictionary["Type"] as? String else { return }
-                guard let userName = dictionary["UserName"] as? String else { return }
-                guard let userID = dictionary["UserID"] as? String else { return }
+                guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: dictionary) else {
+                    return
+                }
                 
-                let taskLat = dictionary["lat"] as? Double
-                let taskLon = dictionary["lon"] as? Double
-                guard let agree = dictionary["agree"] as? Bool else { return }
-                let time = dictionary["Time"] as? Int
-
-                let task = UserTaskInfo(userID: userID,
-                                        userName: userName,
-                                        title: title,
-                                        content: content,
-                                        type: type, price: price,
-                                        taskLat: taskLat, taskLon: taskLon, checkTask: nil,
-                                        distance: nil, time: time,
-                                        ownerID: nil, ownAgree: nil,
-                                        taskKey: keyValue, agree: agree, requestKey: nil, requestTaskKey: nil, address: nil)
+                do {
+                    let taskData = try self.decoder.decode(UserTaskInfo.self, from: taskInfoJSONData)
+                    self.addTask.append(UserTask.init(taskKey: keyValue, checkTask: nil, distance: nil, userID: nil, userTaskInfo: taskData))
+                } catch {
+                    print(error)
+                }
                 
-                self.addTask.append(task)
-                self.addTask.sort(by: { $0.time! > $1.time! })
+//                self.addTask.append(task)
+                self.addTask.sort(by: { $0.userTaskInfo.time! > $1.userTaskInfo.time! })
                 
 //                self.createTaskChange(taskKey: keyValue)
             }
@@ -153,31 +164,43 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 for value in data {
 
                     guard let keyValue = value.key as? String else { return }
-                    guard let dictionary = value.value as? [String: Any] else { return }
-                    print(dictionary)
-                    guard let title = dictionary["Title"] as? String else { return }
-                    guard let content = dictionary["Content"] as? String else { return }
-                    guard let price = dictionary["Price"] as? String else { return }
-                    guard let type = dictionary["Type"] as? String else { return }
-                    guard let userName = dictionary["UserName"] as? String else { return }
-                    guard let userID = dictionary["UserID"] as? String else { return }
-                    let taskLat = dictionary["lat"] as? Double
-                    let taskLon = dictionary["lon"] as? Double
-                    guard let agree = dictionary["agree"] as? Bool else { return }
-                    let time = dictionary["Time"] as? Int
+//                    guard let dictionary = value.value as? [String: Any] else { return }
+//                    print(dictionary)
+//                    guard let title = dictionary["Title"] as? String else { return }
+//                    guard let content = dictionary["Content"] as? String else { return }
+//                    guard let price = dictionary["Price"] as? String else { return }
+//                    guard let type = dictionary["Type"] as? String else { return }
+//                    guard let userName = dictionary["UserName"] as? String else { return }
+//                    guard let userID = dictionary["UserID"] as? String else { return }
+//                    let taskLat = dictionary["lat"] as? Double
+//                    let taskLon = dictionary["lon"] as? Double
+//                    guard let agree = dictionary["agree"] as? Bool else { return }
+//                    let time = dictionary["Time"] as? Int
 
-                    let task = UserTaskInfo(userID: userID,
-                                            userName: userName,
-                                            title: title,
-                                            content: content,
-                                            type: type, price: price,
-                                            taskLat: taskLat, taskLon: taskLon, checkTask: nil,
-                                            distance: nil, time: time,
-                                            ownerID: nil, ownAgree: nil,
-                                            taskKey: keyValue, agree: agree, requestKey: nil, requestTaskKey: nil, address: nil)
-                    self.addTask.append(task)
-                    self.addTask.sort(by: { $0.time! > $1.time! })
+//                    let task = UserTaskInfo(userID: userID,
+//                                            userName: userName,
+//                                            title: title,
+//                                            content: content,
+//                                            type: type, price: price,
+//                                            taskLat: taskLat, taskLon: taskLon, checkTask: nil,
+//                                            distance: nil, time: time,
+//                                            ownerID: nil, ownAgree: nil,
+//                                            taskKey: keyValue, agree: agree, requestKey: nil, requestTaskKey: nil, address: nil)
                     
+                    guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: value) else {
+                        return
+                    }
+                    
+                    do {
+                        let taskData = try self.decoder.decode(UserTaskInfo.self, from: taskInfoJSONData)
+                        self.addTask.append(UserTask.init(taskKey: keyValue, checkTask: nil, distance: nil, userID: nil, userTaskInfo: taskData))
+                    } catch {
+                        print(error)
+                    }
+                    
+//                    self.addTask.append(task)
+                    self.addTask.sort(by: { $0.userTaskInfo.time! > $1.userTaskInfo.time! })
+
                 }
                 
                 self.collectionView.reloadData()
@@ -239,7 +262,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         guard addTask.count != scrollIndex else { return }
         let userId = Auth.auth().currentUser?.uid
-        guard let ownerTaskKey = addTask[scrollIndex].taskKey else { return }
+        let ownerTaskKey = addTask[scrollIndex].taskKey
         
         myRef.child("Task").child(ownerTaskKey).removeValue()
         myRef.child("userAllTask").child(userId!).child(ownerTaskKey).removeValue()
@@ -280,8 +303,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         guard addTask.count != scrollIndex else { return }
         let userId = Auth.auth().currentUser?.uid
-        guard let taskKey = addTask[scrollIndex].taskKey else { return }
-        let taskInfo = addTask[scrollIndex]
+        let taskKey = addTask[scrollIndex].taskKey
+        let taskInfo = addTask[scrollIndex].userTaskInfo
         
         myRef.child("Task").child(taskKey).removeValue()
         myRef.child("userAllTask").child(userId!).child(taskKey).removeValue()
@@ -334,7 +357,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "requestCollectionView", for: indexPath) as? RequestCollectionViewCell {
             
-            let cellData = addTask[indexPath.row]
+            let cellData = addTask[indexPath.row].userTaskInfo
             cell.taskBtnDelegate = self
             cell.requestCollectionView.taskTitleLabel.text = cellData.title
             cell.requestCollectionView.taskContentTxtView.text = cellData.content
@@ -346,7 +369,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             cell.requestCollectionView.sendButton.layer.cornerRadius = 10
             cell.requestCollectionView.separatorView.isHidden = true
             cell.requestCollectionView.downView.isHidden = true
-            
             
             if cellData.agree == false {
                 cell.requestCollectionView.sendButton.setTitle("取消任務", for: .normal)
@@ -371,7 +393,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
 
             }
            
-            downloadUserPhoto(userID: cellData.userID, finder: "UserPhoto") { (url) in
+            downloadUserPhoto(userID: cellData.ownerID!, finder: "UserPhoto") { (url) in
                 if url == url {
                     cell.requestCollectionView.userPhoto.sd_setImage(with: url, completed: nil)
                 } else {

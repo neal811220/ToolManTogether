@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
     var locationManager = CLLocationManager()
     let authorizationStatus = CLLocationManager.authorizationStatus()
     var regionRadious: Double = 1000
-    var selectTask: UserTaskInfo?
+    var selectTask: UserTask?
     var selectTaskKey: String?
     let screenSize = UIScreen.main.bounds.size
     let loginVC = LoginViewController()
@@ -46,6 +46,7 @@ class HomeViewController: UIViewController {
     let keychain = KeychainSwift()
     var isGuest = false
     var allAnnotations: [MKAnnotation] = []
+    let decoder = JSONDecoder()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -241,14 +242,14 @@ class HomeViewController: UIViewController {
             
             for value in data {
                 guard let keyValue = value.key as? String else { return }
-                guard let dictionary = value.value as? [String: Any] else { return }
-                guard let title = dictionary["Title"] as? String else { return }
-                guard let content = dictionary["Content"] as? String else { return }
-                guard let price = dictionary["Price"] as? String else { return }
-                guard let type = dictionary["Type"] as? String else { return }
-                guard let userName = dictionary["UserName"] as? String else { return }
-                guard let userID = dictionary["UserID"] as? String else { return }
-                let address = dictionary["address"] as? String
+                let dictionary = value.value
+//                guard let title = dictionary["Title"] as? String else { return }
+//                guard let content = dictionary["Content"] as? String else { return }
+//                guard let price = dictionary["Price"] as? String else { return }
+//                guard let type = dictionary["Type"] as? String else { return }
+//                guard let userName = dictionary["UserName"] as? String else { return }
+//                guard let userID = dictionary["UserID"] as? String else { return }
+//                let address = dictionary["address"] as? String
                 
                 guard let myLocation = self.locationManager.location else {
                     return
@@ -257,32 +258,47 @@ class HomeViewController: UIViewController {
                 let taskLocation = CLLocation(latitude: taskCoordinate.latitude, longitude: taskCoordinate.longitude)
                 let distance = myLocation.distance(from: taskLocation) / 1000
                 let roundDistance = round(distance * 100) / 100
+                let checkTask = "\(currentUserID)_\(taskCoordinate.latitude)_\(taskCoordinate.longitude)"
                 
-                self.selectTaskKey = keyValue
+//                self.selectTaskKey = keyValue
                 
-                self.selectTask = UserTaskInfo(userID: currentUserID,
-                                               userName: userName,
-                                               title: title,
-                                               content: content,
-                                               type: type,
-                                               price: price,
-                                               taskLat: taskCoordinate.latitude,
-                                               taskLon: taskCoordinate.longitude,
-                                               checkTask: "\(currentUserID)_\(taskCoordinate.latitude)_\(taskCoordinate.longitude)", distance: roundDistance, time: nil,
-                                               ownerID: userID, ownAgree: nil, taskKey: keyValue, agree: nil, requestKey: nil, requestTaskKey: nil, address: address)
+//                self.selectTask = UserTaskInfo(userID: currentUserID,
+//                                               userName: userName,
+//                                               title: title,
+//                                               content: content,
+//                                               type: type,
+//                                               price: price,
+//                                               taskLat: taskCoordinate.latitude,
+//                                               taskLon: taskCoordinate.longitude,
+//                                               checkTask: "\(currentUserID)_\(taskCoordinate.latitude)_\(taskCoordinate.longitude)", distance: roundDistance, time: nil,
+//                                               ownerID: userID, ownAgree: nil, taskKey: keyValue, agree: nil, requestKey: nil, requestTaskKey: nil, address: address)
                 
-                self.updataTaskUserPhoto(userID: userID)
-                self.pullUpDetailView.taskTitleLabel.text = title
-                self.pullUpDetailView.taskContentTxtView.text = content
-                self.pullUpDetailView.priceLabel.text = price
-                self.pullUpDetailView.userName.text = userName
-                self.pullUpDetailView.typeLabel.text = type
+                guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: dictionary) else {
+                    return
+                }
+                
+                do {
+                    let taskData = try self.decoder.decode(UserTaskInfo.self, from: taskInfoJSONData)
+                    self.selectTask = UserTask.init(taskKey: keyValue, checkTask: checkTask, distance: roundDistance, userID: currentUserID, userTaskInfo: taskData)
+                    
+                } catch {
+                    print(error)
+                }
+                
+                guard let data = self.selectTask?.userTaskInfo else { return }
+                guard let userData = self.selectTask?.userID else { return }
+                guard let checkTaskData = self.selectTask?.checkTask else { return }
+                self.updataTaskUserPhoto(userID: userData)
+                self.pullUpDetailView.taskTitleLabel.text = data.title
+                self.pullUpDetailView.taskContentTxtView.text = data.content
+                self.pullUpDetailView.priceLabel.text = data.price
+                self.pullUpDetailView.userName.text = data.userName
+                self.pullUpDetailView.typeLabel.text = data.type
                 self.pullUpDetailView.distanceLabel.text = "\(roundDistance)km"
                 self.pullUpDetailView.reportBtn.addTarget(self, action: #selector(self.showReportAlert), for: .touchUpInside)
-                guard let selectData = self.selectTask else { return }
 
                 self.myRef.child("RequestTask")
-                    .queryOrdered(byChild: "checkTask").queryEqual(toValue: selectData.checkTask)
+                    .queryOrdered(byChild: "checkTask").queryEqual(toValue: checkTaskData)
                     .observeSingleEvent(of: .value, with: { (snapshot) in
                         
                         guard snapshot.value as? NSDictionary == nil else {
@@ -296,35 +312,35 @@ class HomeViewController: UIViewController {
                         }
                     })
                 
-                guard self.isGuest == false else {
-                    self.pullUpDetailView.sendButton.setTitle("訪客模式無法申請任務", for: .normal)
-                    self.pullUpDetailView.sendButton.isEnabled = false
-                    self.pullUpDetailView.sendButton.backgroundColor = .white
-                    self.pullUpDetailView.sendButton.layer.borderWidth = 1
-                    self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1)
-                    self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1), for: .normal)
-                    return
-                }
+                        guard self.isGuest == false else {
+                            self.pullUpDetailView.sendButton.setTitle("訪客模式無法申請任務", for: .normal)
+                            self.pullUpDetailView.sendButton.isEnabled = false
+                            self.pullUpDetailView.sendButton.backgroundColor = .white
+                            self.pullUpDetailView.sendButton.layer.borderWidth = 1
+                            self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1)
+                            self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1), for: .normal)
+                            return
+                        }
                 
-                if userID == currentUserID {
-                    self.pullUpDetailView.sendButton.setTitle("您的任務", for: .normal)
-                    self.pullUpDetailView.sendButton.isEnabled = false
-                    self.pullUpDetailView.sendButton.backgroundColor = .white
-                    self.pullUpDetailView.sendButton.layer.borderWidth = 1
-                    self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1)
-                    self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1), for: .normal)
+                        if userData == currentUserID {
+                            self.pullUpDetailView.sendButton.setTitle("您的任務", for: .normal)
+                            self.pullUpDetailView.sendButton.isEnabled = false
+                            self.pullUpDetailView.sendButton.backgroundColor = .white
+                            self.pullUpDetailView.sendButton.layer.borderWidth = 1
+                            self.pullUpDetailView.sendButton.layer.borderColor = #colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1)
+                            self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1), for: .normal)
 
-                } else {
-                    self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-                    self.pullUpDetailView.sendButton.layer.borderWidth = 0
-                    self.pullUpDetailView.sendButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
-                    self.pullUpDetailView.sendButton.isEnabled = true
-                    self.pullUpDetailView.sendButton.setTitle("申請任務", for: .normal)
-                    self.pullUpDetailView.sendButton.addTarget(self,
-                                                               action: #selector(self.requestBtnSend), for: .touchUpInside)
+                        } else {
+                            self.pullUpDetailView.sendButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+                            self.pullUpDetailView.sendButton.layer.borderWidth = 0
+                            self.pullUpDetailView.sendButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
+                            self.pullUpDetailView.sendButton.isEnabled = true
+                            self.pullUpDetailView.sendButton.setTitle("申請任務", for: .normal)
+                            self.pullUpDetailView.sendButton.addTarget(self,
+                                                                       action: #selector(self.requestBtnSend), for: .touchUpInside)
+                        }
+                    }
                 }
-            }
-        }
         
         self.mapView.setRegion(coordinateRegion, animated: true)
     }
@@ -357,7 +373,7 @@ class HomeViewController: UIViewController {
         let userID = Auth.auth().currentUser?.uid
 
         guard let selectData = selectTask else { return }
-        guard let selectDataKey = selectTaskKey else { return }
+        guard let selectDataKey = selectTask?.taskKey else { return }
         
             myRef.child("RequestTask")
                 .queryOrdered(byChild: "checkTask").queryEqual(toValue: selectData.checkTask)
@@ -371,26 +387,26 @@ class HomeViewController: UIViewController {
 //                    }
                     
                     self.myRef.child("RequestTask").child(autoID!).setValue([
-                        "Title": selectData.title,
-                        "Content": selectData.content,
-                        "UserName": selectData.userName,
-                        "UserID": selectData.userID,
-                        "Type": selectData.type,
-                        "Price": selectData.price,
-                        "Lat": selectData.taskLat,
-                        "Lon": selectData.taskLon,
+                        "Title": selectData.userTaskInfo.title,
+                        "Content": selectData.userTaskInfo.content,
+                        "UserName": selectData.userTaskInfo.userName,
+                        "UserID": userID!,
+                        "Type": selectData.userTaskInfo.type,
+                        "Price": selectData.userTaskInfo.price,
+                        "Lat": selectData.userTaskInfo.taskLat,
+                        "Lon": selectData.userTaskInfo.taskLon,
                         "checkTask": selectData.checkTask,
                         "distance": selectData.distance,
                         "Time": Double(Date().millisecondsSince1970),
-                        "ownerID": selectData.ownerID,
+                        "ownerID": selectData.userTaskInfo.userID,
                         "OwnerAgree": "waiting",
-                        "address": selectData.address])
+                        "address": selectData.userTaskInfo.address])
                     
                     self.myRef.child("userAllTask").child(userID!).child(selectDataKey).updateChildValues([
-                        "taskKey": selectDataKey,
-                        "taskTitle": selectData.title,
-                        "taskOwnerName": selectData.userName,
-                        "taskOwnerId": selectData.ownerID])
+                        "taskKey": selectData.taskKey,
+                        "taskTitle": selectData.userTaskInfo.title,
+                        "taskOwnerName": selectData.userTaskInfo.userName,
+                        "taskOwnerId": selectData.userTaskInfo.userID])
                     
                     self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoID!)
                     

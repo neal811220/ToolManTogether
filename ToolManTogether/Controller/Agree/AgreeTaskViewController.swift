@@ -19,7 +19,7 @@ class AgreeTaskViewController: UIViewController {
     
 
     var userInfo: [RequestUserInfo]!
-    var taskInfo: [UserTaskInfo]!
+    var taskInfo: [UserTask]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class AgreeTaskViewController: UIViewController {
 
     }
     
-    class func profileDetailDataForTask(_ data: [RequestUserInfo], _ taskInfo: [UserTaskInfo]) -> AgreeTaskViewController {
+    class func profileDetailDataForTask(_ data: [RequestUserInfo], _ taskInfo: [UserTask]) -> AgreeTaskViewController {
         let storyBoard = UIStoryboard(name: "AgreeTask", bundle: nil)
         
         let viewController = storyBoard.instantiateViewController(withIdentifier: "AgreeTaskVC") as? AgreeTaskViewController
@@ -129,8 +129,8 @@ extension AgreeTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.selectionStyle = .none
 
                 let cellData = taskInfo[indexPath.row]
-                cell.taskTitleLabel.text = cellData.title
-                cell.taskAddress.text = cellData.address
+                cell.taskTitleLabel.text = cellData.userTaskInfo.title
+                cell.taskAddress.text = cellData.userTaskInfo.address
                 
                 return cell
             }
@@ -139,7 +139,7 @@ extension AgreeTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.selectionStyle = .none
 
                 let cellData = taskInfo[indexPath.row]
-                cell.contentTxtView.text = cellData.content
+                cell.contentTxtView.text = cellData.userTaskInfo.content
                 
                 return cell
             }
