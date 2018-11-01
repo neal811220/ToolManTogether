@@ -9,27 +9,6 @@
 import Foundation
 import MapKit
 
-//struct UserTaskInfo {
-//    var userID: String
-//    var userName: String
-//    var title: String
-//    var content: String
-//    var type: String
-//    var price: String
-//    var taskLat: Double?
-//    var taskLon: Double?
-//    var checkTask: String?
-//    var distance: Double?
-//    var time: Int?
-//    var ownerID: String?
-//    var ownAgree: String?
-//    var taskKey: String?
-//    var agree: Bool?
-//    var requestKey: String?
-//    var requestTaskKey: String?
-//    var address: String?
-//}
-
 struct UserTask {
     let taskKey: String
     let checkTask: String?
@@ -90,6 +69,3 @@ class TaskPin: NSObject, MKAnnotation {
         super.init()
     }
 }
-
-
-

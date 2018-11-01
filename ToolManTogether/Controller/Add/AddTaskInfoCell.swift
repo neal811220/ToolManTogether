@@ -22,11 +22,6 @@ class AddTaskInfoCell: UITableViewCell, UITextFieldDelegate {
         super.awakeFromNib()
         textField.delegate = self
         
-//        textField.layer.shadowColor = UIColor.darkGray.cgColor
-//        textField.layer.shadowRadius = 1
-//        textField.layer.shadowOpacity = 0.5
-//        textField.layer.shadowOffset = CGSize(width: 0, height: 0)
-        
         let claneDataNotification = Notification.Name("addTask")
         NotificationCenter.default.addObserver(self, selector: #selector(self.cleanData), name: claneDataNotification, object: nil)
     
@@ -47,5 +42,4 @@ class AddTaskInfoCell: UITableViewCell, UITextFieldDelegate {
         textField.text = ""
     }
     
-
 }

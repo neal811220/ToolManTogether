@@ -157,22 +157,6 @@ class SearchTaskViewController: UIViewController {
                 for value in data {
                     guard let keyValue = value.key as? String else { return }
                     let dictionary = value.value
-//                    guard let title = dictionary["Title"] as? String else { return }
-//                    guard let content = dictionary["Content"] as? String else { return }
-//                    guard let price = dictionary["Price"] as? String else { return }
-//                    guard let type = dictionary["Type"] as? String else { return }
-//                    guard let userName = dictionary["UserName"] as? String else { return }
-//                    guard let userID = dictionary["UserID"] as? String else { return }
-//                    guard let taskLat = dictionary["Lat"] as? Double else { return }
-//                    guard let taskLon = dictionary["Lon"] as? Double else { return }
-//                    guard let checkTask = dictionary["checkTask"] as? String else { return }
-//                    guard let distance = dictionary["distance"] as? Double else { return }
-//                    guard let taskOwner = dictionary["ownerID"] as? String else { return }
-//                    let time = dictionary["Time"] as? Int
-//                    guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
-//                    let requestUserkey = dictionary["requestUserKey"] as? String
-//                    let requestTaskKey = dictionary["taskKey"] as? String
-//                    let address = dictionary["address"] as? String
                     
                     guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: dictionary) else {
                         return
@@ -186,28 +170,6 @@ class SearchTaskViewController: UIViewController {
                         print(error)
                     }
                     
-//                    self.selectTask.append()
-                    
-//                    self.selectTaskKey.append(keyValue)
-                    
-//                    let task = UserTaskInfo(userID: userID,
-//                                            userName: userName,
-//                                            title: title,
-//                                            content: content,
-//                                            type: type,
-//                                            price: price,
-//                                            taskLat: taskLat,
-//                                            taskLon: taskLon,
-//                                            checkTask: checkTask,
-//                                            distance: distance,
-//                                            time: time,
-//                                            ownerID: taskOwner,
-//                                            ownAgree: ownerAgree,
-//                                            taskKey: keyValue,
-//                                            agree: nil, requestKey: requestUserkey,
-//                                            requestTaskKey: requestTaskKey, address: address)
-                    
-//                    self.selectTask.append(task)
                     self.selectTask.sort(by: { $0.userTaskInfo.time! > $1.userTaskInfo.time! })
                     
                     self.selectTaskChange(requestTaskKey: keyValue)
@@ -236,22 +198,6 @@ class SearchTaskViewController: UIViewController {
                             for value in data {
                                 guard let keyValue = value.key as? String else { return }
                                 let dictionary = value.value
-//                                guard let title = dictionary["Title"] as? String else { return }
-//                                guard let content = dictionary["Content"] as? String else { return }
-//                                guard let price = dictionary["Price"] as? String else { return }
-//                                guard let type = dictionary["Type"] as? String else { return }
-//                                guard let userName = dictionary["UserName"] as? String else { return }
-//                                guard let userID = dictionary["UserID"] as? String else { return }
-//                                guard let taskLat = dictionary["Lat"] as? Double else { return }
-//                                guard let taskLon = dictionary["Lon"] as? Double else { return }
-//                                guard let checkTask = dictionary["checkTask"] as? String else { return }
-//                                guard let distance = dictionary["distance"] as? Double else { return }
-//                                guard let taskOwner = dictionary["ownerID"] as? String else { return }
-//                                let time = dictionary["Time"] as? Int
-//                                guard let ownerAgree = dictionary["OwnerAgree"] as? String else { return }
-//                                let requestUserkey = dictionary["requestUserKey"] as? String
-//                                let requestTaskKey = dictionary["taskKey"] as? String
-//                                let address = dictionary["address"] as? String
 
                                 guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: dictionary) else {
                                     return
@@ -265,23 +211,6 @@ class SearchTaskViewController: UIViewController {
                                     print(error)
                                 }
 
-//                                let task = UserTaskInfo(userID: userID,
-//                                                        userName: userName,
-//                                                        title: title,
-//                                                        content: content,
-//                                                        type: type,
-//                                                        price: price,
-//                                                        taskLat: taskLat,
-//                                                        taskLon: taskLon,
-//                                                        checkTask: checkTask,
-//                                                        distance: distance,
-//                                                        time: time,
-//                                                        ownerID: taskOwner,
-//                                                        ownAgree: ownerAgree,
-//                                                        taskKey: keyValue,
-//                                                        agree: nil, requestKey: requestUserkey, requestTaskKey: requestTaskKey, address: address)
-                                
-//                                self.selectTask.append(task)
                                 self.selectTask.sort(by: { $0.userTaskInfo.time! > $1.userTaskInfo.time! })
                             }
                             self.searchTaskTableVIew.reloadData()
@@ -299,23 +228,6 @@ class SearchTaskViewController: UIViewController {
                     guard let data = snapshot.value as? NSDictionary else { return }
                     for value in data.allValues {
                         
-//                        guard let dictionary = value as? [String: Any] else { return }
-//                        print(dictionary)
-//                        let aboutUser = dictionary["AboutUser"] as? String
-//                        let fbEmail = dictionary["FBEmail"] as? String
-//                        let fbID = dictionary["FBID"] as? String
-//                        let fbName = dictionary["FBName"] as? String
-//                        let userPhone = dictionary["UserPhone"] as? String
-//                        guard let userID = dictionary["UserID"] as? String else { return }
-//                        let remoteToken = dictionary["RemoteToken"] as? String
-//
-//                        let extractedExpr = RequestUserInfo(aboutUser: aboutUser,
-//                                                            fbEmail: fbEmail,
-//                                                            fbID: fbID,
-//                                                            fbName: fbName,
-//                                                            userPhone: userPhone, userID: userID,
-//                                                            remoteToken: remoteToken)
-                        
                         guard let taskOwnerJSONData = try? JSONSerialization.data(withJSONObject: value) else {
                             return
                         }
@@ -328,12 +240,7 @@ class SearchTaskViewController: UIViewController {
                             print(error)
                         }
                         
-//                        let toolsInfo = extractedExpr
-//                        self.taskOwnerInfo.append(toolsInfo)
-                        
                     }
-                    
-//                    let viewController = TaskAgreeViewController.profileDetailDataForTask(self.taskOwnerInfo)
                     
                     let viewController = AgreeTaskViewController.profileDetailDataForTask(self.taskOwnerInfo, [taskInfo])
                     
@@ -591,14 +498,4 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
     }
-    
-//    @objc func requestBtnPressed() {
-//
-//        let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
-//
-//        if let viewController = storyBoard.instantiateViewController(withIdentifier: "taskAgreeVC") as? TaskAgreeViewController {
-//            self.navigationController?.pushViewController(viewController, animated: true)
-//        }
-//    }
-    
 }

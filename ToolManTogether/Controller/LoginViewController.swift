@@ -61,7 +61,6 @@ class LoginViewController: UIViewController {
 
             })
             
-
         }) { (error) in
             print(error)
         }
@@ -156,7 +155,6 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
     
     func switchView() {
        

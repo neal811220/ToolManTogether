@@ -243,14 +243,6 @@ class HomeViewController: UIViewController {
             for value in data {
                 guard let keyValue = value.key as? String else { return }
                 let dictionary = value.value
-//                guard let title = dictionary["Title"] as? String else { return }
-//                guard let content = dictionary["Content"] as? String else { return }
-//                guard let price = dictionary["Price"] as? String else { return }
-//                guard let type = dictionary["Type"] as? String else { return }
-//                guard let userName = dictionary["UserName"] as? String else { return }
-//                guard let userID = dictionary["UserID"] as? String else { return }
-//                let address = dictionary["address"] as? String
-                
                 guard let myLocation = self.locationManager.location else {
                     return
                 }
@@ -259,19 +251,6 @@ class HomeViewController: UIViewController {
                 let distance = myLocation.distance(from: taskLocation) / 1000
                 let roundDistance = round(distance * 100) / 100
                 let checkTask = "\(currentUserID)_\(taskCoordinate.latitude)_\(taskCoordinate.longitude)"
-                
-//                self.selectTaskKey = keyValue
-                
-//                self.selectTask = UserTaskInfo(userID: currentUserID,
-//                                               userName: userName,
-//                                               title: title,
-//                                               content: content,
-//                                               type: type,
-//                                               price: price,
-//                                               taskLat: taskCoordinate.latitude,
-//                                               taskLon: taskCoordinate.longitude,
-//                                               checkTask: "\(currentUserID)_\(taskCoordinate.latitude)_\(taskCoordinate.longitude)", distance: roundDistance, time: nil,
-//                                               ownerID: userID, ownAgree: nil, taskKey: keyValue, agree: nil, requestKey: nil, requestTaskKey: nil, address: address)
                 
                 guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: dictionary) else {
                     return
@@ -378,13 +357,6 @@ class HomeViewController: UIViewController {
             myRef.child("RequestTask")
                 .queryOrdered(byChild: "checkTask").queryEqual(toValue: selectData.checkTask)
                 .observeSingleEvent(of: .value, with: { (snapshot) in
-                    
-//                    guard snapshot.value as? NSDictionary == nil else {
-//                        self.pullUpDetailView.sendButton.setTitle("已經申請過", for: .normal)
-//                        self.pullUpDetailView.sendButton.backgroundColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
-//                        self.showAlert(content: "請耐心等待對方同意，或尋找其他任務")
-//                        return
-//                    }
                     
                     self.myRef.child("RequestTask").child(autoID!).setValue([
                         "Title": selectData.userTaskInfo.title,

@@ -36,6 +36,4 @@ class AddTaskContentCell: UITableViewCell, UITextViewDelegate {
         contentTextView.text = ""
     }
     
-
-        
 }

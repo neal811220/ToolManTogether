@@ -97,29 +97,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 
                 guard let keyValue = value.key as? String else { return }
                 let dictionary = value.value
-//                print(dictionary)
-//
-//                guard let title = dictionary["Title"] as? String else { return }
-//                guard let content = dictionary["Content"] as? String else { return }
-//                guard let price = dictionary["Price"] as? String else { return }
-//                guard let type = dictionary["Type"] as? String else { return }
-//                guard let userName = dictionary["UserName"] as? String else { return }
-//                guard let userID = dictionary["UserID"] as? String else { return }
-//
-//                let taskLat = dictionary["lat"] as? Double
-//                let taskLon = dictionary["lon"] as? Double
-//                guard let agree = dictionary["agree"] as? Bool else { return }
-//                let time = dictionary["Time"] as? Int
-//
-//                let task = UserTaskInfo(userID: userID,
-//                                        userName: userName,
-//                                        title: title,
-//                                        content: content,
-//                                        type: type, price: price,
-//                                        taskLat: taskLat, taskLon: taskLon, checkTask: nil,
-//                                        distance: nil, time: time,
-//                                        ownerID: nil, ownAgree: nil,
-//                                        taskKey: keyValue, agree: agree, requestKey: nil, requestTaskKey: nil, address: nil)
                 
                 guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: dictionary) else {
                     return
@@ -132,10 +109,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                     print(error)
                 }
                 
-//                self.addTask.append(task)
                 self.addTask.sort(by: { $0.userTaskInfo.time! > $1.userTaskInfo.time! })
                 
-//                self.createTaskChange(taskKey: keyValue)
             }
             
             self.collectionView.reloadData()
@@ -164,29 +139,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 for value in data {
 
                     guard let keyValue = value.key as? String else { return }
-//                    guard let dictionary = value.value as? [String: Any] else { return }
-//                    print(dictionary)
-//                    guard let title = dictionary["Title"] as? String else { return }
-//                    guard let content = dictionary["Content"] as? String else { return }
-//                    guard let price = dictionary["Price"] as? String else { return }
-//                    guard let type = dictionary["Type"] as? String else { return }
-//                    guard let userName = dictionary["UserName"] as? String else { return }
-//                    guard let userID = dictionary["UserID"] as? String else { return }
-//                    let taskLat = dictionary["lat"] as? Double
-//                    let taskLon = dictionary["lon"] as? Double
-//                    guard let agree = dictionary["agree"] as? Bool else { return }
-//                    let time = dictionary["Time"] as? Int
 
-//                    let task = UserTaskInfo(userID: userID,
-//                                            userName: userName,
-//                                            title: title,
-//                                            content: content,
-//                                            type: type, price: price,
-//                                            taskLat: taskLat, taskLon: taskLon, checkTask: nil,
-//                                            distance: nil, time: time,
-//                                            ownerID: nil, ownAgree: nil,
-//                                            taskKey: keyValue, agree: agree, requestKey: nil, requestTaskKey: nil, address: nil)
-                    
                     guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: value) else {
                         return
                     }
@@ -198,7 +151,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                         print(error)
                     }
                     
-//                    self.addTask.append(task)
                     self.addTask.sort(by: { $0.userTaskInfo.time! > $1.userTaskInfo.time! })
 
                 }
@@ -251,7 +203,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         })
     }
 
-    
     // 刪除任務
     @objc func deleteScrollTask() {
         

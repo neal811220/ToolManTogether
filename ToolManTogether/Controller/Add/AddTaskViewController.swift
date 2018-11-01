@@ -50,7 +50,6 @@ class AddTaskViewController: UIViewController {
         addTaskTableView.dataSource = self
         addTaskTableView.showsVerticalScrollIndicator = false
 
-        
         let infoNib = UINib(nibName: "AddTaskInfoCell", bundle: nil)
         self.addTaskTableView.register(infoNib, forCellReuseIdentifier: "titleAndContent")
         
@@ -69,17 +68,9 @@ class AddTaskViewController: UIViewController {
         let customLocationNib = UINib(nibName: "AddCustomLocationMapCell", bundle: nil)
         self.addTaskTableView.register(customLocationNib, forCellReuseIdentifier: "customLocation")
         
-        
         myRef = Database.database().reference()
         
         addTaskBgView.layer.cornerRadius = 10
-        
-//        var topFrame = self.addTaskTableView.bounds
-//        topFrame.origin.y = -topFrame.size.height
-//        let topView = UIView(frame: topFrame)
-//        topView.backgroundColor = #colorLiteral(red: 0.2, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
-//
-//        self.addTaskTableView.addSubview(topView)
 
     }
     
@@ -174,7 +165,6 @@ class AddTaskViewController: UIViewController {
             self.addTaskTableView.scrollToRow(at: indexPath, at: .top, animated: false)
         }
         
-        
         let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
         addAlert.addAction(cancelAction)
         addAlert.addAction(okAction)
@@ -219,14 +209,7 @@ class AddTaskViewController: UIViewController {
     }
     
     func switchView() {
-//
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
-//
-//        if let viewController = storyboard.instantiateViewController(withIdentifier: "mainVC") as? UITabBarController {
-//            viewController.selectedIndex = 3
-//
-//        }
+
         self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
 
         let tabController = self.view.window!.rootViewController as? UITabBarController
@@ -239,7 +222,6 @@ class AddTaskViewController: UIViewController {
         }
     }
 
-    
     func centerMapOnUserLocation() -> MKCoordinateRegion? {
         if let coordinate = locationManager.location?.coordinate {
             let coordinateRegion = MKCoordinateRegion(
@@ -338,18 +320,6 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
         } else if indexPath.section == 2 {
         
-//            if let cell = tableView.dequeueReusableCell(
-//                withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
-//                cell.titleLabel.text = "價格"
-//                cell.textField.placeholder = "請輸入價格"
-//                cell.downArrorImage.isHidden = true
-//
-//                cell.typeLabel.isHidden = true
-//                cell.titleCompletion = { [weak self] (result) in
-//                    self?.priceTxt = result
-//                }
-//                return cell
-//            }
             
             if let cell = tableView.dequeueReusableCell(withIdentifier: "addPrice", for: indexPath) as? AddPriceCell {
                 cell.titleCompletion = { [weak self] (result) in
@@ -362,7 +332,6 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "Content", for: indexPath) as? AddTaskContentCell {
-//                cell.contentTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 cell.contentTextView.delegate = self
 
                 cell.backgroundColor = .red
@@ -386,7 +355,6 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
-    
 }
 
 extension AddTaskViewController: UITextViewDelegate {
@@ -408,4 +376,3 @@ extension AddTaskViewController: CustomLocation {
         self.reverseGeocodeLocation()
     }
 }
-

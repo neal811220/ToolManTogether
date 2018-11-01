@@ -22,8 +22,6 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     var checkBool = false
     var checkIndex: Int!
     
-    
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -72,7 +70,6 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addTaskTypeCollectionCell", for: indexPath) as? AddTaskTypeCollectionViewCell {
         
-            
             cell.typeButton.isEnabled = false
             if typeTxtArray.count != 0 {
 
@@ -117,7 +114,6 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let selectType = typeTxtArray[indexPath.row]
@@ -141,7 +137,6 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         }
     }
 
-    
     @objc func cleanData() {
         collectionView.reloadData()
     }
@@ -174,4 +169,3 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     }
     
 }
-

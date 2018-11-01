@@ -17,11 +17,6 @@ class AddPriceCell: UITableViewCell, UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         priceTxtfield.delegate = self
-
-//        priceTxtfield.layer.shadowColor = UIColor.darkGray.cgColor
-//        priceTxtfield.layer.shadowRadius = 1
-//        priceTxtfield.layer.shadowOpacity = 0.5
-//        priceTxtfield.layer.shadowOffset = CGSize(width: 0, height: 0)
         
         let claneDataNotification = Notification.Name("addTask")
         

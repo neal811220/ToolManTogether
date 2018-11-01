@@ -8,14 +8,6 @@
 
 import Foundation
 
-//struct ProfileManager {
-//    var fbEmail: String?
-//    var fbID: String?
-//    var fbName: String?
-//    var aboutUser: String?
-//    var userPhone: String?
-//}
-
 struct ProfileManager: Codable {
     
     let fbEmail: String?
@@ -32,15 +24,6 @@ struct ProfileManager: Codable {
         case userPhone = "UserPhone"
     }
 }
-
-//struct RequestUser {
-//    var agree: Bool
-//    var distance: Double
-//    var userID: String
-//    var requestTaskID: String
-//    var taskOwnerID: String
-//    var requestKey: String
-//}
 
 struct RequestUser: Codable {
 
@@ -61,16 +44,6 @@ struct RequestUser: Codable {
     }
 }
 
-//struct RequestUserInfo {
-//    var aboutUser: String?
-//    var fbEmail: String?
-//    var fbID: String?
-//    var fbName: String?
-//    var userPhone: String?
-//    var userID: String
-//    var remoteToken: String?
-//}
-
 struct RequestUserInfo: Codable {
     let aboutUser: String?
     let fbEmail: String?
@@ -90,4 +63,3 @@ struct RequestUserInfo: Codable {
         case remoteToken = "RemoteToken"
     }
 }
-

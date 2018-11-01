@@ -39,8 +39,7 @@ class ChatLogController: UICollectionViewController,
     var findRequestUserRemoteToken: String!
     var checUserkLeave = false
     var badge = 1
-    
-    
+
     var userInfo: RequestUserInfo? {
         didSet {
 //            setupNavBar(titleName: userInfo?.fbName, userId: userInfo?.userID)
@@ -557,13 +556,6 @@ class ChatLogController: UICollectionViewController,
         let rightButton = UIButton()
         rightButton.setImage(UIImage(named: "btn_more"), for: .normal)
         rightButton.translatesAutoresizingMaskIntoConstraints = false
-        
-//        containerView.addSubview(rightButton)
-//        //need x,y,width,height anchors
-//        rightButton.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
-//        rightButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
-//        rightButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-//        rightButton.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
         
     }
     

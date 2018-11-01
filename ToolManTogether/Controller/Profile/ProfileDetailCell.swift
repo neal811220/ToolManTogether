@@ -35,14 +35,6 @@ class ProfileDetailCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegat
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        profileTxtView.layer.cornerRadius = 10
-//        profileTxtView.layer.shadowColor = UIColor.darkGray.cgColor
-//        profileTxtView.layer.shadowRadius = 0.8
-//        profileTxtView.layer.shadowOpacity = 1
-//        profileTxtView.layer.shadowOffset = CGSize(width: 0, height: 0)
-//
-//        profileTxtView.layer.borderWidth = 0.7
-//        profileTxtView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
 
         profileTxtView.isEditable = false
         phoneTxtField.isEnabled = false
@@ -78,8 +70,6 @@ class ProfileDetailCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegat
         
     }
     
-    
-    
     @IBAction func doneBtnPressed(_ sender: Any) {
         self.doneBtn.isHidden = true
         self.cancelBtn.isHidden = true
@@ -94,7 +84,6 @@ class ProfileDetailCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegat
         self.profileTxtView.backgroundColor = .white
         self.phoneTxtField.backgroundColor = .white
 
-        
         btnDelegage?.doneBtnPressed(self.doneBtn,
                                     self.phoneTxtField,
                                     self.profileTxtView)

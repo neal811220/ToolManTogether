@@ -60,5 +60,4 @@ class GoodCitizenCardCell: UITableViewCell, UIImagePickerControllerDelegate, UIN
         bgView.addSubview(animationView)
     }
     
-    
 }

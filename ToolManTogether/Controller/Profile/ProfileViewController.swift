@@ -31,7 +31,6 @@ class ProfileViewController: UIViewController {
     let keychain = KeychainSwift()
     var isGuest = false
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkInternet()
@@ -162,15 +161,6 @@ class ProfileViewController: UIViewController {
                 
 
                 let okAction = UIAlertAction(title: "確定", style: .destructive, handler: { (void) in
-                    
-//                    self.client.fbLogOut(completionHandler: { (data, error) in
-//                        if data == nil {
-//                            self.showAlertWith(message: error.debugDescription)
-//                        } else {
-//                            self.fbUserDefault.removeObject(forKey: "token")
-//                            self.switchView()
-//                        }
-//                    })
                     
                     self.keychain.clear()
                     self.loginManager.logOut()

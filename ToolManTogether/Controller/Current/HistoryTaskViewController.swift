@@ -254,7 +254,6 @@ class HistoryTaskViewController: UIViewController {
         guard let requestUserId = Auth.auth().currentUser?.uid else { return }
         guard let currentUser = Auth.auth().currentUser?.displayName else { return }
         
-        
         for value in self.requestTools {
             
             if requestTaskKey == value.requestTaskID {
@@ -334,8 +333,7 @@ class HistoryTaskViewController: UIViewController {
     @objc func cellTextViewTapped() {
         print("testy")
     }
-    
-    
+
 }
 
 extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate {
@@ -362,15 +360,12 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
                     cell.toosNumTitleLabel.text = " , \(toolsInfo.count) 個申請"
                 cell.selectionStyle = .none
                 cell.scrollTaskBtnDelegate = self
-                
-
-
+            
                 return cell
             }
         } else if indexPath.section == 1 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "requestTools", for: indexPath) as? RequestToolsTableViewCell {
                 cell.delegate = self
-                
                 
                 let cellData = toolsInfo[indexPath.row]
                 
@@ -387,7 +382,6 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
                 cell.userContentTxtView.text = cellData.aboutUser
                 cell.userContentTxtView.isUserInteractionEnabled = true
                 cell.userContentTxtView.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(cellTextViewTapped)))
-                
                 
                 cell.distanceLabel.text = "\(requestData.distance)km"
                 
@@ -514,10 +508,7 @@ extension HistoryTaskViewController: btnPressed {
     func btnPressed(_ send: TaskDetailInfoView) {
         
         print(requestTools)
-//        for requestTask in requestTools {
-//                self.myRef.child("RequestTask").child(requestTask.requestTaskID).updateChildValues([
-//                    "OwnerAgree": "delete"])
-//        }
+
     }
 }
 
