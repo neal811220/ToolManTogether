@@ -286,7 +286,7 @@ class HomeViewController: UIViewController {
                 }
                 
                 guard let data = self.selectTask?.userTaskInfo else { return }
-                guard let userData = self.selectTask?.userID else { return }
+                guard let userData = self.selectTask?.userTaskInfo.userID else { return }
                 guard let checkTaskData = self.selectTask?.checkTask else { return }
                 self.updataTaskUserPhoto(userID: userData)
                 self.pullUpDetailView.taskTitleLabel.text = data.title

@@ -393,7 +393,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
 
             }
            
-            downloadUserPhoto(userID: cellData.ownerID!, finder: "UserPhoto") { (url) in
+            downloadUserPhoto(userID: cellData.userID, finder: "UserPhoto") { (url) in
                 if url == url {
                     cell.requestCollectionView.userPhoto.sd_setImage(with: url, completed: nil)
                 } else {
