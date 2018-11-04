@@ -1,6 +1,6 @@
 # ToolManTogether App
-### Aim to create a platform that allows users to share each other's skills or abilities
-![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/ToolManTogether/Assets.xcassets/AppIcon.appiconset/ItunesArtwork%402x.png)
+### Aim to create a platform that allows users to share each other's skills or abilities ![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/ToolManTogether/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60%402x.png)
+
 
 # Why
 "sharing economy". This innovative mode of operation has become one of the hottest concepts. Under the influence of the Internet and smartphones and the diversification of payment.
