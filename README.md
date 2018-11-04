@@ -8,6 +8,9 @@
 
 >### MapKit Annotation add Tap gesture and annotation popup information detail when the user tapped.
 ![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/IMG_01.PNG) ![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/IMG_02.PNG)
-
-
+>### Three steps:
+>1. Whenever we would like to use one shared resource, we send a request to its semaphore;
+>2. Once the semaphore gives us the green light (see what I did here?) we can assume that the resource is ours and we can use it;
+>3. Once the resource is no longer necessary, we let the semaphore know by sending him a signal, allowing him to assign the resource to another thread. 
+>4. Can think of these request/signal as the resource lock/unlock.
 
