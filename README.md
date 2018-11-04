@@ -39,10 +39,17 @@ func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 >### 當使用者申請的任務狀態被拒絕或同意，或是任務聊天室新訊息，使用者會收到訊息，點擊通知後會直接進入該資訊的頁面。
 
 
+# Requirement
+iOS 11.4 +
+XCode 10.0
 
 
+# Version
+2.0 - 2018/10/31
+1.0 - 2018/10/20
 
-
+# Contacts
+Spock Hsueh spock.hsu@gmail.com
 
 
 
