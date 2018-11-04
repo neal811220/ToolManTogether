@@ -377,7 +377,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc func showAlert(send: UIButton) {
         
-        let requestTask = selectTask[send.tag].checkTask
+        let requestTask = selectTask[send.tag].userTaskInfo.checkTask
         
         let taskKey = selectTask[send.tag].userTaskInfo.requestTaskKey
         let userKey = selectTask[send.tag].userTaskInfo.requestKey

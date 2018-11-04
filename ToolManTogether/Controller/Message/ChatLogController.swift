@@ -162,9 +162,12 @@ class ChatLogController: UICollectionViewController,
                 fromToken: token, toToken: toToken,
                 title: title, content: content,
                 taskInfoKey: taskInfoKey, fromUserId: fromUserId, type: type, badge: badge) { (bool, error) in
-                
-                print(bool)
-                print(error)
+                    if bool == true {
+                        print("送出成功")
+                    } else {
+                        print(error)
+
+                    }
             }
         }
     }
@@ -652,6 +655,7 @@ class ChatLogController: UICollectionViewController,
                                 fromUserId: fromId!, type: "message", badge: self.badge)
                             self.badge += 1
                             self.sendBadgeToFirebase(value: self.badge)
+                            
                         }
                     }
                 }

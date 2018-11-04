@@ -26,7 +26,7 @@ struct UserTaskInfo: Codable {
     let price: String
     let taskLat: Double?
     let taskLon: Double?
-//    let checkTask: String?
+    let checkTask: String?
     let distance: Double?
     let time: Int?
     let ownerID: String?
@@ -46,7 +46,7 @@ struct UserTaskInfo: Codable {
         case price = "Price"
         case taskLat = "Lat"
         case taskLon = "Lon"
-//        case checkTask
+        case checkTask
         case distance = "distance"
         case time = "Time"
         case ownerID = "ownerID"
