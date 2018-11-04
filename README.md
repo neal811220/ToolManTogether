@@ -40,13 +40,17 @@ func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 
 
 # Requirement
-iOS 11.4 +
-XCode 10.0
+* iOS 11.4 +
+* XCode 10.0
 
 
 # Version
-2.0 - 2018/10/31
-1.0 - 2018/10/20
+* 2.0 - 2018/10/31
+  * 新增任務聊天室
+  * 新增地圖縮放顯示任務圖標功能
+
+* 1.0 - 2018/10/20
+  * 第一版上架 
 
 # Contacts
 Spock Hsueh spock.hsu@gmail.com
