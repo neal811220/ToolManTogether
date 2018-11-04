@@ -5,7 +5,7 @@
 工聚人是款當遇到困擾的事情卻無能為力時，讓你可以透過發出任務來使用他人的生活技能，同時也分享自己的專長來回饋，就此形成一個工具人社群網路。
 
 # The Key function
-
+## 點擊地圖上的任務圖標，秀出任務細節 view 的動畫效果
 >### MapKit Annotation add Tap gesture and annotation popup information detail when the user tapped.
 ![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/IMG_01.PNG) ![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/IMG_02.PNG)
 >### Three steps:
@@ -18,7 +18,7 @@ func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         }
         
         animateViewUp()
-        .....
+        ...
         ...
     }
 ```
@@ -27,9 +27,26 @@ func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 縮回。
 ```javascript
   func addTap(taskCoordinate: CLLocationCoordinate2D) {
-        guestMode()
         let mapTap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
         mapView.addGestureRecognizer(mapTap)
   }
 ```
->3. 資訊詳細頁面的動畫效果，我們可以透過動態調整該 view 的高來達到彈出又隱藏的動畫效果。
+>3. 任務細節 view 的動畫效果，我們可以透過動態調整該 view 的高來達到彈出又隱藏的動畫效果。
+
+
+
+## Remote Push Notification
+>### 當使用者申請的任務狀態被拒絕或同意，或是任務聊天室新訊息，使用者會收到訊息，點擊通知後會直接進入該資訊的頁面。
+
+
+
+
+
+
+
+
+
+
+
+
+
