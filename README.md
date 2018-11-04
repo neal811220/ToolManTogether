@@ -9,7 +9,31 @@
 >### MapKit Annotation add Tap gesture and annotation popup information detail when the user tapped.
 ![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/IMG_01.PNG) ![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/IMG_02.PNG)
 >### Three steps:
->1. Whenever we would like to use one shared resource, we send a request to its semaphore;
+
+>1. 我們可以透過 MapKit 本身提供的方法來拿到使用者點擊了哪個 Annotation，同時拿到該點的經緯度資料，進行後續動作。
+```javascript
+func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+  
+        guard let coordinate = view.annotation?.coordinate else {
+            return
+        }
+        
+        animateViewUp()
+        .....
+        ...
+    }
+```
+
+>2. 將手勢加到地圖上，讓使用者點擊其他地方可以將資訊頁縮回。
+```javascript
+  func addTap(taskCoordinate: CLLocationCoordinate2D) {
+        guestMode()
+        let mapTap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
+        mapView.addGestureRecognizer(mapTap)
+  }
+```
+
+
 >2. Once the semaphore gives us the green light (see what I did here?) we can assume that the resource is ours and we can use it;
 >3. Once the resource is no longer necessary, we let the semaphore know by sending him a signal, allowing him to assign the resource to another thread. 
 >4. Can think of these request/signal as the resource lock/unlock.
