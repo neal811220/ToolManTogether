@@ -230,8 +230,6 @@ class HomeViewController: UIViewController {
             latitudinalMeters: regionRadious * 0.2,
             longitudinalMeters: regionRadious * 0.2)
         
-//        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
-        
         var currentUserID = ""
         if let userID = Auth.auth().currentUser?.uid {
             currentUserID = userID
