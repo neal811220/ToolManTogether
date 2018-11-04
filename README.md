@@ -1,4 +1,5 @@
-![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/ToolManTogether/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60%402x.png)# ToolManTogether App
+![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/ToolManTogether/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60%402x.png)
+# ToolManTogether App
 ### Aim to create a platform that allows users to share each other's skills or abilities 
 
 
