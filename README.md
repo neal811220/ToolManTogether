@@ -31,13 +31,23 @@ func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         mapView.addGestureRecognizer(mapTap)
   }
 ```
->3. 任務細節 view 的動畫效果，我們可以透過動態調整該 view 的高來達到彈出又隱藏的動畫效果。
+>3. 任務細節 view 的動畫效果，可以透過動態調整該 view 的高來達到彈出又隱藏的動畫效果。
 
 
 
 ## Remote Push Notification
 >### 當使用者申請的任務狀態被拒絕或同意，或是任務聊天室新訊息，使用者會收到訊息，點擊通知後會直接進入該資訊的頁面。
 
+
+### Libraries
+* Crashlytics
+* Firebase SDK
+* Facebook SDK
+* IQKeyboardManagerSwift
+* KeychainSwift
+* Kingfisher
+* Lottie
+* SwiftLint
 
 # Requirement
 * iOS 11.4 +
