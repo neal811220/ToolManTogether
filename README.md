@@ -97,9 +97,9 @@ let headers = [金鑰]
 
 {
   "aps": {
-    "alert": "Breaking News!",
+    "alert": "新訊息",
     "sound": "default",
-    "自訂Key": 要傳的資料
+    "自訂Key": Test
   }
 }
 ```
@@ -110,6 +110,54 @@ let headers = [金鑰]
 
 如果一切順利的話，你將可以收到推播通知。
 ![](https://i.imgur.com/UfKYNQE.png)
+
+
+
+### 收到推播然後呢？
+
+當您的 App 收到推播通知後，需在 UIApplicationDelegate 裡處理收到的通知。
+
+通常需要根據 App 收到時的狀態進行不同的處理：
+
+
+* 1. 如果 App 沒有運行，使用者通過點擊推播通知啟動它，推播通知將傳遞到launchOptions的 application(_:didFinishLaunchingWithOptions:)。
+
+* 2. 如果 App 在前台或後台運行，application(_:didReceiveRemoteNotification:fetchCompletionHandler:)則會被調用。如果用戶通過點擊推送通知打開應用程序，則可以再次調用此方法，以便您可以更新UI並顯示相關信息。
+
+在第一種情況下，需將以下代碼加到application(_:didFinishLaunchingWithOptions:) return 之前，用來解析收到的 remoteNotification ，如果解析一切順利，後續可以加上使用者點擊之後的事件處理。
+
+
+```javascript
+
+if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
+  
+  let aps = notification["aps"] as! [String: AnyObject]
+  ...
+  ...
+}
+```
+
+第二種情況則要使用此方法來處理收到的推播訊息。
+
+```javascript
+
+func application(
+  _ application: UIApplication,
+  didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+  fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+  
+  let aps = userInfo["aps"] as! [String: AnyObject]
+}
+
+```
+
+
+＊備註
+1. 要測試是否成功，需要特別設定一下 Xcode 設定，將會讓您的模擬裝置等待啟動，直到使用者點擊推播後才開啟。
+
+![](https://i.imgur.com/U5Shgil.png) ![](https://i.imgur.com/VE6FqDN.png)
+
+2. 需特別注意如果使用者重新卸載或是安裝此 App，則該裝置的 Token 將會更新。解決辦法就是使用者重新登入 App 時，重新取得該裝置目前最新的 Token，以確保問題不會發生。
 
 
 
@@ -141,10 +189,3 @@ let headers = [金鑰]
 
 # Contacts
 Spock Hsueh spock.hsu@gmail.com
-
-
-
-
-
- 
-
