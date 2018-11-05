@@ -175,13 +175,13 @@ func application(
 ### 收尋任務頁面
 * 選擇任務
 * 對方如果同意你的申請會立刻顯示並收到通知。
-<a><img src="https://j.gifs.com/APRywj.gif" width="200"></a> <a><img src="https://j.gifs.com/wmoPYr.gif" width="200"></a>
+<a><img src="https://j.gifs.com/APRywj.gif" width="200"></a><a><img src="https://j.gifs.com/wmoPYr.gif" width="200"></a>
 
 
 ### 新增任務頁面
 * 輸入任務內容 
 * 自訂任務地點
-<a><img src="https://j.gifs.com/2vy6VP.gif" width="200"></a> <a><img src="https://j.gifs.com/59BjOq.gif" width="200"></a>
+<a><img src="https://j.gifs.com/2vy6VP.gif" width="200"></a><a><img src="https://j.gifs.com/59BjOq.gif" width="200"></a>
 
 
 ### 任務配對頁面 
@@ -192,7 +192,7 @@ func application(
 * 查詢申請者詳細資訊 
 * 透過聊天室與對方聯繫
 * 透過撥打電話與對方聯繫
-<a><img src="https://j.gifs.com/kZYznX.gif" width="200"></a> <a><img src="https://j.gifs.com/1r05Aj.gif" width="200"></a> <a><img src="https://j.gifs.com/9QJnKP.gif" width="200"></a>
+<a><img src="https://j.gifs.com/kZYznX.gif" width="200"></a> <a><img src="https://j.gifs.com/1r05Aj.gif" width="200"></a><a><img src="https://j.gifs.com/9QJnKP.gif" width="200"></a>
 
 # Libraries
 * Crashlytics
