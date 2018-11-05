@@ -23,8 +23,7 @@ func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
     }
 ```
 
->2. 將手勢加到地圖上，讓使用者點擊其他地方可以將任務詳細頁面
-縮回。
+>2. 將手勢加到地圖上，讓使用者點擊其他地方可以將任務詳細頁面縮回。
 ```javascript
   func addTap(taskCoordinate: CLLocationCoordinate2D) {
         let mapTap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
@@ -37,6 +36,8 @@ func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 
 ## Remote Push Notification
 >### 當使用者申請的任務狀態被拒絕或同意，或是任務聊天室新訊息，使用者會收到訊息，點擊通知後會直接進入該資訊的頁面。
+
+## 
 
 
 # Libraries
