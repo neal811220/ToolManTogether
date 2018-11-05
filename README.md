@@ -4,6 +4,7 @@
 ## Main concept 
 工聚人是款當遇到困擾的事情卻無能為力時，讓你可以透過發出任務來使用他人的生活技能，同時也分享自己的專長來回饋，就此形成一個工具人社群網路。
 
+
 ## The Key function
 ### 點擊地圖上的任務圖標，秀出任務細節 view 的動畫效果
 ### MapKit Annotation add Tap gesture and annotation popup information detail when the user tapped.
@@ -46,6 +47,7 @@ func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 #### 配置推送:
 1. 在 Xcode 中啟用推播通知權利 （需要同時登錄 Apple 開發人員中心創建App ID，並添加通知選項），
 ![](https://i.imgur.com/HB3cud7.png)
+
 ![](https://i.imgur.com/L6vbhUf.png)
 
 2. 在 Appdelegate.swift 添加以下代碼：
@@ -87,6 +89,8 @@ InstanceID.instanceID().instanceID { (result, error) in
 
 3. 在 HTTP Request 部分，如果是透過 Firebase 的推播服務，需要拿到該伺服器金鑰，並在發送 HTTP 請求時輸入在 Header 裡，同時上傳自己的 APNS 憑證
 ![](https://i.imgur.com/YPAY3EE.png)
+![](https://i.imgur.com/cUdrU95.png)
+
 ```javascript
 let headers = [金鑰]
 ```
@@ -94,7 +98,6 @@ let headers = [金鑰]
 4. 在 parameters 裡透過 json 將訊息寫在裡面
 
 ```javascript![](https://i.imgur.com/kXPEywf.jpg)
-
 {
   "aps": {
     "alert": "新訊息",
@@ -160,8 +163,18 @@ func application(
 2. 需特別注意如果使用者重新卸載或是安裝此 App，則該裝置的 Token 將會更新。解決辦法就是使用者重新登入 App 時，重新取得該裝置目前最新的 Token，以確保問題不會發生。
 
 
+## 聊天室顯示未讀訊息
+<iframe src='//gifs.com/embed/32z4Bx' frameborder='0' scrolling='no' width='375' height='667px' style='-webkit-backface-visibility: hidden;-webkit-transform: scale(1);' ></iframe>
+
+* 利用 Firebase realtime database ，在一對一聊天室中，拿到每筆  message 後，同時上傳該使用者的 ID 加上特定 key，藉此來判斷兩位聊天室成員是否都看過此訊息。所以在聊天室列表中，最後一筆留言沒有該使用者的特定 key 就顯示未讀的 UI。 
 
 
+
+## 使用總覽
+
+<iframe src='//gifs.com/embed/32z4Bx' frameborder='0' scrolling='no' width='375' height='667px' style='-webkit-backface-visibility: hidden;-webkit-transform: scale(1);' ></iframe>
+
+<iframe src='//gifs.com/embed/G51Gv0' frameborder='0' scrolling='no' width='375' height='667px' style='-webkit-backface-visibility: hidden;-webkit-transform: scale(1);' ></iframe>
 
 
 # Libraries
@@ -189,3 +202,10 @@ func application(
 
 # Contacts
 Spock Hsueh spock.hsu@gmail.com
+
+
+
+
+
+ 
+
