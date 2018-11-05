@@ -193,8 +193,7 @@ func application(
 <a><img src="https://j.gifs.com/kZYznX.gif" width="200"></a> 
 * 透過聊天室與對方聯繫
 <a><img src="https://j.gifs.com/1r05Aj.gif" width="200"></a> 
-* 透過撥打電話與對方聯繫
-<a><img src="https://j.gifs.com/9QJnKP.gif" width="200"></a>
+
 
 
 
