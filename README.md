@@ -172,9 +172,7 @@ func application(
 
 ## 使用總覽
 
-![](https://i.imgur.com/fUBa0kc.gif)
-
-
+<a><img src="https://i.imgur.com/fUBa0kc.gif" width="200"></a>
 
 
 
