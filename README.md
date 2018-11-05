@@ -37,7 +37,47 @@ func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 ## Remote Push Notification
 >### 當使用者申請的任務狀態被拒絕或同意，或是任務聊天室新訊息，使用者會收到訊息，點擊通知後會直接進入該資訊的頁面。
 
-## 
+>### 必須執行的三個前置任務:
+>1. 必須正確配置應用程序並向 Apple 推送通知服務（APNS）註冊才能在每次啟動時接收推送通知。
+>2. 服務器必須向指向一個或多個特定設備的APNS發送推送通知。
+>3. 該應用程式必須收到推送通知後，它可以進一步使用應用程序中的function 來執行任務或處理操作。
+
+>### 配置推送:
+> 1. 在 Xcode 中啟用推播通知權利 （需要同時登錄 Apple 開發人員中心創建App ID，並添加通知選項），
+![](https://i.imgur.com/HB3cud7.png)
+![](https://i.imgur.com/L6vbhUf.png)
+
+> 2. 在 Appdelegate.swift 添加以下代碼：
+
+```javascript
+func registerForPushNotifications() {
+  UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
+    (granted, error) in
+    print("Permission granted: \(granted)")
+  }
+}
+```
+* .badge 允許在 icon 的角落顯示一個數字。
+* .sound 允許該播放聲音。
+* .alert 允許該顯示文字。
+
+
+>### 註冊推送:
+
+>1. 驗證使用者是否已授權註冊
+```javascript
+func getNotificationSettings() {
+  UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+    print("Notification settings: \(settings)")
+    guard settings.authorizationStatus == .authorized else { return }
+    UIApplication.shared.registerForRemoteNotifications()
+  }
+}
+```
+
+接著
+
+
 
 
 # Libraries
@@ -65,7 +105,6 @@ func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 
 # Contacts
 Spock Hsueh spock.hsu@gmail.com
-
 
 
 
