@@ -6,10 +6,10 @@
 
 
 ##  Key function
-### 點擊地圖上的任務圖標，秀出任務細節 view 的動畫效果
-### MapKit Annotation add Tap gesture and annotation popup information detail when the user tapped.
+### 點擊地圖上的任務圖標，秀出任務細節畫面的動畫效果
+
 ![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/IMG_01.PNG) ![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/IMG_02.PNG)
-#### Three steps:
+#### 三個步驟:
 1. 我們可以透過 MapKit 本身提供的方法來拿到使用者點擊了哪個 Annotation，同時拿到該點的經緯度資料，進行後續動作。
 ```javascript
 func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -164,7 +164,9 @@ func application(
 
 
 ## 聊天室顯示未讀訊息
-<iframe src='//gifs.com/embed/32z4Bx' frameborder='0' scrolling='no' width='375' height='667px' style='-webkit-backface-visibility: hidden;-webkit-transform: scale(1);' ></iframe>
+* 收到新訊息時，會收到推播訊息以及聊天室未讀UI
+
+![](https://i.imgur.com/wLFKSX8.png)![](https://i.imgur.com/bMRHfwa.png)
 
 * 利用 Firebase realtime database ，在一對一聊天室中，拿到每筆  message 後，同時上傳該使用者的 ID 加上特定 key，藉此來判斷兩位聊天室成員是否都看過此訊息。所以在聊天室列表中，最後一筆留言沒有該使用者的特定 key 就顯示未讀的 UI。 
 
@@ -180,7 +182,8 @@ func application(
 ### 已接任務頁面
 * 任務狀態改變時，會立即收到通知
 
-![](https://i.imgur.com/7AY4GmC.png)
+![](https://i.imgur.com/7AY4GmC.png)![](https://i.imgur.com/ImXA4hp.png)
+
 
 ### 新增任務頁面
 * 輸入任務內容 
