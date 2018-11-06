@@ -150,8 +150,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 
             case "message":
                 
-                
-                
                 let fromUserId = data["fromUserId"] as? String
                 let taskInfoKey = data["taskInfoKey"] as? String
                 
