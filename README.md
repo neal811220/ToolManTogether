@@ -174,25 +174,31 @@ func application(
 
 ### 收尋任務頁面
 * 選擇任務
+
 ![](https://i.imgur.com/Kwm4JID.png)
 
 ### 已接任務頁面
 * 任務狀態改變時，會立即收到通知
+
 ![](https://i.imgur.com/7AY4GmC.png)
 
 ### 新增任務頁面
 * 輸入任務內容 
+
 ![](https://i.imgur.com/CNInCi2.png)
 * 自訂任務地點
+
 ![](https://i.imgur.com/NPLxau8.png)
 
 
 
 ### 任務配對頁面 
 * 查詢申請者資訊
+
 ![](https://i.imgur.com/SbNukgC.png)
 
 * 透過聊天室與對方聯繫
+
 ![](https://i.imgur.com/kcUlbTI.png)![](https://i.imgur.com/SD9QpOM.png)
 
 
@@ -220,7 +226,7 @@ func application(
   * 新增地圖縮放顯示任務圖標功能
 
 * 1.0 - 2018/10/20
-  * 第一版上架![](https://i.imgur.com/9deUS6V.png)
+  * 第一版上架
  
 
 ## Contacts
