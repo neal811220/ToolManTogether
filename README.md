@@ -5,7 +5,7 @@
 工聚人是款當遇到困擾的事情卻無能為力時，讓你可以透過發出任務來使用他人的生活技能，同時也分享自己的專長來回饋，就此形成一個工具人社群網路。
 
 
-## The Key function
+##  Key function
 ### 點擊地圖上的任務圖標，秀出任務細節 view 的動畫效果
 ### MapKit Annotation add Tap gesture and annotation popup information detail when the user tapped.
 ![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/IMG_01.PNG) ![image](https://github.com/SpockHsueh/ToolManTogether/blob/master/IMG_02.PNG)
@@ -174,37 +174,32 @@ func application(
 
 ### 收尋任務頁面
 * 選擇任務
-* 對方如果同意你的申請會立刻顯示並收到通知。
-<a><img src="https://j.gifs.com/APRywj.gif" width="200"></a> <a><img src="https://j.gifs.com/wmoPYr.gif" width="200"></a>
+![](https://i.imgur.com/Kwm4JID.png)
 
+### 已接任務頁面
+* 任務狀態改變時，會立即收到通知
+![](https://i.imgur.com/7AY4GmC.png)
 
 ### 新增任務頁面
 * 輸入任務內容 
+![](https://i.imgur.com/CNInCi2.png)
 * 自訂任務地點
-![](https://i.imgur.com/xQwMRbp.png)![](https://i.imgur.com/fiQKy25.png)
+![](https://i.imgur.com/NPLxau8.png)
 
 
 
 ### 任務配對頁面 
-* 空值畫面建立
-<a><img src="https://j.gifs.com/G51Gv0.gif" width="200"></a>
+* 查詢申請者資訊
+![](https://i.imgur.com/SbNukgC.png)
 
- 
-* 查詢申請者詳細資訊 
 * 透過聊天室與對方聯繫
-* 透過撥打電話與對方聯繫
-![](https://i.imgur.com/EWIAee4.png)<a><img src="https://j.gifs.com/1r05Aj.gif" width="200"></a> <a><img src="https://j.gifs.com/9QJnKP.gif" width="200"></a>
+![](https://i.imgur.com/kcUlbTI.png)![](https://i.imgur.com/SD9QpOM.png)
 
 
 
 
 
-
-
-
-
-
-# Libraries
+## Libraries
 * Crashlytics
 * Firebase SDK
 * Facebook SDK
@@ -214,20 +209,21 @@ func application(
 * Lottie
 * SwiftLint
 
-# Requirement
+## Requirement
 * iOS 11.4 +
 * XCode 10.0
 
 
-# Version
+## Version
 * 2.0 - 2018/10/31
   * 新增任務聊天室
   * 新增地圖縮放顯示任務圖標功能
 
 * 1.0 - 2018/10/20
-  * 第一版上架 
+  * 第一版上架![](https://i.imgur.com/9deUS6V.png)
+ 
 
-# Contacts
+## Contacts
 Spock Hsueh spock.hsu@gmail.com
 
 
@@ -235,4 +231,4 @@ Spock Hsueh spock.hsu@gmail.com
 
 
  
- 
+
