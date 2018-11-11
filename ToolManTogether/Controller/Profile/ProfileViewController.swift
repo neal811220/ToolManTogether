@@ -32,7 +32,6 @@ class ProfileViewController: UIViewController {
     let keychain = KeychainSwift()
     var isGuest = false
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkInternet()
