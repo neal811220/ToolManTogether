@@ -12,11 +12,17 @@ import SDWebImage
 import FirebaseDatabase
 import FirebaseStorage
 import FirebaseMessaging
-
+import KeychainSwift
+import Lottie
 
 class MessageController: UIViewController {
     
     @IBOutlet weak var messageListTableView: UITableView!
+    
+    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var aniView: UIView!
+    @IBOutlet weak var bgLabel: UILabel!
+    
     var myRef: DatabaseReference!
     var userAllTaskKey: [MessageTaskKey] = []
     var userAllMessage: [Message] = []
@@ -24,12 +30,22 @@ class MessageController: UIViewController {
     var taskInfo: [UserTaskInfo] = []
     var taskOwnerInfo: [RequestUserInfo] = []
     var requestUserInfo: [RequestUser] = []
+    let keychain = KeychainSwift()
+    let animationView = LOTAnimationView(name: "servishero_loading")
     var toUserId: String!
-
+    var isGuest = false
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         messageListTableView.allowsSelection = true
         getUserAkkTaskKey()
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        animationView.removeFromSuperview()
+        setAniView()
     }
     
     override func viewDidLoad() {
@@ -40,7 +56,8 @@ class MessageController: UIViewController {
         
         let messageListNib = UINib(nibName: "controllerMessage", bundle: nil)
         self.messageListTableView.register(messageListNib, forCellReuseIdentifier: "controllerMessage")
-        
+        guestMode()
+
         getUserAkkTaskKey()
         
         self.title = "任務聊天室"
@@ -48,29 +65,54 @@ class MessageController: UIViewController {
         UIApplication.shared.applicationIconBadgeNumber = 0
         resetBadgeCount()
         
-//        messageListTableView.allowsMultipleSelectionDuringEditing = true
-        
     }
     
+    func guestMode() {
+        if keychain.get("token") == nil {
+            isGuest = true
+            changeView()
+        } else {
+            isGuest = false
+            returnView()
+        }
+    }
     
-//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
-//
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        guard let taskKey = userAllMessage[indexPath.row].taskKey else { return }
-//        myRef.child("Message").child(taskKey).removeValue()
-//        tableView.reloadData()
-//    }
+    func setAniView() {
+        animationView.frame = aniView.frame
+        animationView.center = aniView.center
+        animationView.contentMode = .scaleAspectFill
+        animationView.loopAnimation = false
+        bgView.addSubview(animationView)
+        animationView.play()
+    }
+    
+    func changeView() {
+        self.bgView.isHidden = false
+        self.aniView.isHidden = false
+        self.bgLabel.isHidden = false
+        
+        if isGuest == true {
+            self.bgLabel.text = "訪客模式將無任何資料，請透過臉書登入來使用更多功能。"
+        }
+    }
+    
+    func returnView() {
+        self.bgView.isHidden = true
+        self.aniView.isHidden = true
+        self.bgLabel.isHidden = true
+    }
 
     func resetBadgeCount() {
-        let myId = Auth.auth().currentUser?.uid
-        myRef.child("Badge").child(myId!).updateChildValues([
-            "messageBadge": 1
-            ])
+        if let myId = Auth.auth().currentUser?.uid {
+            myRef.child("Badge").child(myId).updateChildValues([
+                "messageBadge": 1
+                ])
+        }
     }
     
     func getUserAkkTaskKey() {
+        
+        guard isGuest == false else { return }
         
         let userId = Auth.auth().currentUser?.uid
         myRef.child("userAllTask").queryOrderedByKey()
@@ -183,7 +225,6 @@ extension MessageController: UITableViewDelegate, UITableViewDataSource {
                 cell.dateLabel.font = UIFont(name: "PingFangTC-Semibold", size: 14)
                 cell.messageLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 cell.dateLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-
 
             } else {
                 cell.messageLabel.font = UIFont(name: "PingFangTC-Regular", size: 15)

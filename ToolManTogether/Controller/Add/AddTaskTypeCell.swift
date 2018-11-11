@@ -21,8 +21,6 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     var checkType: String!
     var checkBool = false
     var checkIndex: Int!
-    
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -117,7 +115,6 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let selectType = typeTxtArray[indexPath.row]
@@ -141,8 +138,9 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         }
     }
 
-    
     @objc func cleanData() {
+        checkType = nil
+        checkIndex = nil
         collectionView.reloadData()
     }
     

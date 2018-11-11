@@ -30,20 +30,17 @@ class HistoryTaskViewController: UIViewController {
     var requestTools: [RequestUser] = []
     var toolsInfo: [RequestUserInfo] = []
     var selectToosData: RequestUser!
-    
     var agreeToos: RequestUser?
     var agreeToolsInfo: RequestUserInfo?
     var client = HTTPClient(configuration: .default)
-    
     var refreshController: UIRefreshControl!
     var scrollViewDefine: UserTaskInfo!
-    
     var myActivityIndicator: UIActivityIndicatorView!
     let fullScreenSize = UIScreen.main.bounds.size
-    
     let keychain = KeychainSwift()
     var agreeAlready = false
     var badge = 1
+    var isGuest = false
     
     let animationView = LOTAnimationView(name: "servishero_loading")
     
@@ -55,7 +52,6 @@ class HistoryTaskViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animationView.removeFromSuperview()
-        guestMode()
         setAniView()
     }
     
@@ -89,6 +85,8 @@ class HistoryTaskViewController: UIViewController {
         let hasTaskNotification = Notification.Name("hasTask")
         NotificationCenter.default.addObserver(self, selector: #selector(self.hastask), name: hasTaskNotification, object: nil)
         
+        guestMode()
+        
     }
     
     func checkInternet() {
@@ -103,8 +101,8 @@ class HistoryTaskViewController: UIViewController {
     
     func guestMode() {
         if keychain.get("token") == nil {
-            
-           notask()
+            isGuest = true
+            notask()
         }
     }
     
@@ -124,6 +122,10 @@ class HistoryTaskViewController: UIViewController {
     @objc func notask() {
         bgView.isHidden = false
         bgLabel.isHidden = false
+        
+        if isGuest == true {
+            bgLabel.text = "訪客模式將無任何資料，請透過臉書登入來使用更多功能。"
+        }
     }
     
     @objc func hastask() {

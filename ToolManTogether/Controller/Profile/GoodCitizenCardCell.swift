@@ -45,6 +45,7 @@ class GoodCitizenCardCell: UITableViewCell, UIImagePickerControllerDelegate, UIN
     @IBAction func selectBtn(_ sender: Any) {
         
         photoBtnDelegage?.selectBtnPressed(self.selectButton, self.imagePicker)
+        
     }
     
     func setAniView() {

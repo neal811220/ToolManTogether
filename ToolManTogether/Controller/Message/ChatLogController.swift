@@ -39,7 +39,7 @@ class ChatLogController: UICollectionViewController,
     var findRequestUserRemoteToken: String!
     var checUserkLeave = false
     var badge = 1
-    
+    let fullScreenSize = UIScreen.main.bounds.size
     
     var userInfo: RequestUserInfo? {
         didSet {
@@ -235,11 +235,9 @@ class ChatLogController: UICollectionViewController,
                 
                 downloadUserPhoto(userID: fromId, finder: "UserPhoto") { (url) in
                     cell.profileImageView.sd_setImage(with: url, completed: nil)
-                    
                     self.messageProfileImage = cell.profileImageView
                 }
             }
-
             setupCell(cell: cell, message: cellData)
             
             return cell
@@ -328,27 +326,26 @@ class ChatLogController: UICollectionViewController,
                                       imageUrl: imageUrl,imageHeight: imageHeight,
                                       imageWidth: imageWidth)
                 
-                guard let stroungSelf = self else { return }
+                guard let strongSelf = self else { return }
                 
-                stroungSelf.messageData.append(message)
-                stroungSelf.collectionView.reloadData()
+                strongSelf.messageData.append(message)
+                strongSelf.collectionView.reloadData()
                 
-                let indexPath = IndexPath(row: stroungSelf.messageData.count - 1, section: 0)
-                stroungSelf.collectionView.scrollToItem(at: indexPath,
+                let indexPath = IndexPath(row: strongSelf.messageData.count - 1, section: 0)
+                strongSelf.collectionView.scrollToItem(at: indexPath,
                                                  at: UICollectionView.ScrollPosition.bottom,
                                                  animated: true)
                 
                 self?.handleSeenMessageFor(messageKey: messageTaskKey!, detailKey: messageDetailKey)
                 
                 if message.text == "對方已關閉任務聊天室" || message.text == "對方已離開任務聊天室" || message.text == "已封鎖任務聊天室" {
-                    stroungSelf.inputTextField.text = "無法傳送訊息"
-                    stroungSelf.inputTextField.textColor = UIColor.lightGray
-                    stroungSelf.inputTextField.isEnabled = false
-                    stroungSelf.uploadImageView.isHidden = true
-                    stroungSelf.sendButton.isHidden = true
+                    strongSelf.inputTextField.text = "無法傳送訊息"
+                    strongSelf.inputTextField.textColor = UIColor.lightGray
+                    strongSelf.inputTextField.isEnabled = false
+                    strongSelf.uploadImageView.isHidden = true
+                    strongSelf.sendButton.isHidden = true
                 }
                 
-//                stroungSelf.handleBadge(messageKey: messageDetailKey)
             }
         }
     }

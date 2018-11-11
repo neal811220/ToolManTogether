@@ -13,6 +13,7 @@ import FirebaseDatabase
 import FirebaseStorage
 import FBSDKLoginKit
 import KeychainSwift
+import AVFoundation
 
 class ProfileViewController: UIViewController {
     
@@ -23,7 +24,7 @@ class ProfileViewController: UIViewController {
     var aboutUser: String!
     var userProfile: [ProfileManager] = []
     var citizenPhoto: UIImage!
-    var myActivityIndicator: UIActivityIndicatorView!
+    var citizenIndicator: UIActivityIndicatorView!
     let fullScreenSize = UIScreen.main.bounds.size
     let client = HTTPClient(configuration: .default)
     let fbUserDefault: UserDefaults = UserDefaults.standard
@@ -66,7 +67,7 @@ class ProfileViewController: UIViewController {
         
         myRef = Database.database().reference()
         
-        searchProfile()
+        searchProfile(fromCitizen: false)
     }
     
     func checkInternet() {
@@ -92,18 +93,23 @@ class ProfileViewController: UIViewController {
     }
     
     func setIndicator() {
-        myActivityIndicator = UIActivityIndicatorView(style: .whiteLarge)
-        myActivityIndicator.color = UIColor.gray
-        myActivityIndicator.backgroundColor = UIColor.white
-        myActivityIndicator.center = CGPoint(x: fullScreenSize.width * 0.5, y: fullScreenSize.height * 0.5)
-        self.profileTableView.addSubview(myActivityIndicator)
+        citizenIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        citizenIndicator.color = UIColor.gray
+        citizenIndicator.backgroundColor = UIColor.white
+        citizenIndicator.center = CGPoint(x: fullScreenSize.width * 0.5, y: fullScreenSize.height * 0.8)
+        self.profileTableView.addSubview(citizenIndicator)
     }
     
-    func searchProfile() {
+    func citizenPhotoSuccessChangeView() {
+        let tabController = self.view.window!.rootViewController as? UITabBarController
+        let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
+        let alertVC = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
+        tabController?.show(alertVC, sender: nil)
+    }
+    
+    func searchProfile(fromCitizen: Bool) {
         
         self.userProfile.removeAll()
-        self.profileTableView.reloadData()
-        
         guard keychain.get("token") != nil else { return }
         
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -130,6 +136,11 @@ class ProfileViewController: UIViewController {
                     
                     self.userProfile.append(data)
                 }
+                self.citizenIndicator.stopAnimating()
+                if fromCitizen == true {
+                    self.citizenPhotoSuccessChangeView()
+                }
+                
                 self.profileTableView.reloadData()
         }
     }
@@ -362,7 +373,7 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
         let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
         
         let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (void) in
-
+            self.showAuthorizationAlert(title: "照片圖庫")
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
    
                 imagePickerController.sourceType = .photoLibrary
@@ -373,7 +384,7 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
         let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (void) in
             
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                
+                self.showAuthorizationAlert(title: "相機")
                 imagePickerController.sourceType = .camera
                 self.present(imagePickerController, animated: true, completion: nil)
             }
@@ -390,7 +401,19 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
         
         present(imagePickerAlertController, animated: true, completion: nil)
     }
-        
+    
+    func showAuthorizationAlert(title: String) {
+        AVCaptureDevice.requestAccess(for: .video) { (success) in
+            if !success {
+                let cameraAlert = UIAlertController(title: "尚未授權", message: "\(title)訪問受到限制。 要上傳照片，需要啟用\(title)授權。", preferredStyle: .alert)
+                cameraAlert.addAction(UIAlertAction(title: "取消", style: .default, handler: nil))
+                cameraAlert.addAction(UIAlertAction(title: "確定", style: .destructive, handler: { (action) in
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                }))
+                self.present(cameraAlert, animated: true, completion: nil)
+            }
+        }
+    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -400,7 +423,7 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
 
         dismiss(animated:true, completion: nil)
 //        self.profileTableView.reloadData()
-        
+        citizenIndicator.startAnimating()
         guard let data = photo.jpegData(compressionQuality: 0.1) else { return }
         
         let storageRef = Storage.storage().reference()
@@ -415,8 +438,7 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
                 return
             } else {
                 print("Storage Success")
-
-                self.searchProfile()
+                self.searchProfile(fromCitizen: true)
             }
         }
     }

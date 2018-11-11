@@ -216,7 +216,23 @@ class HomeViewController: UIViewController {
     @IBAction func centerMapBtnWasPressed(_ sender: Any) {
         if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
             centerMapOnUserLocation()
+        } else {
+            showAuthorizationAlert()
         }
+    }
+    
+    func showAuthorizationAlert() {
+        
+        let alert = UIAlertController(title: "尚未授權", message: "GPS訪問受到限制。要啟用個人定位，需要啟用GPS授權。", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "取消", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "前往設定", style: UIAlertAction.Style.destructive, handler: { (alert: UIAlertAction!) in
+            print("")
+//            UIApplication.shared.openURL(NSURL(string:UIApplication.openSettingsURLString)! as URL)
+            
+            UIApplication.shared.open(NSURL(string: UIApplication.openSettingsURLString)! as URL, options: [:], completionHandler: nil)
+        }))
+
+        self.present(alert, animated: true, completion: nil)
     }
     
     // 縮回去時 加上取消
@@ -363,13 +379,6 @@ class HomeViewController: UIViewController {
                 .queryOrdered(byChild: "checkTask").queryEqual(toValue: selectData.checkTask)
                 .observeSingleEvent(of: .value, with: { (snapshot) in
                     
-//                    guard snapshot.value as? NSDictionary == nil else {
-//                        self.pullUpDetailView.sendButton.setTitle("已經申請過", for: .normal)
-//                        self.pullUpDetailView.sendButton.backgroundColor = #colorLiteral(red: 0.7450980392, green: 0.6588235294, blue: 0.6274509804, alpha: 1)
-//                        self.showAlert(content: "請耐心等待對方同意，或尋找其他任務")
-//                        return
-//                    }
-                    
                     self.myRef.child("RequestTask").child(autoID!).setValue([
                         "Title": selectData.title,
                         "Content": selectData.content,
@@ -385,7 +394,6 @@ class HomeViewController: UIViewController {
                         "ownerID": selectData.ownerID,
                         "OwnerAgree": "waiting",
                         "address": selectData.address])
-                    
                     self.myRef.child("userAllTask").child(userID!).child(selectDataKey).updateChildValues([
                         "taskKey": selectDataKey,
                         "taskTitle": selectData.title,

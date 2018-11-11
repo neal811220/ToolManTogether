@@ -35,8 +35,8 @@ class SearchTaskViewController: UIViewController {
     var userPhoto: [String:URL] = [:]
     let animationView = LOTAnimationView(name: "servishero_loading")
     var selectTaskOwner: UserTaskInfo!
+    var isGuest = false
 
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkInternet()
@@ -45,7 +45,6 @@ class SearchTaskViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animationView.removeFromSuperview()
-        guestMode()
         setAniView()
         searchTaskTableVIew.showsVerticalScrollIndicator = false
     }
@@ -60,7 +59,7 @@ class SearchTaskViewController: UIViewController {
         
         searchTaskTableVIew.delegate = self
         searchTaskTableVIew.dataSource = self
-        
+        guestMode()
         myRef = Database.database().reference()
         selectTaskAdd()
         
@@ -92,6 +91,7 @@ class SearchTaskViewController: UIViewController {
     
     func guestMode() {
         if keychain.get("token") == nil {
+            isGuest = true
             changeView()
         }
     }
@@ -110,6 +110,9 @@ class SearchTaskViewController: UIViewController {
         self.aniView.isHidden = false
         self.bgLabel.isHidden = false
         
+        if isGuest == true {
+            self.bgLabel.text = "訪客模式將無任何資料，請透過臉書登入來使用更多功能。"
+        }
     }
     
     func returnView() {
@@ -134,6 +137,9 @@ class SearchTaskViewController: UIViewController {
     }
     
     @objc func selectTaskAdd() {
+        
+        guard isGuest == false else { return }
+        
         myActivityIndicator.startAnimating()
         self.selectTask.removeAll()
         self.selectTaskKey.removeAll()
@@ -234,7 +240,6 @@ class SearchTaskViewController: UIViewController {
                                 let requestUserkey = dictionary["requestUserKey"] as? String
                                 let requestTaskKey = dictionary["taskKey"] as? String
                                 let address = dictionary["address"] as? String
-
 
                                 let task = UserTaskInfo(userID: userID,
                                                         userName: userName,

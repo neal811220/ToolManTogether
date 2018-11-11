@@ -63,16 +63,48 @@
                                     <constraint firstAttribute="height" constant="50" id="V8g-zF-z0G"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NUT-Pw-UpS" userLabel="Bg View">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wOC-5z-Yjg" userLabel="aniView">
+                                        <rect key="frame" x="97.5" y="211.5" width="180" height="180"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="180" id="8ND-jk-ff4"/>
+                                            <constraint firstAttribute="height" constant="180" id="s9l-Tp-m8H"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="4" translatesAutoresizingMaskIntoConstraints="NO" id="V6n-jV-nhE" userLabel="Bg Label">
+                                        <rect key="frame" x="10" y="429.5" width="355" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="V6n-jV-nhE" firstAttribute="centerX" secondItem="NUT-Pw-UpS" secondAttribute="centerX" id="Cne-4Z-Ct2"/>
+                                    <constraint firstItem="V6n-jV-nhE" firstAttribute="top" secondItem="wOC-5z-Yjg" secondAttribute="bottom" constant="38" id="D7O-Pm-lKZ"/>
+                                    <constraint firstItem="wOC-5z-Yjg" firstAttribute="centerY" secondItem="NUT-Pw-UpS" secondAttribute="centerY" id="KZk-o6-oj6"/>
+                                    <constraint firstItem="V6n-jV-nhE" firstAttribute="leading" secondItem="NUT-Pw-UpS" secondAttribute="leading" constant="10" id="Kck-TT-PKX"/>
+                                    <constraint firstItem="wOC-5z-Yjg" firstAttribute="centerX" secondItem="NUT-Pw-UpS" secondAttribute="centerX" id="Mb8-cX-YbV"/>
+                                    <constraint firstAttribute="trailing" secondItem="V6n-jV-nhE" secondAttribute="trailing" constant="10" id="VTD-Dz-9Ee"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="h9l-Wc-YPl" firstAttribute="leading" secondItem="G06-HE-9t2" secondAttribute="leading" id="2Ze-lw-vxJ"/>
                             <constraint firstItem="JEF-Qj-nmF" firstAttribute="top" secondItem="G06-HE-9t2" secondAttribute="top" id="B5D-FP-9Xj"/>
+                            <constraint firstItem="h9l-Wc-YPl" firstAttribute="bottom" secondItem="NUT-Pw-UpS" secondAttribute="bottom" id="BwD-OA-ipX"/>
                             <constraint firstItem="JEF-Qj-nmF" firstAttribute="leading" secondItem="G06-HE-9t2" secondAttribute="leading" id="LJF-gU-BnK"/>
                             <constraint firstItem="vQG-6V-Bdn" firstAttribute="top" secondItem="JEF-Qj-nmF" secondAttribute="bottom" constant="27" id="OOW-AT-YZw"/>
                             <constraint firstItem="G06-HE-9t2" firstAttribute="trailing" secondItem="h9l-Wc-YPl" secondAttribute="trailing" id="VMV-r7-D5d"/>
                             <constraint firstItem="G06-HE-9t2" firstAttribute="bottom" secondItem="vQG-6V-Bdn" secondAttribute="bottom" constant="20" id="WVp-QR-3tn"/>
+                            <constraint firstItem="NUT-Pw-UpS" firstAttribute="trailing" secondItem="G06-HE-9t2" secondAttribute="trailing" id="XYs-yE-9Qj"/>
                             <constraint firstItem="h9l-Wc-YPl" firstAttribute="top" secondItem="JEF-Qj-nmF" secondAttribute="bottom" id="Xal-VF-MyF"/>
+                            <constraint firstItem="NUT-Pw-UpS" firstAttribute="top" secondItem="G06-HE-9t2" secondAttribute="top" id="fxS-zv-o16"/>
+                            <constraint firstItem="NUT-Pw-UpS" firstAttribute="leading" secondItem="G06-HE-9t2" secondAttribute="leading" id="ilc-38-b0o"/>
                             <constraint firstItem="G06-HE-9t2" firstAttribute="trailing" secondItem="JEF-Qj-nmF" secondAttribute="trailing" id="kgV-7I-SqO"/>
                             <constraint firstItem="vQG-6V-Bdn" firstAttribute="centerX" secondItem="fAX-8V-W1Q" secondAttribute="centerX" id="l5f-46-aiW"/>
                             <constraint firstItem="h9l-Wc-YPl" firstAttribute="bottom" secondItem="G06-HE-9t2" secondAttribute="bottom" id="nTe-aF-prU"/>
@@ -85,6 +117,9 @@
                         <outlet property="addTaskButton" destination="aHO-p0-AxC" id="BpJ-KK-rcg"/>
                         <outlet property="addTaskTableView" destination="JEF-Qj-nmF" id="a7O-fd-lyB"/>
                         <outlet property="addressLabel" destination="lZd-Gy-eXj" id="2pv-kd-jwL"/>
+                        <outlet property="aniView" destination="wOC-5z-Yjg" id="v9B-gn-9Q8"/>
+                        <outlet property="bgLabel" destination="V6n-jV-nhE" id="gPK-dP-Gke"/>
+                        <outlet property="bgView" destination="NUT-Pw-UpS" id="q5u-h8-fQE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pS8-lo-xM7" userLabel="First Responder" sceneMemberID="firstResponder"/>

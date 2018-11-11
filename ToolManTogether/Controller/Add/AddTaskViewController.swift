@@ -13,8 +13,13 @@ import FirebaseAuth
 import MapKit
 import FirebaseMessaging
 import KeychainSwift
+import Lottie
 
 class AddTaskViewController: UIViewController {
+    
+    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var aniView: UIView!
+    @IBOutlet weak var bgLabel: UILabel!
     
     @IBOutlet weak var addTaskTableView: UITableView!
     @IBOutlet weak var addTaskBgView: UIView!
@@ -35,7 +40,9 @@ class AddTaskViewController: UIViewController {
     var alertAddress: String!
     var client = HTTPClient(configuration: .default)
     let keychain = KeychainSwift()
+    let animationView = LOTAnimationView(name: "servishero_loading")
     var badge = 1
+    var isGuest = false
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -44,13 +51,18 @@ class AddTaskViewController: UIViewController {
         checkInternet()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        animationView.removeFromSuperview()
+        setAniView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addTaskTableView.delegate = self
         addTaskTableView.dataSource = self
         addTaskTableView.showsVerticalScrollIndicator = false
 
-        
         let infoNib = UINib(nibName: "AddTaskInfoCell", bundle: nil)
         self.addTaskTableView.register(infoNib, forCellReuseIdentifier: "titleAndContent")
         
@@ -69,17 +81,11 @@ class AddTaskViewController: UIViewController {
         let customLocationNib = UINib(nibName: "AddCustomLocationMapCell", bundle: nil)
         self.addTaskTableView.register(customLocationNib, forCellReuseIdentifier: "customLocation")
         
-        
         myRef = Database.database().reference()
         
         addTaskBgView.layer.cornerRadius = 10
         
-//        var topFrame = self.addTaskTableView.bounds
-//        topFrame.origin.y = -topFrame.size.height
-//        let topView = UIView(frame: topFrame)
-//        topView.backgroundColor = #colorLiteral(red: 0.2, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
-//
-//        self.addTaskTableView.addSubview(topView)
+        guestMode()
 
     }
     
@@ -91,6 +97,41 @@ class AddTaskViewController: UIViewController {
             print("Internet Connection not Available!")
             showAlert(title: "網路連線有問題", content: "網路行為異常，請確認您的網路連線狀態或稍後再試。")
         }
+    }
+    
+    func guestMode() {
+        if keychain.get("token") == nil {
+            isGuest = true
+            changeView()
+        } else {
+            isGuest = false
+            returnView()
+        }
+    }
+    
+    func setAniView() {
+        animationView.frame = aniView.frame
+        animationView.center = aniView.center
+        animationView.contentMode = .scaleAspectFill
+        animationView.loopAnimation = false
+        bgView.addSubview(animationView)
+        animationView.play()
+    }
+    
+    func changeView() {
+        self.bgView.isHidden = false
+        self.aniView.isHidden = false
+        self.bgLabel.isHidden = false
+        
+        if isGuest == true {
+            self.bgLabel.text = "無法申請任務，需要登入才能發任務！"
+        }
+    }
+    
+    func returnView() {
+        self.bgView.isHidden = true
+        self.aniView.isHidden = true
+        self.bgLabel.isHidden = true
     }
     
     func sendNotification(title: String = "", content: String, data: String, badge: Int) {
@@ -219,14 +260,7 @@ class AddTaskViewController: UIViewController {
     }
     
     func switchView() {
-//
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
-//
-//        if let viewController = storyboard.instantiateViewController(withIdentifier: "mainVC") as? UITabBarController {
-//            viewController.selectedIndex = 3
-//
-//        }
+
         self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
 
         let tabController = self.view.window!.rootViewController as? UITabBarController
@@ -239,7 +273,6 @@ class AddTaskViewController: UIViewController {
         }
     }
 
-    
     func centerMapOnUserLocation() -> MKCoordinateRegion? {
         if let coordinate = locationManager.location?.coordinate {
             let coordinateRegion = MKCoordinateRegion(
