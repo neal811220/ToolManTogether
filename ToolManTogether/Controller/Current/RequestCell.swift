@@ -13,6 +13,7 @@ import FirebaseStorage
 import SDWebImage
 import FirebaseDatabase
 import Lottie
+import KeychainSwift
 
 protocol ScrollTask: AnyObject{
     func didScrollTask(_ cell: UserTaskInfo)
@@ -40,7 +41,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     weak var scrollTaskBtnDelegate: btnPressed?
     var checkIndex = 0
     var scrollIndex = 0
-//    var bgView: UIView?
+    let keychain = KeychainSwift()
+    var isGuest = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,7 +59,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         layout.animator = PageAttributesAnimator()
         layout.scrollDirection = .horizontal
         collectionView.collectionViewLayout = layout
-        
+        guestMode()
         myRef = Database.database().reference()
         createTaskAdd()
         
@@ -68,6 +70,12 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         NotificationCenter.default.addObserver(self, selector: #selector(self.createTaskAdd), name: agreeToolNotification, object: nil)
         
         
+    }
+    
+    func guestMode() {
+        if keychain.get("token") == nil {
+            isGuest = true
+        }
     }
     
     func changeView(addTask:DataSnapshot) {
@@ -82,6 +90,8 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     // 已發任務
     
     @objc func createTaskAdd () {
+        
+        guard isGuest == false else { return }
         
         self.addTask.removeAll()
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -187,7 +197,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         }
     }
     
-    
     // 滑動結束觸發
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
@@ -228,7 +237,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         })
     }
 
-    
     // 刪除任務
     @objc func deleteScrollTask() {
         

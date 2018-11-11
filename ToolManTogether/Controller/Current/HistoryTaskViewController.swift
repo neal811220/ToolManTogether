@@ -68,7 +68,8 @@ class HistoryTaskViewController: UIViewController {
 
         historyTableView.addSubview(refreshController)
         refreshController.addTarget(self, action: #selector(loadData), for: UIControl.Event.valueChanged)
-        
+        guestMode()
+
         loadData()
         
         let typeNib = UINib(nibName: "RequestCell", bundle: nil)
@@ -84,8 +85,6 @@ class HistoryTaskViewController: UIViewController {
         
         let hasTaskNotification = Notification.Name("hasTask")
         NotificationCenter.default.addObserver(self, selector: #selector(self.hastask), name: hasTaskNotification, object: nil)
-        
-        guestMode()
         
     }
     
@@ -120,8 +119,10 @@ class HistoryTaskViewController: UIViewController {
     }
     
     @objc func notask() {
+        aniView.isHidden = false
         bgView.isHidden = false
         bgLabel.isHidden = false
+        historyTableView.isHidden = true
         
         if isGuest == true {
             bgLabel.text = "訪客模式將無任何資料，請透過臉書登入來使用更多功能。"
@@ -131,7 +132,8 @@ class HistoryTaskViewController: UIViewController {
     @objc func hastask() {
         bgView.isHidden = true
         bgLabel.isHidden = true
-
+        aniView.isHidden = true
+        historyTableView.isHidden = false
     }
     
     func setIndicator() {
@@ -157,6 +159,8 @@ class HistoryTaskViewController: UIViewController {
     }
     
     @objc func loadData() {
+        
+        guard isGuest == false else { return }
         
         refreshController.beginRefreshing()
         
@@ -448,7 +452,10 @@ extension HistoryTaskViewController: TableViewCellDelegate {
 
 extension HistoryTaskViewController: ScrollTask {
     
+    
     func didScrollTask(_ cell: UserTaskInfo) {
+        
+        guard isGuest == false else { return }
         
         self.requestTools.removeAll()
         self.toolsInfo.removeAll()
