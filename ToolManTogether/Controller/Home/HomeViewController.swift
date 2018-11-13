@@ -214,11 +214,16 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func centerMapBtnWasPressed(_ sender: Any) {
-        if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
+        
+        switch(CLLocationManager.authorizationStatus()) {
+        case .authorizedAlways, .authorizedWhenInUse:
+            print("Authorize.")
             centerMapOnUserLocation()
-        } else {
+
+        case .notDetermined, .restricted, .denied:
             showAuthorizationAlert()
         }
+        
     }
     
     func showAuthorizationAlert() {
