@@ -372,7 +372,7 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
         let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
         
         let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (void) in
-            self.showAuthorizationAlert(title: "照片圖庫")
+//            self.showAuthorizationAlert(title: "照片圖庫")
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
    
                 imagePickerController.sourceType = .photoLibrary
