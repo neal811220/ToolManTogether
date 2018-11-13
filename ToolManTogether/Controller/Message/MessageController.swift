@@ -39,7 +39,6 @@ class MessageController: UIViewController {
         super.viewWillAppear(animated)
         messageListTableView.allowsSelection = true
         getUserAkkTaskKey()
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
