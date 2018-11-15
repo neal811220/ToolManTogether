@@ -24,7 +24,6 @@ class AddTaskTypeCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         typeButton.layer.cornerRadius = 10
         typeButton.layoutIfNeeded()
-        
     }
 
     @IBAction func typeBtnPressed(_ sender: Any) {

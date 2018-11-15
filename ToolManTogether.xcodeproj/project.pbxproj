@@ -70,7 +70,6 @@
 		8EA9C29321772CEC007F57D3 /* AddPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9C29121772CEC007F57D3 /* AddPriceCell.swift */; };
 		8EA9C29421772CEC007F57D3 /* AddPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA9C29221772CEC007F57D3 /* AddPriceCell.xib */; };
 		8EAC57572187F12600C1A03F /* CheckInternetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC57562187F12500C1A03F /* CheckInternetManager.swift */; };
-		8EB0A21E2162609200FD81F1 /* FilterAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */; };
 		8EB6A74C21761907008C9CEF /* NotificationAgreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */; };
 		8EB6A74E2176191B008C9CEF /* NotificationAgree.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */; };
 		8EB6A7502176D57E008C9CEF /* animation-done-new.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EB6A74F2176D57D008C9CEF /* animation-done-new.json */; };
@@ -174,7 +173,6 @@
 		8EA9C29121772CEC007F57D3 /* AddPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPriceCell.swift; sourceTree = "<group>"; };
 		8EA9C29221772CEC007F57D3 /* AddPriceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPriceCell.xib; sourceTree = "<group>"; };
 		8EAC57562187F12500C1A03F /* CheckInternetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternetManager.swift; sourceTree = "<group>"; };
-		8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAnnotation.swift; sourceTree = "<group>"; };
 		8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAgreeViewController.swift; sourceTree = "<group>"; };
 		8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NotificationAgree.storyboard; sourceTree = "<group>"; };
 		8EB6A74F2176D57D008C9CEF /* animation-done-new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "animation-done-new.json"; sourceTree = "<group>"; };
@@ -427,6 +425,7 @@
 			isa = PBXGroup;
 			children = (
 				8E8EC458215CCAB800CCABE7 /* searchTaskCell.xib */,
+				8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */,
 			);
 			path = Already;
 			sourceTree = "<group>";
@@ -457,8 +456,6 @@
 			isa = PBXGroup;
 			children = (
 				8E097DCA21534579006B574E /* HomeViewController.swift */,
-				8EB0A21D2162609200FD81F1 /* FilterAnnotation.swift */,
-				8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -467,13 +464,6 @@
 			isa = PBXGroup;
 			children = (
 				8ED727A02154C8FE00EE697F /* AddTaskViewController.swift */,
-				8ED727A22154D0CB00EE697F /* AddTaskInfoCell.swift */,
-				8ED727A62154D80000EE697F /* AddTaskTitleCell.swift */,
-				8EA9C29121772CEC007F57D3 /* AddPriceCell.swift */,
-				8E58D775215513DB008274F1 /* AddTaskContentCell.swift */,
-				8E58D7792155369B008274F1 /* AddTaskTypeCell.swift */,
-				8E58D77D215537D6008274F1 /* AddTaskTypeCollectionViewCell.swift */,
-				8EC7214B216B3EDA00BEB97D /* AddCustomLocationMapCell.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -482,7 +472,6 @@
 			isa = PBXGroup;
 			children = (
 				8EEC330E215C885D00DE8C31 /* SearchTaskViewController.swift */,
-				8E8EC457215CCAB800CCABE7 /* SearchTaskCell.swift */,
 			);
 			name = Already;
 			path = "New Group";
@@ -520,6 +509,7 @@
 			isa = PBXGroup;
 			children = (
 				8E097DD121536D22006B574E /* TypeCollectionViewCell.xib */,
+				8E097DD021536D22006B574E /* TypeCollectionViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -534,6 +524,13 @@
 				8E58D77E215537D6008274F1 /* AddTaskTypeCollectionViewCell.xib */,
 				8EC7214C216B3EDA00BEB97D /* AddCustomLocationMapCell.xib */,
 				8EA9C29221772CEC007F57D3 /* AddPriceCell.xib */,
+				8ED727A22154D0CB00EE697F /* AddTaskInfoCell.swift */,
+				8ED727A62154D80000EE697F /* AddTaskTitleCell.swift */,
+				8E58D7792155369B008274F1 /* AddTaskTypeCell.swift */,
+				8EA9C29121772CEC007F57D3 /* AddPriceCell.swift */,
+				8E58D775215513DB008274F1 /* AddTaskContentCell.swift */,
+				8EC7214B216B3EDA00BEB97D /* AddCustomLocationMapCell.swift */,
+				8E58D77D215537D6008274F1 /* AddTaskTypeCollectionViewCell.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -801,7 +798,6 @@
 				8E6C6A76215232F9007259D3 /* HTTPClient.swift in Sources */,
 				8E28DF5621652DDF0077B259 /* ProfileManager.swift in Sources */,
 				8E58D777215513DB008274F1 /* AddTaskContentCell.swift in Sources */,
-				8EB0A21E2162609200FD81F1 /* FilterAnnotation.swift in Sources */,
 				8E6C6A732152245E007259D3 /* FacebookManager.swift in Sources */,
 				8EA04DFA21730C5100D12775 /* LoadingViewController.swift in Sources */,
 				8ECAB99B215E177A00649128 /* RequestCollectionViewCell.swift in Sources */,

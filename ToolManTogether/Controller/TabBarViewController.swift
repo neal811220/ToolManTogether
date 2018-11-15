@@ -18,7 +18,6 @@ private enum Tab {
     func controller() -> UIViewController {
       
         switch self {
-            
         case .home:
             return UIStoryboard.homeStoryboard().instantiateInitialViewController()!
             
@@ -33,7 +32,6 @@ private enum Tab {
             
         case .profile:
             return UIStoryboard.profile().instantiateInitialViewController()!
-
         }
     }
     
@@ -56,11 +54,9 @@ private enum Tab {
         case .profile: return "個人"
         }
     }
-    
 }
 
 class TabBarViewController: UITabBarController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setTab()
@@ -69,27 +65,16 @@ class TabBarViewController: UITabBarController {
     }
     
     private func setTab() {
-        
         tabBar.tintColor = #colorLiteral(red: 0.9568627451, green: 0.7215686275, blue: 0, alpha: 1)
         tabBar.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        
         var controllers: [UIViewController] = []
-        
         let tabs: [Tab] = [.home, .searchTask, .addTask, .historyTask, .profile]
-        
         for myTab in tabs {
             let controller = myTab.controller()
-            
             let item = UITabBarItem(title: myTab.title(), image: myTab.image(), selectedImage: nil)
-            
-//            item.imageInsets = UIEdgeInsets(top: 8,
-//                                            left: 0,
-//                                            bottom: -6,
-//                                            right: 0)
             controller.tabBarItem = item
             controllers.append(controller)
         }
         setViewControllers(controllers, animated: true)
     }
-
 }

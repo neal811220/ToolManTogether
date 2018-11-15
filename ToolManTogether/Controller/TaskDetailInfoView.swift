@@ -29,11 +29,8 @@ class TaskDetailInfoView: UIView {
     @IBOutlet weak var priceImageView: UIImageView!
     @IBOutlet weak var distanceImageView: UIImageView!
     @IBOutlet weak var donBtn: UIButton!
-    
     @IBOutlet weak var detailBtn: UIButton!
-    
     @IBOutlet weak var reportBtn: UIButton!
-    
     @IBOutlet weak var downView: UIView!
     
     var alreadyURL: URL?
@@ -48,9 +45,7 @@ class TaskDetailInfoView: UIView {
         commonInit()
         sendButton.layer.cornerRadius = 10
         userPhoto.layer.cornerRadius = userPhoto.frame.width / 2
-        
         donBtn.layer.cornerRadius = 10.0
-        
         detailBtn.layer.cornerRadius = 10.0
     }
     

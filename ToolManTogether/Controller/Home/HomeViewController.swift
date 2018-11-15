@@ -54,7 +54,6 @@ class HomeViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -85,7 +84,6 @@ class HomeViewController: UIViewController {
         mapView.tintColor = #colorLiteral(red: 0.3450980392, green: 0.768627451, blue: 0.6156862745, alpha: 1)
         configureLocationServices()
         guestMode()
-        
     }
     
     func guestMode() {
@@ -97,7 +95,6 @@ class HomeViewController: UIViewController {
     }
     
     func checkInternet() {
-        
         if Reachability.isConnectedToNetwork(){
             print("Internet Connection Available!")
         }else{
@@ -145,14 +142,12 @@ class HomeViewController: UIViewController {
         }
     }
     
-    
     func databaseTaskClose(taskKey: String) {
         myRef.child("Task")
             .child(taskKey).observe(.childRemoved) { (snapshot) in
                 
                 guard let searchAnnotation = snapshot.value as? String else { return }
                 let spliteArray = searchAnnotation.components(separatedBy: "_")
-                
                 
                 if let taskLat = Double(spliteArray.first!), let taskLon = Double(spliteArray.last!) {
                     self.removeMapTaskPoint(taskLat: taskLat, taskLon: taskLon)
@@ -161,9 +156,7 @@ class HomeViewController: UIViewController {
     }
     
     func updataTaskUserPhoto(userID: String) {
-        
         let storageRef = Storage.storage().reference()
-        
         storageRef.child("UserPhoto").child(userID).downloadURL(completion: { (url, error) in
             
             if let error = error {
@@ -179,13 +172,11 @@ class HomeViewController: UIViewController {
     }
     
     func addMapTaskPoint(taskLat: Double, taskLon: Double, type: String) {
-        
         let taskCoordinate = CLLocationCoordinate2D(latitude: taskLat, longitude: taskLon)
         let annotation = TaskPin(coordinate: taskCoordinate, identifier: "taskPin")
         annotation.title = type
         mapView.addAnnotation(annotation)
         allAnnotations = mapView.annotations
-        
     }
     
     func removeMapTaskPoint(taskLat: Double, taskLon: Double) {
@@ -205,7 +196,6 @@ class HomeViewController: UIViewController {
         }
     }
     
-    // 縮回去時 加上取消
     func addTap(taskCoordinate: CLLocationCoordinate2D) {
         guestMode()
         let mapTap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
@@ -214,7 +204,6 @@ class HomeViewController: UIViewController {
             center: taskCoordinate,
             latitudinalMeters: regionRadious * 0.2,
             longitudinalMeters: regionRadious * 0.2)
-        
         var currentUserID = ""
         if let userID = Auth.auth().currentUser?.uid {
             currentUserID = userID
@@ -308,7 +297,6 @@ class HomeViewController: UIViewController {
     
     func showAlert() {
         let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
         let reportAction = UIAlertAction(title: "檢舉", style: .destructive) { (void) in
             let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
@@ -317,7 +305,6 @@ class HomeViewController: UIViewController {
             reportController.addAction(okAction)
             self.present(reportController, animated: true, completion: nil)
         }
-        
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         personAlertController.addAction(reportAction)
         personAlertController.addAction(cancelAction)
@@ -325,7 +312,6 @@ class HomeViewController: UIViewController {
     }
     
     @objc func requestBtnSend() {
-        
         let autoID = myRef.childByAutoId().key
         let userID = Auth.auth().currentUser?.uid
         guard let selectData = selectTask else { return }
@@ -445,11 +431,8 @@ class HomeViewController: UIViewController {
         let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let reportAction = UIAlertAction(title: "檢舉", style: .destructive) { (void) in
-            
             let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理", preferredStyle: .alert)
-            
             let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
-            
             let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
             reportController.addAction(cancelAction)
             reportController.addAction(okAction)
@@ -457,24 +440,19 @@ class HomeViewController: UIViewController {
         }
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
         personAlertController.addAction(reportAction)
         personAlertController.addAction(cancelAction)
         self.present(personAlertController, animated: true, completion: nil)
     }
-    
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return typeTxtArray.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "typeCell", for: indexPath) as? TypeCollectionViewCell {
 
@@ -486,7 +464,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         return UICollectionViewCell()
     }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: 103, height: 40)
     }
@@ -550,18 +527,15 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 103 , height: 40)
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }
 }
 
 extension HomeViewController: MKMapViewDelegate {
-    
     // To Change the maker view
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "taskPin")
@@ -605,11 +579,9 @@ extension HomeViewController: MKMapViewDelegate {
         guard let coordinate = view.annotation?.coordinate else {
             return
         }
-        
         guard coordinate != locationManager.location?.coordinate else {
             return
         }
-        
         addTap(taskCoordinate: coordinate)
         animateViewUp()
         addSwipe()
@@ -618,7 +590,6 @@ extension HomeViewController: MKMapViewDelegate {
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         print(mapView.region.span)
         if mapView.region.span.latitudeDelta > 0.06 {
-
             self.mapView.removeAnnotations(allAnnotations)
             self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
             self.navigationItem.title = "請將地圖放大一點🙏"
@@ -644,7 +615,6 @@ extension HomeViewController: MKMapViewDelegate {
         locationManager.startUpdatingLocation()
         centerMapOnUserLocation()
     }
-
 }
 
 extension HomeViewController: CLLocationManagerDelegate {
@@ -683,7 +653,6 @@ extension String {
 extension CLLocationCoordinate2D: Hashable {
     public var hashValue: Int {
         get {
-            // Add the hash value of lat and long, taking care of overlfolow. Here we are muliplying by an aribtrary number. Just in case.
             let latHash = latitude.hashValue&*123
             let longHash = longitude.hashValue
             return latHash &+ longHash
@@ -691,7 +660,6 @@ extension CLLocationCoordinate2D: Hashable {
     }
 }
 
-// Conform to the Equatable protocol.
 public func ==(mylhs: CLLocationCoordinate2D, myrhs: CLLocationCoordinate2D) -> Bool {
     return mylhs.latitude == myrhs.latitude && mylhs.longitude == myrhs.longitude
 }

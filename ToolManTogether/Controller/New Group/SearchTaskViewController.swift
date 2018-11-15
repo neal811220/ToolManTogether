@@ -24,12 +24,9 @@ class SearchTaskViewController: UIViewController {
     
     var photoURL: [URL] = []
     var myRef: DatabaseReference!
-//    var selectTask: [UserTaskInfo] = []
     var selectTaskKey: [String] = []
-    
     let decoder = JSONDecoder()
     var selectTask = [UserTask]()
-    
     var reloadFromFirebase = false
     var taskOwnerInfo: [RequestUserInfo] = []
     var myActivityIndicator: UIActivityIndicatorView!
@@ -40,7 +37,6 @@ class SearchTaskViewController: UIViewController {
     let animationView = LOTAnimationView(name: "servishero_loading")
     var selectTaskOwner: UserTask!
 
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkInternet()
@@ -56,15 +52,11 @@ class SearchTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setIndicator()
-        
         let searchNib = UINib(nibName: "searchTaskCell", bundle: nil)
         self.searchTaskTableVIew.register(searchNib, forCellReuseIdentifier: "searchTask")
-        
         searchTaskTableVIew.delegate = self
         searchTaskTableVIew.dataSource = self
-        
         myRef = Database.database().reference()
         selectTaskAdd()
         
@@ -72,6 +64,8 @@ class SearchTaskViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.selectTaskAdd), name: notificationName, object: nil)
         
         UIApplication.shared.applicationIconBadgeNumber = 0
+        
+        Database.database().callbackQueue = DispatchQueue(label: "spock_queue", qos: .userInitiated, attributes: [.concurrent])
 
     }
     
