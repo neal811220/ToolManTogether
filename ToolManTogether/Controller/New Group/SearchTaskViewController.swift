@@ -17,7 +17,6 @@ import KeychainSwift
 class SearchTaskViewController: UIViewController {
     
     @IBOutlet weak var searchTaskTableVIew: UITableView!
-    
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var aniView: UIView!
     @IBOutlet weak var bgLabel: UILabel!

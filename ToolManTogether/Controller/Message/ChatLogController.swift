@@ -124,8 +124,8 @@ class ChatLogController: UICollectionViewController,
         let hideAcrion = UIAlertAction(title: "封鎖並刪除聊天室", style: .destructive) { (void) in
             
                 let reportController = UIAlertController(title: "確定封鎖？", message: "將會封鎖此任務聊天室，無法再進行對話", preferredStyle: .alert)
-                
-            let okAction = UIAlertAction(title: "確定", style: .destructive) { (void) in
+            
+                let okAction = UIAlertAction(title: "確定", style: .destructive) { (void) in
                 
 //                self.myRef.child("userAllTask").child(userId!).child(self.taskKey).removeValue()
                 self.myRef.child("Message").child(self.taskKey).child(autoID!).updateChildValues([
@@ -158,6 +158,7 @@ class ChatLogController: UICollectionViewController,
     func sendNotification(title: String = "", content: String, toToken: String, taskInfoKey: String, fromUserId: String, type: String, badge: Int) {
         
         if let token = Messaging.messaging().fcmToken {
+        
             client.sendNotification(
                 fromToken: token, toToken: toToken,
                 title: title, content: content,
@@ -278,8 +279,6 @@ class ChatLogController: UICollectionViewController,
             cell.bubbleViewRightAnchor?.isActive = false
             cell.bubbleViewLeftAnchor?.isActive = true
         }
-        
-        
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
