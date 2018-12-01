@@ -16,7 +16,6 @@ class NotificationAgreeViewController: UIViewController {
         super.viewDidLoad()
         notificationAgreeTableView.delegate = self
         notificationAgreeTableView.dataSource = self
-
     }
     
     class func profileDetailDataForTask(_ data: String) -> NotificationAgreeViewController {
@@ -24,16 +23,8 @@ class NotificationAgreeViewController: UIViewController {
         
         let viewController = storyBoard.instantiateViewController(withIdentifier: "NotificationAgree") as? NotificationAgreeViewController
         
-//        if let viewController = viewController {
-//            viewController.userInfo = data
-//            viewController.taskInfo = taskInfo
-//        }
-        
         return viewController!
     }
-    
-
-
 }
 
 extension NotificationAgreeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -45,6 +36,4 @@ extension NotificationAgreeViewController: UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
-    
-    
 }

@@ -42,9 +42,7 @@ class ChatLogController: UICollectionViewController,
 
     var userInfo: RequestUserInfo? {
         didSet {
-//            setupNavBar(titleName: userInfo?.fbName, userId: userInfo?.userID)
             self.title = taskInfo?.userTaskInfo.title
-//
             self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "btn_more"), style: .done, target: self, action: #selector(handleRightButton)), animated: true)
         }
     }
@@ -68,14 +66,10 @@ class ChatLogController: UICollectionViewController,
         containerView.backgroundColor = UIColor.red
         view.bringSubviewToFront(containerView)
         tabBarFrame = self.tabBarController?.tabBar.frame
-
         setupInputComponents()
-        
         myRef = Database.database().reference()
-        
         observeMessage()
         handleBadge()
-        
         IQKeyboardManager.shared.enable = false
     }
     
@@ -93,9 +87,7 @@ class ChatLogController: UICollectionViewController,
             
             let contentAction = UIAlertAction(title: "內容不適當", style: .destructive) { (void) in
                 let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理。", preferredStyle: .alert)
-                
                 let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
-                
                 let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
                 reportController.addAction(cancelAction)
                 reportController.addAction(okAction)
@@ -127,7 +119,6 @@ class ChatLogController: UICollectionViewController,
             
                 let okAction = UIAlertAction(title: "確定", style: .destructive) { (void) in
                 
-//                self.myRef.child("userAllTask").child(userId!).child(self.taskKey).removeValue()
                 self.myRef.child("Message").child(self.taskKey).child(autoID!).updateChildValues([
                     "message": "已封鎖任務聊天室",
                     "fromId": userId!,
@@ -139,16 +130,13 @@ class ChatLogController: UICollectionViewController,
                 self.navigationController?.popViewController(animated: true)
                 
             }
-                
                 let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
                 reportController.addAction(cancelAction)
                 reportController.addAction(okAction)
                 self.present(reportController, animated: true, completion: nil)
-            
         }
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
         personAlertController.addAction(reportAction)
         personAlertController.addAction(hideAcrion)
         personAlertController.addAction(cancelAction)
@@ -167,7 +155,6 @@ class ChatLogController: UICollectionViewController,
                         print("送出成功")
                     } else {
                         print(error)
-
                     }
             }
         }
@@ -206,7 +193,6 @@ class ChatLogController: UICollectionViewController,
     @objc func handleKeyboardWillHide(_ notification: Notification) {
         
         let frame = containerView.frame
-        
         containerView.frame = CGRect(
             x: frame.origin.x,
             y: tabBarFrame!.origin.y - 49,
@@ -350,8 +336,6 @@ class ChatLogController: UICollectionViewController,
                     stroungSelf.uploadImageView.isHidden = true
                     stroungSelf.sendButton.isHidden = true
                 }
-                
-//                stroungSelf.handleBadge(messageKey: messageDetailKey)
             }
         }
     }
@@ -393,9 +377,7 @@ class ChatLogController: UICollectionViewController,
     }
     
     var containerViewBottomAnchor: NSLayoutConstraint?
-    
     var containerViewShowKeyboardBottomContraint: NSLayoutConstraint?
-    
     let containerView = UIView()
     let sendButton = UIButton(type: .system)
     let uploadImageView = UIImageView()
@@ -407,8 +389,6 @@ class ChatLogController: UICollectionViewController,
         containerView.translatesAutoresizingMaskIntoConstraints = true
         
         view.addSubview(containerView)
-        
-//        let tabBar = self.tabBarController!.tabBar.frame
         containerView.frame = CGRect(
             x: 0,
             y: tabBarFrame!.origin.y - 49,
@@ -581,7 +561,6 @@ class ChatLogController: UICollectionViewController,
     }
     
     @objc func handleSend() {
-//        inputTextField.resignFirstResponder()
         sendButton.isHidden = true
         let autoID = myRef.childByAutoId().key
         let message = inputTextField.text!

@@ -337,7 +337,7 @@ class HomeViewController: UIViewController {
                         "OwnerAgree": "waiting",
                         "address": selectData.userTaskInfo.address])
                     
-                    self.myRef.child("userAllTask").child(userID!).child(selectDataKey).updateChildValues([
+                  self.myRef.child("userAllTask").child(userID!).child(selectDataKey).updateChildValues([
                         "taskKey": selectData.taskKey,
                         "taskTitle": selectData.userTaskInfo.title,
                         "taskOwnerName": selectData.userTaskInfo.userName,

@@ -39,11 +39,9 @@ class GoodCitizenCardCell: UITableViewCell, UIImagePickerControllerDelegate, UIN
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
     
     @IBAction func selectBtn(_ sender: Any) {
-        
         photoBtnDelegage?.selectBtnPressed(self.selectButton, self.imagePicker)
     }
     
@@ -55,7 +53,6 @@ class GoodCitizenCardCell: UITableViewCell, UIImagePickerControllerDelegate, UIN
     }
     
     func playAniView() {
-        
         animationView.play()
         bgView.addSubview(animationView)
     }

@@ -21,30 +21,23 @@ class HistoryTaskViewController: UIViewController {
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var bgLabel: UILabel!
     @IBOutlet weak var aniView: UIView!
-    
     @IBOutlet weak var noDataView: UIView!
-    
     @IBOutlet weak var noDataLabel: UILabel!
     
     var myRef: DatabaseReference!
     var requestTools: [RequestUser] = []
     var toolsInfo: [RequestUserInfo] = []
     var selectToosData: RequestUser!
-    
     var agreeToos: RequestUser?
     var agreeToolsInfo: RequestUserInfo?
     var client = HTTPClient(configuration: .default)
-    
     var refreshController: UIRefreshControl!
     var scrollViewDefine: UserTask!
-    
     var myActivityIndicator: UIActivityIndicatorView!
     let fullScreenSize = UIScreen.main.bounds.size
-    
     let keychain = KeychainSwift()
     var agreeAlready = false
     var badge = 1
-    
     let animationView = LOTAnimationView(name: "servishero_loading")
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,10 +59,8 @@ class HistoryTaskViewController: UIViewController {
         historyTableView.delegate = self
         historyTableView.dataSource = self
         historyTableView.showsVerticalScrollIndicator = false
-
         refreshController = UIRefreshControl()
         refreshController.attributedTitle = NSAttributedString(string: "資料讀取中...")
-
         historyTableView.addSubview(refreshController)
         refreshController.addTarget(self, action: #selector(loadData), for: UIControl.Event.valueChanged)
         
@@ -103,21 +94,16 @@ class HistoryTaskViewController: UIViewController {
     
     func guestMode() {
         if keychain.get("token") == nil {
-            
            notask()
         }
     }
     
     func setAniView() {
-
         animationView.frame = aniView.frame
         animationView.center = aniView.center
-        
         animationView.contentMode = .scaleAspectFit
         animationView.loopAnimation = false
-
         bgView.addSubview(animationView)
-        
         animationView.play()
     }
     
@@ -129,7 +115,6 @@ class HistoryTaskViewController: UIViewController {
     @objc func hastask() {
         bgView.isHidden = true
         bgLabel.isHidden = true
-
     }
     
     func setIndicator() {
@@ -155,9 +140,7 @@ class HistoryTaskViewController: UIViewController {
     }
     
     @objc func loadData() {
-        
         refreshController.beginRefreshing()
-        
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: UIView.AnimationOptions.curveEaseIn, animations: {
             self.historyTableView.contentOffset = CGPoint(x: 0, y: -self.refreshController.bounds.height)
         }) { (finish) in
@@ -174,7 +157,6 @@ class HistoryTaskViewController: UIViewController {
         success: @escaping (URL) -> Void) {
         myActivityIndicator.startAnimating()
         let storageRef = Storage.storage().reference()
-        
         storageRef.child(finder).child(userID).downloadURL(completion: { (url, error) in
             
             if let error = error {
@@ -189,12 +171,10 @@ class HistoryTaskViewController: UIViewController {
     }
     
     func searchTools() {
-        
         self.toolsInfo.removeAll()
         self.historyTableView.reloadData()
         
         for data in requestTools {
-            
             myRef.child("UserData").queryOrderedByKey()
                 .queryEqual(toValue: data.userID)
                 .observeSingleEvent(of: .value) { (snapshot) in
@@ -207,7 +187,6 @@ class HistoryTaskViewController: UIViewController {
                     for value in data.allValues {
                         
                         guard let dictionary = value as? [String: Any] else { return }
-                        print(dictionary)
                         let aboutUser = dictionary["AboutUser"] as? String
                         let fbEmail = dictionary["FBEmail"] as? String
                         let fbID = dictionary["FBID"] as? String
@@ -232,7 +211,6 @@ class HistoryTaskViewController: UIViewController {
     }
     
     func sendNotification(title: String = "", content: String, toToken: String, type: String, taskInfoKey: String, fromUserId: String, badge: Int) {
-        
         if let token = Messaging.messaging().fcmToken {
             client.sendNotification(fromToken: token, toToken: toToken, title: title, content: content, taskInfoKey: taskInfoKey, fromUserId: fromUserId, type: type, badge: badge) { (bool, error) in
                 
@@ -247,7 +225,6 @@ class HistoryTaskViewController: UIViewController {
     }
     
     func confirm() {
-        
         let requestTaskKey = self.selectToosData.requestTaskID
         let taskOwnerKey = self.selectToosData.taskOwnerID
         let taskRequestUserKey = self.selectToosData.requestKey
@@ -261,9 +238,7 @@ class HistoryTaskViewController: UIViewController {
                     "OwnerAgree": "agree"])
                 self.myRef.child("Task").child(taskOwnerKey).updateChildValues(["agree": true])
             self.myRef.child("Task").child(taskOwnerKey).child("RequestUser").child(taskRequestUserKey).updateChildValues(["agree": true])
-                
                 self.myRef.child("Task").child(taskOwnerKey).child("searchAnnotation").removeValue()
-                
                 self.myRef.child("Task").child(taskOwnerKey).child("lat").removeValue()
                 self.myRef.child("Task").child(taskOwnerKey).child("lon").removeValue()
                 
@@ -284,7 +259,7 @@ class HistoryTaskViewController: UIViewController {
                 
                 self.myRef.child("RequestTask").child(value.requestTaskID).updateChildValues([
                     "OwnerAgree": "disAgree"])
-                
+
                 for disAgreeRemoteToken in self.toolsInfo {
                     if disAgreeRemoteToken.remoteToken != self.agreeToolsInfo!.remoteToken {
                         self.sendNotification(title: "工具人出任務",
@@ -300,23 +275,18 @@ class HistoryTaskViewController: UIViewController {
         self.requestTools.removeAll()
         self.toolsInfo.removeAll()
         self.historyTableView.reloadData()
-
         guard let agreeToos = self.agreeToos, let toolsInfo = self.agreeToolsInfo else { return }
         self.requestTools.append(agreeToos)
         self.toolsInfo.append(toolsInfo)
-    
         self.historyTableView.reloadData()
     }
     
     @objc func handleShowAlert() {
         let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
         let reportAction = UIAlertAction(title: "檢舉", style: .destructive) { (void) in
             
             let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理", preferredStyle: .alert)
-            
             let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
-            
             let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
             reportController.addAction(cancelAction)
             reportController.addAction(okAction)
@@ -324,7 +294,6 @@ class HistoryTaskViewController: UIViewController {
         }
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
         personAlertController.addAction(reportAction)
         personAlertController.addAction(cancelAction)
         self.present(personAlertController, animated: true, completion: nil)
@@ -333,7 +302,6 @@ class HistoryTaskViewController: UIViewController {
     @objc func cellTextViewTapped() {
         print("testy")
     }
-
 }
 
 extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate {
@@ -377,12 +345,10 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
                 }
                 
                 let requestData = requestTools[numData]
-                
                 cell.userNameLabel.text = cellData.fbName
                 cell.userContentTxtView.text = cellData.aboutUser
                 cell.userContentTxtView.isUserInteractionEnabled = true
                 cell.userContentTxtView.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(cellTextViewTapped)))
-                
                 cell.distanceLabel.text = "\(requestData.distance)km"
                 
                 if requestData.agree == true {
@@ -390,6 +356,7 @@ extension HistoryTaskViewController: UITableViewDataSource, UITableViewDelegate 
                     cell.moreBtn.isHidden = false
                     cell.moreBtn.addTarget(self, action: #selector(self.handleShowAlert), for: .touchUpInside)
                 } else {
+                    
                     cell.agreeButton.isHidden = false
                     cell.moreBtn.isHidden = true
                 }
@@ -421,21 +388,17 @@ extension HistoryTaskViewController: TableViewCellDelegate {
                 self.confirm()
             }
             let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
-        
             alert.addAction(cancelAction)
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
-        
             guard let tappedIndex = self.historyTableView.indexPath(for: cell) else {
                 return
             }
             
             self.selectToosData = requestTools[tappedIndex.row]
-            
             self.agreeToos = self.requestTools[tappedIndex.row]
             self.agreeToolsInfo = self.toolsInfo[tappedIndex.row]
     }
-    
 }
 
 extension HistoryTaskViewController: ScrollTask {
@@ -446,7 +409,6 @@ extension HistoryTaskViewController: ScrollTask {
         self.toolsInfo.removeAll()
         self.historyTableView.reloadData()
         self.scrollViewDefine = cell
-
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
         myRef.child("Task").queryOrderedByKey()
@@ -467,13 +429,10 @@ extension HistoryTaskViewController: ScrollTask {
                     self.noDataView.isHidden = true
                     self.noDataLabel.isHidden = true
 
-                    
                     for requestUserData in requestUser {
                         
                         guard let keyValue = requestUserData.key as? String else { return }
-                        print(requestUserData.value)
                         guard let requestDictionary = requestUserData.value as? [String: Any] else { return }
-                        print(requestDictionary)
                         guard let distance = requestDictionary["distance"] as? Double else { return }
                         guard let userID = requestDictionary["userID"] as? String else { return }
                         guard let agree = requestDictionary["agree"] as? Bool else { return }
@@ -486,18 +445,14 @@ extension HistoryTaskViewController: ScrollTask {
                            self.requestTools.removeAll()
                             self.toolsInfo.removeAll()
                             self.requestTools.append(requestData)
-//                            self.searchTools()
                             self.agreeAlready = true
                             break
-//                            return
                         } else {
                             self.requestTools.append(requestData)
                             self.agreeAlready = false
-//                            self.searchToos()
                         }
                     }
                 }
-                
                 self.searchTools()
         }
     }
@@ -506,9 +461,6 @@ extension HistoryTaskViewController: ScrollTask {
 extension HistoryTaskViewController: btnPressed {
 
     func btnPressed(_ send: TaskDetailInfoView) {
-        
-        print(requestTools)
-
     }
 }
 

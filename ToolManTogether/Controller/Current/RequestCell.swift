@@ -40,7 +40,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     weak var scrollTaskBtnDelegate: btnPressed?
     var checkIndex = 0
     var scrollIndex = 0
-//    var bgView: UIView?
     let decoder = JSONDecoder()
     
     override func awakeFromNib() {
@@ -48,12 +47,9 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         let cellNib = UINib(nibName: "RequestCollectionViewCell", bundle: nil)
         self.collectionView.register(cellNib, forCellWithReuseIdentifier: "requestCollectionView")
-        
-        
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.isPagingEnabled = true
-        
         self.collectionView.showsHorizontalScrollIndicator = false
         layout.animator = PageAttributesAnimator()
         layout.scrollDirection = .horizontal
@@ -67,7 +63,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         
         let agreeToolNotification = Notification.Name("agreeToos")
         NotificationCenter.default.addObserver(self, selector: #selector(self.createTaskAdd), name: agreeToolNotification, object: nil)
-        
         
     }
     
@@ -117,14 +112,13 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             let searchAnnotation = self.addTask[self.scrollIndex]
             self.scrollTaskDelegate?.didScrollTask(searchAnnotation)
             self.taskNumTitleLabel.text = "第 \(self.scrollIndex + 1) / \(self.addTask.count) 筆任務"
-
         }
     }
     
     func createTaskChange(taskKey: String) {
 
         guard let userID = Auth.auth().currentUser?.uid else { return }
-
+        
         myRef.child("Task").child(taskKey).child("RequestUser").observe(.childAdded) { (snapshot) in
             
             print(snapshot)
@@ -132,18 +126,14 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
             self.myRef.child("Task").queryOrdered(byChild: "UserID").queryEqual(toValue: userID).observeSingleEvent(of: .value) { (snapshot) in
 
                 self.addTask.removeAll()
-
-                print(snapshot)
                 guard let data = snapshot.value as? NSDictionary else { return }
 
                 for value in data {
 
                     guard let keyValue = value.key as? String else { return }
-
                     guard let taskInfoJSONData = try? JSONSerialization.data(withJSONObject: value) else {
                         return
                     }
-                    
                     do {
                         let taskData = try self.decoder.decode(UserTaskInfo.self, from: taskInfoJSONData)
                         self.addTask.append(UserTask.init(taskKey: keyValue, checkTask: nil, distance: nil, userID: nil, userTaskInfo: taskData))
@@ -152,7 +142,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                     }
                     
                     self.addTask.sort(by: { $0.userTaskInfo.time! > $1.userTaskInfo.time! })
-
                 }
                 
                 self.collectionView.reloadData()
@@ -162,25 +151,16 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         }
     }
     
-    
     // 滑動結束觸發
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
-        print(scrollView.contentOffset.x)
-        print(scrollView.frame.width)
-        print(Int(scrollView.contentOffset.x) / Int(scrollView.frame.width))
-        
         scrollIndex = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        
-        print(scrollIndex)
         
         if scrollIndex != checkIndex {
             let searchAnnotation = addTask[scrollIndex]
             scrollTaskDelegate?.didScrollTask(searchAnnotation)
             checkIndex = scrollIndex
             self.taskNumTitleLabel.text = "第 \(checkIndex + 1) / \(addTask.count) 筆任務"
-
-        } else {
         }
     }
     
@@ -188,9 +168,7 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         userID: String,
         finder: String,
         success: @escaping (URL) -> Void) {
-        
         let storageRef = Storage.storage().reference()
-        
         storageRef.child(finder).child(userID).downloadURL(completion: { (url, error) in
             
             if let error = error {
@@ -214,7 +192,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         guard addTask.count != scrollIndex else { return }
         let userId = Auth.auth().currentUser?.uid
         let ownerTaskKey = addTask[scrollIndex].taskKey
-        
         myRef.child("Task").child(ownerTaskKey).removeValue()
         myRef.child("userAllTask").child(userId!).child(ownerTaskKey).removeValue()
         self.addTask.remove(at: scrollIndex)
@@ -223,11 +200,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         self.collectionView.performBatchUpdates({
         
             self.collectionView.deleteItems(at: [index])
-            
-            print(checkIndex)
-            print(addTask.count)
-            print(scrollIndex)
-            
             if checkIndex == 0 {
                 checkIndex = 1
             }
@@ -256,7 +228,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
         let userId = Auth.auth().currentUser?.uid
         let taskKey = addTask[scrollIndex].taskKey
         let taskInfo = addTask[scrollIndex].userTaskInfo
-        
         myRef.child("Task").child(taskKey).removeValue()
         myRef.child("userAllTask").child(userId!).child(taskKey).removeValue()
         delectMessageData(taskKey: taskKey, taskInfo: taskInfo)
@@ -332,7 +303,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 cell.requestCollectionView.sendButton.isHidden = true
                 cell.requestCollectionView.donBtn.isHidden = false
                 
-
                 // 完成刪除
                 cell.requestCollectionView.donBtn.addTarget(self, action: #selector(doneDelect), for: .touchUpInside)
                 
@@ -341,7 +311,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
                 cell.requestCollectionView.sendButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
                 cell.requestCollectionView.donBtn.isHidden = true
                 cell.requestCollectionView.sendButton.isHidden = false
-
             }
            
             downloadUserPhoto(userID: cellData.userID, finder: "UserPhoto") { (url) in
@@ -372,7 +341,6 @@ class RequestCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
 }
 
 extension RequestCell: ScrollTaskBtn{

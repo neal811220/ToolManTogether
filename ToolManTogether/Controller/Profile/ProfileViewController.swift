@@ -39,14 +39,11 @@ class ProfileViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guestMode()
-
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setIndicator()
-        
         profileTableView.delegate = self
         profileTableView.dataSource = self
         profileTableView.showsVerticalScrollIndicator = false
@@ -64,12 +61,10 @@ class ProfileViewController: UIViewController {
         self.profileTableView.register(goodCitizenNib, forCellReuseIdentifier: "goodCitizen")
         
         myRef = Database.database().reference()
-        
         searchProfile()
     }
     
     func checkInternet() {
-        
         if Reachability.isConnectedToNetwork(){
             print("Internet Connection Available!")
         }else{
@@ -99,12 +94,9 @@ class ProfileViewController: UIViewController {
     }
     
     func searchProfile() {
-        
         self.userProfile.removeAll()
         self.profileTableView.reloadData()
-        
         guard keychain.get("token") != nil else { return }
-        
         guard let userID = Auth.auth().currentUser?.uid else { return }
 
         myRef.child("UserData")
@@ -126,7 +118,6 @@ class ProfileViewController: UIViewController {
                                               fbName: fbName,
                                               aboutUser: aboutUser,
                                               userPhone: phone)
-                    
                     self.userProfile.append(data)
                 }
                 self.profileTableView.reloadData()
@@ -154,32 +145,22 @@ class ProfileViewController: UIViewController {
     @IBAction func logout(_ sender: Any) {
         
             let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            
             let reportAction = UIAlertAction(title: "登出", style: .destructive) { (void) in
-                
                 let reportController = UIAlertController(title: "確定登出？", message: "", preferredStyle: .alert)
-                
-
                 let okAction = UIAlertAction(title: "確定", style: .destructive, handler: { (void) in
-                    
                     self.keychain.clear()
                     self.loginManager.logOut()
                     self.switchView()
-
                 })
-                
                 let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
                 reportController.addAction(cancelAction)
                 reportController.addAction(okAction)
                 self.present(reportController, animated: true, completion: nil)
             }
-            
             let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-            
             personAlertController.addAction(reportAction)
             personAlertController.addAction(cancelAction)
             self.present(personAlertController, animated: true, completion: nil)
-        
     }
     
     func switchView() {
@@ -199,7 +180,6 @@ class ProfileViewController: UIViewController {
 
     func showAlertWith(title: String = "發生錯誤", message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
         let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
@@ -223,9 +203,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                                                         for: indexPath) as? ProfileCell {
                 
                 let cellData = userProfile[indexPath.row]
-                
-                    cell.userName.text = cellData.fbName
-                    cell.userEmail.text = cellData.fbEmail
+                cell.userName.text = cellData.fbName
+                cell.userEmail.text = cellData.fbEmail
                 
                 if keychain.get("token") != nil {
                     if let userID = Auth.auth().currentUser?.uid {
@@ -238,7 +217,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 } else {
                     cell.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
                 }
-                
                 return cell
             }
             
@@ -254,29 +232,23 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                     cell.phoneTxtField.text = cellData.userPhone
                     cell.profileTxtView.text = cellData.aboutUser
                 }
-                
                 if isGuest == true {
                     cell.editBtn.isHidden = true
                 }
-                
                 return cell
             }
         } else if indexPath.section == 2 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "goodCitizen",
                                                         for: indexPath) as? GoodCitizenCardCell {
                 cell.photoBtnDelegage = self
-                
                 cell.selectButton.isHidden = false
-                
                     if keychain.get("token") != nil {
-                    
                         if let userID = Auth.auth().currentUser?.uid {
                             self.downloadTaskUserPhoto(userID: userID, finder: "GoodCitizen") { (url) in
                                 if url != nil {
                                     cell.imagePicker.isHidden = false
                                     cell.bgView.isHidden = true
                                     cell.imagePicker.sd_setImage(with: url, completed: nil)
-                                    
                                 } else {
                                     cell.imagePicker.isHidden = true
                                     cell.bgView.isHidden = false
@@ -293,22 +265,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                     cell.setAniView()
                     cell.playAniView()
                 }
-                
                 return cell
             }
         }
-
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: false)
-        
         if indexPath.section == 2 {
-            
             let storyBoard = UIStoryboard(name: "profileServced", bundle: nil)
-            
             if let viewController = storyBoard.instantiateViewController(withIdentifier: "servcedListVC") as? ServcedListViewController {
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
@@ -319,19 +286,14 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 extension ProfileViewController: ButtonDelegate {
     
     func doneBtnPressed(_ btnSend: UIButton, _ field: UITextField, _ profileInfo: UITextView) {
-        
         guard let userPhone = field.text, let aboutUser = profileInfo.text else { return }
-        
         self.userPhone = userPhone
         self.aboutUser = aboutUser
-        
         if let userID = Auth.auth().currentUser?.uid {
             myRef.child("UserData").child(userID).updateChildValues([
                 "UserPhone": userPhone,
                 "AboutUser": aboutUser])
         }
-//        self.profileTableView.reloadData()
-
     }
     
     func cancelBtnpressed(_ send: UIButton) {
@@ -346,11 +308,8 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
     func selectBtnPressed(_ btnSend: UIButton, _ imageView: UIImageView) {
         
         let imagePickerController = UIImagePickerController()
-
         imagePickerController.delegate = self
-        
         let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
-        
         let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (void) in
 
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
@@ -387,12 +346,8 @@ extension ProfileViewController: selectPhotoDelegate, UIImagePickerControllerDel
         guard let photo = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         
         citizenPhoto = photo
-
         dismiss(animated:true, completion: nil)
-//        self.profileTableView.reloadData()
-        
         guard let data = photo.jpegData(compressionQuality: 0.1) else { return }
-        
         let storageRef = Storage.storage().reference()
         let autoID = myRef.childByAutoId().key
         let metaData = StorageMetadata()
