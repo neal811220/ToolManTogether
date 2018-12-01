@@ -36,7 +36,6 @@ class RequestToolsTableViewCell: UITableViewCell {
         agreeButton.layer.shadowRadius = 3
         agreeButton.layer.shadowOpacity = 0.5
         agreeButton.layer.shadowOffset = CGSize(width: 0, height: 0)
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -46,5 +45,4 @@ class RequestToolsTableViewCell: UITableViewCell {
     @IBAction func agreeTapped(_ sender: Any) {
         delegate?.tableViewCellDidTapAgreeBtn(self)
     }
-    
 }

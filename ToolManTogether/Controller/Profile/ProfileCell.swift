@@ -25,12 +25,10 @@ class ProfileCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         userPhoto.layer.cornerRadius = self.userPhoto.frame.width / 2
-
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
     
 }

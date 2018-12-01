@@ -58,16 +58,13 @@ class AgreeTaskViewController: UIViewController {
         return viewController!
     }
     
-    
     func downloadUserPhoto(
         userID: String,
         finder: String,
         success: @escaping (URL) -> Void) {
         
         let storageRef = Storage.storage().reference()
-        
         storageRef.child(finder).child(userID).downloadURL(completion: { (url, error) in
-            
             if let error = error {
                 print("User photo download Fail: \(error.localizedDescription)")
             }
@@ -84,8 +81,6 @@ class AgreeTaskViewController: UIViewController {
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }
-
-
 }
 
 extension AgreeTaskViewController: UITableViewDelegate, UITableViewDataSource {
@@ -103,12 +98,10 @@ extension AgreeTaskViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "profileTitle", for: indexPath) as? ProfileCell {
                 cell.selectionStyle = .none
-                
                 let cellData = userInfo[indexPath.row]
                 cell.userName.text = cellData.fbName
                 cell.userEmail.text = cellData.fbEmail
                 cell.separatorView.isHidden = true
-                
                 let userID = cellData.userID
                 self.downloadUserPhoto(userID: userID, finder: "UserPhoto") { (url) in
                     cell.userPhoto.sd_setImage(with: url, completed: nil)
@@ -118,7 +111,6 @@ extension AgreeTaskViewController: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section == 1 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "taskInfoCell", for: indexPath) as? TaskAgreeInfoCell {
                 cell.selectionStyle = .none
-
                 let cellData = userInfo[indexPath.row]
                 cell.contentTxtView.text = cellData.aboutUser
                 cell.callBtnDelegate = self
@@ -127,11 +119,9 @@ extension AgreeTaskViewController: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section == 2 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "detailCell", for: indexPath) as? TaskDetailCell {
                 cell.selectionStyle = .none
-
                 let cellData = taskInfo[indexPath.row]
                 cell.taskTitleLabel.text = cellData.userTaskInfo.title
                 cell.taskAddress.text = cellData.userTaskInfo.address
-                
                 return cell
             }
         } else if indexPath.section == 3 {
@@ -140,16 +130,12 @@ extension AgreeTaskViewController: UITableViewDelegate, UITableViewDataSource {
 
                 let cellData = taskInfo[indexPath.row]
                 cell.contentTxtView.text = cellData.userTaskInfo.content
-                
                 return cell
             }
         } else if indexPath.section == 4 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "goodCitizen", for: indexPath) as? GoodCitizenCardCell {
                 cell.selectionStyle = .none
-
                 cell.separatorView.isHidden = true
-//                cell.arrowImage.isHidden = true
-//                cell.titleLabel.textColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
                 let cellData = userInfo[indexPath.row]
                 let userID = cellData.userID
                 self.downloadUserPhoto(userID: userID, finder: "GoodCitizen") { (url) in
@@ -158,7 +144,6 @@ extension AgreeTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
         }
-        
         return UITableViewCell()
     }
 }

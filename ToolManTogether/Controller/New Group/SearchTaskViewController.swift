@@ -17,19 +17,15 @@ import KeychainSwift
 class SearchTaskViewController: UIViewController {
     
     @IBOutlet weak var searchTaskTableVIew: UITableView!
-    
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var aniView: UIView!
     @IBOutlet weak var bgLabel: UILabel!
     
     var photoURL: [URL] = []
     var myRef: DatabaseReference!
-//    var selectTask: [UserTaskInfo] = []
     var selectTaskKey: [String] = []
-    
     let decoder = JSONDecoder()
     var selectTask = [UserTask]()
-    
     var reloadFromFirebase = false
     var taskOwnerInfo: [RequestUserInfo] = []
     var myActivityIndicator: UIActivityIndicatorView!
@@ -40,7 +36,6 @@ class SearchTaskViewController: UIViewController {
     let animationView = LOTAnimationView(name: "servishero_loading")
     var selectTaskOwner: UserTask!
 
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkInternet()
@@ -56,15 +51,11 @@ class SearchTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setIndicator()
-        
         let searchNib = UINib(nibName: "searchTaskCell", bundle: nil)
         self.searchTaskTableVIew.register(searchNib, forCellReuseIdentifier: "searchTask")
-        
         searchTaskTableVIew.delegate = self
         searchTaskTableVIew.dataSource = self
-        
         myRef = Database.database().reference()
         selectTaskAdd()
         
@@ -72,6 +63,8 @@ class SearchTaskViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.selectTaskAdd), name: notificationName, object: nil)
         
         UIApplication.shared.applicationIconBadgeNumber = 0
+        
+        Database.database().callbackQueue = DispatchQueue(label: "spock_queue", qos: .userInitiated, attributes: [.concurrent])
 
     }
     
@@ -239,7 +232,6 @@ class SearchTaskViewController: UIViewController {
                         } catch {
                             print(error)
                         }
-                        
                     }
                     
                     let viewController = AgreeTaskViewController.profileDetailDataForTask(self.taskOwnerInfo, [taskInfo])
@@ -280,9 +272,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.searchTaskView.sendButton.backgroundColor = .white
                 cell.searchTaskView.sendButton.isEnabled = false
                 cell.searchTaskView.sendButton.isHidden = false
-//                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.3490196078, green: 0.2862745098, blue: 0.2470588235, alpha: 1)
                 cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1), for: .normal)
-                
                 cell.searchTaskView.detailBtn.isHidden = true
 
             // 對方同意
@@ -293,12 +283,10 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.7176470588, blue: 0, alpha: 1)
                 cell.searchTaskView.sendButton.isEnabled = false
                 cell.searchTaskView.sendButton.isHidden = true
-                
                 cell.searchTaskView.detailBtn.isHidden = false
                 
                 if let ownerID = cellData.ownerID {
                     cell.searchTaskView.detailBtn.addTarget(self, action: #selector(detailBtnTapped(data:)), for: .touchUpInside)
-                    
                 }
                 
              // 對方拒絕
@@ -307,8 +295,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.searchTaskView.sendButton.backgroundColor = .white
                 cell.searchTaskView.sendButton.isEnabled = true
                 cell.searchTaskView.sendButton.isHidden = false
-//                cell.searchTaskView.sendButton.layer.borderWidth = 1
-//                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
                 cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
                 cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                 cell.searchTaskView.detailBtn.isHidden = true
@@ -317,14 +303,11 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             } else if cellData.ownAgree == "delete" {
                 cell.searchTaskView.sendButton.setTitle("對方已刪除任務", for: .normal)
                 cell.searchTaskView.sendButton.backgroundColor = .white
-//                cell.searchTaskView.sendButton.layer.borderWidth = 1
-//                cell.searchTaskView.sendButton.layer.borderColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
                 cell.searchTaskView.sendButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
                 cell.searchTaskView.sendButton.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                 cell.searchTaskView.detailBtn.isHidden = true
                 cell.searchTaskView.sendButton.isEnabled = true
                 cell.searchTaskView.sendButton.isHidden = false
-
             }
             
             cell.searchTaskView.userPhoto.image = UIImage(named: "profile_sticker_placeholder02")
@@ -348,7 +331,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             cell.searchTaskView.reportBtn.addTarget(self, action: #selector(showAlert(send:)), for: .touchUpInside)
-
             
             return cell
         }
@@ -372,13 +354,11 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         data.isEnabled = false
-        
     }
     
     @objc func showAlert(send: UIButton) {
         
-        let requestTask = selectTask[send.tag].checkTask
-        
+        let requestTask = selectTask[send.tag].userTaskInfo.checkTask
         let taskKey = selectTask[send.tag].userTaskInfo.requestTaskKey
         let userKey = selectTask[send.tag].userTaskInfo.requestKey
 
@@ -387,9 +367,7 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
         let reportAction = UIAlertAction(title: "檢舉", style: .destructive) { (void) in
             
             let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理", preferredStyle: .alert)
-            
             let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
-            
             let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
             reportController.addAction(cancelAction)
             reportController.addAction(okAction)
@@ -398,7 +376,6 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
         
         let deltetAction = UIAlertAction(title: "從列表中刪除", style: .default) { (void) in
             let reportController = UIAlertController(title: "確定刪除？", message: "刪除後將無法再看到該任務", preferredStyle: .alert)
-            
             let okAction = UIAlertAction(title: "確定", style: .destructive, handler: { (void) in
                 
                 if let requestTaskKey = requestTask {
@@ -414,15 +391,12 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
                             
                             if let userKey = userKey, let taskKey = taskKey {
                                 
-                               print(taskKey)
-                               print(userKey)
-                                
                                 let userId = Auth.auth().currentUser?.uid
                             self.myRef.child("Task").child(taskKey).child("RequestUser").child(userKey).removeValue()
                                 
                                 self.myRef.child("userAllTask").child(userId!).child(taskKey).removeValue()
                                 
-                                self.delectMessageData(taskKey: taskKey, taskInfo: self.selectTask[send.tag].userTaskInfo)
+                                self.delectMessageData(taskKey: taskKey, taskInfo:                  self.selectTask[send.tag].userTaskInfo)
                                 self.selectTask.remove(at: send.tag)
 
                             }
@@ -485,12 +459,12 @@ extension SearchTaskViewController: UITableViewDelegate, UITableViewDataSource {
             if let error = error {
                 print("User photo download Fail: \(error.localizedDescription)")
             }
+            
             if let url = url {
                 print("url \(url)")
                 self.photoUrl.append(url)
                 success(url)
                 self.myActivityIndicator.stopAnimating()
-
             }
         })
     }

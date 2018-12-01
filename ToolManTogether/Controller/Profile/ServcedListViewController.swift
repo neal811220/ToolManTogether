@@ -17,7 +17,6 @@ class ServcedListViewController: UIViewController {
         self.title = "任務評分紀錄"
         servcedTableView.dataSource = self
         servcedTableView.delegate = self
-        
         let servcedListNib = UINib(nibName: "ServcedListCell", bundle: nil)
         self.servcedTableView.register(servcedListNib, forCellReuseIdentifier: "servcedListCell")
     }
@@ -35,5 +34,4 @@ extension ServcedListViewController: UITableViewDelegate, UITableViewDataSource 
         }
         return UITableViewCell()
     }
-    
 }

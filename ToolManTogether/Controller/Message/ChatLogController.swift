@@ -42,9 +42,7 @@ class ChatLogController: UICollectionViewController,
 
     var userInfo: RequestUserInfo? {
         didSet {
-//            setupNavBar(titleName: userInfo?.fbName, userId: userInfo?.userID)
             self.title = taskInfo?.userTaskInfo.title
-//
             self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "btn_more"), style: .done, target: self, action: #selector(handleRightButton)), animated: true)
         }
     }
@@ -68,14 +66,10 @@ class ChatLogController: UICollectionViewController,
         containerView.backgroundColor = UIColor.red
         view.bringSubviewToFront(containerView)
         tabBarFrame = self.tabBarController?.tabBar.frame
-
         setupInputComponents()
-        
         myRef = Database.database().reference()
-        
         observeMessage()
         handleBadge()
-        
         IQKeyboardManager.shared.enable = false
     }
     
@@ -93,9 +87,7 @@ class ChatLogController: UICollectionViewController,
             
             let contentAction = UIAlertAction(title: "內容不適當", style: .destructive) { (void) in
                 let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理。", preferredStyle: .alert)
-                
                 let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
-                
                 let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
                 reportController.addAction(cancelAction)
                 reportController.addAction(okAction)
@@ -124,10 +116,9 @@ class ChatLogController: UICollectionViewController,
         let hideAcrion = UIAlertAction(title: "封鎖並刪除聊天室", style: .destructive) { (void) in
             
                 let reportController = UIAlertController(title: "確定封鎖？", message: "將會封鎖此任務聊天室，無法再進行對話", preferredStyle: .alert)
+            
+                let okAction = UIAlertAction(title: "確定", style: .destructive) { (void) in
                 
-            let okAction = UIAlertAction(title: "確定", style: .destructive) { (void) in
-                
-//                self.myRef.child("userAllTask").child(userId!).child(self.taskKey).removeValue()
                 self.myRef.child("Message").child(self.taskKey).child(autoID!).updateChildValues([
                     "message": "已封鎖任務聊天室",
                     "fromId": userId!,
@@ -139,16 +130,13 @@ class ChatLogController: UICollectionViewController,
                 self.navigationController?.popViewController(animated: true)
                 
             }
-                
                 let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
                 reportController.addAction(cancelAction)
                 reportController.addAction(okAction)
                 self.present(reportController, animated: true, completion: nil)
-            
         }
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
         personAlertController.addAction(reportAction)
         personAlertController.addAction(hideAcrion)
         personAlertController.addAction(cancelAction)
@@ -158,13 +146,16 @@ class ChatLogController: UICollectionViewController,
     func sendNotification(title: String = "", content: String, toToken: String, taskInfoKey: String, fromUserId: String, type: String, badge: Int) {
         
         if let token = Messaging.messaging().fcmToken {
+        
             client.sendNotification(
                 fromToken: token, toToken: toToken,
                 title: title, content: content,
                 taskInfoKey: taskInfoKey, fromUserId: fromUserId, type: type, badge: badge) { (bool, error) in
-                
-                print(bool)
-                print(error)
+                    if bool == true {
+                        print("送出成功")
+                    } else {
+                        print(error)
+                    }
             }
         }
     }
@@ -202,7 +193,6 @@ class ChatLogController: UICollectionViewController,
     @objc func handleKeyboardWillHide(_ notification: Notification) {
         
         let frame = containerView.frame
-        
         containerView.frame = CGRect(
             x: frame.origin.x,
             y: tabBarFrame!.origin.y - 49,
@@ -275,8 +265,6 @@ class ChatLogController: UICollectionViewController,
             cell.bubbleViewRightAnchor?.isActive = false
             cell.bubbleViewLeftAnchor?.isActive = true
         }
-        
-        
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -348,8 +336,6 @@ class ChatLogController: UICollectionViewController,
                     stroungSelf.uploadImageView.isHidden = true
                     stroungSelf.sendButton.isHidden = true
                 }
-                
-//                stroungSelf.handleBadge(messageKey: messageDetailKey)
             }
         }
     }
@@ -391,9 +377,7 @@ class ChatLogController: UICollectionViewController,
     }
     
     var containerViewBottomAnchor: NSLayoutConstraint?
-    
     var containerViewShowKeyboardBottomContraint: NSLayoutConstraint?
-    
     let containerView = UIView()
     let sendButton = UIButton(type: .system)
     let uploadImageView = UIImageView()
@@ -405,8 +389,6 @@ class ChatLogController: UICollectionViewController,
         containerView.translatesAutoresizingMaskIntoConstraints = true
         
         view.addSubview(containerView)
-        
-//        let tabBar = self.tabBarController!.tabBar.frame
         containerView.frame = CGRect(
             x: 0,
             y: tabBarFrame!.origin.y - 49,
@@ -579,7 +561,6 @@ class ChatLogController: UICollectionViewController,
     }
     
     @objc func handleSend() {
-//        inputTextField.resignFirstResponder()
         sendButton.isHidden = true
         let autoID = myRef.childByAutoId().key
         let message = inputTextField.text!
@@ -652,6 +633,7 @@ class ChatLogController: UICollectionViewController,
                                 fromUserId: fromId!, type: "message", badge: self.badge)
                             self.badge += 1
                             self.sendBadgeToFirebase(value: self.badge)
+                            
                         }
                     }
                 }

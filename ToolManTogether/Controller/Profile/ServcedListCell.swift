@@ -14,7 +14,6 @@ class ServcedListCell: UITableViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var createdTimeLabel: UILabel!
     @IBOutlet weak var contentTxtView: UITextView!
-    
     @IBOutlet weak var starOne: UIButton!
     @IBOutlet weak var starTwo: UIButton!
     @IBOutlet weak var starThree: UIButton!
@@ -27,7 +26,6 @@ class ServcedListCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
     
 }

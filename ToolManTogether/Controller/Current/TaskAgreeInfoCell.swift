@@ -18,7 +18,6 @@ class TaskAgreeInfoCell: UITableViewCell {
     @IBOutlet weak var contentTxtView: UITextView!
     @IBOutlet weak var callBtn: UIButton!
     @IBOutlet weak var messageBtn: UIButton!
-    
     weak var callBtnDelegate: CallBtnTapped?
     
     override func awakeFromNib() {

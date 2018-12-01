@@ -25,7 +25,6 @@ class TaskAgreeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "詳細資訊"
-
         taskAgreeTableView.delegate = self
         taskAgreeTableView.dataSource = self
         
@@ -49,7 +48,6 @@ class TaskAgreeViewController: UIViewController {
         
         let agreeDetailNib = UINib(nibName: "TaskContentCell", bundle: nil)
         self.taskAgreeTableView.register(agreeDetailNib, forCellReuseIdentifier: "contentCell")
-        
     }
     
     func downloadUserPhoto(
@@ -80,9 +78,7 @@ class TaskAgreeViewController: UIViewController {
     
     class func profileDetailDataForTask(_ data: [RequestUserInfo], _ taskInfo: [UserTask]) -> TaskAgreeViewController {
         let storyBoard = UIStoryboard(name: "TaskAgree", bundle: nil)
-
         let viewController = storyBoard.instantiateViewController(withIdentifier: "taskAgreeVC") as? TaskAgreeViewController
-
         if let viewController = viewController {
             viewController.userInfo = data
             viewController.taskInfo = taskInfo
@@ -107,12 +103,10 @@ extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
                 let cellData = userInfo[indexPath.row]
                 cell.userName.text = cellData.fbName
                 cell.userEmail.text = cellData.fbEmail
-                
                 let userID = cellData.userID
                 self.downloadUserPhoto(userID: userID, finder: "UserPhoto") { (url) in
                     cell.userPhoto.sd_setImage(with: url, completed: nil)
                 }
-                
                 return cell
             }
         } else if indexPath.section == 1 {
@@ -127,7 +121,6 @@ extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
                     cell.callBtn.isHidden = false
                     cell.messageBtn.isHidden = false
                 }
-                
                 cell.contentTxtView.text = cellData.aboutUser
                 cell.callBtnDelegate = self
                 return cell
@@ -143,11 +136,9 @@ extension TaskAgreeViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 return cell
             }
-           
         }
         return UITableViewCell()
     }
-
 }
 
 extension TaskAgreeViewController: CallBtnTapped {
@@ -168,15 +159,11 @@ extension TaskAgreeViewController: CallBtnTapped {
     }
     
     func messageBtnTapped(_ send: UIButton) {
-        
         let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
         chatLogController.taskInfo = taskInfo.last
         chatLogController.userInfo = userInfo.last
         chatLogController.fromTaskOwner = true
         chatLogController.findRequestUserRemoteToken = userInfo.last?.userID
         self.navigationController?.show(chatLogController, sender: nil)
-//        self.show(chatLogController, sender: nil)
-//        self.tabBarController?.show(chatLogController, sender: nil)
     }
-    
 }
