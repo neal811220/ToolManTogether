@@ -42,6 +42,7 @@ class AddTaskViewController: UIViewController {
     let animationView = LOTAnimationView(name: "servishero_loading")
     var badge = 1
     var isGuest = false
+    var firebaseManager = FirebaseManager()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -94,7 +95,7 @@ class AddTaskViewController: UIViewController {
             print("Internet Connection Available!")
         }else{
             print("Internet Connection not Available!")
-            showAlert(title: "網路連線有問題", content: "網路行為異常，請確認您的網路連線狀態或稍後再試。")
+            showInputAlert(title: "網路連線有問題", content: "網路行為異常，請確認您的網路連線狀態或稍後再試。")
         }
     }
     
@@ -142,38 +143,14 @@ class AddTaskViewController: UIViewController {
             }
         }
     }
-   
+    // MARK: - Testing
     @IBAction func addTask(_ sender: Any) {
         
-        guard let token = keychain.get("token") else {
-            showGuestAlert()
-            return
-        }
+        let check = checkInput()
         
-        guard let title = titleTxt else {
-            showAlert(content: "需要輸入標題")
+        guard check != false else {
             return
         }
-        guard let content = contentTxt else {
-            showAlert(content: "需要簡單說明內容")
-            return
-        }
-        guard let taskType = taskType else {
-            showAlert(content: "選擇一個種類")
-            return
-        }
-        guard let userCoordinate = customMapCenterLocation else {
-            showAlert(title: "定位狀態連線中，無法正確定位", content: "請稍後再試")
-            return
-        }
-        guard let price = priceTxt else {
-            showAlert(content: "需要輸入酬勞")
-            return
-        }
-        
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        let autoID = myRef.childByAutoId().key
-        guard let userName = Auth.auth().currentUser?.displayName else { return }
         
         if alertAddress == nil {
             alertAddress = ""
@@ -182,24 +159,8 @@ class AddTaskViewController: UIViewController {
         let addAlert = UIAlertController(title: "確定新增？", message: "地址為：\(alertAddress!)", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "確定", style: .destructive) { (void) in
             
-            self.myRef.child("Task").child(autoID!).setValue([
-                "Title": title,
-                "Content": content,
-                "Type": taskType,
-                "Price": price,
-                "UserID": userID,
-                "UserName": userName,
-                "lat": userCoordinate.latitude,
-                "lon": userCoordinate.longitude,
-                "searchAnnotation": "\(userCoordinate.latitude)_\(userCoordinate.longitude)",
-                "Time": Double(Date().millisecondsSince1970),
-                "agree": false,
-                "address": self.alertAddress])
-            self.myRef.child("userAllTask").child(userID).child(autoID!).updateChildValues([
-                "taskKey": autoID!,
-                "taskTitle": title,
-                "taskOwnerName": userName,
-                "taskownerId": userID])
+            self.firebaseManager.updateTask(path: "Task", addTaskvc: self)
+            self.firebaseManager.updateUserAllTask(path: "userAllTask", addTaskvc: self)
             
             NotificationCenter.default.post(name: .addTask, object: nil)
             
@@ -223,30 +184,30 @@ class AddTaskViewController: UIViewController {
             showGuestAlert()
             return false
         }
-        guard titleTxt != nil else {
-            showAlert(content: "需要輸入標題")
+        guard titleTxt != "" && titleTxt != nil else {
+            showInputAlert(content: "需要輸入標題")
             return false
         }
-        guard contentTxt != nil else {
-            showAlert(content: "需要簡單說明內容")
+        guard contentTxt != "" && contentTxt != nil else {
+            showInputAlert(content: "需要簡單說明內容")
             return false
         }
         guard taskType != nil else {
-            showAlert(content: "選擇一個種類")
+            showInputAlert(content: "選擇一個種類")
             return false
         }
         guard customMapCenterLocation != nil else {
-            showAlert(title: "定位狀態連線中，無法正確定位", content: "請稍後再試")
+            showInputAlert(title: "定位狀態連線中，無法正確定位", content: "請稍後再試")
             return false
         }
-        guard priceTxt != nil else {
-            showAlert(content: "需要輸入酬勞")
+        guard priceTxt != "" && priceTxt != nil else {
+            showInputAlert(content: "需要輸入酬勞")
             return false
         }
         return true
     }
     
-    func showAlert(title: String = "尚未輸入完整資訊", content: String) {
+    func showInputAlert(title: String = "尚未輸入完整資訊", content: String) {
         let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(okAction)
@@ -254,7 +215,9 @@ class AddTaskViewController: UIViewController {
     }
     
     func showGuestAlert() {
-        let alert = UIAlertController(title: "無法申請任務，需要登入才能發任務！", message: "您可以選擇取消，並繼續以訪客模式瀏覽。或是選擇登入，解開全部功能。", preferredStyle: .alert)
+        let alert = UIAlertController(title: "無法申請任務，需要登入才能發任務！",
+                                      message: "您可以選擇取消，並繼續以訪客模式瀏覽。或是選擇登入，解開全部功能。",
+                                      preferredStyle: .alert)
         let okAction = UIAlertAction(title: "登入", style: .destructive) { (void) in
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "LoginView")
@@ -286,7 +249,6 @@ class AddTaskViewController: UIViewController {
     func switchView() {
 
         self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
-
         let tabController = self.view.window!.rootViewController as? UITabBarController
         let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
         let alertVC = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
@@ -354,7 +316,6 @@ class AddTaskViewController: UIViewController {
             }
         })
     }
-
 }
 
 extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
@@ -377,9 +338,7 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.textField.placeholder = "請輸入任務需求"
                 cell.titleCompletion = { [weak self] (result) in
                     self?.titleTxt = result
-                    
                 }
-                
                 return cell
             }
             
@@ -424,7 +383,6 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 return cell
             }
-        
         }
         return UITableViewCell()
     }
