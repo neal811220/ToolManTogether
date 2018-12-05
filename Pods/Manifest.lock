@@ -14,6 +14,8 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.37.0):
     - FBSDKCoreKit
+  - Firebase (5.10.0):
+    - Firebase/Core (= 5.10.0)
   - Firebase/Auth (5.10.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.0.4)
@@ -111,6 +113,7 @@ DEPENDENCIES:
   - Crashlytics
   - Fabric
   - FBSDKLoginKit
+  - Firebase
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -181,6 +184,6 @@ SPEC CHECKSUMS:
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: 32e8354926014326bb04a5e2694b67e3e5c42a34
+PODFILE CHECKSUM: fbc6c5574d3b61bb84fa5d4e7e5bc95a87b0bc84
 
 COCOAPODS: 1.5.3

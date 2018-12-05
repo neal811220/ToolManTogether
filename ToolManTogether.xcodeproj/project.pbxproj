@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5ED9EB3A07801DFA454F10E9 /* Pods_ToolManTogether.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED94B28DC844466FD20D65F0 /* Pods_ToolManTogether.framework */; };
+		72DE8D30F7DC2071C85F5E7B /* Pods_ToolManTogetherTests_AddTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1DA687581DBC61496E32BB /* Pods_ToolManTogetherTests_AddTask.framework */; };
 		8E097DC721534179006B574E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DC621534179006B574E /* TabBarViewController.swift */; };
 		8E097DC921534503006B574E /* home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E097DC821534503006B574E /* home.storyboard */; };
 		8E097DCB21534579006B574E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DCA21534579006B574E /* HomeViewController.swift */; };
@@ -19,7 +20,8 @@
 		8E0B3D672180354600A26826 /* ControllerMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E0B3D662180354600A26826 /* ControllerMessage.storyboard */; };
 		8E148D60217473C00050DDB2 /* maps.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E148D5F217473BD0050DDB2 /* maps.json */; };
 		8E167DD32171DFED00A701AE /* cloud.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E167DD22171DFED00A701AE /* cloud.json */; };
-		8E18BAC221B7777100630979 /* ToolManTogetherTests_AddTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18BAC121B7777100630979 /* ToolManTogetherTests_AddTask.swift */; };
+		8E18BAC221B7777100630979 /* ToolManTogetherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18BAC121B7777100630979 /* ToolManTogetherTests.swift */; };
+		8E18BACA21B7C5CD00630979 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18BAC921B7C5CD00630979 /* FirebaseManager.swift */; };
 		8E18E6F52179D46800294ED6 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18E6F42179D46800294ED6 /* ChatLogController.swift */; };
 		8E18E719217C2B7500294ED6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18E718217C2B7500294ED6 /* Message.swift */; };
 		8E19FC242169AA16009C01D2 /* cusomeAlert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */; };
@@ -84,9 +86,6 @@
 		8ECAB998215E14CD00649128 /* RequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECAB996215E14CD00649128 /* RequestCell.xib */; };
 		8ECAB99B215E177A00649128 /* RequestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECAB999215E177A00649128 /* RequestCollectionViewCell.swift */; };
 		8ECAB99C215E177A00649128 /* RequestCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECAB99A215E177A00649128 /* RequestCollectionViewCell.xib */; };
-		8ECF8DEB21B6292B00B3EFEA /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECF8DEA21B6292B00B3EFEA /* Firebase.swift */; };
-		8ECF8DED21B63B4F00B3EFEA /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECF8DEC21B63B4F00B3EFEA /* Task.swift */; };
-		8ECF8DEF21B63CD900B3EFEA /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECF8DEE21B63CD900B3EFEA /* TaskData.swift */; };
 		8ED7279F2154C22400EE697F /* addTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8ED7279E2154C22400EE697F /* addTask.storyboard */; };
 		8ED727A12154C8FE00EE697F /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED727A02154C8FE00EE697F /* AddTaskViewController.swift */; };
 		8ED727A42154D0CB00EE697F /* AddTaskInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED727A22154D0CB00EE697F /* AddTaskInfoCell.swift */; };
@@ -122,6 +121,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		383E22C03AD95B7AE38E7EED /* Pods-ToolManTogetherTests＿AddTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToolManTogetherTests＿AddTask.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToolManTogetherTests＿AddTask/Pods-ToolManTogetherTests＿AddTask.release.xcconfig"; sourceTree = "<group>"; };
+		4F1DA687581DBC61496E32BB /* Pods_ToolManTogetherTests_AddTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToolManTogetherTests_AddTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E097DC621534179006B574E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		8E097DC821534503006B574E /* home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = home.storyboard; sourceTree = "<group>"; };
 		8E097DCA21534579006B574E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -134,8 +135,9 @@
 		8E148D5F217473BD0050DDB2 /* maps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = maps.json; sourceTree = "<group>"; };
 		8E167DD22171DFED00A701AE /* cloud.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cloud.json; sourceTree = "<group>"; };
 		8E18BABF21B7777100630979 /* ToolManTogetherTests＿AddTask.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ToolManTogetherTests＿AddTask.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E18BAC121B7777100630979 /* ToolManTogetherTests_AddTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolManTogetherTests_AddTask.swift; sourceTree = "<group>"; };
+		8E18BAC121B7777100630979 /* ToolManTogetherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolManTogetherTests.swift; sourceTree = "<group>"; };
 		8E18BAC321B7777100630979 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E18BAC921B7C5CD00630979 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		8E18E6F42179D46800294ED6 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		8E18E718217C2B7500294ED6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		8E19FC232169AA16009C01D2 /* cusomeAlert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = cusomeAlert.storyboard; sourceTree = "<group>"; };
@@ -203,9 +205,6 @@
 		8ECAB996215E14CD00649128 /* RequestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestCell.xib; sourceTree = "<group>"; };
 		8ECAB999215E177A00649128 /* RequestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCollectionViewCell.swift; sourceTree = "<group>"; };
 		8ECAB99A215E177A00649128 /* RequestCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestCollectionViewCell.xib; sourceTree = "<group>"; };
-		8ECF8DEA21B6292B00B3EFEA /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
-		8ECF8DEC21B63B4F00B3EFEA /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		8ECF8DEE21B63CD900B3EFEA /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
 		8ED7279E2154C22400EE697F /* addTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = addTask.storyboard; sourceTree = "<group>"; };
 		8ED727A02154C8FE00EE697F /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		8ED727A22154D0CB00EE697F /* AddTaskInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskInfoCell.swift; sourceTree = "<group>"; };
@@ -229,6 +228,7 @@
 		8EEC3314215C928100DE8C31 /* profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = profile.storyboard; sourceTree = "<group>"; };
 		8EEC3316215CA24300DE8C31 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		AA9850B54DD82A117E99917C /* Pods-ToolManTogether.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToolManTogether.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToolManTogether/Pods-ToolManTogether.release.xcconfig"; sourceTree = "<group>"; };
+		B9AFB4509739C9F30BD689E7 /* Pods-ToolManTogetherTests＿AddTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToolManTogetherTests＿AddTask.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToolManTogetherTests＿AddTask/Pods-ToolManTogetherTests＿AddTask.debug.xcconfig"; sourceTree = "<group>"; };
 		E97E8B2878069B46EFA64257 /* Pods-ToolManTogether.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToolManTogether.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToolManTogether/Pods-ToolManTogether.debug.xcconfig"; sourceTree = "<group>"; };
 		ED94B28DC844466FD20D65F0 /* Pods_ToolManTogether.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToolManTogether.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -238,6 +238,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72DE8D30F7DC2071C85F5E7B /* Pods_ToolManTogetherTests_AddTask.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,7 +272,7 @@
 		8E18BAC021B7777100630979 /* ToolManTogetherTests＿AddTask */ = {
 			isa = PBXGroup;
 			children = (
-				8E18BAC121B7777100630979 /* ToolManTogetherTests_AddTask.swift */,
+				8E18BAC121B7777100630979 /* ToolManTogetherTests.swift */,
 				8E18BAC321B7777100630979 /* Info.plist */,
 			);
 			path = "ToolManTogetherTests＿AddTask";
@@ -303,9 +304,7 @@
 				8E097DCC21534BDF006B574E /* UserManager.swift */,
 				8E28DF5521652DDF0077B259 /* ProfileManager.swift */,
 				8E18E718217C2B7500294ED6 /* Message.swift */,
-				8ECF8DEA21B6292B00B3EFEA /* Firebase.swift */,
-				8ECF8DEC21B63B4F00B3EFEA /* Task.swift */,
-				8ECF8DEE21B63CD900B3EFEA /* TaskData.swift */,
+				8E18BAC921B7C5CD00630979 /* FirebaseManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -596,6 +595,8 @@
 			children = (
 				E97E8B2878069B46EFA64257 /* Pods-ToolManTogether.debug.xcconfig */,
 				AA9850B54DD82A117E99917C /* Pods-ToolManTogether.release.xcconfig */,
+				B9AFB4509739C9F30BD689E7 /* Pods-ToolManTogetherTests＿AddTask.debug.xcconfig */,
+				383E22C03AD95B7AE38E7EED /* Pods-ToolManTogetherTests＿AddTask.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -604,6 +605,7 @@
 			isa = PBXGroup;
 			children = (
 				ED94B28DC844466FD20D65F0 /* Pods_ToolManTogether.framework */,
+				4F1DA687581DBC61496E32BB /* Pods_ToolManTogetherTests_AddTask.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -615,9 +617,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E18BAC821B7777100630979 /* Build configuration list for PBXNativeTarget "ToolManTogetherTests＿AddTask" */;
 			buildPhases = (
+				01A47AC8071755FB387AC2EB /* [CP] Check Pods Manifest.lock */,
 				8E18BABB21B7777100630979 /* Sources */,
 				8E18BABC21B7777100630979 /* Frameworks */,
 				8E18BABD21B7777100630979 /* Resources */,
+				523FFC661A8AE6D9FC3CDBB3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -759,6 +763,44 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		01A47AC8071755FB387AC2EB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ToolManTogetherTests＿AddTask-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		523FFC661A8AE6D9FC3CDBB3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ToolManTogetherTests＿AddTask/Pods-ToolManTogetherTests＿AddTask-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ToolManTogetherTests＿AddTask/Pods-ToolManTogetherTests＿AddTask-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8A65A78ACDE9DB2E603D04A4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -821,12 +863,8 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
@@ -859,7 +897,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E18BAC221B7777100630979 /* ToolManTogetherTests_AddTask.swift in Sources */,
+				8E18BAC221B7777100630979 /* ToolManTogetherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,7 +915,6 @@
 				8E6C6A76215232F9007259D3 /* HTTPClient.swift in Sources */,
 				8E28DF5621652DDF0077B259 /* ProfileManager.swift in Sources */,
 				8E58D777215513DB008274F1 /* AddTaskContentCell.swift in Sources */,
-				8ECF8DEF21B63CD900B3EFEA /* TaskData.swift in Sources */,
 				8E6C6A732152245E007259D3 /* FacebookManager.swift in Sources */,
 				8EA04DFA21730C5100D12775 /* LoadingViewController.swift in Sources */,
 				8ECAB99B215E177A00649128 /* RequestCollectionViewCell.swift in Sources */,
@@ -898,9 +935,9 @@
 				8EC92177215F146C00BEE92D /* RequestToolsTableViewCell.swift in Sources */,
 				8E8BBD7E21755AC500371ECB /* TaskContentCell.swift in Sources */,
 				8ECAB997215E14CD00649128 /* RequestCell.swift in Sources */,
-				8ECF8DEB21B6292B00B3EFEA /* Firebase.swift in Sources */,
 				8EDA66362160B8EF009FFB8D /* TaskAgreeInfoCell.swift in Sources */,
 				8E097DCD21534BDF006B574E /* UserManager.swift in Sources */,
+				8E18BACA21B7C5CD00630979 /* FirebaseManager.swift in Sources */,
 				8E58D77B2155369B008274F1 /* AddTaskTypeCell.swift in Sources */,
 				8EDA662E2160A0EF009FFB8D /* ServcedListCell.swift in Sources */,
 				8EC9217B215F87FE00BEE92D /* ProfileCell.swift in Sources */,
@@ -917,7 +954,6 @@
 				8E5BB6E22151E8830016C44A /* AppDelegate.swift in Sources */,
 				8E8BBD7A217559C800371ECB /* TaskDetailCell.swift in Sources */,
 				8EEC3313215C924A00DE8C31 /* HistoryTaskViewController.swift in Sources */,
-				8ECF8DED21B63B4F00B3EFEA /* Task.swift in Sources */,
 				8ED727A12154C8FE00EE697F /* AddTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -954,6 +990,7 @@
 /* Begin XCBuildConfiguration section */
 		8E18BAC621B7777100630979 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9AFB4509739C9F30BD689E7 /* Pods-ToolManTogetherTests＿AddTask.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -975,6 +1012,7 @@
 		};
 		8E18BAC721B7777100630979 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 383E22C03AD95B7AE38E7EED /* Pods-ToolManTogetherTests＿AddTask.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

@@ -195,7 +195,6 @@ class AddTaskViewController: UIViewController {
                 "Time": Double(Date().millisecondsSince1970),
                 "agree": false,
                 "address": self.alertAddress])
-            
             self.myRef.child("userAllTask").child(userID).child(autoID!).updateChildValues([
                 "taskKey": autoID!,
                 "taskTitle": title,
@@ -206,17 +205,45 @@ class AddTaskViewController: UIViewController {
             
             self.cleanData()
             self.switchView()
-            
             self.addTaskTableView.reloadData()
             let indexPath = IndexPath(row: 0, section: 0)
             self.addTaskTableView.scrollToRow(at: indexPath, at: .top, animated: false)
         }
         
-        
         let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
         addAlert.addAction(cancelAction)
         addAlert.addAction(okAction)
         self.present(addAlert, animated: true, completion: nil)
+    }
+    
+    // false = 沒值
+    // true = 有值
+    func checkInput() -> Bool {
+        guard keychain.get("token") != nil else {
+            showGuestAlert()
+            return false
+        }
+        guard titleTxt != nil else {
+            showAlert(content: "需要輸入標題")
+            return false
+        }
+        guard contentTxt != nil else {
+            showAlert(content: "需要簡單說明內容")
+            return false
+        }
+        guard taskType != nil else {
+            showAlert(content: "選擇一個種類")
+            return false
+        }
+        guard customMapCenterLocation != nil else {
+            showAlert(title: "定位狀態連線中，無法正確定位", content: "請稍後再試")
+            return false
+        }
+        guard priceTxt != nil else {
+            showAlert(content: "需要輸入酬勞")
+            return false
+        }
+        return true
     }
     
     func showAlert(title: String = "尚未輸入完整資訊", content: String) {
