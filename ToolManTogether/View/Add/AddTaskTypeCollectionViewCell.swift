@@ -30,12 +30,4 @@ class AddTaskTypeCollectionViewCell: UICollectionViewCell {
     @IBAction func typeBtnPressed(_ sender: Any) {
         typeDelegate?.typeSelect(self)
     }
-    
-//    override func prepareForReuse() {
-//        if self.typeButton.backgroundColor == #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1) {
-//            self.typeButton.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.4078431373, blue: 0.3019607843, alpha: 1)
-//        } else if typeButton.backgroundColor == #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1) {
-//            self.typeButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-//        }
-//    }
 }

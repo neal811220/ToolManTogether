@@ -20,7 +20,6 @@ class AddTaskViewController: UIViewController {
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var aniView: UIView!
     @IBOutlet weak var bgLabel: UILabel!
-    
     @IBOutlet weak var addTaskTableView: UITableView!
     @IBOutlet weak var addTaskBgView: UIView!
     @IBOutlet weak var addTaskButton: UIButton!
@@ -205,9 +204,7 @@ class AddTaskViewController: UIViewController {
             
             NotificationCenter.default.post(name: .addTask, object: nil)
             
-            //        self.sendNotification(title: "工具人出任務", content: "一筆\(taskType)的新任務", data: "wefwef")
             self.cleanData()
-
             self.switchView()
             
             self.addTaskTableView.reloadData()
@@ -371,19 +368,6 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
         } else if indexPath.section == 2 {
         
-//            if let cell = tableView.dequeueReusableCell(
-//                withIdentifier: "titleAndContent", for: indexPath) as? AddTaskInfoCell {
-//                cell.titleLabel.text = "價格"
-//                cell.textField.placeholder = "請輸入價格"
-//                cell.downArrorImage.isHidden = true
-//
-//                cell.typeLabel.isHidden = true
-//                cell.titleCompletion = { [weak self] (result) in
-//                    self?.priceTxt = result
-//                }
-//                return cell
-//            }
-            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "addPrice", for: indexPath) as? AddPriceCell {
                 cell.titleCompletion = { [weak self] (result) in
                     self?.priceTxt = result
@@ -395,7 +379,6 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
             
             if let cell = tableView.dequeueReusableCell(
                 withIdentifier: "Content", for: indexPath) as? AddTaskContentCell {
-//                cell.contentTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 cell.contentTextView.delegate = self
 
                 cell.backgroundColor = .red
@@ -419,7 +402,6 @@ extension AddTaskViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
-    
 }
 
 extension AddTaskViewController: UITextViewDelegate {
@@ -441,4 +423,3 @@ extension AddTaskViewController: CustomLocation {
         self.reverseGeocodeLocation()
     }
 }
-

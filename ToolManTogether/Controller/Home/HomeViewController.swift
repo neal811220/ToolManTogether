@@ -140,7 +140,7 @@ class HomeViewController: UIViewController {
             guard let taskLat = value["lat"] as? Double else { return }
             guard let taskLon = value["lon"] as? Double else { return }
             self.addMapTaskPoint(taskLat: taskLat, taskLon: taskLon, type: type)
-           self.databaseTaskClose(taskKey: snapshot.key)
+            self.databaseTaskClose(taskKey: snapshot.key)
         }
     }
     
@@ -152,7 +152,6 @@ class HomeViewController: UIViewController {
             self.removeMapTaskPoint(taskLat: taskLat, taskLon: taskLon)
         }
     }
-    
     
     func databaseTaskClose(taskKey: String) {
         myRef.child("Task")
@@ -167,7 +166,6 @@ class HomeViewController: UIViewController {
                 }
         }
     }
-    
     
     func updataTaskUserPhoto(userID: String) {
         
@@ -232,8 +230,6 @@ class HomeViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "取消", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "前往設定", style: UIAlertAction.Style.destructive, handler: { (alert: UIAlertAction!) in
             print("")
-//            UIApplication.shared.openURL(NSURL(string:UIApplication.openSettingsURLString)! as URL)
-            
             UIApplication.shared.open(NSURL(string: UIApplication.openSettingsURLString)! as URL, options: [:], completionHandler: nil)
         }))
 
@@ -249,8 +245,6 @@ class HomeViewController: UIViewController {
             center: taskCoordinate,
             latitudinalMeters: regionRadious * 0.2,
             longitudinalMeters: regionRadious * 0.2)
-        
-//        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
         
         var currentUserID = ""
         if let userID = Auth.auth().currentUser?.uid {

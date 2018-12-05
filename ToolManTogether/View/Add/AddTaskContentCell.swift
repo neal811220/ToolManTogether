@@ -35,7 +35,5 @@ class AddTaskContentCell: UITableViewCell, UITextViewDelegate {
     @objc func cleanData() {
         contentTextView.text = ""
     }
-    
-
         
 }

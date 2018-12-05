@@ -24,6 +24,9 @@ target 'ToolManTogether' do
 	pod 'Fabric'
 	pod 'Crashlytics'
 
-
+    target 'ToolManTogetherTests＿AddTask' do
+        inherit! :search_paths
+        pod 'Firebase'
+    end
 
 end

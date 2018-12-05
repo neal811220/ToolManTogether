@@ -70,7 +70,6 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addTaskTypeCollectionCell", for: indexPath) as? AddTaskTypeCollectionViewCell {
         
-            
             cell.typeButton.isEnabled = false
             if typeTxtArray.count != 0 {
 
@@ -172,4 +171,3 @@ class AddTaskTypeCell: UITableViewCell, UICollectionViewDataSource, UICollection
     }
     
 }
-
