@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10AFEA25E9AA20DA582F6F5E /* Pods_TestRequestTaskFunction.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16CF9BC65FC45B7B6BDF558 /* Pods_TestRequestTaskFunction.framework */; };
 		31100131F6670798D1AB4DDB /* Pods_TestingAddTaskTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDCC8A92B358D978784714B8 /* Pods_TestingAddTaskTests.framework */; };
 		5ED9EB3A07801DFA454F10E9 /* Pods_ToolManTogether.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED94B28DC844466FD20D65F0 /* Pods_ToolManTogether.framework */; };
 		8E097DC721534179006B574E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E097DC621534179006B574E /* TabBarViewController.swift */; };
@@ -139,6 +140,7 @@
 		141BD6C7A16841B5050EF9B4 /* Pods-TestingAddTaskTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestingAddTaskTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestingAddTaskTests/Pods-TestingAddTaskTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1B35734C479B46A11EFB9068 /* Pods-TestingAddTaskTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestingAddTaskTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestingAddTaskTests/Pods-TestingAddTaskTests.release.xcconfig"; sourceTree = "<group>"; };
 		4F1DA687581DBC61496E32BB /* Pods_ToolManTogetherTests_AddTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToolManTogetherTests_AddTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50B9CBD3A6FEA3A822632E73 /* Pods-TestRequestTaskFunction.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestRequestTaskFunction.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestRequestTaskFunction/Pods-TestRequestTaskFunction.debug.xcconfig"; sourceTree = "<group>"; };
 		8E097DC621534179006B574E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		8E097DC821534503006B574E /* home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = home.storyboard; sourceTree = "<group>"; };
 		8E097DCA21534579006B574E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +250,8 @@
 		8EEC3314215C928100DE8C31 /* profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = profile.storyboard; sourceTree = "<group>"; };
 		8EEC3316215CA24300DE8C31 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		AA9850B54DD82A117E99917C /* Pods-ToolManTogether.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToolManTogether.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToolManTogether/Pods-ToolManTogether.release.xcconfig"; sourceTree = "<group>"; };
+		B0CD54A2984444AADFBFF648 /* Pods-TestRequestTaskFunction.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestRequestTaskFunction.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestRequestTaskFunction/Pods-TestRequestTaskFunction.release.xcconfig"; sourceTree = "<group>"; };
+		D16CF9BC65FC45B7B6BDF558 /* Pods_TestRequestTaskFunction.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestRequestTaskFunction.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDCC8A92B358D978784714B8 /* Pods_TestingAddTaskTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestingAddTaskTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E97E8B2878069B46EFA64257 /* Pods-ToolManTogether.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToolManTogether.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToolManTogether/Pods-ToolManTogether.debug.xcconfig"; sourceTree = "<group>"; };
 		ED94B28DC844466FD20D65F0 /* Pods_ToolManTogether.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToolManTogether.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -281,6 +285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10AFEA25E9AA20DA582F6F5E /* Pods_TestRequestTaskFunction.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,6 +648,8 @@
 				AA9850B54DD82A117E99917C /* Pods-ToolManTogether.release.xcconfig */,
 				141BD6C7A16841B5050EF9B4 /* Pods-TestingAddTaskTests.debug.xcconfig */,
 				1B35734C479B46A11EFB9068 /* Pods-TestingAddTaskTests.release.xcconfig */,
+				50B9CBD3A6FEA3A822632E73 /* Pods-TestRequestTaskFunction.debug.xcconfig */,
+				B0CD54A2984444AADFBFF648 /* Pods-TestRequestTaskFunction.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -653,6 +660,7 @@
 				ED94B28DC844466FD20D65F0 /* Pods_ToolManTogether.framework */,
 				4F1DA687581DBC61496E32BB /* Pods_ToolManTogetherTests_AddTask.framework */,
 				DDCC8A92B358D978784714B8 /* Pods_TestingAddTaskTests.framework */,
+				D16CF9BC65FC45B7B6BDF558 /* Pods_TestRequestTaskFunction.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -723,9 +731,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E6A8E5121B8FF1E00F682E4 /* Build configuration list for PBXNativeTarget "TestRequestTaskFunction" */;
 			buildPhases = (
+				9AC62403764C6E8FC0E352F4 /* [CP] Check Pods Manifest.lock */,
 				8E6A8E4621B8FF1D00F682E4 /* Sources */,
 				8E6A8E4721B8FF1D00F682E4 /* Frameworks */,
 				8E6A8E4821B8FF1D00F682E4 /* Resources */,
+				9A7E85B19E68D363332A1ADE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -978,6 +988,44 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" f86af8c53b28f63c355189a8cf9a5d7a129cd94e 0613b8b112fb0647a84a6ebd8d61e747a6005a9c8935a457c9a84ed1e6351092\n";
+		};
+		9A7E85B19E68D363332A1ADE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TestRequestTaskFunction/Pods-TestRequestTaskFunction-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TestRequestTaskFunction/Pods-TestRequestTaskFunction-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9AC62403764C6E8FC0E352F4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TestRequestTaskFunction-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		D9D2D1590691D9F3F8BD862B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1364,6 +1412,7 @@
 		};
 		8E6A8E5221B8FF1E00F682E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50B9CBD3A6FEA3A822632E73 /* Pods-TestRequestTaskFunction.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1385,6 +1434,7 @@
 		};
 		8E6A8E5321B8FF1E00F682E4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0CD54A2984444AADFBFF648 /* Pods-TestRequestTaskFunction.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
