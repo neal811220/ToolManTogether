@@ -42,10 +42,7 @@ class LoginViewController: UIViewController {
     @IBAction func connectFB(_ sender: Any) {
         manager.facebookLogin(fromController: self, success: { token in
             self.keychain.set(token, forKey: "token")
-            print("Successed \(token)")
-//            self?.getUserInfo(token: token)
-//            self?.switchView()
-
+            
             let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
 
             Auth.auth().signInAndRetrieveData(with: credential, completion:
@@ -54,24 +51,22 @@ class LoginViewController: UIViewController {
                     print("Firebase Success")
                     self.getUserInfo(token: token)
                     self.switchView()
-
                 } else {
                     print(error)
                 }
-
             })
-            
 
         }) { (error) in
             print(error)
         }
-            
+    }
+    
+    func setFbTokeninKeychain() {
+        
     }
     
     @IBAction func connectGuest(_ sender: Any) {
-        
          AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
-        
     }
     
     func setLayer() {

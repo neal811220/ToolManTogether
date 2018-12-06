@@ -13,7 +13,7 @@
         <!--新增任務-->
         <scene sceneID="azG-ZV-KPa">
             <objects>
-                <viewController id="OPy-Sr-3Kq" customClass="AddTaskViewController" customModule="ToolManTogether" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addTaskVC" id="OPy-Sr-3Kq" customClass="AddTaskViewController" customModule="ToolManTogether" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fAX-8V-W1Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

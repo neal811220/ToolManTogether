@@ -344,6 +344,7 @@ class HomeViewController: UIViewController {
         self.mapView.setRegion(coordinateRegion, animated: true)
     }
     
+    // MARK: - CustomAlert
     func showAlert() {
         let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         

@@ -109,15 +109,6 @@ class AddTaskViewController: UIViewController {
         }
     }
     
-    func setAniView() {
-        animationView.frame = aniView.frame
-        animationView.center = aniView.center
-        animationView.contentMode = .scaleAspectFill
-        animationView.loopAnimation = false
-        bgView.addSubview(animationView)
-        animationView.play()
-    }
-    
     func changeView() {
         self.bgView.isHidden = false
         self.aniView.isHidden = false
@@ -134,16 +125,32 @@ class AddTaskViewController: UIViewController {
         self.bgLabel.isHidden = true
     }
     
+    func setAniView() {
+        animationView.frame = aniView.frame
+        animationView.center = aniView.center
+        animationView.contentMode = .scaleAspectFill
+        animationView.loopAnimation = false
+        bgView.addSubview(animationView)
+        animationView.play()
+    }
+    
+    // MARK: - Message Notification
     func sendNotification(title: String = "", content: String, data: String, badge: Int) {
         
         if let token = Messaging.messaging().fcmToken {
-            client.sendNotification(fromToken: token, toToken: "/topics/AllTask", title: title, content: content, taskInfoKey: nil, fromUserId: nil, type: nil, badge: badge) { (bool, error) in
-                print(bool)
-                print(error)
+            client.sendNotification(fromToken: token, toToken: "/topics/AllTask",
+                                    title: title, content: content, taskInfoKey: nil,
+                                    fromUserId: nil, type: nil, badge: badge) { [weak self] (_ bool, _ error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else {
+                    print("send success")
+                }
             }
         }
     }
-    // MARK: - Testing
+    
+    // MARK: - Test addTask function
     @IBAction func addTask(_ sender: Any) {
         
         let check = checkInput()
@@ -156,34 +163,12 @@ class AddTaskViewController: UIViewController {
             alertAddress = ""
         }
         
-        let addAlert = UIAlertController(title: "確定新增？", message: "地址為：\(alertAddress!)", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "確定", style: .destructive) { (void) in
-            
-            self.firebaseManager.updateTask(path: "Task", addTaskvc: self)
-            self.firebaseManager.updateUserAllTask(path: "userAllTask", addTaskvc: self)
-            
-            NotificationCenter.default.post(name: .addTask, object: nil)
-            
-            self.cleanData()
-            self.switchView()
-            self.addTaskTableView.reloadData()
-            let indexPath = IndexPath(row: 0, section: 0)
-            self.addTaskTableView.scrollToRow(at: indexPath, at: .top, animated: false)
-        }
-        
-        let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
-        addAlert.addAction(cancelAction)
-        addAlert.addAction(okAction)
-        self.present(addAlert, animated: true, completion: nil)
+        showAddAlert(title: "確定新增？", message: "地址為：\(alertAddress!)")
     }
     
-    // false = 沒值
-    // true = 有值
+    // output = false 代表任務訊息未輸入完整
     func checkInput() -> Bool {
-        guard keychain.get("token") != nil else {
-            showGuestAlert()
-            return false
-        }
+
         guard titleTxt != "" && titleTxt != nil else {
             showInputAlert(content: "需要輸入標題")
             return false
@@ -205,6 +190,29 @@ class AddTaskViewController: UIViewController {
             return false
         }
         return true
+    }
+    
+    // MARK: - AlertController
+    func showAddAlert(title: String, message: String) {
+        let addAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確定", style: .destructive) { (void) in
+            
+            self.firebaseManager.updateTask(path: "Task", addTaskvc: self)
+            self.firebaseManager.updateUserAllTask(path: "userAllTask", addTaskvc: self)
+            
+            NotificationCenter.default.post(name: .addTask, object: nil)
+            
+            self.cleanData()
+            self.switchView()
+            self.addTaskTableView.reloadData()
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.addTaskTableView.scrollToRow(at: indexPath, at: .top, animated: false)
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+        addAlert.addAction(cancelAction)
+        addAlert.addAction(okAction)
+        self.present(addAlert, animated: true, completion: nil)
     }
     
     func showInputAlert(title: String = "尚未輸入完整資訊", content: String) {
