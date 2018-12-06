@@ -46,6 +46,7 @@ class HomeViewController: UIViewController {
     let keychain = KeychainSwift()
     var isGuest = false
     var allAnnotations: [MKAnnotation] = []
+    let firebaseManager = FirebaseManager()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -195,7 +196,6 @@ class HomeViewController: UIViewController {
         mapView.addAnnotation(annotation)
         
         allAnnotations = mapView.annotations
-        
     }
     
     func removeMapTaskPoint(taskLat: Double, taskLon: Double) {
@@ -344,7 +344,7 @@ class HomeViewController: UIViewController {
         self.mapView.setRegion(coordinateRegion, animated: true)
     }
     
-    // MARK: - CustomAlert
+    // MARK: - CustomAlertController
     func showAlert() {
         let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -369,38 +369,14 @@ class HomeViewController: UIViewController {
     
     @objc func requestBtnSend() {
         
-        let autoID = myRef.childByAutoId().key
-        let userID = Auth.auth().currentUser?.uid
-
+        let autoId = myRef.childByAutoId().key
+        let userId = Auth.auth().currentUser?.uid
         guard let selectData = selectTask else { return }
         guard let selectDataKey = selectTaskKey else { return }
         
-            myRef.child("RequestTask")
-                .queryOrdered(byChild: "checkTask").queryEqual(toValue: selectData.checkTask)
-                .observeSingleEvent(of: .value, with: { (snapshot) in
-                    
-                    self.myRef.child("RequestTask").child(autoID!).setValue([
-                        "Title": selectData.title,
-                        "Content": selectData.content,
-                        "UserName": selectData.userName,
-                        "UserID": selectData.userID,
-                        "Type": selectData.type,
-                        "Price": selectData.price,
-                        "Lat": selectData.taskLat,
-                        "Lon": selectData.taskLon,
-                        "checkTask": selectData.checkTask,
-                        "distance": selectData.distance,
-                        "Time": Double(Date().millisecondsSince1970),
-                        "ownerID": selectData.ownerID,
-                        "OwnerAgree": "waiting",
-                        "address": selectData.address])
-                    self.myRef.child("userAllTask").child(userID!).child(selectDataKey).updateChildValues([
-                        "taskKey": selectDataKey,
-                        "taskTitle": selectData.title,
-                        "taskOwnerName": selectData.userName,
-                        "taskOwnerId": selectData.ownerID])
-                    
-                    self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoID!)
+        firebaseManager.updateRequest(path: "RequestTask", selectData: selectData, selectDataKey: selectDataKey, autoId: autoId, userId: userId)
+        
+                    self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoId!)
                     
                     NotificationCenter.default.post(name: .sendRequest, object: nil)
                     
@@ -415,28 +391,10 @@ class HomeViewController: UIViewController {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                         tabController?.selectedIndex = 1
                     }
-                
-                }) { (error) in
-                    print(error.localizedDescription)
-        }
     }
     
     func sendRequestToOwner(taskKey: String, distance: Double?, requestTaskID: String) {
-        
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        guard let distance = distance else { return }
-        let autoID = myRef.childByAutoId().key
-        myRef.child("Task").child(taskKey).child("RequestUser").child(autoID!).updateChildValues([
-            "userID": userID,
-            "distance": distance,
-            "agree": false,
-            "RequestTaskID": requestTaskID,
-            "taskKey": taskKey])
-        
-        myRef.child("RequestTask").child(requestTaskID).updateChildValues([
-            "requestUserKey": autoID,
-            "taskKey": taskKey
-            ])
+        firebaseManager.updateRequestDataToOwner(taskKey: taskKey, distance: distance, requestTaskID: requestTaskID)
     }
     
     func searchFireBase(

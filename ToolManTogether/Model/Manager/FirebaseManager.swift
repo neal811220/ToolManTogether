@@ -91,4 +91,57 @@ class FirebaseManager {
             "taskOwnerName": userName,
             "taskownerId": userID])
     }
+    
+    func updateRequest(
+        path: String,
+        selectData: UserTaskInfo,
+        selectDataKey: String,
+        autoId: String?,
+        userId: String?
+        ) {
+        
+        self.myRef.child(path).queryOrdered(byChild: "checkTask").queryEqual(toValue: selectData.checkTask).observeSingleEvent(of: .value) { (snapshot) in
+            
+            self.myRef.child(path).child(autoId!).setValue([
+                    "Title": selectData.title,
+                    "Content": selectData.content,
+                    "UserName": selectData.userName,
+                    "UserID": selectData.userID,
+                    "Type": selectData.type,
+                    "Price": selectData.price,
+                    "Lat": selectData.taskLat,
+                    "Lon": selectData.taskLon,
+                    "checkTask": selectData.checkTask,
+                    "distance": selectData.distance,
+                    "Time": Double(Date().millisecondsSince1970),
+                    "ownerID": selectData.ownerID,
+                    "OwnerAgree": "waiting",
+                    "address": selectData.address])
+            self.myRef.child("userAllTask").child(userId!).child(selectDataKey).updateChildValues([
+                    "taskKey": selectDataKey,
+                    "taskTitle": selectData.title,
+                    "taskOwnerName": selectData.userName,
+                    "taskOwnerId": selectData.ownerID])
+        }
+        
+    }
+    
+    func updateRequestDataToOwner(
+        taskKey: String,
+        distance: Double?,
+        requestTaskID: String
+    ) {
+        
+        guard let distance = distance else { return }
+        self.myRef.child("Task").child(taskKey).child("RequestUser").child(autoID).updateChildValues([
+            "userID": userID,
+            "distance": distance,
+            "agree": false,
+            "RequestTaskID": requestTaskID,
+            "taskKey": taskKey])
+        
+            self.myRef.child("RequestTask").child(requestTaskID).updateChildValues([
+            "requestUserKey": autoID,
+            "taskKey": taskKey])
+    }
 }
