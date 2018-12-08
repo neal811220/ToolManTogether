@@ -376,21 +376,21 @@ class HomeViewController: UIViewController {
         
         firebaseManager.updateRequest(path: "RequestTask", selectData: selectData, selectDataKey: selectDataKey, autoId: autoId, userId: userId)
         
-                    self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoId!)
-                    
-                    NotificationCenter.default.post(name: .sendRequest, object: nil)
-                    
-                    let tabController = self.view.window!.rootViewController as? UITabBarController
-                    let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
-                    let alertVC = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
-                    self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
-                    tabController?.show(alertVC, sender: nil)
-                    
-                    self.animateViewDown()
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                        tabController?.selectedIndex = 1
-                    }
+        self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoId!)
+        
+        NotificationCenter.default.post(name: .sendRequest, object: nil)
+        
+        let tabController = self.view.window!.rootViewController as? UITabBarController
+        let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
+        let alertVC = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
+        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+        tabController?.show(alertVC, sender: nil)
+        
+        self.animateViewDown()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            tabController?.selectedIndex = 1
+        }
     }
     
     func sendRequestToOwner(taskKey: String, distance: Double?, requestTaskID: String) {

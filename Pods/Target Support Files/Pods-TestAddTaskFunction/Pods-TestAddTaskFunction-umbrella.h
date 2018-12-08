@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_TestingAddTaskTestsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_TestingAddTaskTestsVersionString[];
+FOUNDATION_EXPORT double Pods_TestAddTaskFunctionVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_TestAddTaskFunctionVersionString[];
 

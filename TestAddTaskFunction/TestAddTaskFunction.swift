@@ -1,28 +1,26 @@
 //
-//  TestingAddTaskTests.swift
-//  TestingAddTaskTests
+//  TestAddTaskFunction.swift
+//  TestAddTaskFunction
 //
-//  Created by Spoke on 2018/12/6.
+//  Created by Spoke on 2018/12/8.
 //  Copyright © 2018年 Spoke. All rights reserved.
 //
 
 import XCTest
-import KeychainSwift
 @testable import ToolManTogether
 
-class TestInputDataIsComplete: XCTestCase {
-    
+class TestAddTaskFunction: XCTestCase {
     var addTaskVCTest: AddTaskViewController!
     
     override func setUp() {
         addTaskVCTest = (UIStoryboard(name: "addTask", bundle: nil).instantiateViewController(withIdentifier: "addTaskVC") as? AddTaskViewController)
     }
-
+    
     override func tearDown() {
         addTaskVCTest = nil
         super.tearDown()
     }
-
+    
     func testExample() {
     }
     
@@ -38,10 +36,9 @@ class TestInputDataIsComplete: XCTestCase {
         // than 期待的結果
         XCTAssertEqual(check, false, "資料輸入不完整")
     }
-
+    
     func testPerformanceExample() {
         self.measure {
         }
     }
-    
 }

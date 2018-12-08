@@ -66,12 +66,12 @@ class FirebaseManager {
         ) {
         
         myRef.child(path).child(autoID).setValue([
-            "Title": addTaskvc.titleTxt,
-            "Content": addTaskvc.contentTxt,
-            "Type": addTaskvc.taskType,
-            "Price": addTaskvc.priceTxt,
-            "UserID": userID,
-            "UserName": userName,
+            "Title": addTaskvc.titleTxt!,
+            "Content": addTaskvc.contentTxt!,
+            "Type": addTaskvc.taskType!,
+            "Price": addTaskvc.priceTxt!,
+            "UserID": userID!,
+            "UserName": userName!,
             "lat": addTaskvc.customMapCenterLocation.latitude,
             "lon": addTaskvc.customMapCenterLocation.longitude,
             "searchAnnotation": "\(addTaskvc.customMapCenterLocation.latitude)_\(addTaskvc.customMapCenterLocation.longitude)",
@@ -87,9 +87,9 @@ class FirebaseManager {
         
         self.myRef.child(path).child(userID!).child(autoID).updateChildValues([
             "taskKey": autoID,
-            "taskTitle": addTaskvc.titleTxt,
-            "taskOwnerName": userName,
-            "taskownerId": userID])
+            "taskTitle": addTaskvc.titleTxt!,
+            "taskOwnerName": userName!,
+            "taskownerId": userID!])
     }
     
     func updateRequest(
@@ -109,19 +109,19 @@ class FirebaseManager {
                     "UserID": selectData.userID,
                     "Type": selectData.type,
                     "Price": selectData.price,
-                    "Lat": selectData.taskLat,
-                    "Lon": selectData.taskLon,
-                    "checkTask": selectData.checkTask,
-                    "distance": selectData.distance,
+                    "Lat": selectData.taskLat!,
+                    "Lon": selectData.taskLon!,
+                    "checkTask": selectData.checkTask!,
+                    "distance": selectData.distance!,
                     "Time": Double(Date().millisecondsSince1970),
-                    "ownerID": selectData.ownerID,
+                    "ownerID": selectData.ownerID!,
                     "OwnerAgree": "waiting",
-                    "address": selectData.address])
+                    "address": selectData.address!])
             self.myRef.child("userAllTask").child(userId!).child(selectDataKey).updateChildValues([
                     "taskKey": selectDataKey,
                     "taskTitle": selectData.title,
                     "taskOwnerName": selectData.userName,
-                    "taskOwnerId": selectData.ownerID])
+                    "taskOwnerId": selectData.ownerID!])
         }
         
     }
@@ -134,7 +134,7 @@ class FirebaseManager {
         
         guard let distance = distance else { return }
         self.myRef.child("Task").child(taskKey).child("RequestUser").child(autoID).updateChildValues([
-            "userID": userID,
+            "userID": userID!,
             "distance": distance,
             "agree": false,
             "RequestTaskID": requestTaskID,

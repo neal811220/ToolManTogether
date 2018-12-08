@@ -1,6 +1,0 @@
-framework module Pods_TestingAddTaskTests {
-  umbrella header "Pods-TestingAddTaskTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

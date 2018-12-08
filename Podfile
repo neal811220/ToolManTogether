@@ -24,14 +24,21 @@ target 'ToolManTogether' do
 	pod 'Fabric'
 	pod 'Crashlytics'
 
-    target 'TestingAddTaskTests' do
-        inherit! :search_paths
-        pod 'Firebase'
-    end
-    
+#    target 'TestingAddTaskTests' do
+#        inherit! :search_paths
+#        pod 'Firebase'
+#    end
+
     target 'TestRequestTaskFunction' do
         inherit! :search_paths
         pod 'Firebase'
     end
+    
+    target 'TestAddTaskFunction' do
+        inherit! :search_paths
+        pod 'Firebase'
+    end
+    
+    
     
 end
