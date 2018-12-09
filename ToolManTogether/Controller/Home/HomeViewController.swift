@@ -57,12 +57,10 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         let layout = UICollectionViewFlowLayout()
-
         layout.scrollDirection = .horizontal
         layout.sectionHeadersPinToVisibleBounds = true
         typeCollectionView.collectionViewLayout = layout
         typeCollectionView.showsHorizontalScrollIndicator = false
-        
         typeCollectionView.delegate = self
         typeCollectionView.dataSource = self
         
@@ -73,7 +71,6 @@ class HomeViewController: UIViewController {
                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "typeCell")
         
         myRef = Database.database().reference()
-        
         collectionViewConstraint.constant = 0
 
         dataBaseTypeAdd()
@@ -190,11 +187,8 @@ class HomeViewController: UIViewController {
         let taskCoordinate = CLLocationCoordinate2D(latitude: taskLat, longitude: taskLon)
         
         let annotation = TaskPin(coordinate: taskCoordinate, identifier: "taskPin")
-        
         annotation.title = type
-        
         mapView.addAnnotation(annotation)
-        
         allAnnotations = mapView.annotations
     }
     
@@ -225,14 +219,12 @@ class HomeViewController: UIViewController {
     }
     
     func showAuthorizationAlert() {
-        
         let alert = UIAlertController(title: "尚未授權", message: "GPS訪問受到限制。要啟用個人定位，需要啟用GPS授權。", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "取消", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "前往設定", style: UIAlertAction.Style.destructive, handler: { (alert: UIAlertAction!) in
             print("")
             UIApplication.shared.open(NSURL(string: UIApplication.openSettingsURLString)! as URL, options: [:], completionHandler: nil)
         }))
-
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -345,28 +337,14 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - CustomAlertController
-    func showAlert() {
-        let personAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        let reportAction = UIAlertAction(title: "檢舉", style: .destructive) { (void) in
-            
-            let reportController = UIAlertController(title: "確定檢舉？", message: "我們會儘快處理", preferredStyle: .alert)
-            
-            let okAction = UIAlertAction(title: "確定", style: .destructive, handler: nil)
-            
-            let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
-            reportController.addAction(cancelAction)
-            reportController.addAction(okAction)
-            self.present(reportController, animated: true, completion: nil)
-        }
-        
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
-        personAlertController.addAction(reportAction)
-        personAlertController.addAction(cancelAction)
-        self.present(personAlertController, animated: true, completion: nil)
+    func showAlert(title: String = "已申請過此任務", content: String) {
+        let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
+    // MARK: - Test
     @objc func requestBtnSend() {
         
         let autoId = myRef.childByAutoId().key
@@ -374,12 +352,26 @@ class HomeViewController: UIViewController {
         guard let selectData = selectTask else { return }
         guard let selectDataKey = selectTaskKey else { return }
         
-        firebaseManager.updateRequest(path: "RequestTask", selectData: selectData, selectDataKey: selectDataKey, autoId: autoId, userId: userId)
+        updateRequestToFirebase(path: "RequestTask", data: selectData, dataKey: selectDataKey, autoId: autoId, userId: userId)
         
-        self.sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoId!)
+        sendRequestToOwner(taskKey: selectDataKey, distance: selectData.distance, requestTaskID: autoId!)
         
         NotificationCenter.default.post(name: .sendRequest, object: nil)
         
+        transitionAnimationView()
+    }
+    
+    func updateRequestToFirebase(path: String, data: UserTaskInfo, dataKey: String, autoId: String?, userId: String?) {
+        firebaseManager.updateRequest(path: path, selectData: data,
+                                      selectDataKey: dataKey, autoId: autoId,
+                                      userId: userId)
+    }
+    
+    func sendRequestToOwner(taskKey: String, distance: Double?, requestTaskID: String) {
+        firebaseManager.updateRequestDataToOwner(taskKey: taskKey, distance: distance, requestTaskID: requestTaskID)
+    }
+    
+    func transitionAnimationView() {
         let tabController = self.view.window!.rootViewController as? UITabBarController
         let storyboard = UIStoryboard(name: "cusomeAlert", bundle: nil)
         let alertVC = storyboard.instantiateViewController(withIdentifier: "cusomeAlert")
@@ -391,10 +383,6 @@ class HomeViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
             tabController?.selectedIndex = 1
         }
-    }
-    
-    func sendRequestToOwner(taskKey: String, distance: Double?, requestTaskID: String) {
-        firebaseManager.updateRequestDataToOwner(taskKey: taskKey, distance: distance, requestTaskID: requestTaskID)
     }
     
     func searchFireBase(
@@ -431,13 +419,6 @@ class HomeViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
-    }
-    
-    func showAlert(title: String = "已申請過此任務", content: String) {
-        let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func showReportAlert() {

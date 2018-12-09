@@ -13,7 +13,7 @@
         <!--搜尋任務-->
         <scene sceneID="4aE-nf-hNh">
             <objects>
-                <viewController id="OCb-6x-2Uh" customClass="HomeViewController" customModule="ToolManTogether" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeVC" id="OCb-6x-2Uh" customClass="HomeViewController" customModule="ToolManTogether" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7dG-RT-dHw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,6 +110,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gps-fixed-indicator" width="24" height="24"/>
+        <image name="gps-fixed-indicator" width="32" height="32"/>
     </resources>
 </document>

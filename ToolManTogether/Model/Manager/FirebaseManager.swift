@@ -66,12 +66,11 @@ class FirebaseManager {
         path: String,
         addTaskvc: AddTaskViewController
         ) {
-        
-        self.myRef.child(path).child(userID!).child(autoID).updateChildValues([
-            "taskKey": autoID,
-            "taskTitle": addTaskvc.titleTxt!,
-            "taskOwnerName": userName!,
-            "taskownerId": userID!])
+    self.myRef.child(path).child(userID!).child(autoID).updateChildValues([
+        "taskKey": autoID,
+        "taskTitle": addTaskvc.titleTxt!,
+        "taskOwnerName": userName!,
+        "taskownerId": userID!])
     }
     
     func updateRequest(

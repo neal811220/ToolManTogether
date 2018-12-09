@@ -48,8 +48,6 @@ class TestAddTaskFunctionUploadToFirebase: XCTestCase {
         
     }
     
-    
-    
     func setInputData() {
         addTaskVCTest.titleTxt = "testing"
         addTaskVCTest.priceTxt = "testing"
