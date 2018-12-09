@@ -45,12 +45,11 @@ class TestAddTaskFunction: XCTestCase {
     
     func testGuestMode() {
         
-        // given 給定一個值
+        addTaskVCTest.keychain.get("token")
         
+        XCTAssertEqual(mockKeychain.guest, false, "訪客模式檢查失敗")
         
     }
-    
-    
     
     func testPerformanceExample() {
         self.measure {
@@ -63,10 +62,10 @@ class MockKeychain: KeychainSwift {
     var guest = true
     
     override func get(_ key: String) -> String? {
-        if key == "guest" {
-            return "guest"
+        if key == "token" {
+            guest = false
+            return "token"
         }
-        guest = false
         return "logIn"
     }
 }
