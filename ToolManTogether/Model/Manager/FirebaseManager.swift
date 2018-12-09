@@ -42,24 +42,6 @@ class FirebaseManager {
         autoID = myRef.childByAutoId().key!
     }
     
-     func taskAdd(
-        path: String,
-        event: FirebaseEventType,
-        successValue: @escaping (_ key: String, _ value: Any) -> Void,
-        failure: @escaping (Error) -> Void
-        ) {
-        
-        myRef.child(path).observeSingleEvent(of: event.eventType(), with: { snapshot in
-            
-            let keys = snapshot.key
-            guard let value = snapshot.value else {
-                failure(FirebaseError.snapshotFail)
-                return
-            }
-            successValue(keys, value)
-        })
-    }
-    
      func updateTask(
         path: String,
         addTaskvc: AddTaskViewController

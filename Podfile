@@ -39,6 +39,9 @@ target 'ToolManTogether' do
         pod 'Firebase'
     end
     
-    
+    target 'TestAddTaskFunctionUploadToFirebase' do
+        inherit! :search_paths
+        pod 'Firebase'
+    end
     
 end

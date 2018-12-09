@@ -11,24 +11,59 @@ import XCTest
 
 class TestAddTaskFunctionUploadToFirebase: XCTestCase {
 
+    var addTaskVCTest: AddTaskViewController!
+    var mockFirebaseManager: MockFirebaseManager!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        addTaskVCTest = (UIStoryboard(name: "addTask", bundle: nil).instantiateViewController(withIdentifier: "addTaskVC") as? AddTaskViewController)
+        mockFirebaseManager = MockFirebaseManager()
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        addTaskVCTest = nil
+        mockFirebaseManager = nil
+        super.tearDown()
     }
 
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+
     }
 
     func testPerformanceExample() {
-        // This is an example of a performance test case.
         self.measure {
-            // Put the code you want to measure the time of here.
         }
     }
 
+    func testAddTaskFunctionConnectToFirebase() {
+        
+        // given 給定一個值
+        setInputData()
+        
+        // when 要被執行的代碼
+        mockFirebaseManager.updateTask(path: "Task", addTaskvc: addTaskVCTest)
+        
+        // than 期待的結果
+        XCTAssertEqual(mockFirebaseManager.connect, true, "連接失敗")
+        
+    }
+    
+    
+    
+    func setInputData() {
+        addTaskVCTest.titleTxt = "testing"
+        addTaskVCTest.priceTxt = "testing"
+        addTaskVCTest.contentTxt = "testing"
+        addTaskVCTest.taskType = "testing"
+    }
+
+}
+
+class MockFirebaseManager: FirebaseManager {
+    
+    var connect = false
+    
+    override func updateTask(path: String, addTaskvc: AddTaskViewController) {
+        connect = true
+    }
 }

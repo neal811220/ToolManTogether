@@ -111,6 +111,7 @@
 		8EEC3313215C924A00DE8C31 /* HistoryTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEC3312215C924A00DE8C31 /* HistoryTaskViewController.swift */; };
 		8EEC3315215C928100DE8C31 /* profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EEC3314215C928100DE8C31 /* profile.storyboard */; };
 		8EEC3317215CA24300DE8C31 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEC3316215CA24300DE8C31 /* ProfileViewController.swift */; };
+		E6606239C1717CEBD493CA8F /* Pods_TestAddTaskFunctionUploadToFirebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4320E9C0AC077D05FE561BDB /* Pods_TestAddTaskFunctionUploadToFirebase.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +153,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		32182B4CAD7506A33C772D33 /* Pods-TestAddTaskFunctionUploadToFirebase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestAddTaskFunctionUploadToFirebase.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestAddTaskFunctionUploadToFirebase/Pods-TestAddTaskFunctionUploadToFirebase.release.xcconfig"; sourceTree = "<group>"; };
+		4320E9C0AC077D05FE561BDB /* Pods_TestAddTaskFunctionUploadToFirebase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestAddTaskFunctionUploadToFirebase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1DA687581DBC61496E32BB /* Pods_ToolManTogetherTests_AddTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToolManTogetherTests_AddTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B9CBD3A6FEA3A822632E73 /* Pods-TestRequestTaskFunction.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestRequestTaskFunction.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestRequestTaskFunction/Pods-TestRequestTaskFunction.debug.xcconfig"; sourceTree = "<group>"; };
 		61265F58AE5634DE779DB400 /* Pods-TestAddTaskFunction.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestAddTaskFunction.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestAddTaskFunction/Pods-TestAddTaskFunction.debug.xcconfig"; sourceTree = "<group>"; };
@@ -273,6 +276,7 @@
 		DDCC8A92B358D978784714B8 /* Pods_TestingAddTaskTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestingAddTaskTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E97E8B2878069B46EFA64257 /* Pods-ToolManTogether.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToolManTogether.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToolManTogether/Pods-ToolManTogether.debug.xcconfig"; sourceTree = "<group>"; };
 		ED94B28DC844466FD20D65F0 /* Pods_ToolManTogether.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToolManTogether.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F06E18E1D593902D290D3630 /* Pods-TestAddTaskFunctionUploadToFirebase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestAddTaskFunctionUploadToFirebase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestAddTaskFunctionUploadToFirebase/Pods-TestAddTaskFunctionUploadToFirebase.debug.xcconfig"; sourceTree = "<group>"; };
 		F6C3F5D806FAE9874BEA5E41 /* Pods-TestAddTaskFunction.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestAddTaskFunction.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestAddTaskFunction/Pods-TestAddTaskFunction.release.xcconfig"; sourceTree = "<group>"; };
 		F9B1656EF0E0A245024861C8 /* Pods_TestAddTaskFunction.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestAddTaskFunction.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -290,6 +294,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6606239C1717CEBD493CA8F /* Pods_TestAddTaskFunctionUploadToFirebase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,6 +701,8 @@
 				B0CD54A2984444AADFBFF648 /* Pods-TestRequestTaskFunction.release.xcconfig */,
 				61265F58AE5634DE779DB400 /* Pods-TestAddTaskFunction.debug.xcconfig */,
 				F6C3F5D806FAE9874BEA5E41 /* Pods-TestAddTaskFunction.release.xcconfig */,
+				F06E18E1D593902D290D3630 /* Pods-TestAddTaskFunctionUploadToFirebase.debug.xcconfig */,
+				32182B4CAD7506A33C772D33 /* Pods-TestAddTaskFunctionUploadToFirebase.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -708,6 +715,7 @@
 				DDCC8A92B358D978784714B8 /* Pods_TestingAddTaskTests.framework */,
 				D16CF9BC65FC45B7B6BDF558 /* Pods_TestRequestTaskFunction.framework */,
 				F9B1656EF0E0A245024861C8 /* Pods_TestAddTaskFunction.framework */,
+				4320E9C0AC077D05FE561BDB /* Pods_TestAddTaskFunctionUploadToFirebase.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -739,9 +747,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E07D58B21BBA3930098E019 /* Build configuration list for PBXNativeTarget "TestAddTaskFunctionUploadToFirebase" */;
 			buildPhases = (
+				D366F76EDBA9BB5470A7FF66 /* [CP] Check Pods Manifest.lock */,
 				8E07D58021BBA3930098E019 /* Sources */,
 				8E07D58121BBA3930098E019 /* Frameworks */,
 				8E07D58221BBA3930098E019 /* Resources */,
+				145CA71A541BC631609DBAED /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -987,6 +997,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		145CA71A541BC631609DBAED /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TestAddTaskFunctionUploadToFirebase/Pods-TestAddTaskFunctionUploadToFirebase-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TestAddTaskFunctionUploadToFirebase/Pods-TestAddTaskFunctionUploadToFirebase-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8A65A78ACDE9DB2E603D04A4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1128,6 +1158,24 @@
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-TestAddTaskFunction-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D366F76EDBA9BB5470A7FF66 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TestAddTaskFunctionUploadToFirebase-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1345,6 +1393,7 @@
 		};
 		8E07D58C21BBA3930098E019 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F06E18E1D593902D290D3630 /* Pods-TestAddTaskFunctionUploadToFirebase.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1366,6 +1415,7 @@
 		};
 		8E07D58D21BBA3930098E019 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32182B4CAD7506A33C772D33 /* Pods-TestAddTaskFunctionUploadToFirebase.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

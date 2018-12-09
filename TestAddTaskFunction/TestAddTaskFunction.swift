@@ -13,6 +13,7 @@ class TestAddTaskFunction: XCTestCase {
     var addTaskVCTest: AddTaskViewController!
     
     override func setUp() {
+        super.setUp()
         addTaskVCTest = (UIStoryboard(name: "addTask", bundle: nil).instantiateViewController(withIdentifier: "addTaskVC") as? AddTaskViewController)
     }
     
