@@ -27,7 +27,6 @@ class TestAddTaskFunctionUploadToFirebase: XCTestCase {
     }
 
     func testExample() {
-
     }
 
     func testPerformanceExample() {

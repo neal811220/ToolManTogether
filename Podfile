@@ -49,5 +49,10 @@ target 'ToolManTogether' do
         pod 'Firebase'
     end
     
+    target 'TestGuestMode' do
+        inherit! :search_paths
+        pod 'Firebase'
+    end
+    
     
 end

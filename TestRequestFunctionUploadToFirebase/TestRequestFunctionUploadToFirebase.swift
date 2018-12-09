@@ -38,6 +38,7 @@ class TestRequestFunctionUploadToFirebase: XCTestCase {
         // when
         mockFirebaseManager.updateRequest(path: "RequestTask", selectData: fakeData!, selectDataKey: "testing", autoId: "testing", userId: "testing")
         
+        // than 期待的結果
         XCTAssertEqual(mockFirebaseManager.connect, true, "連線失敗")
     }
 

@@ -38,7 +38,7 @@ class AddTaskViewController: UIViewController {
     let geoCoder = CLGeocoder()
     var alertAddress: String!
     var client = HTTPClient(configuration: .default)
-    let keychain = KeychainSwift()
+    var keychain = KeychainSwift()
     let animationView = LOTAnimationView(name: "servishero_loading")
     var badge = 1
     var isGuest = false
@@ -150,7 +150,7 @@ class AddTaskViewController: UIViewController {
         }
     }
     
-    // MARK: - Test addTask function
+    // MARK: - Test
     @IBAction func addTask(_ sender: Any) {
         
         let check = checkInput()

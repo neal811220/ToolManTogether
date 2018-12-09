@@ -10,6 +10,7 @@
 		10AFEA25E9AA20DA582F6F5E /* Pods_TestRequestTaskFunction.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16CF9BC65FC45B7B6BDF558 /* Pods_TestRequestTaskFunction.framework */; };
 		5ED9EB3A07801DFA454F10E9 /* Pods_ToolManTogether.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED94B28DC844466FD20D65F0 /* Pods_ToolManTogether.framework */; };
 		69F0CAFCC03847AACE486ADE /* Pods_TestAddTaskFunction.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B1656EF0E0A245024861C8 /* Pods_TestAddTaskFunction.framework */; };
+		7B9BC87AFACF08632D0457E1 /* Pods_TestGuestMode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A512D84B3822C850FB0A0A24 /* Pods_TestGuestMode.framework */; };
 		8E074E8521BCB864002D9220 /* TestRequestFunctionUploadToFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E074E8421BCB864002D9220 /* TestRequestFunctionUploadToFirebase.swift */; };
 		8E07D57921BB92700098E019 /* TestAddTaskFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E07D57821BB92700098E019 /* TestAddTaskFunction.swift */; };
 		8E07D58721BBA3930098E019 /* TestAddTaskFunctionUploadToFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E07D58621BBA3930098E019 /* TestAddTaskFunctionUploadToFirebase.swift */; };
@@ -77,6 +78,7 @@
 		8EA9C29321772CEC007F57D3 /* AddPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9C29121772CEC007F57D3 /* AddPriceCell.swift */; };
 		8EA9C29421772CEC007F57D3 /* AddPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA9C29221772CEC007F57D3 /* AddPriceCell.xib */; };
 		8EAC57572187F12600C1A03F /* CheckInternetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC57562187F12500C1A03F /* CheckInternetManager.swift */; };
+		8EADF28921BCDCAB00613598 /* TestGuestMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EADF28821BCDCAB00613598 /* TestGuestMode.swift */; };
 		8EB6A74C21761907008C9CEF /* NotificationAgreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */; };
 		8EB6A74E2176191B008C9CEF /* NotificationAgree.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */; };
 		8EB6A7502176D57E008C9CEF /* animation-done-new.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EB6A74F2176D57D008C9CEF /* animation-done-new.json */; };
@@ -159,9 +161,18 @@
 			remoteGlobalIDString = 8E5BB6DD2151E8830016C44A;
 			remoteInfo = ToolManTogether;
 		};
+		8EADF28B21BCDCAB00613598 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E5BB6D62151E8830016C44A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E5BB6DD2151E8830016C44A;
+			remoteInfo = ToolManTogether;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12E17480CCFFB913BA387A6A /* Pods-TestGuestMode.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestGuestMode.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestGuestMode/Pods-TestGuestMode.debug.xcconfig"; sourceTree = "<group>"; };
+		24D5A785746859A116BAC110 /* Pods-TestGuestMode.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestGuestMode.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestGuestMode/Pods-TestGuestMode.release.xcconfig"; sourceTree = "<group>"; };
 		32182B4CAD7506A33C772D33 /* Pods-TestAddTaskFunctionUploadToFirebase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestAddTaskFunctionUploadToFirebase.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestAddTaskFunctionUploadToFirebase/Pods-TestAddTaskFunctionUploadToFirebase.release.xcconfig"; sourceTree = "<group>"; };
 		39FC37977ADE45F3ABC39B69 /* Pods-TestRequestFunctionUploadToFirebase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestRequestFunctionUploadToFirebase.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestRequestFunctionUploadToFirebase/Pods-TestRequestFunctionUploadToFirebase.release.xcconfig"; sourceTree = "<group>"; };
 		4320E9C0AC077D05FE561BDB /* Pods_TestAddTaskFunctionUploadToFirebase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestAddTaskFunctionUploadToFirebase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,6 +259,9 @@
 		8EA9C29121772CEC007F57D3 /* AddPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPriceCell.swift; sourceTree = "<group>"; };
 		8EA9C29221772CEC007F57D3 /* AddPriceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPriceCell.xib; sourceTree = "<group>"; };
 		8EAC57562187F12500C1A03F /* CheckInternetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternetManager.swift; sourceTree = "<group>"; };
+		8EADF28621BCDCAB00613598 /* TestGuestMode.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestGuestMode.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EADF28821BCDCAB00613598 /* TestGuestMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGuestMode.swift; sourceTree = "<group>"; };
+		8EADF28A21BCDCAB00613598 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EB6A74B21761907008C9CEF /* NotificationAgreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAgreeViewController.swift; sourceTree = "<group>"; };
 		8EB6A74D2176191B008C9CEF /* NotificationAgree.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NotificationAgree.storyboard; sourceTree = "<group>"; };
 		8EB6A74F2176D57D008C9CEF /* animation-done-new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "animation-done-new.json"; sourceTree = "<group>"; };
@@ -283,6 +297,7 @@
 		8EEC3312215C924A00DE8C31 /* HistoryTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTaskViewController.swift; sourceTree = "<group>"; };
 		8EEC3314215C928100DE8C31 /* profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = profile.storyboard; sourceTree = "<group>"; };
 		8EEC3316215CA24300DE8C31 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		A512D84B3822C850FB0A0A24 /* Pods_TestGuestMode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestGuestMode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA9850B54DD82A117E99917C /* Pods-ToolManTogether.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToolManTogether.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToolManTogether/Pods-ToolManTogether.release.xcconfig"; sourceTree = "<group>"; };
 		B0CD54A2984444AADFBFF648 /* Pods-TestRequestTaskFunction.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestRequestTaskFunction.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestRequestTaskFunction/Pods-TestRequestTaskFunction.release.xcconfig"; sourceTree = "<group>"; };
 		D16CF9BC65FC45B7B6BDF558 /* Pods_TestRequestTaskFunction.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestRequestTaskFunction.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -348,6 +363,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				10AFEA25E9AA20DA582F6F5E /* Pods_TestRequestTaskFunction.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EADF28321BCDCAB00613598 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B9BC87AFACF08632D0457E1 /* Pods_TestGuestMode.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +459,7 @@
 				8E07D57721BB92700098E019 /* TestAddTaskFunction */,
 				8E07D58521BBA3930098E019 /* TestAddTaskFunctionUploadToFirebase */,
 				8E074E8321BCB864002D9220 /* TestRequestFunctionUploadToFirebase */,
+				8EADF28721BCDCAB00613598 /* TestGuestMode */,
 				8E5BB6DF2151E8830016C44A /* Products */,
 				C750D43D3BBE8D4EBB4053FC /* Pods */,
 				FC38BF4CA72A94C24CD92CFD /* Frameworks */,
@@ -452,6 +476,7 @@
 				8E07D57621BB92700098E019 /* TestAddTaskFunction.xctest */,
 				8E07D58421BBA3930098E019 /* TestAddTaskFunctionUploadToFirebase.xctest */,
 				8E074E8221BCB864002D9220 /* TestRequestFunctionUploadToFirebase.xctest */,
+				8EADF28621BCDCAB00613598 /* TestGuestMode.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -597,6 +622,15 @@
 			path = CheckInternet;
 			sourceTree = "<group>";
 		};
+		8EADF28721BCDCAB00613598 /* TestGuestMode */ = {
+			isa = PBXGroup;
+			children = (
+				8EADF28821BCDCAB00613598 /* TestGuestMode.swift */,
+				8EADF28A21BCDCAB00613598 /* Info.plist */,
+			);
+			path = TestGuestMode;
+			sourceTree = "<group>";
+		};
 		8EB0A20F2161B3F500FD81F1 /* Already */ = {
 			isa = PBXGroup;
 			children = (
@@ -739,6 +773,8 @@
 				32182B4CAD7506A33C772D33 /* Pods-TestAddTaskFunctionUploadToFirebase.release.xcconfig */,
 				DEFDBA594939CCC21BA1DD78 /* Pods-TestRequestFunctionUploadToFirebase.debug.xcconfig */,
 				39FC37977ADE45F3ABC39B69 /* Pods-TestRequestFunctionUploadToFirebase.release.xcconfig */,
+				12E17480CCFFB913BA387A6A /* Pods-TestGuestMode.debug.xcconfig */,
+				24D5A785746859A116BAC110 /* Pods-TestGuestMode.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -753,6 +789,7 @@
 				F9B1656EF0E0A245024861C8 /* Pods_TestAddTaskFunction.framework */,
 				4320E9C0AC077D05FE561BDB /* Pods_TestAddTaskFunctionUploadToFirebase.framework */,
 				F84D0F0EA1119357669C8096 /* Pods_TestRequestFunctionUploadToFirebase.framework */,
+				A512D84B3822C850FB0A0A24 /* Pods_TestGuestMode.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -897,6 +934,26 @@
 			productReference = 8E6A8E4A21B8FF1D00F682E4 /* TestRequestTaskFunction.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		8EADF28521BCDCAB00613598 /* TestGuestMode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8EADF28F21BCDCAB00613598 /* Build configuration list for PBXNativeTarget "TestGuestMode" */;
+			buildPhases = (
+				339B2459F6814DB788B837D1 /* [CP] Check Pods Manifest.lock */,
+				8EADF28221BCDCAB00613598 /* Sources */,
+				8EADF28321BCDCAB00613598 /* Frameworks */,
+				8EADF28421BCDCAB00613598 /* Resources */,
+				788DBBBC37439E7560B1DAFC /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8EADF28C21BCDCAB00613598 /* PBXTargetDependency */,
+			);
+			name = TestGuestMode;
+			productName = TestGuestMode;
+			productReference = 8EADF28621BCDCAB00613598 /* TestGuestMode.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -939,6 +996,10 @@
 						CreatedOnToolsVersion = 10.0;
 						TestTargetID = 8E5BB6DD2151E8830016C44A;
 					};
+					8EADF28521BCDCAB00613598 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 8E5BB6DD2151E8830016C44A;
+					};
 				};
 			};
 			buildConfigurationList = 8E5BB6D92151E8830016C44A /* Build configuration list for PBXProject "ToolManTogether" */;
@@ -961,6 +1022,7 @@
 				8E07D57521BB92700098E019 /* TestAddTaskFunction */,
 				8E07D58321BBA3930098E019 /* TestAddTaskFunctionUploadToFirebase */,
 				8E074E8121BCB864002D9220 /* TestRequestFunctionUploadToFirebase */,
+				8EADF28521BCDCAB00613598 /* TestGuestMode */,
 			);
 		};
 /* End PBXProject section */
@@ -1063,6 +1125,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8EADF28421BCDCAB00613598 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1084,6 +1153,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TestAddTaskFunctionUploadToFirebase/Pods-TestAddTaskFunctionUploadToFirebase-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		339B2459F6814DB788B837D1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TestGuestMode-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3EC356F63991124E592DA9E3 /* [CP] Check Pods Manifest.lock */ = {
@@ -1122,6 +1209,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TestRequestFunctionUploadToFirebase/Pods-TestRequestFunctionUploadToFirebase-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		788DBBBC37439E7560B1DAFC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TestGuestMode/Pods-TestGuestMode-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TestGuestMode/Pods-TestGuestMode-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8A65A78ACDE9DB2E603D04A4 /* [CP] Embed Pods Frameworks */ = {
@@ -1413,6 +1520,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8EADF28221BCDCAB00613598 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EADF28921BCDCAB00613598 /* TestGuestMode.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1445,6 +1560,11 @@
 			isa = PBXTargetDependency;
 			target = 8E5BB6DD2151E8830016C44A /* ToolManTogether */;
 			targetProxy = 8E6A8E4F21B8FF1E00F682E4 /* PBXContainerItemProxy */;
+		};
+		8EADF28C21BCDCAB00613598 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E5BB6DD2151E8830016C44A /* ToolManTogether */;
+			targetProxy = 8EADF28B21BCDCAB00613598 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1880,6 +2000,49 @@
 			};
 			name = Release;
 		};
+		8EADF28D21BCDCAB00613598 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 12E17480CCFFB913BA387A6A /* Pods-TestGuestMode.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 26WBMBDFCZ;
+				INFOPLIST_FILE = TestGuestMode/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.spock.TestGuestMode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ToolManTogether.app/ToolManTogether";
+			};
+			name = Debug;
+		};
+		8EADF28E21BCDCAB00613598 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24D5A785746859A116BAC110 /* Pods-TestGuestMode.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 26WBMBDFCZ;
+				INFOPLIST_FILE = TestGuestMode/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.spock.TestGuestMode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ToolManTogether.app/ToolManTogether";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1951,6 +2114,15 @@
 			buildConfigurations = (
 				8E6A8E5221B8FF1E00F682E4 /* Debug */,
 				8E6A8E5321B8FF1E00F682E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8EADF28F21BCDCAB00613598 /* Build configuration list for PBXNativeTarget "TestGuestMode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EADF28D21BCDCAB00613598 /* Debug */,
+				8EADF28E21BCDCAB00613598 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

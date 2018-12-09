@@ -30,7 +30,7 @@ class SearchTaskViewController: UIViewController {
     var taskOwnerInfo: [RequestUserInfo] = []
     var myActivityIndicator: UIActivityIndicatorView!
     let fullScreenSize = UIScreen.main.bounds.size
-    let keychain = KeychainSwift()
+    var keychain = KeychainSwift()
     var photoUrl: [URL] = []
     var userPhoto: [String:URL] = [:]
     let animationView = LOTAnimationView(name: "servishero_loading")

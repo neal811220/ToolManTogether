@@ -1,0 +1,6 @@
+framework module Pods_TestGuestMode {
+  umbrella header "Pods-TestGuestMode-umbrella.h"
+
+  export *
+  module * { export * }
+}

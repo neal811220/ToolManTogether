@@ -61,10 +61,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-    func setFbTokeninKeychain() {
-        
-    }
-    
     @IBAction func connectGuest(_ sender: Any) {
          AppDelegate.shared?.window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
     }
