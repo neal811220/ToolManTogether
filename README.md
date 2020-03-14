@@ -221,7 +221,7 @@ func application(
 
 ## Requirement
 * iOS 11.4 +
-* XCode 10.0
+* XCode 11.3
 
 
 ## Version
